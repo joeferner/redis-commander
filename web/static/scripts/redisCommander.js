@@ -1,5 +1,9 @@
 'use strict';
 
+function resizeTree() {
+  $('#keyTree').height($(window).height() - 170);
+}
+
 function loadTree() {
   $('#keyTree').jstree({
     json_data: {

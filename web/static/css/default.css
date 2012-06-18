@@ -1,3 +1,7 @@
 #keyTree {
     overflow: scroll;
 }
+
+.jstree-default.jstree-focused {
+    background: #fff !important;
+}
