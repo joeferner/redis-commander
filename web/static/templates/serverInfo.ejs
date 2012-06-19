@@ -1,0 +1,14 @@
+<table class="table">
+  <thead>
+    <th>Name</th>
+    <th>Value</th>
+  </thead>
+  <tbody>
+    <% info.forEach(function(infoItem) { %>
+      <tr>
+        <td><%= infoItem.key %></td>
+        <td><%= infoItem.value %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

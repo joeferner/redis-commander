@@ -1,16 +1,24 @@
 'use strict';
 
 function resizeTree() {
-  $('#keyTree').height($(window).height() - 170);
+  $('#keyTree').height($(window).height() - 90);
 }
 
 function loadTree() {
   $('#keyTree').jstree({
     json_data: {
+      data: {
+        data: "Root",
+        state: "closed",
+        attr: {
+          rel: "root"
+        }
+      },
       ajax: {
         url: function (node) {
           if (node !== -1) {
-            var path = $.jstree._focused().get_path(node, true).join(':');
+            var path = $.jstree._focused().get_path(node, true).slice(1).join(':');
+            console.log(path);
             return '/apiv1/keys/' + path;
           }
           return '/apiv1/keys';
@@ -19,6 +27,11 @@ function loadTree() {
     },
     types: {
       types: {
+        "root": {
+          icon: {
+            image: '/images/treeRoot.png'
+          }
+        },
         "string": {
           icon: {
             image: '/images/treeString.png'
@@ -43,33 +56,47 @@ function loadTree() {
 }
 
 function treeNodeSelected(event, data) {
-  var path = $.jstree._focused().get_path(data.rslt.obj, true).join(':');
-  $.get('/apiv1/key/' + path, function (data, status) {
-    if (status != 'success') {
-      return alert("Could not load key data");
-    }
+  $('#body').html('Loading...');
+  var pathParts = $.jstree._focused().get_path(data.rslt.obj, true);
+  if (pathParts.length === 1) {
+    $.get('/apiv1/server/info', function (data, status) {
+      if (status != 'success') {
+        return alert("Could not load server info");
+      }
 
-    data = JSON.parse(data);
-    console.log("rendering type" + data.type);
-    switch (data.type) {
-    case 'string':
-      selectTreeNodeString(data);
-      break;
-    case 'list':
-      selectTreeNodeList(data);
-      break;
-    case 'zset':
-      selectTreeNodeZSet(data);
-      break;
-    case 'none':
-      $('#body').html('');
-      break;
-    default:
-      var html = JSON.stringify(data);
+      data = JSON.parse(data);
+      var html = new EJS({ url: '/templates/serverInfo.ejs' }).render(data);
       $('#body').html(html);
-      break;
-    }
-  });
+    });
+  } else {
+    var path = pathParts.slice(1).join(':');
+    $.get('/apiv1/key/' + path, function (data, status) {
+      if (status != 'success') {
+        return alert("Could not load key data");
+      }
+
+      data = JSON.parse(data);
+      console.log("rendering type" + data.type);
+      switch (data.type) {
+      case 'string':
+        selectTreeNodeString(data);
+        break;
+      case 'list':
+        selectTreeNodeList(data);
+        break;
+      case 'zset':
+        selectTreeNodeZSet(data);
+        break;
+      case 'none':
+        $('#body').html('');
+        break;
+      default:
+        var html = JSON.stringify(data);
+        $('#body').html(html);
+        break;
+      }
+    });
+  }
 }
 
 function saveComplete() {
