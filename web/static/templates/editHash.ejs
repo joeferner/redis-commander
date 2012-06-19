@@ -1,0 +1,14 @@
+<table class="table">
+  <thead>
+    <th>Key</th>
+    <th>Value</th>
+  </thead>
+  <tbody>
+    <% for(var key in data) { %>
+      <tr>
+        <td><%= key %></td>
+        <td><%= data[key] %></td>
+      </tr>
+    <% } %>
+  </tbody>
+ </table>

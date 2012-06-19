@@ -37,6 +37,11 @@ function loadTree() {
             image: '/images/treeString.png'
           }
         },
+        "hash": {
+          icon: {
+            image: '/images/treeHash.png'
+          }
+        },
         "list": {
           icon: {
             image: '/images/treeList.png'
@@ -80,6 +85,9 @@ function treeNodeSelected(event, data) {
       switch (data.type) {
       case 'string':
         selectTreeNodeString(data);
+        break;
+      case 'hash':
+        selectTreeNodeHash(data);
         break;
       case 'list':
         selectTreeNodeList(data);
@@ -139,6 +147,11 @@ function selectTreeNodeString(data) {
       saveComplete();
     }
   });
+}
+
+function selectTreeNodeHash(data) {
+  var html = new EJS({ url: '/templates/editHash.ejs' }).render(data);
+  $('#body').html(html);
 }
 
 function selectTreeNodeList(data) {
