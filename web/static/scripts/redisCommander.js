@@ -42,6 +42,11 @@ function loadTree() {
             image: '/images/treeHash.png'
           }
         },
+        "set": {
+          icon: {
+            image: '/images/treeSet.png'
+          }
+        },
         "list": {
           icon: {
             image: '/images/treeList.png'
@@ -81,13 +86,16 @@ function treeNodeSelected(event, data) {
       }
 
       data = JSON.parse(data);
-      console.log("rendering type" + data.type);
+      console.log("rendering type " + data.type);
       switch (data.type) {
       case 'string':
         selectTreeNodeString(data);
         break;
       case 'hash':
         selectTreeNodeHash(data);
+        break;
+      case 'set':
+        selectTreeNodeSet(data);
         break;
       case 'list':
         selectTreeNodeList(data);
@@ -151,6 +159,11 @@ function selectTreeNodeString(data) {
 
 function selectTreeNodeHash(data) {
   var html = new EJS({ url: '/templates/editHash.ejs' }).render(data);
+  $('#body').html(html);
+}
+
+function selectTreeNodeSet(data) {
+  var html = new EJS({ url: '/templates/editSet.ejs' }).render(data);
   $('#body').html(html);
 }
 
