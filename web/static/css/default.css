@@ -1,3 +1,12 @@
+#sideBar {
+    position: fixed;
+    top: 60px;
+}
+
+#body {
+    margin-left: 315px;
+}
+
 #keyTree {
     overflow: scroll;
 }
