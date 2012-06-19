@@ -32,3 +32,44 @@
 .jstree-default.jstree-focused {
     background: #fff !important;
 }
+
+#commandLineContainer {
+    position: fixed;
+    bottom: 0px;
+    background-color: #fff;
+    width: 1000px;
+    z-index: 9999;
+}
+
+#commandLineContainer form {
+    margin: 0;
+}
+
+#commandLineContainer input {
+    margin: 0;
+    box-shadow: none;
+}
+
+#commandLine {
+}
+
+.prompt {
+    color: #888;
+    font-size: 12px;
+    font-family: Menlo, "monospace";
+}
+
+#commandLineOutput {
+    height: 80px;
+    font-size: 12px;
+    font-family: Menlo, "monospace";
+}
+
+#commandLine input {
+    outline: none;
+    border: 0;
+    color: #333;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: Menlo, "monospace";
+}

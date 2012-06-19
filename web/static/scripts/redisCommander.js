@@ -1,13 +1,16 @@
 'use strict';
 
 function resizeTree() {
-  $('#keyTree').height($(window).height() - 100);
+  $('#keyTree').height($(window).height() - 200);
 }
 
 function loadTree() {
-  $('#keyTree').bind("loaded.jstree", function() {
-    var root = getKeyTree()._get_children(-1)[0];
-    getKeyTree().open_node(root, null, true);
+  $('#keyTree').bind("loaded.jstree", function () {
+    var tree = getKeyTree();
+    if (tree) {
+      var root = tree._get_children(-1)[0];
+      tree.open_node(root, null, true);
+    }
   });
 
   $('#keyTree').jstree({
@@ -219,4 +222,26 @@ function deleteBranch(branchPrefix) {
       $('#body').html('');
     });
   }
+}
+
+function loadCommandLine() {
+  var readline = require("readline");
+  var rl = readline.createInterface({
+    elementId: 'commandLine',
+    write: function (data) {
+      var output = document.getElementById('commandLineOutput');
+      if (output.innerHTML.length > 0) {
+        output.innerHTML += "<br>";
+      }
+      output.innerHTML += line;
+    },
+    completer: function (linePartial, callback) {
+
+    }
+  });
+  rl.setPrompt('redis> ');
+  rl.prompt();
+  rl.on('line', function (line) {
+    console.log(line);
+  });
 }

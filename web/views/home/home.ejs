@@ -10,11 +10,18 @@
 
     </div>
   </div>
+
+  <div id="commandLineContainer">
+    <div id="commandLineOutput"></div>
+    <div id="commandLine"></div>
+  </div>
 </div>
+
 <script type="text/javascript">
   $(function () {
     loadTree();
     $(window).on('resize', resizeTree);
     resizeTree();
+    loadCommandLine();
   });
 </script>
