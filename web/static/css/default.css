@@ -15,6 +15,20 @@
     margin-bottom: 5px;
 }
 
+#itemActionsBar {
+    position: fixed;
+    top: 0px;
+    width: 870px;
+    padding-top: 60px;
+    padding-bottom: 5px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+#itemData {
+    margin-top: 32px;
+}
+
 .jstree-default.jstree-focused {
     background: #fff !important;
 }

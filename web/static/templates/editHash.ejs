@@ -1,18 +1,19 @@
-<div>
+<div id="itemActionsBar">
   <button class="btn btn-danger" onclick="deleteKey('<%= key %>')">Delete Key</button>
 </div>
-
-<table class="table">
-  <thead>
-    <th>Key</th>
-    <th>Value</th>
-  </thead>
-  <tbody>
-    <% for(var key in data) { %>
-      <tr>
-        <td><%= key %></td>
-        <td><%= data[key] %></td>
-      </tr>
-    <% } %>
-  </tbody>
- </table>
+<div id="itemData">
+  <table class="table">
+    <thead>
+      <th>Key</th>
+      <th>Value</th>
+    </thead>
+    <tbody>
+      <% for(var key in data) { %>
+        <tr>
+          <td><%= key %></td>
+          <td><%= data[key] %></td>
+        </tr>
+      <% } %>
+    </tbody>
+   </table>
+</div>

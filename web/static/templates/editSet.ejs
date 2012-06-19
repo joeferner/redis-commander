@@ -1,16 +1,17 @@
-<div>
+<div id="itemActionsBar">
   <button class="btn btn-danger" onclick="deleteKey('<%= key %>')">Delete Key</button>
 </div>
-
-<table class="table">
-  <thead>
-    <th>Value</th>
-  </thead>
-  <tbody>
-    <% members.forEach(function(member) { %>
-      <tr>
-        <td><%= member %></td>
-      </tr>
-    <% }) %>
-  </tbody>
- </table>
+<div id="itemData">
+  <table class="table">
+    <thead>
+      <th>Value</th>
+    </thead>
+    <tbody>
+      <% members.forEach(function(member) { %>
+        <tr>
+          <td><%= member %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+   </table>
+</div>
