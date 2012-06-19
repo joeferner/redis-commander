@@ -19,5 +19,8 @@
   "optionalDependencies": {},
   "engines": {
     "node": "*"
+  },
+  "bin": {
+    "redis-commander": "./bin/redis-commander.js"
   }
 }
