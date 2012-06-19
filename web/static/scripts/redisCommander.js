@@ -144,6 +144,9 @@ function selectTreeNodeString(data) {
   }
 
   $('#stringValue').val(data.value);
+  $('#stringValue').keyup(function() {
+    $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "/clippy-jquery/clippy.swf"});
+  }).keyup();
   $('#editStringForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
