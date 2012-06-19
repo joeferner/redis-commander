@@ -1,3 +1,7 @@
+<div>
+  <button class="btn btn-danger" onclick="deleteKey('<%= key %>')">Delete Key</button>
+</div>
+
 <form id="editStringForm" action="/apiv1/key/<%= key %>" method="POST" class="form-vertical">
   <label>Value</label>
   <input type="hidden" id="isJson" name="isJson">

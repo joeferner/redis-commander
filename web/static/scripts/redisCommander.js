@@ -185,9 +185,24 @@ function refreshTree() {
   getKeyTree().refresh();
 }
 
+function deleteKey(key) {
+  var result = confirm('Are you sure you want to delete "' + key + '"?');
+  if (result) {
+    $.post('/apiv1/key/' + key + '?action=delete', function (data, status) {
+      if (status != 'success') {
+        return alert("Could not delete key");
+      }
+
+      refreshTree();
+      getKeyTree().select_node(-1);
+      $('#body').html('');
+    });
+  }
+}
+
 function deleteBranch(branchPrefix) {
   var query = branchPrefix + ':*';
-  var result = confirm('Are you sure you want to delete "' + query + '"? This will delete all children as well');
+  var result = confirm('Are you sure you want to delete "' + query + '"? This will delete all children as well!');
   if (result) {
     $.post('/apiv1/keys/' + query + '?action=delete', function (data, status) {
       if (status != 'success') {
