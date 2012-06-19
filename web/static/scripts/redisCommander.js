@@ -115,6 +115,13 @@ function selectTreeNodeString(data) {
   var html = new EJS({ url: '/templates/editString.ejs' }).render(data);
   $('#body').html(html);
 
+  try {
+    data.value = JSON.stringify(JSON.parse(data.value), null, '  ');
+    $('#isJson').val('true');
+  } catch (ex) {
+    $('#isJson').val('false');
+  }
+
   $('#stringValue').val(data.value);
   $('#editStringForm').ajaxForm({
     beforeSubmit: function () {
