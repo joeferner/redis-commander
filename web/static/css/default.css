@@ -2,6 +2,10 @@
     overflow: scroll;
 }
 
+#keyTreeActions {
+    margin-bottom: 5px;
+}
+
 .jstree-default.jstree-focused {
     background: #fff !important;
 }

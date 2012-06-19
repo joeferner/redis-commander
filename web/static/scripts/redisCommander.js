@@ -1,7 +1,7 @@
 'use strict';
 
 function resizeTree() {
-  $('#keyTree').height($(window).height() - 90);
+  $('#keyTree').height($(window).height() - 100);
 }
 
 function loadTree() {
@@ -11,6 +11,7 @@ function loadTree() {
         data: "Root",
         state: "closed",
         attr: {
+          id: "root",
           rel: "root"
         }
       },
@@ -18,7 +19,6 @@ function loadTree() {
         url: function (node) {
           if (node !== -1) {
             var path = $.jstree._focused().get_path(node, true).slice(1).join(':');
-            console.log(path);
             return '/apiv1/keys/' + path;
           }
           return '/apiv1/keys';
@@ -57,7 +57,7 @@ function loadTree() {
 
 function treeNodeSelected(event, data) {
   $('#body').html('Loading...');
-  var pathParts = $.jstree._focused().get_path(data.rslt.obj, true);
+  var pathParts = getKeyTree().get_path(data.rslt.obj, true);
   if (pathParts.length === 1) {
     $.get('/apiv1/server/info', function (data, status) {
       if (status != 'success') {
@@ -88,7 +88,7 @@ function treeNodeSelected(event, data) {
         selectTreeNodeZSet(data);
         break;
       case 'none':
-        $('#body').html('');
+        selectTreeNodeBranch(data);
         break;
       default:
         var html = JSON.stringify(data);
@@ -104,6 +104,11 @@ function saveComplete() {
     $('#saveKeyButton').html("Save");
     $('#saveKeyButton').removeAttr("disabled");
   }, 500);
+}
+
+function selectTreeNodeBranch(data) {
+  var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
+  $('#body').html(html);
 }
 
 function selectTreeNodeString(data) {
@@ -137,4 +142,28 @@ function selectTreeNodeList(data) {
 function selectTreeNodeZSet(data) {
   var html = new EJS({ url: '/templates/editZSet.ejs' }).render(data);
   $('#body').html(html);
+}
+
+function getKeyTree() {
+  return $.jstree._reference('#keyTree');
+}
+
+function refreshTree() {
+  getKeyTree().refresh();
+}
+
+function deleteBranch(branchPrefix) {
+  var query = branchPrefix + ':*';
+  var result = confirm('Are you sure you want to delete "' + query + '"? This will delete all children as well');
+  if (result) {
+    $.post('/apiv1/keys/' + query + '?action=delete', function (data, status) {
+      if (status != 'success') {
+        return alert("Could not delete branch");
+      }
+
+      refreshTree();
+      getKeyTree().select_node(-1);
+      $('#body').html('');
+    });
+  }
 }

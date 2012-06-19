@@ -466,10 +466,10 @@
 			save_opened : function () {
 				var _this = this;
 				this.data.core.to_open = [];
-				this.get_container_ul().find("li.jstree-open").each(function () { 
-					if(this.id) { _this.data.core.to_open.push("#" + this.id.toString().replace(/^#/,"").replace(/\\\//g,"/").replace(/\//g,"\\\/").replace(/\\\./g,".").replace(/\./g,"\\.").replace(/\:/g,"\\:")); }
+				this.get_container_ul().find("li.jstree-open").each(function () {
+          if(this.id) { _this.data.core.to_open.push("#" + this.id.toString().replace(/^#/,"").replace(/\\\//g,"/").replace(/\//g,"\\\/").replace(/\\\./g,".").replace(/\./g,"\\.").replace(/\:/g,"\\:")); }
 				});
-				this.__callback(_this.data.core.to_open);
+        this.__callback(_this.data.core.to_open);
 			},
 			save_loaded : function () { },
 			reload_nodes : function (is_callback) {
