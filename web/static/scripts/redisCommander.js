@@ -5,6 +5,11 @@ function resizeTree() {
 }
 
 function loadTree() {
+  $('#keyTree').bind("loaded.jstree", function() {
+    var root = getKeyTree()._get_children(-1)[0];
+    getKeyTree().open_node(root, null, true);
+  });
+
   $('#keyTree').jstree({
     json_data: {
       data: {
