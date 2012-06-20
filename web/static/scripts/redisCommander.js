@@ -148,6 +148,7 @@ function selectTreeNodeBranch(data) {
     setTimeout(function () {
       $('#saveKeyButton').html("Save");
       $('#saveKeyButton').removeAttr("disabled");
+      refreshTree();
       $('#addKeyModal').modal('hide');
     }, 500);
   }
