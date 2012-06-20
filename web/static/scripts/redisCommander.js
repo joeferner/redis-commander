@@ -29,7 +29,7 @@ function loadTree() {
         url: function (node) {
           if (node !== -1) {
             var path = $.jstree._focused().get_path(node, true).slice(1).join(':');
-            return '/apiv1/keys/' + path;
+            return '/apiv1/keys/' + path + '?absolute=false';
           }
           return '/apiv1/keys';
         }
@@ -128,7 +128,7 @@ function treeNodeSelected(event, data) {
 function selectTreeNodeBranch(data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
-  $('#keyValue').keyup(function() {
+  $('#keyValue').keyup(function () {
     var action = "/apiv1/key/" + $(this).val();
     $('#addKeyForm').attr("action", action);
   });
@@ -171,7 +171,7 @@ function selectTreeNodeString(data) {
   }
 
   $('#stringValue').val(data.value);
-  $('#stringValue').keyup(function() {
+  $('#stringValue').keyup(function () {
     $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "/clippy-jquery/clippy.swf"});
   }).keyup();
   $('.clippyWrapper').tooltip();
@@ -272,8 +272,7 @@ function loadCommandLine() {
       output.scrollTop = output.scrollHeight;
     },
     completer: function (linePartial, callback) {
-      var result = cmdparser.completer(linePartial);
-      callback(null, result);
+      cmdparser.completer(linePartial, callback);
     }
   });
   rl.setPrompt('redis> ');
@@ -437,8 +436,19 @@ var cmdparser = new CmdParser([
   "ZSCORE key member",
   "ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]"
 ], {
-  key: function (partial) {
-    return ['user:1', 'user:2', 'item:1', 'item:2', 'item:3', 'item:4']
-      .filter(function (item) { return item.toLowerCase().indexOf(partial.toLowerCase()) === 0; });
+  key: function (partial, callback) {
+    $.get('/apiv1/keys/' + partial + '*?absolute=true', function (data, status) {
+      if (status != 'success') {
+        return callback(new Error("Could not get keys"));
+      }
+      data = JSON.parse(data)
+        .map(function (item) {
+          return item.fullKey;
+        })
+        .filter(function (item) {
+          return item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
+        });
+      callback(null, data);
+    });
   }
 });
