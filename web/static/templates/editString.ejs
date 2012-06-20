@@ -7,7 +7,9 @@
     <label>Value:</label>
     <input type="hidden" id="isJson" name="isJson">
     <textarea id="stringValue" name="stringValue" style="width: 600px; height: 300px;"></textarea>
-    <span id="stringValueClippy"></span>
+    <span class="clippyWrapper" title="copy to clipboard">
+      <span id="stringValueClippy"></span>
+    </span>
     <br>
     <button id="saveKeyButton" class="btn" onclick="$('#editStringForm').submit()">Save</button>
   </form>
