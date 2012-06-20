@@ -35,7 +35,7 @@
 
 #commandLineContainer {
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
     background-color: #fff;
     width: 1000px;
     z-index: 9999;
@@ -48,6 +48,7 @@
 #commandLineContainer input {
     margin: 0;
     box-shadow: none;
+    width: 900px;
 }
 
 .prompt {
@@ -60,6 +61,7 @@
     height: 80px;
     font-size: 12px;
     font-family: Menlo, "monospace";
+    overflow: scroll;
 }
 
 #commandLine {

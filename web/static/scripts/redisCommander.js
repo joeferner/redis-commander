@@ -235,7 +235,8 @@ function loadCommandLine() {
       if (output.innerHTML.length > 0) {
         output.innerHTML += "<br>";
       }
-      output.innerHTML += line;
+      output.innerHTML += data.replace(/\n/g, '<br>');
+      output.scrollTop = output.scrollHeight;
     },
     completer: function (linePartial, callback) {
       var result = cmdparser.completer(linePartial);
@@ -245,7 +246,16 @@ function loadCommandLine() {
   rl.setPrompt('redis> ');
   rl.prompt();
   rl.on('line', function (line) {
-    console.log(line);
+    rl.write(line);
+    $.post('/apiv1/exec', { cmd: line }, function (data, status) {
+      rl.prompt();
+
+      if (status != 'success') {
+        return alert("Could not delete branch");
+      }
+
+      rl.write(data);
+    });
   });
 }
 
