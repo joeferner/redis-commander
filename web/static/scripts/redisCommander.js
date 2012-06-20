@@ -169,6 +169,7 @@ function selectTreeNodeString(data) {
   $('#stringValue').keyup(function() {
     $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "/clippy-jquery/clippy.swf"});
   }).keyup();
+  $('.clippyWrapper').tooltip();
   $('#editStringForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
