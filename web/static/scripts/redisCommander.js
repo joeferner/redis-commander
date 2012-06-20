@@ -125,16 +125,38 @@ function treeNodeSelected(event, data) {
   }
 }
 
-function saveComplete() {
-  setTimeout(function () {
-    $('#saveKeyButton').html("Save");
-    $('#saveKeyButton').removeAttr("disabled");
-  }, 500);
-}
-
 function selectTreeNodeBranch(data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
+  $('#keyValue').keyup(function() {
+    var action = "/apiv1/key/" + $(this).val();
+    $('#addKeyForm').attr("action", action);
+  });
+  $('#addKeyForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#saveKeyButton').attr("disabled", "disabled");
+      $('#saveKeyButton').html("<i class='icon-refresh'></i> Saving");
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      saveComplete();
+    }
+  });
+
+  function saveComplete() {
+    setTimeout(function () {
+      $('#saveKeyButton').html("Save");
+      $('#saveKeyButton').removeAttr("disabled");
+      refreshTree();
+      $('#addKeyModal').modal('hide');
+    }, 500);
+  }
 }
 
 function selectTreeNodeString(data) {
@@ -149,6 +171,10 @@ function selectTreeNodeString(data) {
   }
 
   $('#stringValue').val(data.value);
+  $('#stringValue').keyup(function() {
+    $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "/clippy-jquery/clippy.swf"});
+  }).keyup();
+  $('.clippyWrapper').tooltip();
   $('#editStringForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
@@ -165,6 +191,13 @@ function selectTreeNodeString(data) {
       saveComplete();
     }
   });
+
+  function saveComplete() {
+    setTimeout(function () {
+      $('#saveKeyButton').html("Save");
+      $('#saveKeyButton').removeAttr("disabled");
+    }, 500);
+  }
 }
 
 function selectTreeNodeHash(data) {

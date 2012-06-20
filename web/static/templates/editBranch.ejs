@@ -1,5 +1,27 @@
 <div id="itemActionsBar">
+  <button class="btn" data-toggle="modal" href="#addKeyModal" style="margin-right: 5px">Add New Key...</button>
   <button class="btn btn-danger" onclick="deleteBranch('<%= key %>')">Delete Branch</button>
 </div>
 <div id="itemData">
+</div>
+
+<div id="addKeyModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Add Key</h3>
+  </div>
+  <div class="modal-body">
+    <form id="addKeyForm" action="/apiv1/key/<%= key %>" method="POST" class="form-vertical">
+      <label>Key</label>
+      <input id="keyValue" type="text" value="<%= key %>:" />
+      <label>Value</label>
+      <textarea id="stringValue" name="stringValue" style="width: 500px; height: 250px;"></textarea>
+
+      <br>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <button id="saveKeyButton" class="btn btn-primary" onclick="$('#addKeyForm').submit()">Save</button>
+  </div>
 </div>
