@@ -15,7 +15,8 @@
     "express": "2.5.9",
     "inflection": "~1.2.0",
     "browserify": "~1.12.2",
-    "readline-browserify": "git://github.com/joeferner/node-readline-browserify.git"
+    "readline-browserify": "git://github.com/joeferner/node-readline-browserify.git",
+    "cmdparser": "git://github.com/joeferner/node-cmdparser.git"
   },
   "devDependencies": {},
   "optionalDependencies": {},
