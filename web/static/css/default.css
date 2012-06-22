@@ -32,3 +32,67 @@
 .jstree-default.jstree-focused {
     background: #fff !important;
 }
+
+#commandLineContainer {
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+    width: 1000px;
+    z-index: 9999;
+}
+
+#commandLineContainer form {
+    margin: 0;
+}
+
+#commandLineContainer input {
+    margin: 0;
+    box-shadow: none;
+    width: 900px;
+}
+
+.prompt {
+    color: #888;
+    font-size: 12px;
+    font-family: Menlo, "monospace";
+}
+
+#commandLineOutput {
+    height: 320px;
+    font-size: 12px;
+    display: none;
+    font-family: Menlo, "monospace";
+    overflow: scroll;
+}
+
+#commandLine {
+}
+
+#commandLine input {
+    outline: none;
+    border: 0;
+    color: #333;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: Menlo, "monospace";
+}
+
+.autocompletePopup {
+    padding: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.autocompletePopup div {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.autocompletePopup .selected {
+    color: #fff;
+    background-color: #00f;
+}
+
+.commandLineCommand {
+    font-weight: bold;
+}
