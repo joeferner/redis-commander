@@ -1,5 +1,8 @@
 {
   "author": "Joe Ferner <joe@fernsroth.com>",
+  "contributors": [
+    "Evan Oxfeld <eoxfeld@gmail.com>"
+  ],
   "name": "redis-commander",
   "version": "0.0.1",
   "repository": {
