@@ -3,7 +3,7 @@
 var CmdParser = require('cmdparser');
 
 function resizeTree() {
-  $('#keyTree').height($(window).height() - 200);
+  $('#keyTree').height($(window).height() - $('#keyTree').offset().top - $('#commandLine').outerHeight(true) - $('#commandLineBorder').outerHeight(true));
 }
 
 function loadTree() {
@@ -259,16 +259,45 @@ function deleteBranch(branchPrefix) {
   }
 }
 
+var commandLineScrollTop;
+
+function hideCommandLineOutput() {
+  var output = $('#commandLineOutput');
+  if (output.is(':visible')) {
+    output.slideUp();
+    commandLineScrollTop = output.scrollTop() + 20;
+  }
+}
+
+function showCommandLineOutput() {
+  var output = $('#commandLineOutput');
+  if (!output.is(':visible')) {
+    output.slideDown(function () {
+      output.scrollTop(commandLineScrollTop);
+    });
+  }
+}
+
 function loadCommandLine() {
+  $('#commandLine').click(function () {
+    showCommandLineOutput();
+  });
+  $('#commandLineContainer').click(function (e) {
+    e.stopPropagation();
+  });
+  $(window).click(function () {
+    hideCommandLineOutput();
+  });
+
   var readline = require("readline");
+  var output = document.getElementById('commandLineOutput');
   var rl = readline.createInterface({
     elementId: 'commandLine',
     write: function (data) {
-      var output = document.getElementById('commandLineOutput');
       if (output.innerHTML.length > 0) {
         output.innerHTML += "<br>";
       }
-      output.innerHTML += data.replace(/\n/g, '<br>');
+      output.innerHTML += escapeHtml(data);
       output.scrollTop = output.scrollHeight;
     },
     completer: function (linePartial, callback) {
@@ -278,7 +307,10 @@ function loadCommandLine() {
   rl.setPrompt('redis> ');
   rl.prompt();
   rl.on('line', function (line) {
-    rl.write(line);
+    if (output.innerHTML.length > 0) {
+      output.innerHTML += "<br>";
+    }
+    output.innerHTML += "<span class='commandLineCommand'>" + escapeHtml(line) + "</span>";
     $.post('/apiv1/exec', { cmd: line }, function (data, status) {
       rl.prompt();
 
@@ -291,6 +323,12 @@ function loadCommandLine() {
   });
 }
 
+function escapeHtml(str) {
+  return str
+    .replace(/\n/g, '<br>')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
 
 var cmdparser = new CmdParser([
   "APPEND key value",

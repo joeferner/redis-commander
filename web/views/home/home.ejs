@@ -12,6 +12,7 @@
   </div>
 
   <div id="commandLineContainer">
+    <div id="commandLineBorder" style="border-top: 1px solid #ddd; margin-top: 5px; padding-bottom: 5px;"></div>
     <div id="commandLineOutput"></div>
     <div id="commandLine"></div>
   </div>
@@ -21,7 +22,7 @@
   $(function () {
     loadTree();
     $(window).on('resize', resizeTree);
-    resizeTree();
     loadCommandLine();
+    resizeTree();
   });
 </script>
