@@ -29,9 +29,9 @@ function loadTree() {
         url: function (node) {
           if (node !== -1) {
             var path = $.jstree._focused().get_path(node, true).slice(1).join(':');
-            return '/apiv1/keys/' + path + '?absolute=false';
+            return '/apiv1/keystree/' + path + '?absolute=false';
           }
-          return '/apiv1/keys';
+          return '/apiv1/keystree';
         }
       }
     },
@@ -475,18 +475,18 @@ var cmdparser = new CmdParser([
   "ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]"
 ], {
   key: function (partial, callback) {
-    $.get('/apiv1/keys/' + partial + '*?absolute=true', function (data, status) {
+    $.get('/apiv1/keys/' + partial + '*?limit=20', function (data, status) {
       if (status != 'success') {
         return callback(new Error("Could not get keys"));
       }
       data = JSON.parse(data)
-        .map(function (item) {
-          return item.fullKey;
-        })
         .filter(function (item) {
           return item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
         });
-      callback(null, data);
+      if (data.length === 20) {
+        return callback(null);
+      }
+      return callback(null, data);
     });
   }
 });
