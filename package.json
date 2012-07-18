@@ -7,7 +7,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/joeferner/redis-commander.git"
+    "url": "git://github.com/nearinfinity/redis-commander.git"
   },
   "dependencies": {
     "optimist": "~0.3.4",
@@ -18,8 +18,8 @@
     "express": "2.5.9",
     "inflection": "~1.2.0",
     "browserify": "~1.12.2",
-    "readline-browserify": "git://github.com/joeferner/node-readline-browserify.git",
-    "cmdparser": "git://github.com/joeferner/node-cmdparser.git"
+    "readline-browserify": "git://github.com/nearinfinity/node-readline-browserify.git",
+    "cmdparser": "git://github.com/nearinfinity/node-cmdparser.git"
   },
   "devDependencies": {},
   "optionalDependencies": {},
