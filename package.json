@@ -5,10 +5,17 @@
   ],
   "name": "redis-commander",
   "version": "0.0.1",
+  "description": "Redis web-based management tool written in node.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/nearinfinity/redis-commander.git"
   },
+  "keywords": [
+    "redis",
+    "redis-client",
+    "redis-gui",
+    "redis-node"
+  ],
   "dependencies": {
     "optimist": "~0.3.4",
     "async": "~0.1.22",
