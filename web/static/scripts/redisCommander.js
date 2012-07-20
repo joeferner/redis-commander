@@ -213,6 +213,31 @@ function selectTreeNodeSet(data) {
 function selectTreeNodeList(data) {
   var html = new EJS({ url: '/templates/editList.ejs' }).render(data);
   $('#body').html(html);
+  $('#addListValueForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#saveValueButton').attr("disabled", "disabled");
+      $('#saveValueButton').html("<i class='icon-refresh'></i> Saving");
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      saveComplete();
+    }
+  });
+  function saveComplete() {
+    setTimeout(function () {
+      $('#saveValueButton').html("Save");
+      $('#saveValueButton').removeAttr("disabled");
+      refreshTree();
+      $('#addListValueModal').modal('hide');
+      $('#body').html('');
+    }, 500);
+  }
 }
 
 function selectTreeNodeZSet(data) {
