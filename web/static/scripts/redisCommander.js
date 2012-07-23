@@ -483,9 +483,6 @@ var cmdparser = new CmdParser([
         .filter(function (item) {
           return item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
         });
-      if (data.length === 20) {
-        return callback(null);
-      }
       return callback(null, data);
     });
   }
