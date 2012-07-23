@@ -343,16 +343,34 @@ function loadCommandLine() {
         return alert("Could not delete branch");
       }
 
-      rl.write(data);
+      try {
+        data = JSON.parse(data);
+      } catch (ex) {
+        rl.write(data);
+        return;
+      }
+      if (data instanceof Array) {
+        for (var i = 0; i < data.length; i++) {
+          rl.write((i + 1) + ") " + data[i]);
+        }
+      } else {
+        try {
+          data = JSON.parse(data);
+        } catch (ex) {
+          // do nothing
+        }
+        rl.write(JSON.stringify(data, null, '  '));
+      }
     });
   });
 }
 
 function escapeHtml(str) {
   return str
-    .replace(/\n/g, '<br>')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br>')
+    .replace(/\s/g, '&nbsp;');
 }
 
 var cmdparser = new CmdParser([
@@ -508,9 +526,6 @@ var cmdparser = new CmdParser([
         .filter(function (item) {
           return item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
         });
-      if (data.length === 20) {
-        return callback(null);
-      }
       return callback(null, data);
     });
   }
