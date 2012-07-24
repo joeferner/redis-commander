@@ -528,7 +528,7 @@ var cmdparser = new CmdParser([
   }
 });
 function resizeApp(){
-  var barWidth = parseInt($('#keyTree').css('width'),10);
+  var barWidth = $('#keyTree').outerWidth(true);
   $('#sideBar').css('width',barWidth);
   var bodyMargin = parseInt($('#body').css('margin-left'),10);
   var newBodyWidth = $(window).width() - barWidth - bodyMargin;
@@ -536,11 +536,35 @@ function resizeApp(){
   $('#body,#itemActionsBar').css('left', barWidth);
 
   $('#keyTree').height($(window).height() - $('#keyTree').offset().top - $('#commandLineContainer').outerHeight(true));
-  $('#body').css('height', $('#sideBar').css('height'));
+  $('#body, #sidebarResize').css('height', $('#sideBar').css('height'));
 }
 function setupResizeEvents(){
+  var sidebarResizing = false;
+  var sidebarFrame = $("#sideBar").width();
+
   $('#keyTree').bind('resize',resizeApp);
   $(window).bind('resize',resizeApp);
+
+  $(document).mouseup(function(event)
+  {
+      sidebarResizing = false;
+      sidebarFrame = $("#sideBar").width();
+      $('body').removeClass('select-disabled');
+  });
+
+  $("#sidebarResize").mousedown(function(event)
+  { 
+      sidebarResizing = event.pageX;
+      $('body').addClass('select-disabled');
+  });
+
+  $(document).mousemove(function(event)
+  {
+    if (sidebarResizing)
+    {
+        $("#sideBar").width(sidebarFrame - (sidebarResizing - event.pageX));
+    }
+  });
 }
 function setupCommandLock(){
   $('#lockCommandButton').click(function(){
