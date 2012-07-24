@@ -141,3 +141,7 @@
     -moz-user-select: none;
     user-select: none;
 }
+
+.show-vertical-scroll{
+    cursor:row-resize;
+}

@@ -287,16 +287,18 @@ function hideCommandLineOutput() {
       resizeApp();
     });
     commandLineScrollTop = output.scrollTop() + 20;
+    $('#commandLineBorder').removeClass('show-vertical-scroll');
   }
 }
 
 function showCommandLineOutput() {
   var output = $('#commandLineOutput');
-  if (!output.is(':visible')) {
+  if (!output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
     output.slideDown(function () {
       output.scrollTop(commandLineScrollTop);
       resizeApp();
     });
+    $('#commandLineBorder').addClass('show-vertical-scroll');
   }
 }
 
@@ -541,6 +543,8 @@ function resizeApp(){
 function setupResizeEvents(){
   var sidebarResizing = false;
   var sidebarFrame = $("#sideBar").width();
+  var commandResizing = false;
+  var commandFrame = $('#commandLineOutput').height();
 
   $('#keyTree').bind('resize',resizeApp);
   $(window).bind('resize',resizeApp);
@@ -549,6 +553,8 @@ function setupResizeEvents(){
   {
       sidebarResizing = false;
       sidebarFrame = $("#sideBar").width();
+      commandResizing = false;
+      commandFrame = $('#commandLineOutput').height();
       $('body').removeClass('select-disabled');
   });
 
@@ -558,11 +564,21 @@ function setupResizeEvents(){
       $('body').addClass('select-disabled');
   });
 
+  $("#commandLineBorder").mousedown(function(event)
+  { 
+      commandResizing = event.pageY;
+      $('body').addClass('select-disabled');
+  });
+
   $(document).mousemove(function(event)
   {
     if (sidebarResizing)
     {
         $("#sideBar").width(sidebarFrame - (sidebarResizing - event.pageX));
+    }else if(commandResizing && 
+             $('#commandLineOutput').is(':visible')){
+        $("#commandLineOutput").height(commandFrame + (commandResizing - event.pageY));
+        resizeApp();
     }
   });
 }
