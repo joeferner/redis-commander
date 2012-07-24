@@ -2,10 +2,6 @@
 
 var CmdParser = require('cmdparser');
 
-function resizeTree() {
-  $('#keyTree').height($(window).height() - $('#keyTree').offset().top - $('#commandLine').outerHeight(true) - $('#commandLineBorder').outerHeight(true));
-}
-
 function loadTree() {
   $('#keyTree').bind("loaded.jstree", function () {
     var tree = getKeyTree();
@@ -121,6 +117,7 @@ function treeNodeSelected(event, data) {
         $('#body').html(html);
         break;
       }
+      resizeApp();
     });
   }
 }
@@ -213,6 +210,28 @@ function selectTreeNodeSet(data) {
 function selectTreeNodeList(data) {
   var html = new EJS({ url: '/templates/editList.ejs' }).render(data);
   $('#body').html(html);
+  $('#addListValueForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#saveValueButton').attr("disabled", "disabled");
+      $('#saveValueButton').html("<i class='icon-refresh'></i> Saving");
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      saveComplete();
+    }
+  });
+  function saveComplete() {
+    setTimeout(function () {
+      $('#addListValueModal').modal('hide');
+      $('a.jstree-clicked').click();
+    }, 500);
+  }
 }
 
 function selectTreeNodeZSet(data) {
@@ -263,8 +282,10 @@ var commandLineScrollTop;
 
 function hideCommandLineOutput() {
   var output = $('#commandLineOutput');
-  if (output.is(':visible')) {
-    output.slideUp();
+  if (output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
+    output.slideUp(function(){
+      resizeApp();
+    });
     commandLineScrollTop = output.scrollTop() + 20;
   }
 }
@@ -274,6 +295,7 @@ function showCommandLineOutput() {
   if (!output.is(':visible')) {
     output.slideDown(function () {
       output.scrollTop(commandLineScrollTop);
+      resizeApp();
     });
   }
 }
@@ -505,3 +527,23 @@ var cmdparser = new CmdParser([
     });
   }
 });
+function resizeApp(){
+  var barWidth = parseInt($('#keyTree').css('width'),10);
+  $('#sideBar').css('width',barWidth);
+  var bodyMargin = parseInt($('#body').css('margin-left'),10);
+  var newBodyWidth = $(window).width() - barWidth - bodyMargin;
+  $('#body,#itemActionsBar').css('width',newBodyWidth);
+  $('#body,#itemActionsBar').css('left', barWidth);
+
+  $('#keyTree').height($(window).height() - $('#keyTree').offset().top - $('#commandLineContainer').outerHeight(true));
+  $('#body').css('height', $('#sideBar').css('height'));
+}
+function setupResizeEvents(){
+  $('#keyTree').bind('resize',resizeApp);
+  $(window).bind('resize',resizeApp);
+}
+function setupCommandLock(){
+  $('#lockCommandButton').click(function(){
+    $(this).toggleClass('disabled');
+  });
+}
