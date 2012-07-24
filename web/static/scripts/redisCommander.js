@@ -283,7 +283,7 @@ var commandLineScrollTop;
 function hideCommandLineOutput() {
   var output = $('#commandLineOutput');
   if (output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
-    output.slideUp(function(){
+    output.slideUp(function () {
       resizeApp();
     });
     commandLineScrollTop = output.scrollTop() + 20;
@@ -333,32 +333,41 @@ function loadCommandLine() {
       output.innerHTML += "<br>";
     }
     output.innerHTML += "<span class='commandLineCommand'>" + escapeHtml(line) + "</span>";
-    $.post('/apiv1/exec', { cmd: line }, function (data, status) {
+
+    line = line.trim();
+
+    if (line.toLowerCase() === 'refresh') {
       rl.prompt();
+      refreshTree();
+      rl.write("OK");
+    } else {
+      $.post('/apiv1/exec', { cmd: line }, function (data, status) {
+        rl.prompt();
 
-      if (status != 'success') {
-        return alert("Could not delete branch");
-      }
-
-      try {
-        data = JSON.parse(data);
-      } catch (ex) {
-        rl.write(data);
-        return;
-      }
-      if (data instanceof Array) {
-        for (var i = 0; i < data.length; i++) {
-          rl.write((i + 1) + ") " + data[i]);
+        if (status != 'success') {
+          return alert("Could not delete branch");
         }
-      } else {
+
         try {
           data = JSON.parse(data);
         } catch (ex) {
-          // do nothing
+          rl.write(data);
+          return;
         }
-        rl.write(JSON.stringify(data, null, '  '));
-      }
-    });
+        if (data instanceof Array) {
+          for (var i = 0; i < data.length; i++) {
+            rl.write((i + 1) + ") " + data[i]);
+          }
+        } else {
+          try {
+            data = JSON.parse(data);
+          } catch (ex) {
+            // do nothing
+          }
+          rl.write(JSON.stringify(data, null, '  '));
+        }
+      });
+    }
   });
 }
 
@@ -371,6 +380,8 @@ function escapeHtml(str) {
 }
 
 var cmdparser = new CmdParser([
+  "REFRESH",
+
   "APPEND key value",
   "AUTH password",
   "BGREWRITEAOF",
@@ -527,47 +538,43 @@ var cmdparser = new CmdParser([
     });
   }
 });
-function resizeApp(){
+function resizeApp() {
   var barWidth = $('#keyTree').outerWidth(true);
-  $('#sideBar').css('width',barWidth);
-  var bodyMargin = parseInt($('#body').css('margin-left'),10);
+  $('#sideBar').css('width', barWidth);
+  var bodyMargin = parseInt($('#body').css('margin-left'), 10);
   var newBodyWidth = $(window).width() - barWidth - bodyMargin;
-  $('#body,#itemActionsBar').css('width',newBodyWidth);
+  $('#body,#itemActionsBar').css('width', newBodyWidth);
   $('#body,#itemActionsBar').css('left', barWidth);
 
   $('#keyTree').height($(window).height() - $('#keyTree').offset().top - $('#commandLineContainer').outerHeight(true));
   $('#body, #sidebarResize').css('height', $('#sideBar').css('height'));
 }
-function setupResizeEvents(){
+function setupResizeEvents() {
   var sidebarResizing = false;
   var sidebarFrame = $("#sideBar").width();
 
-  $('#keyTree').bind('resize',resizeApp);
-  $(window).bind('resize',resizeApp);
+  $('#keyTree').bind('resize', resizeApp);
+  $(window).bind('resize', resizeApp);
 
-  $(document).mouseup(function(event)
-  {
-      sidebarResizing = false;
-      sidebarFrame = $("#sideBar").width();
-      $('body').removeClass('select-disabled');
+  $(document).mouseup(function (event) {
+    sidebarResizing = false;
+    sidebarFrame = $("#sideBar").width();
+    $('body').removeClass('select-disabled');
   });
 
-  $("#sidebarResize").mousedown(function(event)
-  { 
-      sidebarResizing = event.pageX;
-      $('body').addClass('select-disabled');
+  $("#sidebarResize").mousedown(function (event) {
+    sidebarResizing = event.pageX;
+    $('body').addClass('select-disabled');
   });
 
-  $(document).mousemove(function(event)
-  {
-    if (sidebarResizing)
-    {
-        $("#sideBar").width(sidebarFrame - (sidebarResizing - event.pageX));
+  $(document).mousemove(function (event) {
+    if (sidebarResizing) {
+      $("#sideBar").width(sidebarFrame - (sidebarResizing - event.pageX));
     }
   });
 }
-function setupCommandLock(){
-  $('#lockCommandButton').click(function(){
+function setupCommandLock() {
+  $('#lockCommandButton').click(function () {
     $(this).toggleClass('disabled');
   });
 }
