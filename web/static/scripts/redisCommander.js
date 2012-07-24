@@ -117,6 +117,7 @@ function treeNodeSelected(event, data) {
         $('#body').html(html);
         break;
       }
+      resizeApp();
     });
   }
 }
@@ -227,11 +228,8 @@ function selectTreeNodeList(data) {
   });
   function saveComplete() {
     setTimeout(function () {
-      $('#saveValueButton').html("Save");
-      $('#saveValueButton').removeAttr("disabled");
-      refreshTree();
       $('#addListValueModal').modal('hide');
-      $('#body').html('');
+      $('a.jstree-clicked').click();
     }, 500);
   }
 }
