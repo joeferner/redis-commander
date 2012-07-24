@@ -1,28 +1,30 @@
-<div class="container">
-  <div class="row">
-    <div class="span3" id="sideBar">
+<div id="app-container ">
+  <div>
+    <div id="sideBar">
       <div id="keyTreeActions">
         <button class="btn btn-success btn-mini" onclick="refreshTree()">Refresh</button>
       </div>
       <div id="keyTree"></div>
     </div>
-    <div class="span9" id="body">
+    <div id="body">
 
     </div>
   </div>
-
-  <div id="commandLineContainer">
-    <div id="commandLineBorder" style="border-top: 1px solid #ddd; margin-top: 5px; padding-bottom: 5px;"></div>
-    <div id="commandLineOutput"></div>
-    <div id="commandLine"></div>
-  </div>
 </div>
-
+<div id="commandLineContainer">
+  <div id="commandLineBorder" style="border-top: 1px solid #ddd;padding-bottom: 5px;"></div>
+  <i id="lockCommandButton" class="icon-lock disabled"></i>
+  <div id="commandLineOutput"></div>
+  <div id="commandLine"></div>
+</div>
 <script type="text/javascript">
   $(function () {
     loadTree();
-    $(window).on('resize', resizeTree);
     loadCommandLine();
-    resizeTree();
+    setupResizeEvents();
+    setupCommandLock();
+    resizeApp();
+    $('.container').removeClass('container');
+    $('html').css('overflow-y','hidden');
   });
 </script>
