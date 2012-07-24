@@ -86,7 +86,11 @@ function treeNodeSelected(event, data) {
     });
   } else {
     var path = pathParts.slice(1).join(':');
-    $.get('/apiv1/key/' + path, function (data, status) {
+    loadKey(path);
+  }
+}
+function loadKey(key) {
+  $.get('/apiv1/key/' + key, function (data, status) {
       if (status != 'success') {
         return alert("Could not load key data");
       }
@@ -119,9 +123,7 @@ function treeNodeSelected(event, data) {
       }
       resizeApp();
     });
-  }
 }
-
 function selectTreeNodeBranch(data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
@@ -208,24 +210,26 @@ function selectTreeNodeSet(data) {
 }
 
 function selectTreeNodeList(data) {
-  var html = new EJS({ url: '/templates/editList.ejs' }).render(data);
-  $('#body').html(html);
-  $('#addListValueForm').ajaxForm({
-    beforeSubmit: function () {
-      console.log('saving');
-      $('#saveValueButton').attr("disabled", "disabled");
-      $('#saveValueButton').html("<i class='icon-refresh'></i> Saving");
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
-  });
+  if(data.items.length > 0){
+    var html = new EJS({ url: '/templates/editList.ejs' }).render(data);
+    $('#body').html(html);
+    $('#addListValueForm').ajaxForm({
+      beforeSubmit: function () {
+        console.log('saving');
+        $('#saveValueButton').attr("disabled", "disabled");
+        $('#saveValueButton').html("<i class='icon-refresh'></i> Saving");
+      },
+      error: function (err) {
+        console.log('save error', arguments);
+        alert("Could not save '" + err.statusText + "'");
+        saveComplete();
+      },
+      success: function () {
+        console.log('saved', arguments);
+        saveComplete();
+      }
+    });
+  }
   function saveComplete() {
     setTimeout(function () {
       $('#addListValueModal').modal('hide');

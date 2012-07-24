@@ -1,6 +1,9 @@
-<div id="itemActionsBar">
+<div id="itemActionsBar" class="form">
   <button class="btn" data-toggle="modal" href="#addListValueModal" style="margin-right: 5px">Add New Value...</button>
   <button class="btn btn-danger" onclick="deleteKey('<%= key %>')">Delete Key</button>
+  <div id="pageNav" class="input-append input-prepend">
+    <button type="button" class="btn" onclick="loadKey('<%= key %>/<%= items[0].number - 20%>')"><i class="icon-chevron-left"></i></button><input class="span1" id="pageIndex" type="text" value="<%= items[0].number %>"></input><button class="btn btn-primary" type="button" onclick="loadKey('<%= key%>/' + $('#pageIndex').val())">Goto Index</button><button type="button" class="btn" onclick="loadKey('<%= key %>/<%= items[items.length-1].number + 1%>')"><i class="icon-chevron-right"></i></button>
+  </div>
 </div>
 <div id="itemData">
   <table class="table">
