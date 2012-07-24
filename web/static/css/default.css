@@ -1,17 +1,19 @@
 #sideBar {
     position: fixed;
-    top: 60px;
+    top: 40px;
+    left:5px;
     width:250px;
     border-right:1px solid #DDD;
 }
 
 #keyTree {
     overflow: scroll;
-    resize:horizontal;
+    margin-right:10px;
 }
 
 #keyTreeActions {
     margin-bottom: 5px;
+    margin-top:5px;
 }
 
 #itemData {
@@ -20,6 +22,17 @@
 
 .jstree-default.jstree-focused {
     background: #fff !important;
+}
+
+#sidebarResize{
+    position:absolute;
+    top:0;
+    right:-11px;
+    height:100%;
+    width:1px;
+    background-color: transparent;
+    border:10px solid transparent;
+    cursor:col-resize;
 }
 
 #body {
@@ -36,15 +49,11 @@
     left:250px;
     margin-left:30px;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 30px;
     padding-bottom: 5px;
+    padding-top:20px;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
-}
-@media (max-width: 979px){
-    #itemActionsBar{
-        margin-top:60px;
-    }
 }
 
 #commandLineContainer {
@@ -125,4 +134,10 @@
 }
 #lockCommandButton.disabled:hover{
     opacity:0.4;
+}
+
+.select-disabled{
+    -webkit-user-select: none; 
+    -moz-user-select: none;
+    user-select: none;
 }
