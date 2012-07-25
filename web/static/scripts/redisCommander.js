@@ -229,6 +229,8 @@ function selectTreeNodeList(data) {
         saveComplete();
       }
     });
+  }else{
+    alert('Index out of bounds');
   }
   function saveComplete() {
     setTimeout(function () {
@@ -239,8 +241,12 @@ function selectTreeNodeList(data) {
 }
 
 function selectTreeNodeZSet(data) {
-  var html = new EJS({ url: '/templates/editZSet.ejs' }).render(data);
-  $('#body').html(html);
+  if(data.items.length > 0){
+    var html = new EJS({ url: '/templates/editZSet.ejs' }).render(data);
+    $('#body').html(html);
+  }else{
+    alert('Index out of bounds');
+  }
 }
 
 function getKeyTree() {
@@ -291,16 +297,18 @@ function hideCommandLineOutput() {
       resizeApp();
     });
     commandLineScrollTop = output.scrollTop() + 20;
+    $('#commandLineBorder').removeClass('show-vertical-scroll');
   }
 }
 
 function showCommandLineOutput() {
   var output = $('#commandLineOutput');
-  if (!output.is(':visible')) {
+  if (!output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
     output.slideDown(function () {
       output.scrollTop(commandLineScrollTop);
       resizeApp();
     });
+    $('#commandLineBorder').addClass('show-vertical-scroll');
   }
 }
 
@@ -556,6 +564,8 @@ function resizeApp() {
 function setupResizeEvents() {
   var sidebarResizing = false;
   var sidebarFrame = $("#sideBar").width();
+  var commandResizing = false;
+  var commandFrame = $('#commandLineOutput').height();
 
   $('#keyTree').bind('resize', resizeApp);
   $(window).bind('resize', resizeApp);
@@ -563,6 +573,8 @@ function setupResizeEvents() {
   $(document).mouseup(function (event) {
     sidebarResizing = false;
     sidebarFrame = $("#sideBar").width();
+    commandResizing = false;
+    commandFrame = $('#commandLineOutput').height();
     $('body').removeClass('select-disabled');
   });
 
@@ -571,9 +583,18 @@ function setupResizeEvents() {
     $('body').addClass('select-disabled');
   });
 
+  $("#commandLineBorder").mousedown(function (event) {
+    commandResizing = event.pageY;
+    $('body').addClass('select-disabled');
+  });
+
   $(document).mousemove(function (event) {
     if (sidebarResizing) {
       $("#sideBar").width(sidebarFrame - (sidebarResizing - event.pageX));
+    } else if (commandResizing &&
+               $('#commandLineOutput').is(':visible')) {
+      $("#commandLineOutput").height(commandFrame + (commandResizing - event.pageY));
+      resizeApp();
     }
   });
 }
