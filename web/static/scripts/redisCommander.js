@@ -229,6 +229,8 @@ function selectTreeNodeList(data) {
         saveComplete();
       }
     });
+  }else{
+    alert('Index out of bounds');
   }
   function saveComplete() {
     setTimeout(function () {
@@ -239,8 +241,12 @@ function selectTreeNodeList(data) {
 }
 
 function selectTreeNodeZSet(data) {
-  var html = new EJS({ url: '/templates/editZSet.ejs' }).render(data);
-  $('#body').html(html);
+  if(data.items.length > 0){
+    var html = new EJS({ url: '/templates/editZSet.ejs' }).render(data);
+    $('#body').html(html);
+  }else{
+    alert('Index out of bounds');
+  }
 }
 
 function getKeyTree() {
