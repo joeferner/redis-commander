@@ -129,6 +129,11 @@
   top: 10px;
 }
 
+#pageNav{
+  display:inline-block;
+  float:right;
+  margin-right:20px;
+}
 #lockCommandButton.disabled {
   opacity: 0.2;
 }
