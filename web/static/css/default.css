@@ -1,151 +1,153 @@
 #sideBar {
-    position: fixed;
-    top: 40px;
-    left:5px;
-    width:250px;
-    border-right:1px solid #DDD;
+  position: fixed;
+  top: 40px;
+  left: 5px;
+  width: 250px;
+  border-right: 1px solid #DDD;
 }
 
 #keyTree {
-    overflow: scroll;
-    margin-right:10px;
+  overflow: scroll;
+  margin-right: 10px;
 }
 
 #keyTreeActions {
-    margin-bottom: 5px;
-    margin-top:5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 #itemData {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .jstree-default.jstree-focused {
-    background: #fff !important;
+  background: #fff !important;
 }
 
-#sidebarResize{
-    position:absolute;
-    top:0;
-    right:-11px;
-    height:100%;
-    width:1px;
-    background-color: transparent;
-    border:10px solid transparent;
-    cursor:col-resize;
+#sidebarResize {
+  position: absolute;
+  top: 0;
+  right: -11px;
+  height: 100%;
+  width: 1px;
+  background-color: transparent;
+  border: 10px solid transparent;
+  cursor: col-resize;
 }
 
 #body {
-    position:relative;
-    overflow-y:scroll;
-    overflow-x:hidden;
-    left:250px;
-    margin-left:30px;
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  left: 250px;
+  margin-left: 30px;
 }
 
 #itemActionsBar {
-    position: fixed;
-    top: 0px;
-    left:250px;
-    margin-left:30px;
-    width: 100%;
-    margin-top: 30px;
-    padding-bottom: 5px;
-    padding-top:20px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
+  position: fixed;
+  top: 0px;
+  left: 250px;
+  margin-left: 30px;
+  width: 100%;
+  margin-top: 30px;
+  padding-bottom: 5px;
+  padding-top: 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
 }
 
 #commandLineContainer {
-    position: fixed;
-    bottom: 0;
-    left:0;
-    background-color: #fff;
-    width: 100%;
-    z-index: 1039;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  width: 100%;
+  z-index: 1039;
 }
 
 #commandLineContainer form {
-    margin: 0;
+  margin: 0;
 }
 
 #commandLineContainer input {
-    margin: 0;
-    box-shadow: none;
-    width: 900px;
+  margin: 0;
+  box-shadow: none;
+  width: 900px;
 }
 
 .prompt {
-    color: #888;
-    font-size: 12px;
-    padding-left:15px;
-    font-family: Menlo, "monospace";
+  color: #888;
+  font-size: 12px;
+  padding-left: 15px;
+  font-family: Menlo, "monospace";
 }
 
 #commandLineOutput {
-    height: 320px;
-    font-size: 12px;
-    display: none;
-    padding-left:15px;
-    font-family: Menlo, "monospace";
-    overflow: scroll;
+  height: 320px;
+  font-size: 12px;
+  display: none;
+  padding-left: 15px;
+  font-family: Menlo, "monospace";
+  overflow: scroll;
 }
 
 #commandLine {
 }
 
 #commandLine input {
-    outline: none;
-    border: 0;
-    color: #333;
-    font-weight: bold;
-    font-size: 12px;
-    font-family: Menlo, "monospace";
+  outline: none;
+  border: 0;
+  color: #333;
+  font-weight: bold;
+  font-size: 12px;
+  font-family: Menlo, "monospace";
 }
 
 .autocompletePopup {
-    padding: 5px;
-    border: 1px solid #ddd;
-    background-color: #fff;
+  padding: 5px;
+  border: 1px solid #ddd;
+  background-color: #fff;
 }
 
 .autocompletePopup div {
-    padding: 5px;
-    cursor: pointer;
+  padding: 5px;
+  cursor: pointer;
 }
 
 .autocompletePopup .selected {
-    color: #fff;
-    background-color: #00f;
+  color: #fff;
+  background-color: #00f;
 }
 
 .commandLineCommand {
-    font-weight: bold;
+  font-weight: bold;
 }
 
-#lockCommandButton{
-    position:absolute;
-    right:10px;
-    top:10px;
+#lockCommandButton {
+  position: absolute;
+  right: 20px;
+  top: 10px;
 }
-#pageNav{
-    display:inline-block;
-    float:right;
-    margin-right:20px;
-}
-#lockCommandButton.disabled{
-    opacity:0.2;
-}
-#lockCommandButton.disabled:hover{
-    opacity:0.4;
+#pageNav {
+  display:inline-block;
+  float:right;
+  margin-right:20px;
 }
 
-.select-disabled{
-    -webkit-user-select: none; 
-    -moz-user-select: none;
-    user-select: none;
+#lockCommandButton.disabled {
+  opacity: 0.2;
 }
 
-.show-vertical-scroll{
-    cursor:row-resize;
+#lockCommandButton.disabled:hover {
+  opacity: 0.4;
+}
+
+.select-disabled {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.show-vertical-scroll {
+  cursor: row-resize;
 }
