@@ -561,11 +561,11 @@ function setupResizeEvents() {
   $(window).bind('resize', resizeApp);
 
   $(document).mouseup(function (event) {
-      sidebarResizing = false;
-      sidebarFrame = $("#sideBar").width();
-      commandResizing = false;
-      commandFrame = $('#commandLineOutput').height();
-      $('body').removeClass('select-disabled');
+    sidebarResizing = false;
+    sidebarFrame = $("#sideBar").width();
+    commandResizing = false;
+    commandFrame = $('#commandLineOutput').height();
+    $('body').removeClass('select-disabled');
   });
 
   $("#sidebarResize").mousedown(function (event) {
@@ -573,19 +573,18 @@ function setupResizeEvents() {
     $('body').addClass('select-disabled');
   });
 
-  $("#commandLineBorder").mousedown(function (event) { 
-      commandResizing = event.pageY;
-      $('body').addClass('select-disabled');
+  $("#commandLineBorder").mousedown(function (event) {
+    commandResizing = event.pageY;
+    $('body').addClass('select-disabled');
   });
 
   $(document).mousemove(function (event) {
-    if (sidebarResizing)
-    {
-        $("#sideBar").width(sidebarFrame - (sidebarResizing - event.pageX));
-    }else if(commandResizing && 
-             $('#commandLineOutput').is(':visible')){
-        $("#commandLineOutput").height(commandFrame + (commandResizing - event.pageY));
-        resizeApp();
+    if (sidebarResizing) {
+      $("#sideBar").width(sidebarFrame - (sidebarResizing - event.pageX));
+    } else if (commandResizing &&
+               $('#commandLineOutput').is(':visible')) {
+      $("#commandLineOutput").height(commandFrame + (commandResizing - event.pageY));
+      resizeApp();
     }
   });
 }
