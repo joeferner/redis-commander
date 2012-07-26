@@ -604,7 +604,7 @@ function setupCommandLock() {
   });
 }
 
-function setupCLIKeyEvents (){
+function setupCLIKeyEvents() {
   var ctrl_down = false;
   var isMac = navigator.appVersion.indexOf("Mac")!=-1;
   var cli = $('#_readline_cliForm input');
@@ -618,15 +618,13 @@ function setupCLIKeyEvents (){
 
     //c
     if(key == 67 && ctrl_down){
-      hideCommandLineOutput();
-      cli.val('').blur();
+      clearCLI ();
       e.preventDefault();
     }
 
     //esc
     if(key == 27){
-      hideCommandLineOutput();
-      cli.val('').blur();
+      clearCLI ();
       e.preventDefault();
     }
   });
@@ -637,5 +635,13 @@ function setupCLIKeyEvents (){
     }
   });
 
+function clearCLI (){
+  var cli = $('#_readline_cliForm input');
+  if(cli.val() == ''){
+    hideCommandLineOutput();
+  }else{
+    cli.val('');
+  }
+}
 
 }
