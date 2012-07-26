@@ -603,3 +603,45 @@ function setupCommandLock() {
     $(this).toggleClass('disabled');
   });
 }
+
+function setupCLIKeyEvents() {
+  var ctrl_down = false;
+  var isMac = navigator.appVersion.indexOf("Mac")!=-1;
+  var cli = $('#_readline_cliForm input');
+  cli.keydown(function (event){
+    var key = event.which;
+
+    //ctrl
+    if(key == 17 && isMac){
+      ctrl_down = true;
+    }
+
+    //c
+    if(key == 67 && ctrl_down){
+      clearCLI ();
+      e.preventDefault();
+    }
+
+    //esc
+    if(key == 27){
+      clearCLI ();
+      e.preventDefault();
+    }
+  });
+  cli.keyup(function (event){
+    //ctrl
+    if(key == 17 && isMac){
+      ctrl_down = false;
+    }
+  });
+
+function clearCLI (){
+  var cli = $('#_readline_cliForm input');
+  if(cli.val() == ''){
+    hideCommandLineOutput();
+  }else{
+    cli.val('');
+  }
+}
+
+}
