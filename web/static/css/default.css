@@ -186,3 +186,8 @@
   opacity:0.4;
   text-decoration: none;
 }
+
+#scoreWrap {
+  display:none;
+  margin-left:10px;
+}
