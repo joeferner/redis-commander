@@ -12,8 +12,32 @@
   </div>
   <div class="modal-body">
     <form id="addKeyForm" action="/apiv1/key/<%= key %>" method="POST" class="form-vertical">
-      <label>Key</label>
-      <input id="keyValue" type="text" value="<%= key %>:" />
+      <div class="control-group">
+        <label class="control-label">Key</label>
+        <div class="controls">
+          <input id="keyValue" type="text" value="<%= key %>:" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Type</label>
+        <div class="controls">
+          <select id="keyType" name="keyType">
+            <option value="string">String</option>
+            <option value="list">List</option>
+            <option value="set">Set</option>
+            <option value="zset">Sorted Set</option>
+          </select>
+          <span id="scoreWrap">Score
+          <input id="keyScore" name="keyScore" class="input-mini" type="text"/>
+          </span>
+        </div>
+      </div>
+      <div class="control-group" style="display:inline;">
+        
+        <div class="controls">
+        
+        </div>
+      </div>
       <label>Value</label>
       <textarea id="stringValue" name="stringValue" style="width: 500px; height: 250px;"></textarea>
 

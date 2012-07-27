@@ -131,6 +131,14 @@ function selectTreeNodeBranch(data) {
     var action = "/apiv1/key/" + $(this).val();
     $('#addKeyForm').attr("action", action);
   });
+  $('#keyType').change(function () {
+    var score = $('#scoreWrap');
+    if($(this).val() == 'zset'){
+      score.show();
+    }else{
+      score.hide();
+    }
+  });
   $('#addKeyForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');

@@ -128,6 +128,7 @@
   right: 20px;
   top: 10px;
 }
+
 #pageNav {
   display:inline-block;
   float:right;
@@ -184,4 +185,9 @@
 #redisCommandsExternal:hover{
   opacity:0.4;
   text-decoration: none;
+}
+
+#scoreWrap {
+  display:none;
+  margin-left:10px;
 }
