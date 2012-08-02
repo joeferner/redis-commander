@@ -608,9 +608,9 @@ function setupCLIKeyEvents() {
   var ctrl_down = false;
   var isMac = navigator.appVersion.indexOf("Mac")!=-1;
   var cli = $('#_readline_cliForm input');
-  cli.keydown(function (event){
-    var key = event.which;
-
+  cli.live('keydown',function (e){
+    var key = e.which;
+    console.log(e);
     //ctrl
     if(key == 17 && isMac){
       ctrl_down = true;
@@ -628,7 +628,8 @@ function setupCLIKeyEvents() {
       e.preventDefault();
     }
   });
-  cli.keyup(function (event){
+  cli.keyup(function (e){
+    var key = e.which;
     //ctrl
     if(key == 17 && isMac){
       ctrl_down = false;
