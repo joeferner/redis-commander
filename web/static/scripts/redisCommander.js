@@ -627,7 +627,7 @@ function setupCLIKeyEvents() {
       e.preventDefault();
     }
   });
-  cli.keyup(function (e){
+  cli.live('keyup',function (e){
     var key = e.which;
     //ctrl
     if(key == 17 && isMac){
