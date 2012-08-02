@@ -1,0 +1,1 @@
+{"note":"Don't delete this file! It's used internally to help with page regeneration.","tagline":"Redis management tool written in node.js","google":"","name":"Redis-Commander","body":"\r\n# Install and Run\r\n\r\n```bash\r\n$ npm install -g redis-commander\r\n$ redis-commander --port 8081 --redis-host localhost\r\n```\r\n"}
