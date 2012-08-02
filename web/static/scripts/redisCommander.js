@@ -83,6 +83,7 @@ function treeNodeSelected(event, data) {
       data = JSON.parse(data);
       var html = new EJS({ url: '/templates/serverInfo.ejs' }).render(data);
       $('#body').html(html);
+      setupAddKeyButton();
     });
   } else {
     var path = pathParts.slice(1).join(':');
@@ -127,6 +128,9 @@ function loadKey(key) {
 function selectTreeNodeBranch(data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
+  setupAddKeyButton();
+}
+function setupAddKeyButton() {
   $('#keyValue').keyup(function () {
     var action = "/apiv1/key/" + $(this).val();
     $('#addKeyForm').attr("action", action);
@@ -165,7 +169,6 @@ function selectTreeNodeBranch(data) {
     }, 500);
   }
 }
-
 function selectTreeNodeString(data) {
   var html = new EJS({ url: '/templates/editString.ejs' }).render(data);
   $('#body').html(html);
