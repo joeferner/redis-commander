@@ -28,5 +28,10 @@
     resizeApp();
     $('.container').removeClass('container');
     $('html').css('overflow-y','hidden');
+    $('#pageIndex').live('keydown',function(e){
+      if(e.keyCode == 13){
+        $('#gotoIndexButton').click();
+      }
+    });
   });
 </script>
