@@ -610,7 +610,6 @@ function setupCLIKeyEvents() {
   var cli = $('#_readline_cliForm input');
   cli.live('keydown',function (e){
     var key = e.which;
-    console.log(e);
     //ctrl
     if(key == 17 && isMac){
       ctrl_down = true;
