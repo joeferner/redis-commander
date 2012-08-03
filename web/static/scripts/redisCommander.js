@@ -83,6 +83,7 @@ function treeNodeSelected(event, data) {
       data = JSON.parse(data);
       var html = new EJS({ url: '/templates/serverInfo.ejs' }).render(data);
       $('#body').html(html);
+      setupAddKeyButton();
     });
   } else {
     var path = pathParts.slice(1).join(':');
@@ -127,9 +128,20 @@ function loadKey(key) {
 function selectTreeNodeBranch(data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
+  setupAddKeyButton();
+}
+function setupAddKeyButton() {
   $('#keyValue').keyup(function () {
     var action = "/apiv1/key/" + $(this).val();
     $('#addKeyForm').attr("action", action);
+  });
+  $('#keyType').change(function () {
+    var score = $('#scoreWrap');
+    if($(this).val() == 'zset'){
+      score.show();
+    }else{
+      score.hide();
+    }
   });
   $('#addKeyForm').ajaxForm({
     beforeSubmit: function () {
@@ -157,7 +169,6 @@ function selectTreeNodeBranch(data) {
     }, 500);
   }
 }
-
 function selectTreeNodeString(data) {
   var html = new EJS({ url: '/templates/editString.ejs' }).render(data);
   $('#body').html(html);
@@ -602,4 +613,46 @@ function setupCommandLock() {
   $('#lockCommandButton').click(function () {
     $(this).toggleClass('disabled');
   });
+}
+
+function setupCLIKeyEvents() {
+  var ctrl_down = false;
+  var isMac = navigator.appVersion.indexOf("Mac")!=-1;
+  var cli = $('#_readline_cliForm input');
+  cli.live('keydown',function (e){
+    var key = e.which;
+    //ctrl
+    if(key == 17 && isMac){
+      ctrl_down = true;
+    }
+
+    //c
+    if(key == 67 && ctrl_down){
+      clearCLI ();
+      e.preventDefault();
+    }
+
+    //esc
+    if(key == 27){
+      clearCLI ();
+      e.preventDefault();
+    }
+  });
+  cli.live('keyup',function (e){
+    var key = e.which;
+    //ctrl
+    if(key == 17 && isMac){
+      ctrl_down = false;
+    }
+  });
+
+function clearCLI (){
+  var cli = $('#_readline_cliForm input');
+  if(cli.val() == ''){
+    hideCommandLineOutput();
+  }else{
+    cli.val('');
+  }
+}
+
 }
