@@ -5,7 +5,7 @@
       <% if(beginning){%>disabled="disabled" <%}%>
     ><i class="icon-fast-backward"></i></button><button type="button" class="btn" onclick="loadKey('<%= key %>/<%= items[0].number - 20%>')" 
       <% if(beginning){%>disabled="disabled" <%}%>
-    ><i class="icon-backward"></i></button><input class="span1" id="pageIndex" type="text" value="<%= items[0].number %>"></input><button class="btn btn-primary" type="button" onclick="loadKey('<%= key%>/' + $('#pageIndex').val())">Goto Index</button><button type="button" class="btn" onclick="loadKey('<%= key %>/<%= items[items.length-1].number + 1%>')"
+    ><i class="icon-backward"></i></button><input class="span1" id="pageIndex" type="text" value="<%= items[0].number %>"></input><button id="gotoIndexButton" class="btn btn-primary" type="button" onclick="loadKey('<%= key%>/' + $('#pageIndex').val())">Goto Index</button><button type="button" class="btn" onclick="loadKey('<%= key %>/<%= items[items.length-1].number + 1%>')"
       <% if(end){%>disabled="disabled" <%}%>
     ><i class="icon-forward"></i></button><button type="button" class="btn" onclick="loadKey('<%= key %>/<%= length - 20 %>')"
       <% if(end){%>disabled="disabled" <%}%>
