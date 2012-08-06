@@ -10,6 +10,22 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <style type="text/css">
+      .feature{
+        vertical-align:top;
+        text-align:left;
+        padding-left:20px;
+      }
+      td{
+        padding-bottom:30px;
+      }
+      table{
+        margin-top:25px;
+      }
+      table,td,tr{
+        border:none;
+      }
+    </style>
     <title>Redis-Commander by mrohr</title>
   </head>
 
@@ -35,14 +51,50 @@
           <p>Written and maintained by <a href="http://github.com/nearinfinity">Near Infinity</a></p>
           
           <h1>Features</h1>
-          <ul>
-            <li>View Redis config information</li>
-            <li>View a list of keys as an expandable tree</li>
-            <li>View individual key values with paging support for lists/sorted sets</li>
-            <li>Edit key values inline</li>
-            <li>Run Redis commands from command-line interface</li>
-            <li>View Redis commands API in popup window</li>
-          </ul>
+          <table>
+            <tr>
+              <td><img class="screenshot" src="images/screenshots/redis-info.png"/></td>
+              <td class="feature">
+                <h3>Config Information</h3>
+                <p>View configuration information from your Redis database</p>
+              </td>
+            </tr>
+            <tr>
+              <td><img class="screenshot" src="images/screenshots/tree.png"/></td>
+              <td class="feature">
+                <h3>Tree View</h3>
+                <p>View a list of all keys in your database as an expandable tree</p>
+              </td>
+            </tr>
+            <tr>
+              <td><img class="screenshot" src="images/screenshots/paging.png"/></td>
+              <td class="feature">
+                <h3>View Key Values</h3>
+                <p>View individual key values with paging support for lists/sorted sets</p>
+              </td>
+            </tr>
+            <tr>
+              <td><img class="screenshot" src="images/screenshots/edit-key.png"/></td>
+              <td class="feature">
+                <h3>Edit Values</h3>
+                <p>Edit key values inline</p>
+              </td>
+            </tr>
+            <tr>
+              <td><img class="screenshot" src="images/screenshots/cli.png"/></h3></td>
+              <td class="feature">
+                <h3>Redis CLI</h3>
+                <p>Run Redis commands from command-line interface in your browser</p>
+              </td>
+            </tr>
+            <tr>
+              <td><img class="screenshot" src="images/screenshots/popup.png"/></h3></td>
+              <td class="feature">
+                <h3>API Popup</h3>
+                <p>View Redis commands API in popup window</p>
+              </td>
+            </tr>
+          </table>
           
           <h1>Install and Run</h1>
 
