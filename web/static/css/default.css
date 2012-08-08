@@ -152,6 +152,7 @@
 .show-vertical-scroll {
   cursor: row-resize;
 }
+
 #redisCommandsModal {
   overflow:hidden;
 }
@@ -191,3 +192,8 @@
   display:none;
   margin-left:10px;
 }
+
+.navbar .brand{
+  padding-top:0;
+}
+
