@@ -24,7 +24,7 @@ function loadTree() {
       ajax: {
         url: function (node) {
           if (node !== -1) {
-            var path = $.jstree._focused().get_path(node, true).slice(1).join(':');
+            var path = getFullKeyPath(node);
             return '/apiv1/keystree/' + path + '?absolute=false';
           }
           return '/apiv1/keystree';
@@ -65,7 +65,40 @@ function loadTree() {
         }
       }
     },
-    plugins: [ "themes", "json_data", "types", "ui" ]
+    contextmenu:{
+      items: function(node){
+        console.log(node);
+        var menu = {
+          "addKey":{
+            icon:'icon-plus',
+            label:"Add Key",
+            action:addKey
+          },
+          "refresh":{
+            icon:'icon-refresh',
+            label:"Refresh",
+            action:function(obj){
+              jQuery.jstree._reference("#keyTree").refresh(obj);
+            }
+          },
+          "remKey":{
+            icon:'icon-trash',
+            label:'Remove Key',
+            action:deleteKey
+          }
+        }
+        var rel = node.attr('rel');
+        console.log(rel);
+        if(rel != undefined && rel !='root'){
+          delete menu['addKey'];
+        }
+        if(rel == 'root'){
+          delete menu['remKey'];
+        }
+        return menu;
+      }
+    },
+    plugins: [ "themes", "json_data", "types", "ui",'contextmenu' ]
   })
     .bind("select_node.jstree", treeNodeSelected)
     .delegate("a", "click", function (event, data) { event.preventDefault(); });
@@ -89,6 +122,10 @@ function treeNodeSelected(event, data) {
     var path = pathParts.slice(1).join(':');
     loadKey(path);
   }
+}
+
+function getFullKeyPath(node){
+  return $.jstree._focused().get_path(node, true).slice(1).join(':');
 }
 function loadKey(key) {
   $.get('/apiv1/key/' + key, function (data, status) {
@@ -268,7 +305,21 @@ function refreshTree() {
   getKeyTree().refresh();
 }
 
-function deleteKey(key) {
+function addKey(key){
+  if(typeof(key) == 'object'){
+    key = getFullKeyPath(key);
+    if(key.length > 0){
+      key = key + ":";
+    }
+  }
+  $('#addKeyForm').attr('action', '/apiv1/key/' + key);
+  $('#keyValue').val(key);
+  $('#addKeyModal').modal('show');
+}
+function deleteKey(key){
+  if(typeof(key) == 'object'){
+    key = getFullKeyPath(key);
+  }
   var result = confirm('Are you sure you want to delete "' + key + '"?');
   if (result) {
     $.post('/apiv1/key/' + key + '?action=delete', function (data, status) {

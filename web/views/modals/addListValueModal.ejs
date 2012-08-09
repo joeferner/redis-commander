@@ -1,0 +1,27 @@
+<div id="addListValueModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Add Value</h3>
+  </div>
+  <div class="modal-body">
+    <form id="addListValueForm" action="/apiv1/listvalue/" method="POST" class="form-vertical">
+      <label class="radio inline">
+        <input id="typeLpush" type="radio" name="type" value="lpush" checked="checked"/>
+        LPUSH
+      </label>
+      <label class="radio inline">
+        <input id="typeRpush" type="radio" name="type" value="rpush"/>
+        RPUSH
+      </label>
+      <br/>
+      <h3>Value</h3>
+      <textarea id="stringValue" name="stringValue" style="width: 500px; height: 250px;"></textarea>
+
+      <br>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <button id="saveValueButton" class="btn btn-primary" onclick="$('#addListValueForm').submit()">Save</button>
+  </div>
+</div>
