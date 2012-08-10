@@ -197,3 +197,12 @@
   padding-top:0;
 }
 
+#vakata-contextmenu{
+  background:white !important;
+  border-radius:5px;
+}
+#vakata-contextmenu li ins{
+  margin-top:2px;
+  margin-left:20px;
+}
+

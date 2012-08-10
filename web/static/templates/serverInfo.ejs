@@ -1,4 +1,4 @@
-<button class="btn" data-toggle="modal" href="#addKeyModal" style="margin-right: 5px">Add New Key...</button>
+<button class="btn" onclick="addKey('')" style="margin-right: 5px">Add New Key...</button>
 <table class="table">
   <thead>
     <th>Name</th>
@@ -13,47 +13,3 @@
     <% }) %>
   </tbody>
 </table>
-<div id="addKeyModal" class="modal hide fade">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Add Key</h3>
-  </div>
-  <div class="modal-body">
-    <form id="addKeyForm" action="/apiv1/key/" method="POST" class="form-vertical">
-      <div class="control-group">
-        <label class="control-label">Key</label>
-        <div class="controls">
-          <input id="keyValue" type="text" value="" />
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Type</label>
-        <div class="controls">
-          <select id="keyType" name="keyType">
-            <option value="string">String</option>
-            <option value="list">List</option>
-            <option value="set">Set</option>
-            <option value="zset">Sorted Set</option>
-          </select>
-          <span id="scoreWrap">Score
-          <input id="keyScore" name="keyScore" class="input-mini" type="text"/>
-          </span>
-        </div>
-      </div>
-      <div class="control-group" style="display:inline;">
-        
-        <div class="controls">
-        
-        </div>
-      </div>
-      <label>Value</label>
-      <textarea id="stringValue" name="stringValue" style="width: 500px; height: 250px;"></textarea>
-
-      <br>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal">Close</button>
-    <button id="saveKeyButton" class="btn btn-primary" onclick="$('#addKeyForm').submit()">Save</button>
-  </div>
-</div>
