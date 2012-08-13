@@ -11,27 +11,29 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <style type="text/css">
-      .feature{
-        vertical-align:top;
-        text-align:left;
-        padding-left:20px;
-      }
       .screenshot{
         border:2px solid #CCC;
+        margin-bottom:20px;
+        width:315px;
+        display:inline-block;
       }
-      td{
-        padding-bottom:30px;
+      .ribbon{
+        position: absolute; top: 0; right: 0; border: 0; z-index:100; height:113px;
       }
-      table{
-        margin-top:25px;
-      }
-      table,td,tr{
-        border:none;
+      .feature{
+        width:340px;
+        padding:0 20px;
+        display:inline-block;
+        vertical-align:top;
+        text-align:left;
       }
       .inner{
         position:relative;
         width:800px;
         z-index:2;
+      }
+      #main_content{
+        width:100%;
       }
       .banner{
         width:800px;
@@ -51,12 +53,43 @@
         background-color:black;
         background-repeat:repeat-x;
       }
-      @media only screen and (max-width: 767px) {
+
+      #downloads{
+        margin:0 auto;
+        width:620px;
+      }
+      @media (max-width: 800px) {
 
         .banner{
-          width:96%;
+          width:100%;
+          height:300px;
       }
+      .ribbon{
+        height:75px;
       }
+      #head{
+        height:75px;
+      }
+      .inner{
+        width:94%;
+      }
+      #downloads{
+        width:100%;
+      }
+      .feature{
+        width:90%;
+        margin:40px auto 0;
+        display:block;
+      }
+      .screenshot{
+        width:80%;
+        margin:0 auto;
+        display:block;
+      }
+      #downloads a{
+        width:96%;  
+      }
+    }
     </style>
     <title>Redis-Commander</title>
   </head>
@@ -64,7 +97,7 @@
   <body>
     <div id="container">
     <a href="https://github.com/nearinfinity/redis-commander">
-      <img style="position: absolute; top: 0; right: 0; border: 0; z-index:100; height:113px;" 
+      <img class="ribbon"
            src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" 
            alt="Fork me on GitHub">      
     </a>
@@ -74,56 +107,54 @@
       <div class="inner">
 
         
-        
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/nearinfinity/redis-commander/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/nearinfinity/redis-commander/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/nearinfinity/redis-commander" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
         <section id="main_content">
-          <p>Written and maintained by <a href="http://github.com/nearinfinity">Near Infinity</a></p>
           
-          <h1>Features</h1>
-          <table>
-            <tr>
-              <td><img class="screenshot" src="images/screenshots/redis-info.png"/></td>
-              <td class="feature">
-                <h3>Config Information</h3>
-                <p>View configuration information from your Redis database</p>
-              </td>
-            </tr>
-            <tr>
-              <td><img class="screenshot" src="images/screenshots/tree.png"/></td>
-              <td class="feature">
-                <h3>Tree View</h3>
-                <p>View a list of all keys in your database as an expandable tree</p>
-              </td>
-            </tr>
-            <tr>
-              <td><img class="screenshot" src="images/screenshots/paging.png"/></td>
-              <td class="feature">
-                <h3>View Key Values</h3>
-                <p>View individual key values with paging support for lists/sorted sets</p>
-              </td>
-            </tr>
-            <tr>
-              <td><img class="screenshot" src="images/screenshots/edit-key.png"/></td>
-              <td class="feature">
-                <h3>Edit Values</h3>
-                <p>Edit key values inline</p>
-              </td>
-            </tr>
-            <tr>
-              <td><img class="screenshot" src="images/screenshots/cli.png"/></h3></td>
-              <td class="feature">
-                <h3>Redis CLI</h3>
-                <p>Run Redis commands from command-line interface in your browser</p>
-              </td>
-            </tr>
-            <tr>
-              <td><img class="screenshot" src="images/screenshots/popup.png"/></h3></td>
-              <td class="feature">
-                <h3>API Popup</h3>
-                <p>View Redis commands API in popup window</p>
-              </td>
-            </tr>
-          </table>
+          <h1 style="margin:20px 0;">Features</h1>
+          <div class="feature">
+            <h3>Config Information</h3>
+            <p>View configuration information from your Redis database</p>
+          </div>
+          <img class="screenshot" src="images/screenshots/redis-info.png" style="padding:5px 0;background-color:white;"/>
+          <div class="feature">
+            <h3>Tree View</h3>
+            <p>View a list of all keys in your database as an expandable tree</p>
+          </div>    
+          <img class="screenshot" src="images/screenshots/tree.png"/>
           
+          <div class="feature">
+            <h3>View Key Values</h3>
+            <p>View individual key values with paging support for lists/sorted sets</p>
+          </div>   
+          <img class="screenshot" src="images/screenshots/paging.png"/>
+          
+          <div class="feature">
+            <h3>Edit Values</h3>
+            <p>Edit key values inline</p>
+          </div> 
+          <img class="screenshot" src="images/screenshots/edit-key.png"/>
+          
+          <div class="feature">
+            <h3>Redis CLI</h3>
+            <p>Run Redis commands from command-line interface in your browser</p>
+          </div>
+          <img class="screenshot" src="images/screenshots/cli.png"/>
+          
+          <div class="feature">
+            <h3>Tab Completion</h3>
+            <p>Tab complete Redis commands and key names from the comand-line interface</p>
+          </div>
+          <img class="screenshot" src="images/screenshots/tab-complete.png"/>
+          <div class="feature">
+            <h3>API Popup</h3>
+            <p>View Redis commands API in popup window</p>
+          </div>
+          <img class="screenshot" src="images/screenshots/popup.png"/>
+              
           <h1>Install and Run</h1>
 
 <div class="highlight"><pre><span class="nv">$ </span>npm install -g redis-commander
