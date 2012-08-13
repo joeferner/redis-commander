@@ -356,13 +356,15 @@ function deleteBranch(branchPrefix) {
 }
 
 var commandLineScrollTop;
-
+var CLIOpen = false;
 function hideCommandLineOutput() {
   var output = $('#commandLineOutput');
   if (output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
     output.slideUp(function () {
       resizeApp();
+      configChange();
     });
+    CLIOpen = false;
     commandLineScrollTop = output.scrollTop() + 20;
     $('#commandLineBorder').removeClass('show-vertical-scroll');
   }
@@ -374,7 +376,9 @@ function showCommandLineOutput() {
     output.slideDown(function () {
       output.scrollTop(commandLineScrollTop);
       resizeApp();
+      configChange();
     });
+    CLIOpen = true;
     $('#commandLineBorder').addClass('show-vertical-scroll');
   }
 }
@@ -617,6 +621,74 @@ var cmdparser = new CmdParser([
     });
   }
 });
+var configTimer;
+var prevSidebarWidth;
+var prevLocked;
+var prevCLIWidth;
+var prevCLIOpen;
+var configLoaded = false;
+function configChange(){
+  if(!configLoaded){
+    var sidebarWidth = $('#sideBar').width();
+    var locked = !$('#lockCommandButton').hasClass('disabled');
+    var CLIWidth = $('#commandLineContainer').height();
+    if(typeof(prevSidebarWidth) != 'undefined' &&
+      (sidebarWidth != prevSidebarWidth ||
+       locked != prevLocked ||
+       CLIWidth != prevCLIWidth ||
+       CLIOpen != prevCLIOpen)){
+      clearTimeout(configTimer);
+      configTimer = setTimeout(saveConfig,2000);
+    }
+    prevSidebarWidth = sidebarWidth;
+    prevLocked = locked;
+    prevCLIWidth = CLIWidth;
+    prevCLIOpen = CLIOpen;
+  }else{
+    configLoaded = false;
+  }
+}
+
+function saveConfig(){
+  console.log('Saving Config...');
+  var sidebarWidth = $('#sideBar').width();
+  var locked = !$('#lockCommandButton').hasClass('disabled');
+  var CLIHeight = $('#commandLineContainer').height();
+  var config = {
+    "sidebarWidth":sidebarWidth,
+    "locked":locked,
+    "CLIHeight":CLIHeight,
+    "CLIOpen":CLIOpen
+  };
+  $.post('/config',config,function(data,status){
+    console.log('Config Saved');
+  });
+}
+
+function loadConfig(){
+  $.get('/config',function(data){
+    if(data){
+      data = JSON.parse(data);
+      if(data['sidebarWidth']){
+        $('#sideBar').width(data['sidebarWidth']);
+      }
+      if(data['CLIOpen'] == "true"){
+        $('#commandLineOutput').slideDown(0,function(){
+          if(data['CLIHeight']){
+            $('#commandLineOutput').height(data['CLIHeight']);
+          }
+        });
+        CLIOpen = true;
+      }
+      if(data['locked'] == "true"){
+        $('#lockCommandButton').removeClass('disabled');
+      }else{
+        $('#lockCommandButton').addClass('disabled');
+      }
+      configLoaded = true;
+    }
+  });
+}
 function resizeApp() {
   var barWidth = $('#keyTree').outerWidth(true);
   $('#sideBar').css('width', barWidth);
@@ -627,6 +699,7 @@ function resizeApp() {
 
   $('#keyTree').height($(window).height() - $('#keyTree').offset().top - $('#commandLineContainer').outerHeight(true));
   $('#body, #sidebarResize').css('height', $('#sideBar').css('height'));
+  configChange();
 }
 function setupResizeEvents() {
   var sidebarResizing = false;
@@ -668,6 +741,7 @@ function setupResizeEvents() {
 function setupCommandLock() {
   $('#lockCommandButton').click(function () {
     $(this).toggleClass('disabled');
+    configChange();
   });
 }
 
