@@ -11,64 +11,69 @@ function loadTree() {
     }
   });
 
-  $('#keyTree').jstree({
-    json_data: {
-      data: {
-        data: "Root",
-        state: "closed",
-        attr: {
-          id: "root",
-          rel: "root"
+  $.get('/apiv1/server/info', function (data, status) {
+    data = JSON.parse(data);
+    var host = data.host;
+    var port = data.port;
+    $('#keyTree').jstree({
+      json_data: {
+        data: {
+          data: host + ":" + port,
+          state: "closed",
+          attr: {
+            id: host,
+            rel: host
+          }
+        },
+        ajax: {
+          url: function (node) {
+            if (node !== -1) {
+              var path = $.jstree._focused().get_path(node, true).slice(1).join(':');
+              return '/apiv1/keystree/' + path + '?absolute=false';
+            }
+            return '/apiv1/keystree';
+          }
         }
       },
-      ajax: {
-        url: function (node) {
-          if (node !== -1) {
-            var path = $.jstree._focused().get_path(node, true).slice(1).join(':');
-            return '/apiv1/keystree/' + path + '?absolute=false';
-          }
-          return '/apiv1/keystree';
-        }
-      }
-    },
-    types: {
       types: {
-        "root": {
-          icon: {
-            image: '/images/treeRoot.png'
-          }
-        },
-        "string": {
-          icon: {
-            image: '/images/treeString.png'
-          }
-        },
-        "hash": {
-          icon: {
-            image: '/images/treeHash.png'
-          }
-        },
-        "set": {
-          icon: {
-            image: '/images/treeSet.png'
-          }
-        },
-        "list": {
-          icon: {
-            image: '/images/treeList.png'
-          }
-        },
-        "zset": {
-          icon: {
-            image: '/images/treeZSet.png'
+        types: {
+          "root": {
+            icon: {
+              image: '/images/treeRoot.png'
+            }
+          },
+          "string": {
+            icon: {
+              image: '/images/treeString.png'
+            }
+          },
+          "hash": {
+            icon: {
+              image: '/images/treeHash.png'
+            }
+          },
+          "set": {
+            icon: {
+              image: '/images/treeSet.png'
+            }
+          },
+          "list": {
+            icon: {
+              image: '/images/treeList.png'
+            }
+          },
+          "zset": {
+            icon: {
+              image: '/images/treeZSet.png'
+            }
           }
         }
-      }
-    },
-    plugins: [ "themes", "json_data", "types", "ui" ]
-  })
-    .bind("select_node.jstree", treeNodeSelected)
-    .delegate("a", "click", function (event, data) { event.preventDefault(); });
+      },
+      plugins: [ "themes", "json_data", "types", "ui" ]
+    })
+      .bind("select_node.jstree", treeNodeSelected)
+      .delegate("a", "click", function (event, data) { event.preventDefault(); });
+  });
 }
 
 function treeNodeSelected(event, data) {
