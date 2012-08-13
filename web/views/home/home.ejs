@@ -30,11 +30,11 @@
 <script type="text/javascript">
   $(function () {
     loadTree();
+    loadConfig();
     loadCommandLine();
     setupResizeEvents();
     setupCommandLock();
     setupCLIKeyEvents();
-    resizeApp();
     $('.container').removeClass('container');
     $('html').css('overflow-y','hidden');
     $('#pageIndex').live('keydown',function(e){
