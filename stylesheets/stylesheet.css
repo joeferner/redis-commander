@@ -355,9 +355,7 @@ footer a:hover {
   #downloads {
     margin-bottom: 25px;
   }
-  #download-zip, #download-tar-gz {
-    display: none;
-  }
+
   .inner {
     width: 94%;
     margin: 0 auto;
