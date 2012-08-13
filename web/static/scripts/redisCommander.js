@@ -11,97 +11,102 @@ function loadTree() {
     }
   });
 
-  $('#keyTree').jstree({
-    json_data: {
-      data: {
-        data: "Root",
-        state: "closed",
-        attr: {
-          id: "root",
-          rel: "root"
+  $.get('/apiv1/server/info', function (data, status) {
+    data = JSON.parse(data);
+    var host = data.host;
+    var port = data.port;
+    $('#keyTree').jstree({
+      json_data: {
+        data: {
+          data: host + ":" + port,
+          state: "closed",
+          attr: {
+            id: "root",
+            rel: "root"
+          }
+        },
+        ajax: {
+          url: function (node) {
+            if (node !== -1) {
+              var path = getFullKeyPath(node);
+              return '/apiv1/keystree/' + path + '?absolute=false';
+            }
+            return '/apiv1/keystree';
+          }
         }
       },
-      ajax: {
-        url: function (node) {
-          if (node !== -1) {
-            var path = getFullKeyPath(node);
-            return '/apiv1/keystree/' + path + '?absolute=false';
-          }
-          return '/apiv1/keystree';
-        }
-      }
-    },
-    types: {
       types: {
-        "root": {
-          icon: {
-            image: '/images/treeRoot.png'
-          }
-        },
-        "string": {
-          icon: {
-            image: '/images/treeString.png'
-          }
-        },
-        "hash": {
-          icon: {
-            image: '/images/treeHash.png'
-          }
-        },
-        "set": {
-          icon: {
-            image: '/images/treeSet.png'
-          }
-        },
-        "list": {
-          icon: {
-            image: '/images/treeList.png'
-          }
-        },
-        "zset": {
-          icon: {
-            image: '/images/treeZSet.png'
-          }
-        }
-      }
-    },
-    contextmenu:{
-      items: function(node){
-        console.log(node);
-        var menu = {
-          "addKey":{
-            icon:'icon-plus',
-            label:"Add Key",
-            action:addKey
-          },
-          "refresh":{
-            icon:'icon-refresh',
-            label:"Refresh",
-            action:function(obj){
-              jQuery.jstree._reference("#keyTree").refresh(obj);
+        types: {
+          "root": {
+            icon: {
+              image: '/images/treeRoot.png'
             }
           },
-          "remKey":{
-            icon:'icon-trash',
-            label:'Remove Key',
-            action:deleteKey
+          "string": {
+            icon: {
+              image: '/images/treeString.png'
+            }
+          },
+          "hash": {
+            icon: {
+              image: '/images/treeHash.png'
+            }
+          },
+          "set": {
+            icon: {
+              image: '/images/treeSet.png'
+            }
+          },
+          "list": {
+            icon: {
+              image: '/images/treeList.png'
+            }
+          },
+          "zset": {
+            icon: {
+              image: '/images/treeZSet.png'
+            }
           }
         }
-        var rel = node.attr('rel');
-        console.log(rel);
-        if(rel != undefined && rel !='root'){
-          delete menu['addKey'];
+      },
+      contextmenu:{
+        items: function(node){
+          console.log(node);
+          var menu = {
+            "addKey":{
+              icon:'icon-plus',
+              label:"Add Key",
+              action:addKey
+            },
+            "refresh":{
+              icon:'icon-refresh',
+              label:"Refresh",
+              action:function(obj){
+                jQuery.jstree._reference("#keyTree").refresh(obj);
+              }
+            },
+            "remKey":{
+              icon:'icon-trash',
+              label:'Remove Key',
+              action:deleteKey
+            }
+          }
+          var rel = node.attr('rel');
+          console.log(rel);
+          if(rel != undefined && rel !='root'){
+            delete menu['addKey'];
+          }
+          if(rel == 'root'){
+            delete menu['remKey'];
+          }
+          return menu;
         }
-        if(rel == 'root'){
-          delete menu['remKey'];
-        }
-        return menu;
-      }
-    },
-    plugins: [ "themes", "json_data", "types", "ui",'contextmenu' ]
-  })
-    .bind("select_node.jstree", treeNodeSelected)
-    .delegate("a", "click", function (event, data) { event.preventDefault(); });
+      },
+      plugins: [ "themes", "json_data", "types", "ui" ]
+    })
+      .bind("select_node.jstree", treeNodeSelected)
+      .delegate("a", "click", function (event, data) { event.preventDefault(); });
+  });
 }
 
 function treeNodeSelected(event, data) {
@@ -697,13 +702,12 @@ function setupCLIKeyEvents() {
     }
   });
 
-function clearCLI (){
-  var cli = $('#_readline_cliForm input');
-  if(cli.val() == ''){
-    hideCommandLineOutput();
-  }else{
-    cli.val('');
+  function clearCLI (){
+    var cli = $('#_readline_cliForm input');
+    if(cli.val() == ''){
+      hideCommandLineOutput();
+    }else{
+      cli.val('');
+    }
   }
-}
-
 }
