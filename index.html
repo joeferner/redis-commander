@@ -53,16 +53,26 @@
         background-color:black;
         background-repeat:repeat-x;
       }
-
+      #mobile-header{
+        display:none;
+      }
       #downloads{
         margin:0 auto;
         width:620px;
       }
-      @media (max-device-width: 800px) {
+      @media (max-width: 800px) {
 
         .banner{
-          width:100%;
-          height:300px;
+          display:none;
+      }
+      #mobile-header{
+        display:block;
+      }
+      #mobile-header .title{
+        color:#DDD;
+        padding-top:15px;
+        margin-bottom:30px;
+        text-shadow:none;
       }
       .ribbon{
         height:75px;
@@ -106,7 +116,10 @@
       <img class="banner" src="images/redis_header_test.png"/>
       <div class="inner">
 
-        
+        <section id="mobile-header">
+          <h1 class="title">Redis Commander</h1>
+          <p>Redis-Commander is a node.js web application used to view,edit, and manager a Redis Database</p>
+        </section>
         <section id="downloads" class="clearfix">
           <a href="https://github.com/nearinfinity/redis-commander/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
           <a href="https://github.com/nearinfinity/redis-commander/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
