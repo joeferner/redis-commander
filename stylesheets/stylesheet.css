@@ -347,7 +347,7 @@ footer a:hover {
 @media only screen and (min-width: 768px) and (max-width: 959px) {}
 
 /* All Mobile Sizes (devices and browser) */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-device-width: 767px) {
   header {
     padding-top: 10px;
     padding-bottom: 10px;
