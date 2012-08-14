@@ -32,16 +32,6 @@
 
       <ul class="nav">
       </ul>
-
-      <div style="float: right;">
-        <% if(isLoggedIn()) { %>
-          <form action="/logout" method="POST" class="form-inline" style="margin-bottom: 0;">
-            <input type="submit" id="logoutButton" class='btn btn-primary' value='Logout'>
-          </form>
-        <% } else { %>
-          <a href="/login" id="loginButton" class='btn btn-primary'>Login</a>
-        <% } %>
-      </div>
     </div>
   </div>
 </div>

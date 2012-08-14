@@ -102,7 +102,7 @@ function loadTree() {
           return menu;
         }
       },
-      plugins: [ "themes", "json_data", "types", "ui" ]
+      plugins: [ "themes", "json_data", "types", "ui", "contextmenu" ]
     })
       .bind("select_node.jstree", treeNodeSelected)
       .delegate("a", "click", function (event, data) { event.preventDefault(); });
@@ -170,7 +170,6 @@ function loadKey(key) {
 function selectTreeNodeBranch(data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
-  setupAddKeyButton();
 }
 function setupAddKeyButton() {
   $('#keyValue').keyup(function () {
@@ -310,6 +309,10 @@ function refreshTree() {
   getKeyTree().refresh();
 }
 
+function changeServer(){
+  $('#addServerForm').submit();
+}
+
 function addKey(key){
   if(typeof(key) == 'object'){
     key = getFullKeyPath(key);
@@ -320,6 +323,7 @@ function addKey(key){
   $('#addKeyForm').attr('action', '/apiv1/key/' + key);
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
+  setupAddKeyButton();
 }
 function deleteKey(key){
   if(typeof(key) == 'object'){
