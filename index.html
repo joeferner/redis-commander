@@ -46,10 +46,16 @@
         text-align:center;
         font-size:20px;
         padding-top:20px;
+        background-image:url('images/cover-ss.png');
+        background-position:left center;
+        background-size:40% auto;
+          background-repeat:no-repeat;
+        padding-left:35%
       }
       #about h1{
         font-size:26px;
         color:black;
+        margin:inherit;
       }
       #downloads{
         width:100%;
@@ -63,7 +69,10 @@
         width:94%;
         position:relative;
       }
-
+      h1{
+        margin:20px 0;
+        text-align:center;
+      }
       .screenshot{
         border:2px solid #CCC;
         margin-bottom:20px;
@@ -119,6 +128,9 @@
           background-repeat:no-repeat;
           min-height:300px;
         }
+        h1{
+        text-align:left;
+      }
     }
     </style>
     <title>Redis-Commander</title>
@@ -139,7 +151,7 @@
       <div class="inner">
 
         <section id="about">
-          <h1>What is Redis Commander???</h1>
+          <h1>What is Redis Commander?</h1>
           <p>Redis-Commander is a node.js web application used to view,edit, and manager a Redis Database</p>
         </section>
 
@@ -150,7 +162,7 @@
         </section>
 
         <section id="main_content">
-          <h1 style="margin:20px 0;">Features</h1>
+          <h1>Features</h1>
           <div class="feature">
             <h3>Config Information</h3>
             <p>View configuration information from your Redis database</p>
@@ -194,7 +206,7 @@
           <h1>Install and Run</h1>
 
           <div class="highlight"><pre><span class="nv">$ </span>npm install -g redis-commander
-          <span class="nv">$ </span>redis-commander --port 8081 --redis-host localhost
+          <span class="nv" style="margin-left:-82px">$ </span>redis-commander --port 8081 --redis-host localhost
           </pre></div>
         </section>
         <footer>
