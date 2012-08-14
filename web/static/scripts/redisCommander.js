@@ -707,7 +707,7 @@ function saveConfig(){
     }
   });
 }
-function loadConfig(){
+function loadConfig(callback){
   $.get('/config',function(data){
     if(data){
       $.get('/apiv1/connection', function (isConnected){
@@ -734,6 +734,9 @@ function loadConfig(){
         $('#lockCommandButton').addClass('disabled');
       }
       configLoaded = true;
+      if (callback){
+        callback();
+      }
     }
   });
 }
