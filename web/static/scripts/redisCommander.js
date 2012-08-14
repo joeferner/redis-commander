@@ -1,111 +1,110 @@
 'use strict';
 
 var CmdParser = require('cmdparser');
-
 function loadTree() {
-  $('#keyTree').bind("loaded.jstree", function () {
-    var tree = getKeyTree();
-    if (tree) {
-      var root = tree._get_children(-1)[0];
-      tree.open_node(root, null, true);
-    }
-  });
-
-  $.get('/apiv1/server/info', function (data, status) {
-    data = JSON.parse(data);
-    var host = data.host;
-    var port = data.port;
-    $('#keyTree').jstree({
-      json_data: {
-        data: {
-          data: host + ":" + port,
-          state: "closed",
-          attr: {
-            id: "root",
-            rel: "root"
-          }
-        },
-        ajax: {
-          url: function (node) {
-            if (node !== -1) {
-              var path = getFullKeyPath(node);
-              return '/apiv1/keystree/' + path + '?absolute=false';
-            }
-            return '/apiv1/keystree';
-          }
+  $.get('/apiv1/connection', function (isConnected){
+    if(isConnected){
+      $('#keyTree').bind("loaded.jstree", function () {
+        var tree = getKeyTree();
+        if (tree) {
+          var root = tree._get_children(-1)[0];
+          tree.open_node(root, null, true);
         }
-      },
-      types: {
-        types: {
-          "root": {
-            icon: {
-              image: '/images/treeRoot.png'
-            }
-          },
-          "string": {
-            icon: {
-              image: '/images/treeString.png'
-            }
-          },
-          "hash": {
-            icon: {
-              image: '/images/treeHash.png'
-            }
-          },
-          "set": {
-            icon: {
-              image: '/images/treeSet.png'
-            }
-          },
-          "list": {
-            icon: {
-              image: '/images/treeList.png'
-            }
-          },
-          "zset": {
-            icon: {
-              image: '/images/treeZSet.png'
-            }
-          }
-        }
-      },
-      contextmenu:{
-        items: function(node){
-          console.log(node);
-          var menu = {
-            "addKey":{
-              icon:'icon-plus',
-              label:"Add Key",
-              action:addKey
-            },
-            "refresh":{
-              icon:'icon-refresh',
-              label:"Refresh",
-              action:function(obj){
-                jQuery.jstree._reference("#keyTree").refresh(obj);
+      });
+      getServerInfo(function (data) {
+        var host = data.host;
+        var port = data.port;
+        $('#keyTree').jstree({
+          json_data: {
+            data: {
+              data: host + ":" + port,
+              state: "closed",
+              attr: {
+                id: "root",
+                rel: "root"
               }
             },
-            "remKey":{
-              icon:'icon-trash',
-              label:'Remove Key',
-              action:deleteKey
+            ajax: {
+              url: function (node) {
+                if (node !== -1) {
+                  var path = getFullKeyPath(node);
+                  return '/apiv1/keystree/' + path + '?absolute=false';
+                }
+                return '/apiv1/keystree';
+              }
             }
-          }
-          var rel = node.attr('rel');
-          console.log(rel);
-          if(rel != undefined && rel !='root'){
-            delete menu['addKey'];
-          }
-          if(rel == 'root'){
-            delete menu['remKey'];
-          }
-          return menu;
-        }
-      },
-      plugins: [ "themes", "json_data", "types", "ui", "contextmenu" ]
-    })
-      .bind("select_node.jstree", treeNodeSelected)
-      .delegate("a", "click", function (event, data) { event.preventDefault(); });
+          },
+          types: {
+            types: {
+              "root": {
+                icon: {
+                  image: '/images/treeRoot.png'
+                }
+              },
+              "string": {
+                icon: {
+                  image: '/images/treeString.png'
+                }
+              },
+              "hash": {
+                icon: {
+                  image: '/images/treeHash.png'
+                }
+              },
+              "set": {
+                icon: {
+                  image: '/images/treeSet.png'
+                }
+              },
+              "list": {
+                icon: {
+                  image: '/images/treeList.png'
+                }
+              },
+              "zset": {
+                icon: {
+                  image: '/images/treeZSet.png'
+                }
+              }
+            }
+          },
+          contextmenu:{
+            items: function(node){
+              var menu = {
+                "addKey":{
+                  icon:'icon-plus',
+                  label:"Add Key",
+                  action:addKey
+                },
+                "refresh":{
+                  icon:'icon-refresh',
+                  label:"Refresh",
+                  action:function(obj){
+                    jQuery.jstree._reference("#keyTree").refresh(obj);
+                  }
+                },
+                "remKey":{
+                  icon:'icon-trash',
+                  label:'Remove Key',
+                  action:deleteKey
+                }
+              }
+              var rel = node.attr('rel');
+              if(rel != undefined && rel !='root'){
+                delete menu['addKey'];
+              }
+              if(rel == 'root'){
+                delete menu['remKey'];
+              }
+              return menu;
+            }
+          },
+          plugins: [ "themes", "json_data", "types", "ui", "contextmenu" ]
+        })
+          .bind("select_node.jstree", treeNodeSelected)
+          .delegate("a", "click", function (event, data) { event.preventDefault(); });
+      });
+    }
   });
 }
 
@@ -307,10 +306,6 @@ function getKeyTree() {
 
 function refreshTree() {
   getKeyTree().refresh();
-}
-
-function changeServer(){
-  $('#addServerForm').submit();
 }
 
 function addKey(key){
@@ -631,11 +626,36 @@ var prevLocked;
 var prevCLIWidth;
 var prevCLIOpen;
 var configLoaded = false;
-function configChange(){
+var prevHost;
+var prevPort;
+
+function getServerInfo(callback){
+  $.get('/apiv1/server/info', function (data, status) {
+    callback(JSON.parse(data))
+  });
+}
+
+function changeServer(){
+  $('#addServerForm').submit();
+  console.log("Server changed");
+  saveConfig();
+}
+
+function loadDefaultServer(host, port){
+  console.log("host" + host);
+  console.log("port" + port);
+  $('#hostname').val(host);
+  $('#port').val(port);
+  $('#addServerForm').submit();
+}
+
+function configChange(){  
+  console.log("check");
   if(!configLoaded){
     var sidebarWidth = $('#sideBar').width();
     var locked = !$('#lockCommandButton').hasClass('disabled');
     var CLIWidth = $('#commandLineContainer').height();
+
     if(typeof(prevSidebarWidth) != 'undefined' &&
       (sidebarWidth != prevSidebarWidth ||
        locked != prevLocked ||
@@ -655,24 +675,48 @@ function configChange(){
 
 function saveConfig(){
   console.log('Saving Config...');
+  var config = null;
   var sidebarWidth = $('#sideBar').width();
   var locked = !$('#lockCommandButton').hasClass('disabled');
   var CLIHeight = $('#commandLineContainer').height();
-  var config = {
-    "sidebarWidth":sidebarWidth,
-    "locked":locked,
-    "CLIHeight":CLIHeight,
-    "CLIOpen":CLIOpen
-  };
-  $.post('/config',config,function(data,status){
-    console.log('Config Saved');
+  $.get('/apiv1/connection', function (isConnected){
+    if(isConnected){
+      getServerInfo(function (data){
+        config = {
+          "sidebarWidth":sidebarWidth,
+          "locked":locked,
+          "CLIHeight":CLIHeight,
+          "CLIOpen":CLIOpen,
+          "host":data.host,
+          "port":data.port
+        };  
+        $.post('/config',config,function(data,status){
+          console.log('Config Saved');
+        });
+      });
+    }else{
+      var config = {
+        "sidebarWidth":sidebarWidth,
+        "locked":locked,
+        "CLIHeight":CLIHeight,
+        "CLIOpen":CLIOpen
+      }; 
+      $.post('/config',config,function(data,status){
+        console.log('Config Saved');
+      }); 
+    }
   });
 }
-
 function loadConfig(){
   $.get('/config',function(data){
     if(data){
-      data = JSON.parse(data);
+      $.get('/apiv1/connection', function (isConnected){
+        if(!isConnected){
+          if(data['host']){
+            loadDefaultServer(data['host'],data['port']);
+          }
+        }
+      });
       if(data['sidebarWidth']){
         $('#sideBar').width(data['sidebarWidth']);
       }
