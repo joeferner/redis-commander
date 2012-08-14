@@ -188,6 +188,10 @@
   text-decoration: none;
 }
 
+#addServerContainer{
+  padding-left: 20px;
+}
+
 #scoreWrap {
   display:none;
   margin-left:10px;

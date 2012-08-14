@@ -3,7 +3,8 @@
     <div id="sideBar">
       <div id="keyTreeActions">
         <button class="btn btn-success btn-mini" onclick="refreshTree()">Refresh</button>
-        <button class="btn btn-primary btn-mini" data-toggle="modal" href="#redisCommandsModal">Commands</button>
+        <button class="btn btn-mini" data-toggle="modal" href="#redisCommandsModal">Commands</button>
+        <button class="btn btn-primary btn-mini" data-toggle="modal" href="#myModal">Change Server</button>
       </div>
       <div id="keyTree"></div>
       <div id="sidebarResize"></div>
@@ -25,6 +26,27 @@
   <button id="redisCommandsClose" type="button" class="close" data-dismiss="modal">×</button>
   <div class="modal-body">
     <iframe seamless="seamless" src="http://redis.io/commands">test</iframe>
+  </div>
+</div>
+<div class="modal hide fade" id="myModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Add a connection</h3>
+  </div>
+  <div class="modal-body">
+    <div class="container" id="addServerContainer">
+      <form action="login" method="POST" id="addServerForm">
+        <label>Hostname</label>
+        <input type="text" name="hostname" id="hostname" value="localhost">
+        <label>Port</label>
+        <input type="text" name="port" id="port" value="6379">
+        <br>
+      </form>
+    </div> 
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a type="submit" onclick="changeServer()" class="btn btn-primary">Connect...</a>
   </div>
 </div> 
 <script type="text/javascript">
