@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="icon" 
+      type="image/png" 
+      href="favicon.png">
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
@@ -10,44 +14,10 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    
     <style type="text/css">
-      .screenshot{
-        border:2px solid #CCC;
-        margin-bottom:20px;
-        width:315px;
-        display:inline-block;
-      }
-      .ribbon{
-        position: absolute; top: 0; right: 0; border: 0; z-index:100; height:113px;
-      }
-      .feature{
-        width:340px;
-        padding:0 20px;
-        display:inline-block;
-        vertical-align:top;
-        text-align:left;
-      }
-      .inner{
-        position:relative;
-        width:800px;
-        z-index:2;
-      }
-      #main_content{
-        width:100%;
-      }
-      .banner{
-        width:800px;
-        position:relative;
-        margin:0 auto;
-        z-index:2;
-        display:block;
-      }
       #head{
         width:100%;
-        position:absolute;
-        left:0;
-        right:0;
-        height:113px;
         z-index:1;
         background: #4c4c4c; /* Old browsers */
         background: -moz-linear-gradient(top, #4c4c4c 0%, #1c1c1c 91%, #131313 100%); /* FF3.6+ */
@@ -58,50 +28,108 @@
         background: linear-gradient(to bottom, #4c4c4c 0%,#1c1c1c 91%,#131313 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
       }
-      #mobile-header{
-        display:none;
-      }
-      #downloads{
-        margin:0 auto;
-        width:620px;
-      }
-      @media (max-device-width: 800px) {
-        .banner{
-          display:none;
-      }
-      #mobile-header{
-        display:block;
-      }
-      #mobile-header .title{
-        color:#DDD;
-        padding-top:15px;
-        margin-bottom:30px;
-        text-shadow:none;
-      }
       .ribbon{
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: 0;
+        z-index:100;
         height:70px;
       }
-      #head{
-        height:70px;
+      .banner{
+        margin:0 auto;
+        display:block;
+        width:80%;
       }
-      .inner{
-        width:94%;
+
+      #about{
+        text-align:center;
+        font-size:20px;
+        padding-top:20px;
+        background-image:url('images/cover-ss.png');
+        background-position:left center;
+        background-size:40% auto;
+          background-repeat:no-repeat;
+        padding-left:35%
+      }
+      #about h1{
+        font-size:26px;
+        color:black;
+        margin:inherit;
       }
       #downloads{
         width:100%;
+        margin:0 auto;
       }
-      .feature{
-        width:90%;
-        margin:40px auto 0;
-        display:block;
+      a.button{
+        width:96%;  
+      }
+
+      .inner{
+        width:94%;
+        position:relative;
+      }
+      h1{
+        margin:20px 0;
+        text-align:center;
       }
       .screenshot{
+        border:2px solid #CCC;
+        margin-bottom:20px;
         width:80%;
         margin:0 auto;
         display:block;
       }
-      #downloads a{
-        width:96%;  
+
+      .feature{
+        width:90%;
+        margin:40px auto 0;
+        display:block;
+        padding:0 20px;
+        vertical-align:top;
+        text-align:left;
+      }
+
+      @media screen and (min-width: 800px) {
+        .screenshot{
+          width:315px;
+          display:inline-block;
+        }
+        .ribbon{
+          height:113px;
+        }
+        .feature{
+          width:340px;
+          display:inline-block;
+        }
+        .inner{
+          width:800px;
+        }
+        #main_content{
+          width:100%;
+        }
+        .banner{
+          width:600px;
+        }
+
+        #downloads{
+          width:620px;
+        }
+        a.button{
+          width:179px;
+        }
+        #about{
+          text-align:left;
+          padding-left:450px;
+          padding-top:100px;
+          background-image:url('images/cover-ss.png');
+          background-position:left top;
+          background-size:500px 375px;
+          background-repeat:no-repeat;
+          min-height:300px;
+        }
+        h1{
+        text-align:left;
       }
     }
     </style>
@@ -110,28 +138,31 @@
 
   <body>
     <div id="container">
-    <a href="https://github.com/nearinfinity/redis-commander">
-      <img class="ribbon"
+
+      <div id="head">
+        <img class="banner" src="images/banner.png"/>
+        <a href="https://github.com/nearinfinity/redis-commander">
+          <img class="ribbon"
            src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" 
            alt="Fork me on GitHub">      
-    </a>
-      <div id="head">
+        </a>
       </div>
-      <img class="banner" src="images/redis_header_test.png"/>
+
       <div class="inner">
 
-        <section id="mobile-header">
-          <img class="title" src="images/RedisCommandLogo.png"/>
+        <section id="about">
+          <h1>What is Redis Commander?</h1>
           <p>Redis-Commander is a node.js web application used to view,edit, and manager a Redis Database</p>
         </section>
+
         <section id="downloads" class="clearfix">
           <a href="https://github.com/nearinfinity/redis-commander/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
           <a href="https://github.com/nearinfinity/redis-commander/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
           <a href="https://github.com/nearinfinity/redis-commander" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
+
         <section id="main_content">
-          
-          <h1 style="margin:20px 0;">Features</h1>
+          <h1>Features</h1>
           <div class="feature">
             <h3>Config Information</h3>
             <p>View configuration information from your Redis database</p>
@@ -174,16 +205,14 @@
               
           <h1>Install and Run</h1>
 
-<div class="highlight"><pre><span class="nv">$ </span>npm install -g redis-commander
-<span class="nv">$ </span>redis-commander --port 8081 --redis-host localhost
-</pre></div>
+          <div class="highlight"><pre><span class="nv">$ </span>npm install -g redis-commander
+          <span class="nv" style="margin-left:-82px">$ </span>redis-commander --port 8081 --redis-host localhost
+          </pre></div>
         </section>
         <footer>
           Redis-Commander is maintained by <a href="https://github.com/nearinfinity">Near Infinity</a><br>
           This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
         </footer>
-
-        
       </div>
     </div>
   </body>
