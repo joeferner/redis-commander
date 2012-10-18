@@ -20,6 +20,10 @@ var args = optimist
     string: true,
     describe: 'The redis password.'
   })
+  .options('redis-db', {
+    string: true,
+    describe: 'The redis database.'
+  })
   .options('port', {
     alias: 'p',
     string: true,
@@ -42,19 +46,27 @@ if (args['redis-host']) {
   });
   if(args['redis-password']){
     redisConnection.auth(args['redis-password'], function(err, data){
-      if(err){ 
-        console.log(err);
-        process.exit();
-      }
-      redisConnection.on("connect", startWebApp);
+      if(err){ console.log(err); process.exit(); }
+      redisConnection.on("connect", connectToDB);
     });
   }else{
-    redisConnection.on("connect", startWebApp);
+    redisConnection.on("connect", connectToDB);
   }
 } else {
-  startWebApp();
+  redisConnection = redis.createClient();
+  connectToDB();
 }
+
+function connectToDB(){
+  var db = parseInt(args['redis-db']);
+  if(db == null){ db = 0 };
+  redisConnection.select(db, function(err,res){
+    if(err){ console.log(err); process.exit(); }
+    console.log("Using Redis DB #" + db);
+    startWebApp();
+  });
+};
 
 function startWebApp() {
   app(args.port, redisConnection);
-}
+};
