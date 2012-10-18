@@ -16,6 +16,10 @@ var args = optimist
     string: true,
     describe: 'The host to find redis on.'
   })
+  .options('redis-password', {
+    string: true,
+    describe: 'The redis password.'
+  })
   .options('port', {
     alias: 'p',
     string: true,
@@ -36,7 +40,17 @@ if (args['redis-host']) {
     console.error("Redis error", err.stack);
     process.exit(-1);
   });
-  redisConnection.on("connect", startWebApp);
+  if(args['redis-password']){
+    redisConnection.auth(args['redis-password'], function(err, data){
+      if(err){ 
+        console.log(err);
+        process.exit();
+      }
+      redisConnection.on("connect", startWebApp);
+    });
+  }else{
+    redisConnection.on("connect", startWebApp);
+  }
 } else {
   startWebApp();
 }
