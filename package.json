@@ -25,8 +25,8 @@
     "express": "2.x.x",
     "inflection": "~1.2.0",
     "browserify": "~1.12.2",
-    "readline-browserify": "git://github.com/nearinfinity/node-readline-browserify.git",
-    "cmdparser": "git://github.com/nearinfinity/node-cmdparser.git"
+    "readline-browserify": "0.0.4",
+    "cmdparser": "0.0.3"
   },
   "devDependencies": {},
   "optionalDependencies": {},
