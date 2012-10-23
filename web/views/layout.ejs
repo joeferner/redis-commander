@@ -39,7 +39,7 @@
   <% var flashes = getFlashes(); %>
   <% for(var flashType in flashes) { %>
     <% flashes[flashType].forEach(function (flash) { %>
-      <div class="alert alert-block <%= flashType === 'error' ? 'alert-error' : '' %> fade in">
+      <div style="margin-left: 275px;" class="alert alert-block <%= flashType === 'error' ? 'alert-error' : '' %> fade in">
         <button class="close" data-dismiss="alert">×</button>
         <%= flash %>
       </div>

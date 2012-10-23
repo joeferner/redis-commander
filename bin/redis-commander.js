@@ -40,16 +40,19 @@ if (args.help) {
 var redisConnection;
 if (args['redis-host']) {
   redisConnection = redis.createClient(args['redis-port'], args['redis-host']);
-  redisConnection.on("error", function (err) {
+  redisConnection.on("error", function(err) {
     console.error("Redis error", err.stack);
     process.exit(-1);
   });
-  if(args['redis-password']){
-    redisConnection.auth(args['redis-password'], function(err, data){
-      if(err){ console.log(err); process.exit(); }
+  if (args['redis-password']) {
+    redisConnection.auth(args['redis-password'], function(err) {
+      if (err) {
+        console.log(err);
+        process.exit();
+      }
       redisConnection.on("connect", connectToDB);
     });
-  }else{
+  } else {
     redisConnection.on("connect", connectToDB);
   }
 } else {
@@ -57,16 +60,21 @@ if (args['redis-host']) {
   connectToDB();
 }
 
-function connectToDB(){
+function connectToDB() {
   var db = parseInt(args['redis-db']);
-  if(db == null){ db = 0 };
-  redisConnection.select(db, function(err,res){
-    if(err){ console.log(err); process.exit(); }
+  if (db == null) {
+    db = 0
+  }
+  redisConnection.select(db, function(err, res) {
+    if (err) {
+      console.log(err);
+      process.exit();
+    }
     console.log("Using Redis DB #" + db);
     startWebApp();
   });
-};
+}
 
 function startWebApp() {
   app(args.port, redisConnection);
-};
+}
