@@ -62,7 +62,7 @@ if (args['redis-host']) {
 
 function connectToDB() {
   var db = parseInt(args['redis-db']);
-  if (db == null) {
+  if (db == null || isNaN(db)) {
     db = 0
   }
   redisConnection.select(db, function(err, res) {
