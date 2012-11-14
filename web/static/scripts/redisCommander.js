@@ -132,7 +132,7 @@ function getFullKeyPath(node){
   return $.jstree._focused().get_path(node, true).slice(1).join(':');
 }
 function loadKey(key) {
-  $.get('/apiv1/key/' + key, function (data, status) {
+  $.get('/apiv1/key/' + encodeURIComponent(key), function (data, status) {
       if (status != 'success') {
         return alert("Could not load key data");
       }
@@ -172,7 +172,7 @@ function selectTreeNodeBranch(data) {
 }
 function setupAddKeyButton() {
   $('#keyValue').keyup(function () {
-    var action = "/apiv1/key/" + $(this).val();
+    var action = "/apiv1/key/" + encodeURIComponent($(this).val());
     $('#addKeyForm').attr("action", action);
   });
   $('#keyType').change(function () {
@@ -315,7 +315,7 @@ function addKey(key){
       key = key + ":";
     }
   }
-  $('#addKeyForm').attr('action', '/apiv1/key/' + key);
+  $('#addKeyForm').attr('action', '/apiv1/key/' + encodeURIComponent(key));
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
   setupAddKeyButton();
@@ -326,7 +326,7 @@ function deleteKey(key){
   }
   var result = confirm('Are you sure you want to delete "' + key + '"?');
   if (result) {
-    $.post('/apiv1/key/' + key + '?action=delete', function (data, status) {
+    $.post('/apiv1/key/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
       if (status != 'success') {
         return alert("Could not delete key");
       }
