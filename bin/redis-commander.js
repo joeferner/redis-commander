@@ -24,6 +24,16 @@ var args = optimist
     string: true,
     describe: 'The redis database.'
   })
+  .options('http-auth-username', {
+    alias: "http-u",
+    string: true,
+    describe: 'The http authorisation username.'
+  })
+  .options('http-auth-password', {
+    alias: "http-p",
+    string: true,
+    describe: 'The http authorisation password.'
+  })
   .options('port', {
     alias: 'p',
     string: true,
@@ -76,5 +86,6 @@ function connectToDB() {
 }
 
 function startWebApp() {
-  app(args.port, redisConnection);
+  httpServerOptions = {webPort: args.port, username: args["http-auth-username"], password: args["http-auth-password"]}
+  app(httpServerOptions, redisConnection);
 }
