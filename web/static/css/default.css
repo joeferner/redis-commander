@@ -17,6 +17,7 @@
 }
 
 #itemData {
+  overflow: scroll;
   margin-top: 32px;
 }
 
