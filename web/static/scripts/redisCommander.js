@@ -131,40 +131,45 @@ function treeNodeSelected(event, data) {
 function getFullKeyPath(node){
   return $.jstree._focused().get_path(node, true).slice(1).join(':');
 }
-function loadKey(key) {
-  $.get('/apiv1/key/' + encodeURIComponent(key), function (data, status) {
-      if (status != 'success') {
-        return alert("Could not load key data");
-      }
+function loadKey(key, index) {
+  if (index) {
+    $.get('/apiv1/key/' + encodeURIComponent(key) + "/" + index, processData);
+  } else {
+    $.get('/apiv1/key/' + encodeURIComponent(key), processData);
+  }
+  function processData (data, status) {
+    if (status != 'success') {
+      return alert("Could not load key data");
+    }
 
-      data = JSON.parse(data);
-      console.log("rendering type " + data.type);
-      switch (data.type) {
-      case 'string':
-        selectTreeNodeString(data);
-        break;
-      case 'hash':
-        selectTreeNodeHash(data);
-        break;
-      case 'set':
-        selectTreeNodeSet(data);
-        break;
-      case 'list':
-        selectTreeNodeList(data);
-        break;
-      case 'zset':
-        selectTreeNodeZSet(data);
-        break;
-      case 'none':
-        selectTreeNodeBranch(data);
-        break;
-      default:
-        var html = JSON.stringify(data);
-        $('#body').html(html);
-        break;
-      }
-      resizeApp();
-    });
+    data = JSON.parse(data);
+    console.log("rendering type " + data.type);
+    switch (data.type) {
+    case 'string':
+      selectTreeNodeString(data);
+      break;
+    case 'hash':
+      selectTreeNodeHash(data);
+      break;
+    case 'set':
+      selectTreeNodeSet(data);
+      break;
+    case 'list':
+      selectTreeNodeList(data);
+      break;
+    case 'zset':
+      selectTreeNodeZSet(data);
+      break;
+    case 'none':
+      selectTreeNodeBranch(data);
+      break;
+    default:
+      var html = JSON.stringify(data);
+      $('#body').html(html);
+      break;
+    }
+    resizeApp();
+  }
 }
 function selectTreeNodeBranch(data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
