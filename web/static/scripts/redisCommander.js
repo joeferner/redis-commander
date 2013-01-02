@@ -272,8 +272,7 @@ function selectTreeNodeList(data) {
     $('#addListValueForm').ajaxForm({
       beforeSubmit: function () {
         console.log('saving');
-        $('#saveValueButton').attr("disabled", "disabled");
-        $('#saveValueButton').html("<i class='icon-refresh'></i> Saving");
+        $('#saveValueButton').button('loading');
       },
       error: function (err) {
         console.log('save error', arguments);
@@ -282,6 +281,7 @@ function selectTreeNodeList(data) {
       },
       success: function () {
         console.log('saved', arguments);
+        $('#saveValueButton').button('reset');
         saveComplete();
       }
     });
@@ -341,6 +341,10 @@ function deleteKey(key){
       $('#body').html('');
     });
   }
+}
+function addListValue(key){
+  $('#key').val(key);
+  $('#addListValueModal').modal('show');
 }
 
 function deleteBranch(branchPrefix) {
