@@ -346,7 +346,13 @@ function addListValue(key){
   $('#key').val(key);
   $('#addListValueModal').modal('show');
 }
-
+function editRow(key, index, value){
+  console.log("key", key);
+  $('#editKey').val(key);
+  $('#index').val(index);
+  $('#value').val(value);
+  $('#editRowModal').modal('show');
+}
 function deleteBranch(branchPrefix) {
   var query = branchPrefix + ':*';
   var result = confirm('Are you sure you want to delete "' + query + '"? This will delete all children as well!');

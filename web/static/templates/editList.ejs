@@ -29,3 +29,19 @@
     </tbody>
    </table>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.table tbody tr').dblclick(function(event) {
+      var row = event.currentTarget;
+      var index = row.children[0].innerHTML.toString();
+      var value = row.children[1].innerHTML.toString();
+      var fullKey = <%= key %>
+      var key = fullKey.id;
+      console.log(key);
+      console.log(index);
+      console.log(value);
+
+      editRow(key, index, value);
+    });
+  });
+</script>
