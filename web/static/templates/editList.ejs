@@ -1,5 +1,5 @@
 <div id="itemActionsBar" class="form">
-  <button class="btn" data-toggle="modal" href="#addListValueModal" style="margin-right: 5px">Add New Value...</button>
+  <button class="btn" data-toggle="modal" onclick="addListValue('<%= key %>')" style="margin-right: 5px">Add New Value...</button>
   <button class="btn btn-danger" onclick="deleteKey('<%= key %>')">Delete Key</button>
   <div id="pageNav" class="input-append input-prepend">
     <button type="button" class="btn" onclick="loadKey('<%= key %>','0')" 

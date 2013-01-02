@@ -5,6 +5,7 @@
   </div>
   <div class="modal-body">
     <form id="addListValueForm" action="/apiv1/listvalue/" method="POST" class="form-vertical">
+      <input id="key" name="key" type="hidden"/>
       <label class="radio inline">
         <input id="typeLpush" type="radio" name="type" value="lpush" checked="checked"/>
         LPUSH
@@ -22,6 +23,6 @@
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal">Close</button>
-    <button id="saveValueButton" class="btn btn-primary" onclick="$('#addListValueForm').submit()">Save</button>
+    <button id="saveValueButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#addListValueForm').submit()">Save</button>
   </div>
 </div>
