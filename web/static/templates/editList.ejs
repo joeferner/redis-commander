@@ -37,11 +37,8 @@
       var value = row.children[1].innerHTML.toString();
       var fullKey = <%= key %>
       var key = fullKey.id;
-      console.log(key);
-      console.log(index);
-      console.log(value);
 
-      editRow(key, index, value);
+      editListRow(key, index, value);
     });
   });
 </script>

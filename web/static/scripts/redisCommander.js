@@ -175,6 +175,60 @@ function selectTreeNodeBranch(data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
 }
+function setupEditListButton() {
+  $('#editListRowForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#editListValueButton').button('loading');
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      $('#editListValueButton').button('reset');
+      saveComplete();
+    }
+  });
+
+  function saveComplete() {
+    setTimeout(function () {
+      refreshTree();
+      getKeyTree().select_node(0);
+      $('#editListRowModal').modal('hide');
+    }, 500);
+  }
+}
+
+function setupRemoveListValueButton() {
+  $('#editListRowForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#removeListValueButton').button('loading');
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      $('#removeListValueButton').button('reset');
+      saveComplete();
+    }
+  });
+
+  function saveComplete() {
+    setTimeout(function () {
+      refreshTree();
+      getKeyTree().select_node(0);
+      $('#editListRowModal').modal('hide');
+    }, 500);
+  }
+}
+
 function setupAddKeyButton() {
   $('#keyValue').keyup(function () {
     var action = "/apiv1/key/" + encodeURIComponent($(this).val());
@@ -346,13 +400,19 @@ function addListValue(key){
   $('#key').val(key);
   $('#addListValueModal').modal('show');
 }
-function editRow(key, index, value){
-  console.log("key", key);
-  $('#editKey').val(key);
-  $('#index').val(index);
-  $('#value').val(value);
-  $('#editRowModal').modal('show');
+function editListRow(key, index, value){
+  $('#listKey').val(key);
+  $('#listIndex').val(index);
+  $('#listValue').val(value);
+  $('#editListRowModal').modal('show');
+  setupEditListButton();
+  setupRemoveListValueButton();
 }
+function removeListElement() {
+  $('#listValue').val('REDISCOMMANDERTOMBSTONE');
+  $('#editListRowForm').submit();
+}
+
 function deleteBranch(branchPrefix) {
   var query = branchPrefix + ':*';
   var result = confirm('Are you sure you want to delete "' + query + '"? This will delete all children as well!');
