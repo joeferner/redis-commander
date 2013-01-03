@@ -202,11 +202,38 @@ function setupEditListButton() {
   }
 }
 
-function setupRemoveListValueButton() {
-  $('#editListRowForm').ajaxForm({
+// function setupRemoveListValueButton() {
+//   $('#editListRowForm').ajaxForm({
+//     beforeSubmit: function () {
+//       console.log('saving');
+//       $('#removeListValueButton').button('loading');
+//     },
+//     error: function (err) {
+//       console.log('save error', arguments);
+//       alert("Could not save '" + err.statusText + "'");
+//       saveComplete();
+//     },
+//     success: function () {
+//       console.log('saved', arguments);
+//       $('#removeListValueButton').button('reset');
+//       saveComplete();
+//     }
+//   });
+
+//   function saveComplete() {
+//     setTimeout(function () {
+//       refreshTree();
+//       getKeyTree().select_node(0);
+//       $('#editListRowModal').modal('hide');
+//     }, 500);
+//   }
+// }
+
+function setupEditZSetButton() {
+  $('#editZSetRowForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
-      $('#removeListValueButton').button('loading');
+      $('#editZSetValueButton').button('loading');
     },
     error: function (err) {
       console.log('save error', arguments);
@@ -215,7 +242,7 @@ function setupRemoveListValueButton() {
     },
     success: function () {
       console.log('saved', arguments);
-      $('#removeListValueButton').button('reset');
+      $('#editZSetValueButton').button('reset');
       saveComplete();
     }
   });
@@ -224,10 +251,37 @@ function setupRemoveListValueButton() {
     setTimeout(function () {
       refreshTree();
       getKeyTree().select_node(0);
-      $('#editListRowModal').modal('hide');
+      $('#editZSetRowModal').modal('hide');
     }, 500);
   }
 }
+
+// function setupRemoveZSetValueButton() {
+//   $('#editZSetRowForm').ajaxForm({
+//     beforeSubmit: function () {
+//       // console.log('saving');
+//       // $('#removeZSetValueButton').button('loading');
+//     },
+//     error: function (err) {
+//       console.log('save error', arguments);
+//       alert("Could not save '" + err.statusText + "'");
+//       saveComplete();
+//     },
+//     success: function () {
+//       console.log('saved', arguments);
+//       // $('#removeZSetValueButton').button('reset');
+//       saveComplete();
+//     }
+//   });
+
+//   function saveComplete() {
+//     setTimeout(function () {
+//       refreshTree();
+//       getKeyTree().select_node(0);
+//       $('#editZSetRowModal').modal('hide');
+//     }, 500);
+//   }
+// }
 
 function setupAddKeyButton() {
   $('#keyValue').keyup(function () {
@@ -406,11 +460,25 @@ function editListRow(key, index, value){
   $('#listValue').val(value);
   $('#editListRowModal').modal('show');
   setupEditListButton();
-  setupRemoveListValueButton();
+  // setupRemoveListValueButton();
+}
+function editZSetRow(key, index, score, value){
+  $('#zSetKey').val(key);
+  $('#zSetIndex').val(index);
+  $('#zSetScore').val(score);
+  $('#zSetValue').val(value);
+  $('#zSetOldValue').val(value);
+  $('#editZSetRowModal').modal('show');
+  setupEditZSetButton();
+  // setupRemoveZSetValueButton();
 }
 function removeListElement() {
   $('#listValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editListRowForm').submit();
+}
+function removeZSetElement() {
+  $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
+  $('#editZSetRowForm').submit();
 }
 
 function deleteBranch(branchPrefix) {
