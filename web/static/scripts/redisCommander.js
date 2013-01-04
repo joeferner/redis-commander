@@ -175,6 +175,60 @@ function selectTreeNodeBranch(data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
 }
+function setupEditListButton() {
+  $('#editListRowForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#editListValueButton').button('loading');
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      $('#editListValueButton').button('reset');
+      saveComplete();
+    }
+  });
+
+  function saveComplete() {
+    setTimeout(function () {
+      refreshTree();
+      getKeyTree().select_node(0);
+      $('#editListRowModal').modal('hide');
+    }, 500);
+  }
+}
+
+function setupEditZSetButton() {
+  $('#editZSetRowForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#editZSetValueButton').button('loading');
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      $('#editZSetValueButton').button('reset');
+      saveComplete();
+    }
+  });
+
+  function saveComplete() {
+    setTimeout(function () {
+      refreshTree();
+      getKeyTree().select_node(0);
+      $('#editZSetRowModal').modal('hide');
+    }, 500);
+  }
+}
+
 function setupAddKeyButton() {
   $('#keyValue').keyup(function () {
     var action = "/apiv1/key/" + encodeURIComponent($(this).val());
@@ -345,6 +399,29 @@ function deleteKey(key){
 function addListValue(key){
   $('#key').val(key);
   $('#addListValueModal').modal('show');
+}
+function editListRow(key, index, value){
+  $('#listKey').val(key);
+  $('#listIndex').val(index);
+  $('#listValue').val(value);
+  $('#editListRowModal').modal('show');
+  setupEditListButton();
+}
+function editZSetRow(key, score, value){
+  $('#zSetKey').val(key);
+  $('#zSetScore').val(score);
+  $('#zSetValue').val(value);
+  $('#zSetOldValue').val(value);
+  $('#editZSetRowModal').modal('show');
+  setupEditZSetButton();
+}
+function removeListElement() {
+  $('#listValue').val('REDISCOMMANDERTOMBSTONE');
+  $('#editListRowForm').submit();
+}
+function removeZSetElement() {
+  $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
+  $('#editZSetRowForm').submit();
 }
 
 function deleteBranch(branchPrefix) {
