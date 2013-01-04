@@ -1,0 +1,23 @@
+<div id="editZSetRowModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Edit Row</h3>
+  </div>
+  <div class="modal-body">
+    <form id="editZSetRowForm" action="/apiv1/editZSetRow/" method="POST" class="form-vertical">  
+      <h3>Key</h3>
+      <input id="zSetKey" name="zSetKey" readonly/>
+      <h3>Score</h3>
+      <input id="zSetScore" name="zSetScore"/>
+      <h3>Value</h3>
+      <textarea id="zSetValue" name="zSetValue" style="width: 500px; height: 150px;"></textarea>
+      <input id="zSetOldValue" name="zSetOldValue" hidden="true"/>
+      <br>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <button id="removeZSetValueButton" class="btn btn-danger" data-loading-text="<i class='icon-refresh'></i> Removing..." onclick="removeZSetElement()">Remove Element</button>
+    <button id="editZSetValueButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editZSetRowForm').submit()">Save</button>
+  </div>
+</div>
