@@ -22,7 +22,8 @@ var args = optimist
   })
   .options('redis-db', {
     string: true,
-    describe: 'The redis database.'
+    describe: 'The redis database.',
+    default: 0
   })
   .options('http-auth-username', {
     alias: "http-u",
