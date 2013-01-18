@@ -296,6 +296,8 @@ function selectTreeNodeString(data) {
       saveComplete();
     },
     success: function () {
+      refreshTree();
+      getKeyTree().select_node(0);
       console.log('saved', arguments);
       saveComplete();
     }
