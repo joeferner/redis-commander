@@ -41,6 +41,11 @@ var args = optimist
     describe: 'The port to run the server on.',
     default: 8081
   })
+  .options('auto-reconnect', {
+    alias: 'a',
+    boolean: true,
+    describe: 'Attempts to reconnect to the redis database in the event of a disconnection.'
+  })
   .argv;
 
 if (args.help) {
@@ -51,25 +56,37 @@ if (args.help) {
 var redisConnection;
 if (args['redis-host']) {
   redisConnection = redis.createClient(args['redis-port'], args['redis-host']);
-  redisConnection.on("error", function(err) {
-    console.error("Redis error", err.stack);
-    process.exit(-1);
-  });
   if (args['redis-password']) {
     redisConnection.auth(args['redis-password'], function(err) {
       if (err) {
         console.log(err);
         process.exit();
       }
-      redisConnection.on("connect", connectToDB);
     });
-  } else {
-    redisConnection.on("connect", connectToDB);
   }
 } else {
   redisConnection = redis.createClient();
-  connectToDB();
 }
+if (args['auto-reconnect']) {
+  redisConnection.on("error", function (err) {
+    console.error("Redis error", err.stack);
+  });
+  redisConnection.on("end", function (blah) {
+    console.log("Connection closed. Attempting to Reconnect...");
+  });
+  redisConnection.once("connect", connectToDB);
+
+} else {
+  redisConnection.on("error", function (err) {
+    console.error("Redis error", err.stack);
+    process.exit(-1);
+  });
+  redisConnection.on("end", function (blah) {
+    console.log("connection closed");
+  });
+  redisConnection.once("connect", connectToDB);
+}
+
 
 function connectToDB() {
   var db = parseInt(args['redis-db']);
