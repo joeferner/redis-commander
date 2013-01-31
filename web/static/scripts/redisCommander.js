@@ -28,7 +28,7 @@ function loadTree() {
               url: function (node) {
                 if (node !== -1) {
                   var path = getFullKeyPath(node);
-                  return '/apiv1/keystree/' + path + '?absolute=false';
+                  return '/apiv1/keystree/' + encodeURIComponent(path) + '?absolute=false';
                 }
                 return '/apiv1/keystree';
               }
