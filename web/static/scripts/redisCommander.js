@@ -1,4 +1,5 @@
 'use strict';
+var foldingCharacter = "-";
 
 var CmdParser = require('cmdparser');
 function loadTree() {
@@ -123,13 +124,13 @@ function treeNodeSelected(event, data) {
       setupAddKeyButton();
     });
   } else {
-    var path = pathParts.slice(1).join(':');
+    var path = pathParts.slice(1).join(foldingCharacter);
     loadKey(path);
   }
 }
 
 function getFullKeyPath(node){
-  return $.jstree._focused().get_path(node, true).slice(1).join(':');
+  return $.jstree._focused().get_path(node, true).slice(1).join(foldingCharacter);
 }
 function loadKey(key, index) {
   if (index) {
