@@ -522,6 +522,7 @@ function loadCommandLine() {
           rl.write(JSON.stringify(data, null, '  '));
         }
       });
+      refreshTree();
     }
   });
 }
