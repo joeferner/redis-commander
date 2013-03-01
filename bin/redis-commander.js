@@ -59,7 +59,6 @@ if (args['redis-host']) {
   if (args['redis-password']) {
     redisConnection.auth(args['redis-password'], function(err) {
       if (err) {
-        console.log(err);
         process.exit();
       }
     });
@@ -69,20 +68,12 @@ if (args['redis-host']) {
 }
 if (args['auto-reconnect']) {
   redisConnection.on("error", function (err) {
-    console.error("Redis error", err.stack);
-  });
-  redisConnection.on("end", function (blah) {
-    console.log("Connection closed. Attempting to Reconnect...");
   });
   redisConnection.once("connect", connectToDB);
 
 } else {
   redisConnection.on("error", function (err) {
-    console.error("Redis error", err.stack);
     process.exit(-1);
-  });
-  redisConnection.on("end", function (blah) {
-    console.log("connection closed");
   });
   redisConnection.once("connect", connectToDB);
 }
@@ -95,10 +86,8 @@ function connectToDB() {
   }
   redisConnection.select(db, function(err, res) {
     if (err) {
-      console.log(err);
       process.exit();
     }
-    console.log("Using Redis DB #" + db);
     startWebApp();
   });
 }

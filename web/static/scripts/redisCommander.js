@@ -144,7 +144,6 @@ function loadKey(key, index) {
     }
 
     data = JSON.parse(data);
-    console.log("rendering type " + data.type);
     switch (data.type) {
     case 'string':
       selectTreeNodeString(data);
@@ -179,16 +178,13 @@ function selectTreeNodeBranch(data) {
 function setupEditListButton() {
   $('#editListRowForm').ajaxForm({
     beforeSubmit: function () {
-      console.log('saving');
       $('#editListValueButton').button('loading');
     },
     error: function (err) {
-      console.log('save error', arguments);
       alert("Could not save '" + err.statusText + "'");
       saveComplete();
     },
     success: function () {
-      console.log('saved', arguments);
       $('#editListValueButton').button('reset');
       saveComplete();
     }
@@ -206,16 +202,13 @@ function setupEditListButton() {
 function setupEditZSetButton() {
   $('#editZSetRowForm').ajaxForm({
     beforeSubmit: function () {
-      console.log('saving');
       $('#editZSetValueButton').button('loading');
     },
     error: function (err) {
-      console.log('save error', arguments);
       alert("Could not save '" + err.statusText + "'");
       saveComplete();
     },
     success: function () {
-      console.log('saved', arguments);
       $('#editZSetValueButton').button('reset');
       saveComplete();
     }
@@ -245,17 +238,14 @@ function setupAddKeyButton() {
   });
   $('#addKeyForm').ajaxForm({
     beforeSubmit: function () {
-      console.log('saving');
       $('#saveKeyButton').attr("disabled", "disabled");
       $('#saveKeyButton').html("<i class='icon-refresh'></i> Saving");
     },
     error: function (err) {
-      console.log('save error', arguments);
       alert("Could not save '" + err.statusText + "'");
       saveComplete();
     },
     success: function () {
-      console.log('saved', arguments);
       saveComplete();
     }
   });
@@ -287,19 +277,16 @@ function selectTreeNodeString(data) {
   $('.clippyWrapper').tooltip();
   $('#editStringForm').ajaxForm({
     beforeSubmit: function () {
-      console.log('saving');
       $('#saveKeyButton').attr("disabled", "disabled");
       $('#saveKeyButton').html("<i class='icon-refresh'></i> Saving");
     },
     error: function (err) {
-      console.log('save error', arguments);
       alert("Could not save '" + err.statusText + "'");
       saveComplete();
     },
     success: function () {
       refreshTree();
       getKeyTree().select_node(0);
-      console.log('saved', arguments);
       saveComplete();
     }
   });
@@ -328,16 +315,13 @@ function selectTreeNodeList(data) {
     $('#body').html(html);
     $('#addListValueForm').ajaxForm({
       beforeSubmit: function () {
-        console.log('saving');
         $('#saveValueButton').button('loading');
       },
       error: function (err) {
-        console.log('save error', arguments);
         alert("Could not save '" + err.statusText + "'");
         saveComplete();
       },
       success: function () {
-        console.log('saved', arguments);
         $('#saveValueButton').button('reset');
         saveComplete();
       }
@@ -726,20 +710,16 @@ function getServerInfo(callback){
 
 function changeServer(){
   $('#addServerForm').submit();
-  console.log("Server changed");
   saveConfig();
 }
 
 function loadDefaultServer(host, port){
-  console.log("host" + host);
-  console.log("port" + port);
   $('#hostname').val(host);
   $('#port').val(port);
   $('#addServerForm').submit();
 }
 
 function configChange(){  
-  console.log("check");
   if(!configLoaded){
     var sidebarWidth = $('#sideBar').width();
     var locked = !$('#lockCommandButton').hasClass('disabled');
@@ -763,7 +743,6 @@ function configChange(){
 }
 
 function saveConfig(){
-  console.log('Saving Config...');
   var config = null;
   var sidebarWidth = $('#sideBar').width();
   var locked = !$('#lockCommandButton').hasClass('disabled');
@@ -780,7 +759,6 @@ function saveConfig(){
           "port":data.port
         };  
         $.post('/config',config,function(data,status){
-          console.log('Config Saved');
         });
       });
     }else{
@@ -791,7 +769,6 @@ function saveConfig(){
         "CLIOpen":CLIOpen
       }; 
       $.post('/config',config,function(data,status){
-        console.log('Config Saved');
       }); 
     }
   });
