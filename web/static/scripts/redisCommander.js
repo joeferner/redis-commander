@@ -269,6 +269,34 @@ function setupAddKeyButton() {
     }, 500);
   }
 }
+
+function setupEditHashButton() {
+  $('#editHashFieldForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#editHashFieldButton').button('loading');
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      $('#editHashFieldButton').button('reset');
+      saveComplete();
+    }
+  });
+
+  function saveComplete() {
+    setTimeout(function () {
+      refreshTree();
+      getKeyTree().select_node(0);
+      $('#editHashRowModal').modal('hide');
+    }, 500);
+  }
+}
+
 function selectTreeNodeString(data) {
   var html = new EJS({ url: '/templates/editString.ejs' }).render(data);
   $('#body').html(html);
@@ -418,6 +446,13 @@ function editZSetRow(key, score, value){
   $('#editZSetRowModal').modal('show');
   setupEditZSetButton();
 }
+function editHashRow(key, field, value){
+  $('#hashKey').val(key);
+  $('#hashField').val(field);
+  $('#hashFieldValue').val(value);
+  $('#editHashRowModal').modal('show');
+  setupEditHashButton();
+}
 function removeListElement() {
   $('#listValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editListRowForm').submit();
@@ -425,6 +460,10 @@ function removeListElement() {
 function removeZSetElement() {
   $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editZSetRowForm').submit();
+}
+function removeHashField() {
+  $('#hashFieldValue').val('REDISCOMMANDERTOMBSTONE');
+  $('#editHashFieldForm').submit();
 }
 
 function deleteBranch(branchPrefix) {

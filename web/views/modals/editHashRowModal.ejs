@@ -1,0 +1,22 @@
+<div id="editHashRowModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Edit Hash Field</h3>
+  </div>
+  <div class="modal-body">
+    <form id="editHashFieldForm" action="/apiv1/editHashRow/" method="POST" class="form-vertical">
+      <h3>Key</h3>
+      <input id="hashKey" name="hashKey" readonly/>
+      <h3>Field</h3>
+      <input id="hashField" name="hashField" readonly/>
+      <h3>Value</h3>
+      <textarea id="hashFieldValue" name="hashFieldValue" style="width: 500px; height: 250px;"></textarea>
+      <br>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <button id="removeHashFieldButton" class="btn btn-danger" data-loading-text="<i class='icon-refresh'></i> Removing..." onclick="removeHashField()">Remove Field</button>
+    <button id="editHashFieldButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editHashFieldForm').submit()">Save</button>
+  </div>
+</div>

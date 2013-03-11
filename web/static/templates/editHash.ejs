@@ -4,16 +4,30 @@
 <div id="itemData">
   <table class="table">
     <thead>
-      <th>Key</th>
+      <th>Field</th>
       <th>Value</th>
     </thead>
     <tbody>
-      <% for(var key in data) { %>
-        <tr>
-          <td><%= key %></td>
-          <td><%= data[key] %></td>
+    <% for(var field in data) { %>
+      <tr>
+          <td><%= field %></td>
+        <% console.log(field);%>
+        <% console.log(data[field]);%>
+          <td><%= data[field] %></td>
         </tr>
       <% } %>
     </tbody>
    </table>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.table tbody tr').dblclick(function(event) {
+      var key = "<%= key %>";
+      var row = event.currentTarget;
+      var field = row.children[0].innerHTML.toString();
+      var value = row.children[1].innerHTML.toString();
+
+      editHashRow(key, field, value);
+    });
+  });
+</script>
