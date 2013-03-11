@@ -41,11 +41,6 @@ var args = optimist
     describe: 'The port to run the server on.',
     default: 8081
   })
-  .options('auto-reconnect', {
-    alias: 'a',
-    boolean: true,
-    describe: 'Attempts to reconnect to the redis database in the event of a disconnection.'
-  })
   .argv;
 
 if (args.help) {
@@ -57,7 +52,7 @@ var redisConnection;
 if (args['redis-host']) {
   redisConnection = redis.createClient(args['redis-port'], args['redis-host']);
   if (args['redis-password']) {
-    redisConnection.auth(args['redis-password'], function(err) {
+    redisConnection.auth(args['redis-password'], function (err) {
       if (err) {
         console.log(err);
         process.exit();
@@ -67,33 +62,20 @@ if (args['redis-host']) {
 } else {
   redisConnection = redis.createClient();
 }
-if (args['auto-reconnect']) {
-  redisConnection.on("error", function (err) {
-    console.error("Redis error", err.stack);
-  });
-  redisConnection.on("end", function (blah) {
-    console.log("Connection closed. Attempting to Reconnect...");
-  });
-  redisConnection.once("connect", connectToDB);
+redisConnection.on("error", function (err) {
+  console.error("Redis error", err.stack);
+});
+redisConnection.on("end", function () {
+  console.log("Connection closed. Attempting to Reconnect...");
+});
+redisConnection.once("connect", connectToDB);
 
-} else {
-  redisConnection.on("error", function (err) {
-    console.error("Redis error", err.stack);
-    process.exit(-1);
-  });
-  redisConnection.on("end", function (blah) {
-    console.log("connection closed");
-  });
-  redisConnection.once("connect", connectToDB);
-}
-
-
-function connectToDB() {
+function connectToDB () {
   var db = parseInt(args['redis-db']);
   if (db == null || isNaN(db)) {
     db = 0
   }
-  redisConnection.select(db, function(err, res) {
+  redisConnection.select(db, function (err) {
     if (err) {
       console.log(err);
       process.exit();
@@ -103,7 +85,7 @@ function connectToDB() {
   });
 }
 
-function startWebApp() {
-  httpServerOptions = {webPort: args.port, username: args["http-auth-username"], password: args["http-auth-password"]}
+function startWebApp () {
+  httpServerOptions = {webPort: args.port, username: args["http-auth-username"], password: args["http-auth-password"]};
   app(httpServerOptions, redisConnection);
 }
