@@ -22,7 +22,7 @@ function loadTree () {
             data: host + ":" + port,
             state: "closed",
             attr: {
-              id: "root",
+              id: host + ":" + port,
               rel: "root"
             }
           });
@@ -123,10 +123,11 @@ function loadTree () {
 
 function treeNodeSelected (event, data) {
   $('#body').html('Loading...');
+
   var pathParts = getKeyTree().get_path(data.rslt.obj, true);
-  var hostAndPort = event.target.children[0].outerText.trim().split(':');
-  console.log(event);
+  console.log(pathParts);
   if (pathParts.length === 1) {
+    var hostAndPort = pathParts.split(':');
     $.get('/apiv1/server/info', function (data, status) {
       if (status != 'success') {
         return alert("Could not load server info");
@@ -143,19 +144,22 @@ function treeNodeSelected (event, data) {
     });
   } else {
     var path = pathParts.slice(1).join(foldingCharacter);
+    var connectionId = pathParts.slice(0,1);
+    console.log(connectionId);
+    console.log(path);
     //Todo: FIGURE OUT WHICH ROOT NODE CALLED THIS.
-    return loadKey(path);
+    return loadKey(connectionId, path);
   }
 }
 
 function getFullKeyPath (node) {
   return $.jstree._focused().get_path(node, true).slice(1).join(foldingCharacter);
 }
-function loadKey (key, index) {
+function loadKey (connectionId, key, index) {
   if (index) {
-    $.get('/apiv1/key/' + encodeURIComponent(key) + "/" + index, processData);
+    $.get('/apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "/" + index, processData);
   } else {
-    $.get('/apiv1/key/' + encodeURIComponent(key), processData);
+    $.get('/apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key), processData);
   }
   function processData (data, status) {
     if (status != 'success') {
