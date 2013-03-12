@@ -2,9 +2,9 @@
 var foldingCharacter = ":";
 
 var CmdParser = require('cmdparser');
-function loadTree() {
-  $.get('/apiv1/connection', function (isConnected){
-    if(isConnected){
+function loadTree () {
+  $.get('/apiv1/connection', function (isConnected) {
+    if (isConnected) {
       $('#keyTree').bind("loaded.jstree", function () {
         var tree = getKeyTree();
         if (tree) {
@@ -13,126 +13,145 @@ function loadTree() {
         }
       });
       getServerInfo(function (data) {
-        var host = data.host;
-        var port = data.port;
-        $('#keyTree').jstree({
-          json_data: {
-            data: {
-              data: host + ":" + port,
-              state: "closed",
-              attr: {
-                id: "root",
-                rel: "root"
+        var json_dataData = [];
+
+        data.forEach(function (instance, index) {
+          var host = instance.host;
+          var port = instance.port;
+          json_dataData.push({
+            data: host + ":" + port,
+            state: "closed",
+            attr: {
+              id: "root",
+              rel: "root"
+            }
+          });
+          if (index === data.length - 1) {
+            return onJSONDataComplete();
+          }
+        });
+        function onJSONDataComplete () {
+          $('#keyTree').jstree({
+            json_data: {
+              data: json_dataData,
+              ajax: {
+                url: function (node) {
+                  if (node !== -1) {
+                    var path = getFullKeyPath(node);
+                    return '/apiv1/keystree/' + encodeURIComponent(path) + '?absolute=false';
+                  }
+                  return '/apiv1/keystree';
+                }
               }
             },
-            ajax: {
-              url: function (node) {
-                if (node !== -1) {
-                  var path = getFullKeyPath(node);
-                  return '/apiv1/keystree/' + encodeURIComponent(path) + '?absolute=false';
-                }
-                return '/apiv1/keystree';
-              }
-            }
-          },
-          types: {
             types: {
-              "root": {
-                icon: {
-                  image: '/images/treeRoot.png'
-                }
-              },
-              "string": {
-                icon: {
-                  image: '/images/treeString.png'
-                }
-              },
-              "hash": {
-                icon: {
-                  image: '/images/treeHash.png'
-                }
-              },
-              "set": {
-                icon: {
-                  image: '/images/treeSet.png'
-                }
-              },
-              "list": {
-                icon: {
-                  image: '/images/treeList.png'
-                }
-              },
-              "zset": {
-                icon: {
-                  image: '/images/treeZSet.png'
-                }
-              }
-            }
-          },
-          contextmenu:{
-            items: function(node){
-              var menu = {
-                "addKey":{
-                  icon:'icon-plus',
-                  label:"Add Key",
-                  action:addKey
-                },
-                "refresh":{
-                  icon:'icon-refresh',
-                  label:"Refresh",
-                  action:function(obj){
-                    jQuery.jstree._reference("#keyTree").refresh(obj);
+              types: {
+                "root": {
+                  icon: {
+                    image: '/images/treeRoot.png'
                   }
                 },
-                "remKey":{
-                  icon:'icon-trash',
-                  label:'Remove Key',
-                  action:deleteKey
+                "string": {
+                  icon: {
+                    image: '/images/treeString.png'
+                  }
+                },
+                "hash": {
+                  icon: {
+                    image: '/images/treeHash.png'
+                  }
+                },
+                "set": {
+                  icon: {
+                    image: '/images/treeSet.png'
+                  }
+                },
+                "list": {
+                  icon: {
+                    image: '/images/treeList.png'
+                  }
+                },
+                "zset": {
+                  icon: {
+                    image: '/images/treeZSet.png'
+                  }
                 }
               }
-              var rel = node.attr('rel');
-              if(rel != undefined && rel !='root'){
-                delete menu['addKey'];
+            },
+            contextmenu: {
+              items: function (node) {
+                var menu = {
+                  "addKey": {
+                    icon: 'icon-plus',
+                    label: "Add Key",
+                    action: addKey
+                  },
+                  "refresh": {
+                    icon: 'icon-refresh',
+                    label: "Refresh",
+                    action: function (obj) {
+                      jQuery.jstree._reference("#keyTree").refresh(obj);
+                    }
+                  },
+                  "remKey": {
+                    icon: 'icon-trash',
+                    label: 'Remove Key',
+                    action: deleteKey
+                  }
+                };
+                var rel = node.attr('rel');
+                if (rel != undefined && rel != 'root') {
+                  delete menu['addKey'];
+                }
+                if (rel == 'root') {
+                  delete menu['remKey'];
+                }
+                return menu;
               }
-              if(rel == 'root'){
-                delete menu['remKey'];
-              }
-              return menu;
-            }
-          },
-          plugins: [ "themes", "json_data", "types", "ui", "contextmenu" ]
-        })
-          .bind("select_node.jstree", treeNodeSelected)
-          .delegate("a", "click", function (event, data) { event.preventDefault(); });
+            },
+            plugins: [ "themes", "json_data", "types", "ui", "contextmenu" ]
+          })
+            .bind("select_node.jstree", treeNodeSelected)
+            .delegate("a", "click", function (event, data) {
+              event.preventDefault();
+            });
+        }
       });
     }
   });
 }
 
-function treeNodeSelected(event, data) {
+function treeNodeSelected (event, data) {
   $('#body').html('Loading...');
   var pathParts = getKeyTree().get_path(data.rslt.obj, true);
+  var hostAndPort = event.target.children[0].outerText.trim().split(':');
+  console.log(event);
   if (pathParts.length === 1) {
     $.get('/apiv1/server/info', function (data, status) {
       if (status != 'success') {
         return alert("Could not load server info");
       }
-
       data = JSON.parse(data);
-      var html = new EJS({ url: '/templates/serverInfo.ejs' }).render(data);
-      $('#body').html(html);
-      setupAddKeyButton();
+      data.forEach(function (instance) {
+
+        if (instance.host === hostAndPort[0] && instance.port === hostAndPort[1]) {
+          var html = new EJS({ url: '/templates/serverInfo.ejs' }).render(instance);
+          $('#body').html(html);
+          return setupAddKeyButton();
+        }
+      });
     });
   } else {
     var path = pathParts.slice(1).join(foldingCharacter);
-    loadKey(path);
+    //Todo: FIGURE OUT WHICH ROOT NODE CALLED THIS.
+    return loadKey(path);
   }
 }
 
-function getFullKeyPath(node){
+function getFullKeyPath (node) {
   return $.jstree._focused().get_path(node, true).slice(1).join(foldingCharacter);
 }
-function loadKey(key, index) {
+function loadKey (key, index) {
   if (index) {
     $.get('/apiv1/key/' + encodeURIComponent(key) + "/" + index, processData);
   } else {
@@ -146,37 +165,37 @@ function loadKey(key, index) {
     data = JSON.parse(data);
     console.log("rendering type " + data.type);
     switch (data.type) {
-    case 'string':
-      selectTreeNodeString(data);
-      break;
-    case 'hash':
-      selectTreeNodeHash(data);
-      break;
-    case 'set':
-      selectTreeNodeSet(data);
-      break;
-    case 'list':
-      selectTreeNodeList(data);
-      break;
-    case 'zset':
-      selectTreeNodeZSet(data);
-      break;
-    case 'none':
-      selectTreeNodeBranch(data);
-      break;
-    default:
-      var html = JSON.stringify(data);
-      $('#body').html(html);
-      break;
+      case 'string':
+        selectTreeNodeString(data);
+        break;
+      case 'hash':
+        selectTreeNodeHash(data);
+        break;
+      case 'set':
+        selectTreeNodeSet(data);
+        break;
+      case 'list':
+        selectTreeNodeList(data);
+        break;
+      case 'zset':
+        selectTreeNodeZSet(data);
+        break;
+      case 'none':
+        selectTreeNodeBranch(data);
+        break;
+      default:
+        var html = JSON.stringify(data);
+        $('#body').html(html);
+        break;
     }
     resizeApp();
   }
 }
-function selectTreeNodeBranch(data) {
+function selectTreeNodeBranch (data) {
   var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
 }
-function setupEditListButton() {
+function setupEditListButton () {
   $('#editListRowForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
@@ -194,7 +213,7 @@ function setupEditListButton() {
     }
   });
 
-  function saveComplete() {
+  function saveComplete () {
     setTimeout(function () {
       refreshTree();
       getKeyTree().select_node(0);
@@ -203,7 +222,7 @@ function setupEditListButton() {
   }
 }
 
-function setupEditZSetButton() {
+function setupEditZSetButton () {
   $('#editZSetRowForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
@@ -221,7 +240,7 @@ function setupEditZSetButton() {
     }
   });
 
-  function saveComplete() {
+  function saveComplete () {
     setTimeout(function () {
       refreshTree();
       getKeyTree().select_node(0);
@@ -230,16 +249,16 @@ function setupEditZSetButton() {
   }
 }
 
-function setupAddKeyButton() {
+function setupAddKeyButton () {
   $('#keyValue').keyup(function () {
     var action = "/apiv1/key/" + encodeURIComponent($(this).val());
     $('#addKeyForm').attr("action", action);
   });
   $('#keyType').change(function () {
     var score = $('#scoreWrap');
-    if($(this).val() == 'zset'){
+    if ($(this).val() == 'zset') {
       score.show();
-    }else{
+    } else {
       score.hide();
     }
   });
@@ -260,7 +279,7 @@ function setupAddKeyButton() {
     }
   });
 
-  function saveComplete() {
+  function saveComplete () {
     setTimeout(function () {
       $('#saveKeyButton').html("Save");
       $('#saveKeyButton').removeAttr("disabled");
@@ -270,7 +289,7 @@ function setupAddKeyButton() {
   }
 }
 
-function setupEditHashButton() {
+function setupEditHashButton () {
   $('#editHashFieldForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
@@ -288,7 +307,7 @@ function setupEditHashButton() {
     }
   });
 
-  function saveComplete() {
+  function saveComplete () {
     setTimeout(function () {
       refreshTree();
       getKeyTree().select_node(0);
@@ -297,7 +316,7 @@ function setupEditHashButton() {
   }
 }
 
-function selectTreeNodeString(data) {
+function selectTreeNodeString (data) {
   var html = new EJS({ url: '/templates/editString.ejs' }).render(data);
   $('#body').html(html);
 
@@ -332,7 +351,7 @@ function selectTreeNodeString(data) {
     }
   });
 
-  function saveComplete() {
+  function saveComplete () {
     setTimeout(function () {
       $('#saveKeyButton').html("Save");
       $('#saveKeyButton').removeAttr("disabled");
@@ -340,18 +359,18 @@ function selectTreeNodeString(data) {
   }
 }
 
-function selectTreeNodeHash(data) {
+function selectTreeNodeHash (data) {
   var html = new EJS({ url: '/templates/editHash.ejs' }).render(data);
   $('#body').html(html);
 }
 
-function selectTreeNodeSet(data) {
+function selectTreeNodeSet (data) {
   var html = new EJS({ url: '/templates/editSet.ejs' }).render(data);
   $('#body').html(html);
 }
 
-function selectTreeNodeList(data) {
-  if(data.items.length > 0){
+function selectTreeNodeList (data) {
+  if (data.items.length > 0) {
     var html = new EJS({ url: '/templates/editList.ejs' }).render(data);
     $('#body').html(html);
     $('#addListValueForm').ajaxForm({
@@ -370,10 +389,10 @@ function selectTreeNodeList(data) {
         saveComplete();
       }
     });
-  }else{
+  } else {
     alert('Index out of bounds');
   }
-  function saveComplete() {
+  function saveComplete () {
     setTimeout(function () {
       $('#addListValueModal').modal('hide');
       $('a.jstree-clicked').click();
@@ -381,27 +400,27 @@ function selectTreeNodeList(data) {
   }
 }
 
-function selectTreeNodeZSet(data) {
-  if(data.items.length > 0){
+function selectTreeNodeZSet (data) {
+  if (data.items.length > 0) {
     var html = new EJS({ url: '/templates/editZSet.ejs' }).render(data);
     $('#body').html(html);
-  }else{
+  } else {
     alert('Index out of bounds');
   }
 }
 
-function getKeyTree() {
+function getKeyTree () {
   return $.jstree._reference('#keyTree');
 }
 
-function refreshTree() {
+function refreshTree () {
   getKeyTree().refresh();
 }
 
-function addKey(key){
-  if(typeof(key) == 'object'){
+function addKey (key) {
+  if (typeof(key) == 'object') {
     key = getFullKeyPath(key);
-    if(key.length > 0){
+    if (key.length > 0) {
       key = key + ":";
     }
   }
@@ -410,8 +429,8 @@ function addKey(key){
   $('#addKeyModal').modal('show');
   setupAddKeyButton();
 }
-function deleteKey(key){
-  if(typeof(key) == 'object'){
+function deleteKey (key) {
+  if (typeof(key) == 'object') {
     key = getFullKeyPath(key);
   }
   var result = confirm('Are you sure you want to delete "' + key + '"?');
@@ -427,18 +446,18 @@ function deleteKey(key){
     });
   }
 }
-function addListValue(key){
+function addListValue (key) {
   $('#key').val(key);
   $('#addListValueModal').modal('show');
 }
-function editListRow(key, index, value){
+function editListRow (key, index, value) {
   $('#listKey').val(key);
   $('#listIndex').val(index);
   $('#listValue').val(value);
   $('#editListRowModal').modal('show');
   setupEditListButton();
 }
-function editZSetRow(key, score, value){
+function editZSetRow (key, score, value) {
   $('#zSetKey').val(key);
   $('#zSetScore').val(score);
   $('#zSetValue').val(value);
@@ -446,27 +465,27 @@ function editZSetRow(key, score, value){
   $('#editZSetRowModal').modal('show');
   setupEditZSetButton();
 }
-function editHashRow(key, field, value){
+function editHashRow (key, field, value) {
   $('#hashKey').val(key);
   $('#hashField').val(field);
   $('#hashFieldValue').val(value);
   $('#editHashRowModal').modal('show');
   setupEditHashButton();
 }
-function removeListElement() {
+function removeListElement () {
   $('#listValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editListRowForm').submit();
 }
-function removeZSetElement() {
+function removeZSetElement () {
   $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editZSetRowForm').submit();
 }
-function removeHashField() {
+function removeHashField () {
   $('#hashFieldValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editHashFieldForm').submit();
 }
 
-function deleteBranch(branchPrefix) {
+function deleteBranch (branchPrefix) {
   var query = branchPrefix + ':*';
   var result = confirm('Are you sure you want to delete "' + query + '"? This will delete all children as well!');
   if (result) {
@@ -484,7 +503,7 @@ function deleteBranch(branchPrefix) {
 
 var commandLineScrollTop;
 var CLIOpen = false;
-function hideCommandLineOutput() {
+function hideCommandLineOutput () {
   var output = $('#commandLineOutput');
   if (output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
     output.slideUp(function () {
@@ -497,7 +516,7 @@ function hideCommandLineOutput() {
   }
 }
 
-function showCommandLineOutput() {
+function showCommandLineOutput () {
   var output = $('#commandLineOutput');
   if (!output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
     output.slideDown(function () {
@@ -510,7 +529,7 @@ function showCommandLineOutput() {
   }
 }
 
-function loadCommandLine() {
+function loadCommandLine () {
   $('#commandLine').click(function () {
     showCommandLineOutput();
   });
@@ -582,7 +601,7 @@ function loadCommandLine() {
   });
 }
 
-function escapeHtml(str) {
+function escapeHtml (str) {
   return str
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -755,22 +774,20 @@ var prevLocked;
 var prevCLIWidth;
 var prevCLIOpen;
 var configLoaded = false;
-var prevHost;
-var prevPort;
 
-function getServerInfo(callback){
+function getServerInfo (callback) {
   $.get('/apiv1/server/info', function (data, status) {
     callback(JSON.parse(data))
   });
 }
 
-function changeServer(){
+function addServer () {
   $('#addServerForm').submit();
-  console.log("Server changed");
+  console.log("Server Added");
   saveConfig();
 }
 
-function loadDefaultServer(host, port){
+function loadDefaultServer (host, port) {
   console.log("host" + host);
   console.log("port" + port);
   $('#hostname').val(host);
@@ -778,98 +795,97 @@ function loadDefaultServer(host, port){
   $('#addServerForm').submit();
 }
 
-function configChange(){  
-  console.log("check");
-  if(!configLoaded){
+function configChange () {
+  if (!configLoaded) {
     var sidebarWidth = $('#sideBar').width();
     var locked = !$('#lockCommandButton').hasClass('disabled');
     var CLIWidth = $('#commandLineContainer').height();
 
-    if(typeof(prevSidebarWidth) != 'undefined' &&
+    if (typeof(prevSidebarWidth) != 'undefined' &&
       (sidebarWidth != prevSidebarWidth ||
-       locked != prevLocked ||
-       CLIWidth != prevCLIWidth ||
-       CLIOpen != prevCLIOpen)){
+        locked != prevLocked ||
+        CLIWidth != prevCLIWidth ||
+        CLIOpen != prevCLIOpen)) {
       clearTimeout(configTimer);
-      configTimer = setTimeout(saveConfig,2000);
+      configTimer = setTimeout(saveConfig, 2000);
     }
     prevSidebarWidth = sidebarWidth;
     prevLocked = locked;
     prevCLIWidth = CLIWidth;
     prevCLIOpen = CLIOpen;
-  }else{
+  } else {
     configLoaded = false;
   }
 }
 
-function saveConfig(){
+function saveConfig () {
   console.log('Saving Config...');
   var config = null;
   var sidebarWidth = $('#sideBar').width();
   var locked = !$('#lockCommandButton').hasClass('disabled');
   var CLIHeight = $('#commandLineContainer').height();
-  $.get('/apiv1/connection', function (isConnected){
-    if(isConnected){
-      getServerInfo(function (data){
+  $.get('/apiv1/connection', function (isConnected) {
+    if (isConnected) {
+      getServerInfo(function (data) {
         config = {
-          "sidebarWidth":sidebarWidth,
-          "locked":locked,
-          "CLIHeight":CLIHeight,
-          "CLIOpen":CLIOpen,
-          "host":data.host,
-          "port":data.port
-        };  
-        $.post('/config',config,function(data,status){
+          "sidebarWidth": sidebarWidth,
+          "locked": locked,
+          "CLIHeight": CLIHeight,
+          "CLIOpen": CLIOpen
+          //          "host":data.host,
+          //          "port":data.port
+        };
+        $.post('/config', config, function (data, status) {
           console.log('Config Saved');
         });
       });
-    }else{
+    } else {
       var config = {
-        "sidebarWidth":sidebarWidth,
-        "locked":locked,
-        "CLIHeight":CLIHeight,
-        "CLIOpen":CLIOpen
-      }; 
-      $.post('/config',config,function(data,status){
+        "sidebarWidth": sidebarWidth,
+        "locked": locked,
+        "CLIHeight": CLIHeight,
+        "CLIOpen": CLIOpen
+      };
+      $.post('/config', config, function (data, status) {
         console.log('Config Saved');
-      }); 
+      });
     }
   });
 }
-function loadConfig(callback){
-  $.get('/config',function(data){
-    if(data){
-      $.get('/apiv1/connection', function (isConnected){
-        if(!isConnected){
-          if(data['host']){
-            loadDefaultServer(data['host'],data['port']);
+function loadConfig (callback) {
+  $.get('/config', function (data) {
+    if (data) {
+      $.get('/apiv1/connection', function (isConnected) {
+        if (!isConnected) {
+          if (data['host']) {
+            loadDefaultServer(data['host'], data['port']);
           }
         }
       });
-      if(data['sidebarWidth']){
+      if (data['sidebarWidth']) {
         $('#sideBar').width(data['sidebarWidth']);
       }
-      if(data['CLIOpen'] == "true"){
-        $('#commandLineOutput').slideDown(0,function(){
-          if(data['CLIHeight']){
+      if (data['CLIOpen'] == "true") {
+        $('#commandLineOutput').slideDown(0, function () {
+          if (data['CLIHeight']) {
             $('#commandLineOutput').height(data['CLIHeight']);
           }
         });
         CLIOpen = true;
       }
-      if(data['locked'] == "true"){
+      if (data['locked'] == "true") {
         $('#lockCommandButton').removeClass('disabled');
-      }else{
+      } else {
         $('#lockCommandButton').addClass('disabled');
       }
       configLoaded = true;
-      if (callback){
+      if (callback) {
         callback();
       }
     }
   });
 }
-function resizeApp() {
+function resizeApp () {
   var barWidth = $('#keyTree').outerWidth(true);
   $('#sideBar').css('width', barWidth);
   var bodyMargin = parseInt($('#body').css('margin-left'), 10);
@@ -881,7 +897,7 @@ function resizeApp() {
   $('#body, #sidebarResize').css('height', $('#sideBar').css('height'));
   configChange();
 }
-function setupResizeEvents() {
+function setupResizeEvents () {
   var sidebarResizing = false;
   var sidebarFrame = $("#sideBar").width();
   var commandResizing = false;
@@ -912,55 +928,55 @@ function setupResizeEvents() {
     if (sidebarResizing) {
       $("#sideBar").width(sidebarFrame - (sidebarResizing - event.pageX));
     } else if (commandResizing &&
-               $('#commandLineOutput').is(':visible')) {
+      $('#commandLineOutput').is(':visible')) {
       $("#commandLineOutput").height(commandFrame + (commandResizing - event.pageY));
       resizeApp();
     }
   });
 }
-function setupCommandLock() {
+function setupCommandLock () {
   $('#lockCommandButton').click(function () {
     $(this).toggleClass('disabled');
     configChange();
   });
 }
 
-function setupCLIKeyEvents() {
+function setupCLIKeyEvents () {
   var ctrl_down = false;
-  var isMac = navigator.appVersion.indexOf("Mac")!=-1;
+  var isMac = navigator.appVersion.indexOf("Mac") != -1;
   var cli = $('#_readline_cliForm input');
-  cli.live('keydown',function (e){
+  cli.live('keydown', function (e) {
     var key = e.which;
     //ctrl
-    if(key == 17 && isMac){
+    if (key == 17 && isMac) {
       ctrl_down = true;
     }
 
     //c
-    if(key == 67 && ctrl_down){
-      clearCLI ();
+    if (key == 67 && ctrl_down) {
+      clearCLI();
       e.preventDefault();
     }
 
     //esc
-    if(key == 27){
-      clearCLI ();
+    if (key == 27) {
+      clearCLI();
       e.preventDefault();
     }
   });
-  cli.live('keyup',function (e){
+  cli.live('keyup', function (e) {
     var key = e.which;
     //ctrl
-    if(key == 17 && isMac){
+    if (key == 17 && isMac) {
       ctrl_down = false;
     }
   });
 
-  function clearCLI (){
+  function clearCLI () {
     var cli = $('#_readline_cliForm input');
-    if(cli.val() == ''){
+    if (cli.val() == '') {
       hideCommandLineOutput();
-    }else{
+    } else {
       cli.val('');
     }
   }
