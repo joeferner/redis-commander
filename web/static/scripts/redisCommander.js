@@ -159,7 +159,6 @@ function getRootConnection(node) {
 }
 
 function loadKey (connectionId, key, index) {
-  console.log(connectionId);
   if (index) {
     $.get('/apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "/" + index, processData);
   } else {
