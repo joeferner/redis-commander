@@ -127,7 +127,6 @@ function treeNodeSelected (event, data) {
   $('#body').html('Loading...');
 
   var pathParts = getKeyTree().get_path(data.rslt.obj, true);
-  console.log(pathParts);
   if (pathParts.length === 1) {
     var hostAndPort = pathParts[0].split(':');
     $.get('/apiv1/server/info', function (data, status) {
@@ -146,10 +145,7 @@ function treeNodeSelected (event, data) {
     });
   } else {
     var path = pathParts.slice(1).join(foldingCharacter);
-    var connectionId = pathParts.slice(0,1);
-    console.log(connectionId);
-    console.log(path);
-    //Todo: FIGURE OUT WHICH ROOT NODE CALLED THIS.
+    var connectionId = pathParts.slice(0,1)[0];
     return loadKey(connectionId, path);
   }
 }
@@ -163,6 +159,7 @@ function getRootConnection(node) {
 }
 
 function loadKey (connectionId, key, index) {
+  console.log(connectionId);
   if (index) {
     $.get('/apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "/" + index, processData);
   } else {
@@ -174,6 +171,7 @@ function loadKey (connectionId, key, index) {
     }
 
     data = JSON.parse(data);
+    data.connectionId = connectionId;
     console.log("rendering type " + data.type);
     switch (data.type) {
       case 'string':
@@ -328,6 +326,7 @@ function setupEditHashButton () {
 }
 
 function selectTreeNodeString (data) {
+  console.log(data);
   var html = new EJS({ url: '/templates/editString.ejs' }).render(data);
   $('#body').html(html);
 
@@ -440,13 +439,13 @@ function addKey (key) {
   $('#addKeyModal').modal('show');
   setupAddKeyButton();
 }
-function deleteKey (key) {
+function deleteKey (connectionId, key) {
   if (typeof(key) == 'object') {
     key = getFullKeyPath(key);
   }
-  var result = confirm('Are you sure you want to delete "' + key + '"?');
+  var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId +'"?');
   if (result) {
-    $.post('/apiv1/key/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
+    $.post('/apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
       if (status != 'success') {
         return alert("Could not delete key");
       }
@@ -457,18 +456,23 @@ function deleteKey (key) {
     });
   }
 }
-function addListValue (key) {
+function addListValue (connectionId, key) {
   $('#key').val(key);
+  $('#addStringValue').val("");
+  $('#addListConnectionId').val(connectionId);
   $('#addListValueModal').modal('show');
 }
-function editListRow (key, index, value) {
+function editListRow (connectionId, key, index, value) {
+  console.log(connectionId);
+  $('#editListConnectionId').val(connectionId);
   $('#listKey').val(key);
   $('#listIndex').val(index);
   $('#listValue').val(value);
   $('#editListRowModal').modal('show');
   setupEditListButton();
 }
-function editZSetRow (key, score, value) {
+function editZSetRow (connectionId, key, score, value) {
+  $('#zSetConnectionId').val(connectionId);
   $('#zSetKey').val(key);
   $('#zSetScore').val(score);
   $('#zSetValue').val(value);
@@ -476,7 +480,8 @@ function editZSetRow (key, score, value) {
   $('#editZSetRowModal').modal('show');
   setupEditZSetButton();
 }
-function editHashRow (key, field, value) {
+function editHashRow (connectionId, key, field, value) {
+  $('#hashConnectionId').val(connectionId);
   $('#hashKey').val(key);
   $('#hashField').val(field);
   $('#hashFieldValue').val(value);

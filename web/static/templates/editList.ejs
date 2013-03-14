@@ -1,6 +1,6 @@
 <div id="itemActionsBar" class="form">
-  <button class="btn" data-toggle="modal" onclick="addListValue('<%= key %>')" style="margin-right: 5px">Add New Value...</button>
-  <button class="btn btn-danger" onclick="deleteKey('<%= key %>')">Delete Key</button>
+  <button class="btn" data-toggle="modal" onclick="addListValue('<%= connectionId %>','<%= key %>')" style="margin-right: 5px">Add New Value...</button>
+  <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <div id="pageNav" class="input-append input-prepend">
     <button type="button" class="btn" onclick="loadKey('<%= key %>','0')" 
       <% if(beginning){%>disabled="disabled" <%}%>
@@ -37,8 +37,8 @@
       var value = row.children[1].innerHTML.toString();
       var fullKey = <%= key %>
       var key = fullKey.id;
-
-      editListRow(key, index, value);
+      var connectionId = "<%= connectionId %>";
+      editListRow(connectionId, key, index, value);
     });
   });
 </script>
