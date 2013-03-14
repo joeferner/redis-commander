@@ -38,9 +38,11 @@ function loadTree () {
                 url: function (node) {
                   if (node !== -1) {
                     var path = getFullKeyPath(node);
-                    return '/apiv1/keystree/' + encodeURIComponent(path) + '?absolute=false';
+                    var root = getRootConnection(node);
+                    return '/apiv1/keystree/' + encodeURIComponent(root) + '/' + encodeURIComponent(path) + '?absolute=false';
                   }
-                  return '/apiv1/keystree';
+                  var root = getRootConnection(node);
+                  return '/apiv1/keystree/' + encodeURIComponent(root);
                 }
               }
             },
@@ -127,7 +129,7 @@ function treeNodeSelected (event, data) {
   var pathParts = getKeyTree().get_path(data.rslt.obj, true);
   console.log(pathParts);
   if (pathParts.length === 1) {
-    var hostAndPort = pathParts.split(':');
+    var hostAndPort = pathParts[0].split(':');
     $.get('/apiv1/server/info', function (data, status) {
       if (status != 'success') {
         return alert("Could not load server info");
@@ -155,6 +157,11 @@ function treeNodeSelected (event, data) {
 function getFullKeyPath (node) {
   return $.jstree._focused().get_path(node, true).slice(1).join(foldingCharacter);
 }
+
+function getRootConnection(node) {
+  return $.jstree._focused().get_path(node, true).slice(0,1);
+}
+
 function loadKey (connectionId, key, index) {
   if (index) {
     $.get('/apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "/" + index, processData);
