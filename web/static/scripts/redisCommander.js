@@ -135,8 +135,7 @@ function treeNodeSelected (event, data) {
       }
       data = JSON.parse(data);
       data.forEach(function (instance) {
-
-        if (instance.host === hostAndPort[0] && instance.port === hostAndPort[1]) {
+        if (instance.host == hostAndPort[0] && instance.port == hostAndPort[1]) {
           var html = new EJS({ url: '/templates/serverInfo.ejs' }).render(instance);
           $('#body').html(html);
           return setupAddKeyButton();
@@ -145,7 +144,7 @@ function treeNodeSelected (event, data) {
     });
   } else {
     var path = pathParts.slice(1).join(foldingCharacter);
-    var connectionId = pathParts.slice(0,1)[0];
+    var connectionId = pathParts.slice(0, 1)[0];
     return loadKey(connectionId, path);
   }
 }
@@ -154,8 +153,8 @@ function getFullKeyPath (node) {
   return $.jstree._focused().get_path(node, true).slice(1).join(foldingCharacter);
 }
 
-function getRootConnection(node) {
-  return $.jstree._focused().get_path(node, true).slice(0,1);
+function getRootConnection (node) {
+  return $.jstree._focused().get_path(node, true).slice(0, 1);
 }
 
 function loadKey (connectionId, key, index) {
@@ -442,7 +441,7 @@ function deleteKey (connectionId, key) {
   if (typeof(key) == 'object') {
     key = getFullKeyPath(key);
   }
-  var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId +'"?');
+  var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
   if (result) {
     $.post('/apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
       if (status != 'success') {

@@ -4,7 +4,7 @@
       <div id="keyTreeActions">
         <button class="btn btn-success btn-mini" onclick="refreshTree()">Refresh</button>
         <button class="btn btn-mini" data-toggle="modal" href="#redisCommandsModal">Commands</button>
-        <button class="btn btn-primary btn-mini" data-toggle="modal" href="#myModal">Change Server</button>
+        <button class="btn btn-primary btn-mini" data-toggle="modal" href="#changeServerModal">Change Server</button>
       </div>
       <div id="keyTree"></div>
       <div id="sidebarResize"></div>
@@ -17,7 +17,15 @@
 </div>
 <div id="commandLineContainer">
   <div id="commandLineBorder" style="border-top: 1px solid #ddd;padding-bottom: 5px;"></div>
+  <div class="btn-group" data-toggle="buttons-radio" style="padding-bottom: 5px; padding-left: 5px">
+    <% var connections = getConnections(); %>
+    <% connections.forEach(function(connection, index) {%>
+    <button type="button" class="btn btn-primary"><%=connection.host + ':' + connection.port%></button>
+    <% }); %>
+  </div>
+  <div style="border-top: 1px solid #ddd;padding-bottom: 5px;"></div>
   <i id="lockCommandButton" class="icon-lock disabled"></i>
+
   <div id="commandLineOutput"></div>
   <div id="commandLine"></div>
 </div>
@@ -28,7 +36,7 @@
     <iframe seamless="seamless" src="http://redis.io/commands">test</iframe>
   </div>
 </div>
-<div class="modal hide fade" id="myModal">
+<div class="modal hide fade" id="changeServerModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Add a connection</h3>
@@ -63,32 +71,32 @@
         </select>
         <br>
       </form>
-    </div> 
+    </div>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
     <a type="submit" onclick="addServer()" class="btn btn-primary">Connect...</a>
   </div>
-</div> 
+</div>
 <script type="text/javascript">
   $(function () {
     loadTree();
-    loadConfig(function(){
+    loadConfig(function () {
       loadCommandLine();
       setupResizeEvents();
       setupCommandLock();
       setupCLIKeyEvents();
       $('.container').removeClass('container');
-      $('html').css('overflow-y','hidden');
-      $('#pageIndex').live('keydown',function(e){
-        if(e.keyCode == 13){
+      $('html').css('overflow-y', 'hidden');
+      $('#pageIndex').live('keydown', function (e) {
+        if (e.keyCode == 13) {
           $('#gotoIndexButton').click();
         }
       });
       $('#redisCommandsModal').modal({
-        backdrop:false,
-        keyboard:false,
-        show:false
+        backdrop: false,
+        keyboard: false,
+        show: false
       });
     });
   });
