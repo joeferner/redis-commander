@@ -547,10 +547,7 @@ function loadCommandLine () {
   $('#commandLine').click(function () {
     showCommandLineOutput();
   });
-  $('#commandLineContainer').click(function (e) {
-    e.stopPropagation();
-  });
-  $(window).click(function () {
+  $('#app-container').click(function () {
     hideCommandLineOutput();
   });
 
@@ -584,7 +581,7 @@ function loadCommandLine () {
       refreshTree();
       rl.write("OK");
     } else {
-      $.post('/apiv1/exec', { cmd: line }, function (data, status) {
+      $.post('/apiv1/exec', { cmd: line, connection: $('#selectedConnection').val() }, function (data, status) {
         rl.prompt();
 
         if (status != 'success') {

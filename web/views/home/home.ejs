@@ -20,13 +20,24 @@
   <div class="btn-group" data-toggle="buttons-radio" style="padding-bottom: 5px; padding-left: 5px">
     <% var connections = getConnections(); %>
     <% connections.forEach(function(connection, index) {%>
-    <button type="button" class="btn btn-primary"><%=connection.host + ':' + connection.port%></button>
-    <% }); %>
+    <% if (index == 0) { %>
+    <button type="button" id="firstConnection" value='<%=connection.host%>:<%=connection.port%>'
+            class="btn btn-primary active" onclick="setConnection('<%=connection.host%>:<%=connection.port%>');">
+      <%=connection.host + ':' + connection.port%>
+    </button>
+    <% } else { %>
+    <button type="button" class="btn btn-primary" onclick="setConnection('<%=connection.host%>:<%=connection.port%>');">
+      <%=connection.host + ':' + connection.port%>
+    </button>
+    <% }}); %>
   </div>
   <div style="border-top: 1px solid #ddd;padding-bottom: 5px;"></div>
   <i id="lockCommandButton" class="icon-lock disabled"></i>
 
   <div id="commandLineOutput"></div>
+  <label id="selectedConnectionLabel">Current Server:</label>
+  <input id="selectedConnection" type="hidden">
+
   <div id="commandLine"></div>
 </div>
 <div id="redisCommandsModal" class="modal hide fade">
@@ -79,7 +90,13 @@
   </div>
 </div>
 <script type="text/javascript">
+  var setConnection = function (connectionId) {
+    $('#selectedConnectionLabel').text("Current Instance: " + connectionId);
+    $('#selectedConnection').val(connectionId);
+  };
   $(function () {
+    $('#selectedConnectionLabel').text("Current Instance: " + $('#firstConnection').val());
+    $('#selectedConnection').val($('#firstConnection').val());
     loadTree();
     loadConfig(function () {
       loadCommandLine();
