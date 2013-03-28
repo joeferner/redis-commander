@@ -1,15 +1,15 @@
-<button class="btn" onclick="addKey('')" style="margin-right: 5px">Add New Key...</button>
+<button class="btn" onclick="addKey('<%= connectionId %>')" style="margin-right: 5px">Add New Key...</button>
 <table class="table">
   <thead>
-    <th>Name</th>
-    <th>Value</th>
+  <th>Name</th>
+  <th>Value</th>
   </thead>
   <tbody>
-    <% info.forEach(function(infoItem) { %>
-      <tr>
-        <td><%= infoItem.key %></td>
-        <td><%= infoItem.value %></td>
-      </tr>
-    <% }) %>
+  <% info.forEach(function(infoItem) { %>
+  <tr>
+    <td><%= infoItem.key %></td>
+    <td><%= infoItem.value %></td>
+  </tr>
+  <% }) %>
   </tbody>
 </table>

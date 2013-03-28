@@ -127,6 +127,8 @@ function treeNodeSelected (event, data) {
   $('#body').html('Loading...');
 
   var pathParts = getKeyTree().get_path(data.rslt.obj, true);
+  var path = pathParts.slice(1).join(foldingCharacter);
+  var connectionId = pathParts.slice(0, 1)[0];
   if (pathParts.length === 1) {
     var hostAndPort = pathParts[0].split(':');
     $.get('/apiv1/server/info', function (data, status) {
@@ -136,6 +138,7 @@ function treeNodeSelected (event, data) {
       data = JSON.parse(data);
       data.forEach(function (instance) {
         if (instance.host == hostAndPort[0] && instance.port == hostAndPort[1]) {
+          instance.connectionId = connectionId;
           var html = new EJS({ url: '/templates/serverInfo.ejs' }).render(instance);
           $('#body').html(html);
           return setupAddKeyButton();
@@ -143,8 +146,6 @@ function treeNodeSelected (event, data) {
       });
     });
   } else {
-    var path = pathParts.slice(1).join(foldingCharacter);
-    var connectionId = pathParts.slice(0, 1)[0];
     return loadKey(connectionId, path);
   }
 }
@@ -256,9 +257,9 @@ function setupEditZSetButton () {
   }
 }
 
-function setupAddKeyButton () {
+function setupAddKeyButton (connectionId) {
   $('#keyValue').keyup(function () {
-    var action = "/apiv1/key/" + encodeURIComponent($(this).val());
+    var action = "/apiv1/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent($(this).val());
     $('#addKeyForm').attr("action", action);
   });
   $('#keyType').change(function () {
@@ -425,21 +426,25 @@ function refreshTree () {
   getKeyTree().refresh();
 }
 
-function addKey (key) {
-  if (typeof(key) == 'object') {
-    key = getFullKeyPath(key);
+function addKey (connectionId, key) {
+  if (typeof(connectionId) == 'object') {
+    key = getFullKeyPath(connectionId);
     if (key.length > 0) {
       key = key + ":";
     }
+    var pathParts = getKeyTree().get_path(connectionId, true);
+    connectionId = pathParts.slice(0, 1)[0];
   }
-  $('#addKeyForm').attr('action', '/apiv1/key/' + encodeURIComponent(key));
+  $('#addKeyForm').attr('action', '/apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key));
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
-  setupAddKeyButton();
+  setupAddKeyButton(connectionId);
 }
 function deleteKey (connectionId, key) {
-  if (typeof(key) == 'object') {
-    key = getFullKeyPath(key);
+  if (typeof(connectionId) == 'object') {
+    key = getFullKeyPath(connectionId);
+    var pathParts = getKeyTree().get_path(connectionId, true);
+    connectionId = pathParts.slice(0, 1)[0];
   }
   var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
   if (result) {
