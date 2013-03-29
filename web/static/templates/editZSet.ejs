@@ -2,42 +2,49 @@
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <div id="pageNav" class="input-append input-prepend">
     <button type="button" class="btn" onclick="loadKey('<%= connectionId %>','<%= key %>','0')"
-      <% if(beginning){%>disabled="disabled" <%}%>
-    ><i class="icon-fast-backward"></i></button><button type="button" class="btn" onclick="loadKey('<%= connectionId %>','<%= key %>','<%= items[0].number - 20%>')"
-      <% if(beginning){%>disabled="disabled" <%}%>
-    ><i class="icon-backward"></i></button><input class="span1" id="pageIndex" type="text" value="<%= items[0].number %>"></input><button id="gotoIndexButton" class="btn btn-primary" type="button" onclick="loadKey('<%= connectionId %>','<%= key%>', $('#pageIndex').val())">Goto Index</button><button type="button" class="btn" onclick="loadKey('<%= connectionId %>','<%= key %>','<%= items[items.length-1].number + 1%>')"
-      <% if(end){%>disabled="disabled" <%}%>
-    ><i class="icon-forward"></i></button><button type="button" class="btn" onclick="loadKey('<%= connectionId %>','<%= key %>','<%= length - 20 %>')"
-      <% if(end){%>disabled="disabled" <%}%>
+    <% if(beginning){%>disabled="disabled" <%}%>
+    ><i class="icon-fast-backward"></i></button>
+    <button type="button" class="btn" onclick="loadKey('<%= connectionId %>','<%= key %>','<%= items[0].number - 20%>')"
+    <% if(beginning){%>disabled="disabled" <%}%>
+    ><i class="icon-backward"></i></button><input class="span1" id="pageIndex" type="text"
+                                                  value="<%= items[0].number %>"></input>
+    <button id="gotoIndexButton" class="btn btn-primary" type="button"
+            onclick="loadKey('<%= connectionId %>','<%= key%>', $('#pageIndex').val())">Goto Index
+    </button>
+    <button type="button" class="btn"
+            onclick="loadKey('<%= connectionId %>','<%= key %>','<%= items[items.length-1].number + 1%>')"
+    <% if(end){%>disabled="disabled" <%}%>
+    ><i class="icon-forward"></i></button>
+    <button type="button" class="btn" onclick="loadKey('<%= connectionId %>','<%= key %>','<%= length - 20 %>')"
+    <% if(end){%>disabled="disabled" <%}%>
     ><i class="icon-fast-forward"></i></button>
   </div>
 </div>
 <div id="itemData">
   <table class="table">
     <thead>
-      <th>#</th>
-      <th>Score</th>
-      <th>Value</th>
+    <th>#</th>
+    <th>Score</th>
+    <th>Value</th>
     </thead>
     <tbody>
-      <% items.forEach(function(item) { %>
-        <tr>
-          <td><%= item.number %></td>
-          <td><%= item.score %></td>
-          <td><%= item.value %></td>
-        </tr>
-      <% }) %>
+    <% items.forEach(function(item) { %>
+    <tr>
+      <td><%= item.number %></td>
+      <td><%= item.score %></td>
+      <td><%= item.value %></td>
+    </tr>
+    <% }) %>
     </tbody>
   </table>
 </div>
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('.table tbody tr').dblclick(function(event) {
+  $(document).ready(function () {
+    $('.table tbody tr').dblclick(function (event) {
       var row = event.currentTarget;
       var score = row.children[1].innerHTML.toString();
       var value = row.children[2].innerHTML.toString();
-      var fullKey = <%= key %>
-      var key = fullKey.id;
+      var key = "<%= key %>";
       var connectionId = "<%= connectionId %>";
 
       editZSetRow(connectionId, key, score, value);

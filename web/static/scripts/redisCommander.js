@@ -325,7 +325,6 @@ function setupEditHashButton () {
 }
 
 function selectTreeNodeString (data) {
-  console.log(data);
   var html = new EJS({ url: '/templates/editString.ejs' }).render(data);
   $('#body').html(html);
 
@@ -379,6 +378,7 @@ function selectTreeNodeSet (data) {
 }
 
 function selectTreeNodeList (data) {
+  =
   if (data.items.length > 0) {
     var html = new EJS({ url: '/templates/editList.ejs' }).render(data);
     $('#body').html(html);
