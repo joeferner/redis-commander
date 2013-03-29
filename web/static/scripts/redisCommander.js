@@ -459,6 +459,21 @@ function deleteKey (connectionId, key) {
     });
   }
 }
+function deleteBranch (connectionId, branchPrefix) {
+  var query = branchPrefix + ':*';
+  var result = confirm('Are you sure you want to delete "' + query + ' from ' + connectionId + '"? This will delete all children as well!');
+  if (result) {
+    $.post('/apiv1/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
+      if (status != 'success') {
+        return alert("Could not delete branch");
+      }
+
+      refreshTree();
+      getKeyTree().select_node(-1);
+      $('#body').html('');
+    });
+  }
+}
 function addListValue (connectionId, key) {
   $('#key').val(key);
   $('#addStringValue').val("");
@@ -502,22 +517,6 @@ function removeZSetElement () {
 function removeHashField () {
   $('#hashFieldValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editHashFieldForm').submit();
-}
-
-function deleteBranch (branchPrefix) {
-  var query = branchPrefix + ':*';
-  var result = confirm('Are you sure you want to delete "' + query + '"? This will delete all children as well!');
-  if (result) {
-    $.post('/apiv1/keys/' + query + '?action=delete', function (data, status) {
-      if (status != 'success') {
-        return alert("Could not delete branch");
-      }
-
-      refreshTree();
-      getKeyTree().select_node(-1);
-      $('#body').html('');
-    });
-  }
 }
 
 var commandLineScrollTop;
