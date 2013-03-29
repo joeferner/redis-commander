@@ -16,6 +16,7 @@ $ redis-commander --help
 Options:
   --redis-port                    The port to find redis on.        [string]  [default: 6379]
   --redis-host                    The host to find redis on.        [string]
+  --redis-socket                  The unix-socket to find redis on. [string]
   --redis-password                The redis password.               [string]
   --redis-db                      The redis database.               [string]
   --http-auth-username, --http-u  The http authorisation username.  [string]
