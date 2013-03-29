@@ -378,7 +378,6 @@ function selectTreeNodeSet (data) {
 }
 
 function selectTreeNodeList (data) {
-  =
   if (data.items.length > 0) {
     var html = new EJS({ url: '/templates/editList.ejs' }).render(data);
     $('#body').html(html);
