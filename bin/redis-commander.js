@@ -16,6 +16,10 @@ var args = optimist
     string: true,
     describe: 'The host to find redis on.'
   })
+  .options('redis-socket', {
+    string: true,
+    describe: 'The unix-socket to find redis on.'
+  })
   .options('redis-password', {
     string: true,
     describe: 'The redis password.'
@@ -64,6 +68,8 @@ if (args['redis-host']) {
       }
     });
   }
+} else if(args['redis-socket']) {
+  redisConnection = redis.createClient(args['redis-socket']);
 } else {
   redisConnection = redis.createClient();
 }
