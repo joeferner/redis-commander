@@ -99,6 +99,11 @@ function loadTree () {
                     icon: 'icon-trash',
                     label: 'Remove Key',
                     action: deleteKey
+                  },
+                  "remConnection": {
+                    icon: 'icon-trash',
+                    label: 'Disconnect',
+                    action: removeServer
                   }
                 };
                 var rel = node.attr('rel');
@@ -458,6 +463,8 @@ function deleteKey (connectionId, key) {
     });
   }
 }
+
+
 function deleteBranch (connectionId, branchPrefix) {
   var query = branchPrefix + ':*';
   var result = confirm('Are you sure you want to delete "' + query + ' from ' + connectionId + '"? This will delete all children as well!');
@@ -795,10 +802,24 @@ function getServerInfo (callback) {
   });
 }
 
+function removeServer (connectionId) {
+  if (typeof(connectionId) == 'object') {
+    var pathParts = getKeyTree().get_path(connectionId, true);
+    connectionId = pathParts.slice(0, 1)[0];
+  }
+  var result = confirm('Are you sure you want to disconnect from "' + connectionId + '"?');
+  if (result) {
+    $.post('/logout/' + encodeURIComponent(connectionId), function (err, status) {
+      if (status != 'success') {
+        return alert("Could not remove instance");
+      }
+      location.reload();
+    });
+  }
+}
+
 function addServer () {
   $('#addServerForm').submit();
-  console.log("Server Added");
-  saveConfig();
 }
 
 function loadDefaultServer (host, port) {
