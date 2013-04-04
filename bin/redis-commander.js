@@ -20,6 +20,10 @@ var args = optimist
     string: true,
     describe: 'The host to find redis on.'
   })
+  .options('redis-socket', {
+    string: true,
+    describe: 'The unix-socket to find redis on.'
+  })
   .options('redis-password', {
     string: true,
     describe: 'The redis password.'
@@ -62,6 +66,7 @@ myUtils.getConfig(function (err, config) {
       "default_connections": []
     };
   }
+<<<<<<< HEAD
   startDefaultConnections(config.default_connections, function (err) {
     if (err) {
       console.log(err);
@@ -97,6 +102,8 @@ myUtils.getConfig(function (err, config) {
         });
         setUpConnection(redisConnections.getLast(), db);
       }
+    } else if(args['redis-socket']) {
+      redisConnection = redis.createClient(args['redis-socket']);
     } else if (config.default_connections.length == 0) {
       redisConnections.push(redis.createClient());
       setUpConnection(redisConnections.getLast(), 0);
