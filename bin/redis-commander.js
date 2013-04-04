@@ -51,7 +51,7 @@ if (args.help) {
   return process.exit(-1);
 }
 
-getConfig(function (err, config) {
+myUtils.getConfig(function (err, config) {
   if (err) {
     console.log("No config found.\nUsing default configuration.");
     config = {
@@ -78,7 +78,7 @@ getConfig(function (err, config) {
         "password": args['redis-password'] || "",
         "dbIndex": db
       };
-      if (!containsConnection(config.default_connections, newDefault)) {
+      if (!myUtils.containsConnection(config.default_connections, newDefault)) {
         redisConnections.push(redis.createClient(args['redis-port'] || 6379, args['redis-host']));
         if (args['redis-password']) {
           redisConnections.getLast().auth(args['redis-password'], function (err) {
@@ -89,7 +89,7 @@ getConfig(function (err, config) {
           });
         }
         config.default_connections.push(newDefault);
-        saveConfig(config, function (err) {
+        myUtils.saveConfig(config, function (err) {
           if (err) {
             console.log("Problem saving config.");
             console.error(err);
@@ -143,39 +143,4 @@ function connectToDB (redisConnection, db) {
 function startWebApp () {
   httpServerOptions = {webPort: args.port, username: args["http-auth-username"], password: args["http-auth-password"]};
   app(httpServerOptions, redisConnections);
-}
-//TODO: REMOVE CODE REPETITION
-function getConfig (callback) {
-  fs.readFile(getUserHome() + "/.redis-commander", 'utf8', function (err, data) {
-    if (err) {
-      callback(err);
-    } else {
-      var config = JSON.parse(data);
-      callback(null, config);
-    }
-  });
-}
-
-function saveConfig (config, callback) {
-  fs.writeFile(getUserHome() + "/.redis-commander", JSON.stringify(config), function (err) {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null);
-    }
-  });
-}
-
-function containsConnection (connectionList, object) {
-  var contains = false;
-  connectionList.forEach(function (element) {
-    if (element.host == object.host && element.port == object.port && element.password == object.password && element.dbIndex == object.dbIndex) {
-      contains = true;
-    }
-  });
-  return contains;
-}
-
-function getUserHome () {
-  return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
 }
