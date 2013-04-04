@@ -18,11 +18,12 @@ function loadTree () {
         data.forEach(function (instance, index) {
           var host = instance.host;
           var port = instance.port;
+          var db = instance.db;
           json_dataData.push({
-            data: host + ":" + port,
+            data: host + ":" + port + ":" + db,
             state: "closed",
             attr: {
-              id: host + ":" + port,
+              id: host + ":" + port + ":" + db,
               rel: "root"
             }
           });
@@ -109,6 +110,9 @@ function loadTree () {
                 var rel = node.attr('rel');
                 if (rel != undefined && rel != 'root') {
                   delete menu['addKey'];
+                }
+                if (rel != 'root') {
+                  delete menu['remConnection'];
                 }
                 if (rel == 'root') {
                   delete menu['remKey'];
