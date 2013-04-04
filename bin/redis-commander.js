@@ -51,60 +51,73 @@ if (args.help) {
   return process.exit(-1);
 }
 
-if (args['redis-host']) {
-  redisConnections.push(redis.createClient(args['redis-port'] || 6379, args['redis-host']));
-  if (args['redis-password']) {
-    redisConnections.getLast().auth(args['redis-password'], function (err) {
-      if (err) {
-        console.log(err);
-        process.exit();
-      }
-    });
+getConfig(function (err, config) {
+  if (err) {
+    console.log("No config found.\nUsing default configuration.");
+    config = {
+      "sidebarWidth": 250,
+      "locked": false,
+      "CLIHeight": 50,
+      "CLIOpen": false,
+      "default_connections": []
+    };
   }
-  var db = parseInt(args['redis-db']);
-  if (db == null || isNaN(db)) {
-    db = 0
-  }
-  setUpConnection(redisConnections.getLast(), db);
-  return startWebApp();
-} else {
-  getConfig(function (err, config) {
+  startDefaultConnections(config.default_connections, function (err) {
     if (err) {
-      console.log("No config found.\nUsing default configuration.");
-      config = {
-        "sidebarWidth": 250,
-        "locked": false,
-        "CLIHeight": 50,
-        "CLIOpen": false,
-        "default_connections": []
+      console.log(err);
+      process.exit();
+    }
+    if (args['redis-host']) {
+      var db = parseInt(args['redis-db']);
+      if (db == null || isNaN(db)) {
+        db = 0
+      }
+      newDefault = {
+        "host": args['redis-host'],
+        "port": args['redis-port'] || 6379,
+        "password": args['redis-password'] || "",
+        "dbIndex": db
       };
-      saveConfig(config, function (err) {
-        if (err) {
-          console.error("Problem saving config.\n", err);
-        }
-        redisConnections.push(redis.createClient());
-        setUpConnection(redisConnections.getLast(), 0);
-      });
-    } else if (config.default_connections && config.default_connections.length > 0) {
-      config.default_connections.forEach(function (connection) {
-        redisConnections.push(redis.createClient(connection.port, connection.host));
-        if (connection.password) {
-          redisConnections.getLast().auth(connection.password, function (err) {
+      if (!containsConnection(config.default_connections, newDefault)) {
+        redisConnections.push(redis.createClient(args['redis-port'] || 6379, args['redis-host']));
+        if (args['redis-password']) {
+          redisConnections.getLast().auth(args['redis-password'], function (err) {
             if (err) {
               console.log(err);
               process.exit();
             }
           });
         }
-        setUpConnection(redisConnections.getLast(), connection.dbIndex);
-      });
-      return startWebApp();
-    } else {
+        config.default_connections.push(newDefault);
+        saveConfig(config, function (err) {
+          if (err) {
+            console.log("Problem saving config.");
+            console.error(err);
+          }
+        });
+        setUpConnection(redisConnections.getLast(), db);
+      }
+    } else if (config.default_connections.length == 0) {
       redisConnections.push(redis.createClient());
       setUpConnection(redisConnections.getLast(), 0);
     }
-    return startWebApp();
   });
+  return startWebApp();
+});
+
+function startDefaultConnections (connections, callback) {
+  connections.forEach(function (connection) {
+    redisConnections.push(redis.createClient(connection.port, connection.host));
+    if (connection.password) {
+      redisConnections.getLast().auth(connection.password, function (err) {
+        if (err) {
+          return callback(err);
+        }
+      });
+    }
+    setUpConnection(redisConnections.getLast(), connection.dbIndex);
+  });
+  return callback(null);
 }
 
 function setUpConnection (redisConnection, db) {
@@ -151,6 +164,16 @@ function saveConfig (config, callback) {
       callback(null);
     }
   });
+}
+
+function containsConnection (connectionList, object) {
+  var contains = false;
+  connectionList.forEach(function (element) {
+    if (element.host == object.host && element.port == object.port && element.password == object.password && element.dbIndex == object.dbIndex) {
+      contains = true;
+    }
+  });
+  return contains;
 }
 
 function getUserHome () {
