@@ -854,35 +854,26 @@ function configChange () {
 }
 
 function saveConfig () {
-  console.log('Saving Config...');
-  var config = null;
   var sidebarWidth = $('#sideBar').width();
   var locked = !$('#lockCommandButton').hasClass('disabled');
   var CLIHeight = $('#commandLineContainer').height();
-  $.get('/apiv1/connection', function (isConnected) {
-    if (isConnected) {
-      getServerInfo(function (data) {
-        config = {
-          "sidebarWidth": sidebarWidth,
-          "locked": locked,
-          "CLIHeight": CLIHeight,
-          "CLIOpen": CLIOpen
-          //          "host":data.host,
-          //          "port":data.port
-        };
-        $.post('/config', config, function (data, status) {
-          console.log('Config Saved');
-        });
+  $.get('/config', function (config) {
+    if (config) {
+      config["sidebarWidth"] = sidebarWidth;
+      config["locked"] = locked;
+      config["CLIHeight"] = CLIHeight;
+      config["CLIOpen"] = CLIOpen;
+      $.post('/config', config, function (data, status) {
       });
     } else {
       var config = {
         "sidebarWidth": sidebarWidth,
         "locked": locked,
         "CLIHeight": CLIHeight,
-        "CLIOpen": CLIOpen
+        "CLIOpen": CLIOpen,
+        "default_connections": []
       };
       $.post('/config', config, function (data, status) {
-        console.log('Config Saved');
       });
     }
   });
@@ -890,13 +881,6 @@ function saveConfig () {
 function loadConfig (callback) {
   $.get('/config', function (data) {
     if (data) {
-      $.get('/apiv1/connection', function (isConnected) {
-        if (!isConnected) {
-          if (data['host']) {
-            loadDefaultServer(data['host'], data['port']);
-          }
-        }
-      });
       if (data['sidebarWidth']) {
         $('#sideBar').width(data['sidebarWidth']);
       }
