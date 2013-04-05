@@ -66,25 +66,27 @@ myUtils.getConfig(function (err, config) {
       "default_connections": []
     };
   }
-<<<<<<< HEAD
+  if (!config.default_connections) {
+    config.default_connections = [];
+  }
   startDefaultConnections(config.default_connections, function (err) {
     if (err) {
       console.log(err);
       process.exit();
     }
-    if (args['redis-host']) {
+    if (args['redis-host'] || args['redis-socket']) {
       var db = parseInt(args['redis-db']);
       if (db == null || isNaN(db)) {
         db = 0
       }
       newDefault = {
-        "host": args['redis-host'],
-        "port": args['redis-port'] || 6379,
+        "host": args['redis-host'] || "localhost",
+        "port": args['redis-port'] || args['redis-socket'] || "6379",
         "password": args['redis-password'] || "",
         "dbIndex": db
       };
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
-        redisConnections.push(redis.createClient(args['redis-port'] || 6379, args['redis-host']));
+        redisConnections.push(redis.createClient(newDefault.port, newDefault.host));
         if (args['redis-password']) {
           redisConnections.getLast().auth(args['redis-password'], function (err) {
             if (err) {
@@ -102,28 +104,32 @@ myUtils.getConfig(function (err, config) {
         });
         setUpConnection(redisConnections.getLast(), db);
       }
-    } else if(args['redis-socket']) {
-      redisConnection = redis.createClient(args['redis-socket']);
     } else if (config.default_connections.length == 0) {
+      var db = parseInt(args['redis-db']);
+      if (db == null || isNaN(db)) {
+        db = 0
+      }
       redisConnections.push(redis.createClient());
-      setUpConnection(redisConnections.getLast(), 0);
+      setUpConnection(redisConnections.getLast(), db);
     }
   });
   return startWebApp();
 });
 
 function startDefaultConnections (connections, callback) {
-  connections.forEach(function (connection) {
-    redisConnections.push(redis.createClient(connection.port, connection.host));
-    if (connection.password) {
-      redisConnections.getLast().auth(connection.password, function (err) {
-        if (err) {
-          return callback(err);
-        }
-      });
-    }
-    setUpConnection(redisConnections.getLast(), connection.dbIndex);
-  });
+  if (connections) {
+    connections.forEach(function (connection) {
+      redisConnections.push(redis.createClient(connection.port, connection.host));
+      if (connection.password) {
+        redisConnections.getLast().auth(connection.password, function (err) {
+          if (err) {
+            return callback(err);
+          }
+        });
+      }
+      setUpConnection(redisConnections.getLast(), connection.dbIndex);
+    });
+  }
   return callback(null);
 }
 
