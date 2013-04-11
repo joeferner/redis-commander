@@ -781,7 +781,8 @@ var cmdparser = new CmdParser([
   "ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]"
 ], {
   key: function (partial, callback) {
-    $.get('/apiv1/keys/' + partial + '*?limit=20', function (data, status) {
+    var redisConnection = $('#selectedConnection').val();
+    $.get('/apiv1/keys/' + encodeURIComponent(redisConnection) + "/" + partial + '*?limit=20', function (data, status) {
       if (status != 'success') {
         return callback(new Error("Could not get keys"));
       }
