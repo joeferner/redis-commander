@@ -4,7 +4,7 @@
     "Evan Oxfeld <eoxfeld@gmail.com>"
   ],
   "name": "redis-commander",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Redis web-based management tool written in node.js",
   "repository": {
     "type": "git",
