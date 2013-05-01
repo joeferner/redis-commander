@@ -48,6 +48,11 @@ var args = optimist
     describe: 'The port to run the server on.',
     default: 8081
   })
+  .options('nosave', {
+     alias: 'ns',
+    boolean: true,
+    describe: 'Do not save new connections to config.'
+  })
   .argv;
 
 if (args.help) {
@@ -153,7 +158,8 @@ function connectToDB (redisConnection, db) {
   });
 }
 
-function startWebApp () {
+function startWebApp () {     
   httpServerOptions = {webPort: args.port, username: args["http-auth-username"], password: args["http-auth-password"]};
-  app(httpServerOptions, redisConnections);
+  console.log("No Save: " + args["nosave"]);
+  app(httpServerOptions, redisConnections, args["nosave"]);
 }
