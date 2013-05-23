@@ -80,14 +80,14 @@
   color: #888;
   font-size: 12px;
   padding-left: 15px;
-  font-family: Menlo, "monospace";
+  font-family: Menlo, "monospace","Courier New";
 }
 
 .prompt {
   color: #888;
   font-size: 12px;
   padding-left: 15px;
-  font-family: Menlo, "monospace";
+  font-family: Menlo, "monospace","Courier New";
 }
 
 #commandLineOutput {
@@ -95,7 +95,7 @@
   font-size: 12px;
   display: none;
   padding-left: 15px;
-  font-family: Menlo, "monospace";
+  font-family: Menlo, "monospace","Courier New";
   overflow: scroll;
 }
 
@@ -108,7 +108,7 @@
   color: #333;
   font-weight: bold;
   font-size: 12px;
-  font-family: Menlo, "monospace";
+  font-family: Menlo, "monospace","Courier New";
 }
 
 .autocompletePopup {
