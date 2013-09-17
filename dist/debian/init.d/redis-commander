@@ -51,7 +51,7 @@ case "$1" in
                 exit 1
             fi
             # Change the log permissions.
-            chown -R $USER:adm /var/log/redis-commander
+            chown -R $USER:adm $LOGDIR
         fi
 
         log_end_msg 0
