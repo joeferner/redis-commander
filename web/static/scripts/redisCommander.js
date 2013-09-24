@@ -1005,3 +1005,13 @@ function setupCLIKeyEvents () {
     }
   }
 }
+
+$(function() {
+  /**
+   * Export redis data.
+   */
+  $('#redisExportModal form').on('submit', function () {
+    window.open("/tools/export?" + $(this).serialize(), '_blank');
+    return false;
+  });
+});

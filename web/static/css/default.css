@@ -272,3 +272,17 @@ body {
   opacity: 0.3;
   filter: alpha(opacity=30);
 }
+
+#redisImportModal textarea,
+#redisExportModal textarea {
+  width: 97%;
+  height: 300px;
+}
+
+#compressExportField {
+  margin-top: 8px;
+}
+
+.modal .form-horizontal {
+  margin: 0;
+}

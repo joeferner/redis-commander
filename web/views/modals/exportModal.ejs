@@ -1,0 +1,49 @@
+<!-- EXPORT MODAL -->
+<div class="modal hide fade" id="redisExportModal">
+  <form class="form-horizontal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Export data</h3>
+    </div>
+    <div class="modal-body">
+      <div class="control-group">
+        <label class="control-label" for="connectionExportField">Connection</label>
+        <div class="controls">
+          <select name="connection">
+            <% var connections = getConnections(); %>
+            <% connections.forEach(function(connection, index) {%>
+            <% if (index == 0) { %>
+            <option value="<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>"><%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%></option>
+            <% } else { %>
+            <option value="<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>"><%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%></option>
+            <% }}); %>
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Data type</label>
+        <div class="controls">
+          <label class="radio">
+            <input type="radio" name="type" value="redis" checked>
+            Redis
+          </label>
+          <label class="radio">
+            <input type="radio" name="type" value="json">
+            JSON (not work)
+          </label>
+        </div>
+      </div>
+      <!--<div class="control-group">
+        <label class="control-label" for="compressExportField">Compress</label>
+        <div class="controls">
+          <input type="checkbox" name="compress" value="1" id="compressExportField">
+        </div>
+      </div>-->
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+      <input type="submit" class="btn btn-primary" value="Export">
+    </div>
+  </form>
+</div>
+<!-- /EXPORT MODAL -->
