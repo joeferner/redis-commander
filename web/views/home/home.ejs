@@ -2,9 +2,18 @@
   <div>
     <div id="sideBar">
       <div id="keyTreeActions">
-        <button class="btn btn-success btn-mini" onclick="refreshTree()">Refresh</button>
-        <button class="btn btn-mini" data-toggle="modal" href="#redisCommandsModal">Commands</button>
-        <button class="btn btn-primary btn-mini" data-toggle="modal" href="#addServerModal">Add Server</button>
+        <button class="btn btn-success btn-mini" onclick="refreshTree()"><b class="icon-refresh icon-white"></b> Refresh</button>
+        <button class="btn btn-mini" data-toggle="modal" href="#redisCommandsModal"><b class="icon-info-sign"></b> Commands</button>
+        <div class="btn-group">
+          <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
+            <b class="icon-wrench"></b>
+            More...
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a data-toggle="modal" href="#addServerModal"><b class="icon-plus-sign"></b> Add Server</a></li>
+          </ul>
+        </div>
       </div>
       <div id="keyTree"></div>
       <div id="sidebarResize"></div>
@@ -44,6 +53,7 @@
   <div id="commandLine"></div>
 </div>
 
+<!-- COMMANDS MODAL -->
 <div id="redisCommandsModal" class="modal hide fade">
   <a id="redisCommandsExternal" target="_blank" href="http://redis.io/commands">Open in new window</a>
   <button id="redisCommandsClose" type="button" class="close" data-dismiss="modal">×</button>
@@ -93,6 +103,8 @@
     <a type="submit" onclick="addServer()" class="btn btn-primary">Connect...</a>
   </div>
 </div>
+<!-- /COMMANDS MODAL -->
+
 <script type="text/javascript">
   var setConnection = function (connectionId) {
     $('#selectedConnectionLabel').text("Current Instance: " + connectionId);
