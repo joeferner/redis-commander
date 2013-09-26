@@ -1014,4 +1014,20 @@ $(function() {
     window.open("/tools/export?" + $(this).serialize(), '_blank');
     return false;
   });
+
+  /**
+   * Import redis data.
+   */
+  $('#redisImportModal form').on('submit', function () {
+    $.ajax({
+      type: 'POST',
+      url: '/tools/import',
+      data: $(this).serialize(),
+      success: function (res) {
+        console.log(res);
+      }
+    });
+
+    return false;
+  });
 });
