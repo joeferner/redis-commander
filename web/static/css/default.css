@@ -34,6 +34,7 @@ body {
   left: 5px;
   width: 250px;
   border-right: 1px solid #DDD;
+  z-index: 1;
 }
 
 #keyTree {
@@ -273,14 +274,9 @@ body {
   filter: alpha(opacity=30);
 }
 
-#redisImportModal textarea,
-#redisExportModal textarea {
+#importData {
   width: 97%;
   height: 300px;
-}
-
-#compressExportField {
-  margin-top: 8px;
 }
 
 .modal .form-horizontal {

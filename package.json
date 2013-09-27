@@ -28,7 +28,7 @@
     "browserify": "~1.12.2",
     "readline-browserify": "0.0.4",
     "cmdparser": "0.0.3",
-    "node-redis-dump": "~0.1.0"
+    "node-redis-dump": "~0.2.0"
   },
   "devDependencies": {},
   "optionalDependencies": {},
