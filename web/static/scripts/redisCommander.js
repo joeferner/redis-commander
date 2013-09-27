@@ -1005,3 +1005,61 @@ function setupCLIKeyEvents () {
     }
   }
 }
+
+$(function() {
+  /**
+   * Export redis data.
+   */
+  $('#app-container').on('submit', '#redisExportForm', function () {
+    window.open("/tools/export?" + $(this).serialize(), '_blank');
+    return false;
+  });
+
+  /**
+   * Import redis data.
+   */
+  $('#app-container').on('submit', '#redisImportForm', function () {
+    $('#body').html('<h2>Import</h2>Importing in progress. Prease wait...');
+
+    $.ajax({
+      type: 'POST',
+      url: '/tools/import',
+      data: $(this).serialize(),
+      dataType: 'JSON',
+      success: function (res) {
+        $('#body').html('<h2>Import</h2>' +
+          '<div>Inserted: ' + res.inserted + '</div>' +
+          '<div>Errors: ' + res.errors + '</div><br/>' +
+          '<span class="label label-' + (res.errors ? 'important' : 'success') + '">' + (res.errors ? 'Errors' : 'Success') + '</span>');
+      }
+    });
+
+    return false;
+  });
+
+  /**
+   * Show import form.
+   */
+  $('#redisImportData').on('click', function () {
+    $.ajax({
+      type: 'POST',
+      url: '/tools/forms/import',
+      success: function (res) {
+        $('#body').html(res);
+      }
+    });
+  });
+
+  /**
+   * Show export form.
+   */
+  $('#redisExportData').on('click', function () {
+    $.ajax({
+      type: 'POST',
+      url: '/tools/forms/export',
+      success: function (res) {
+        $('#body').html(res);
+      }
+    });
+  });
+});
