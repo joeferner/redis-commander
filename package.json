@@ -9,7 +9,7 @@
   "description": "Redis web-based management tool written in node.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nearinfinity/redis-commander.git"
+    "url": "git://github.com/joeferner/redis-commander.git"
   },
   "keywords": [
     "redis",
