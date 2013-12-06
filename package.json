@@ -5,7 +5,7 @@
     "Dmitriy Yurchenko <feedback@evildev.ru>"
   ],
   "name": "redis-commander",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Redis web-based management tool written in node.js",
   "repository": {
     "type": "git",
