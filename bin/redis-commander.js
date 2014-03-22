@@ -57,7 +57,7 @@ if (args.help) {
 
 myUtils.getConfig(function (err, config) {
   if (err) {
-    console.log("No config found.\nUsing default configuration.");
+    console.log("No config found or was invalid.\nUsing default configuration.");
     config = {
       "sidebarWidth": 250,
       "locked": false,
