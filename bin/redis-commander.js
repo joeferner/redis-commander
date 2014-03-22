@@ -74,7 +74,7 @@ myUtils.getConfig(function (err, config) {
       console.log(err);
       process.exit();
     }
-    if (args['redis-host'] || args['redis-socket']) {
+    if (args['redis-host'] || args['redis-port'] || args['redis-socket']) {
       var db = parseInt(args['redis-db']);
       if (db == null || isNaN(db)) {
         db = 0
@@ -85,6 +85,7 @@ myUtils.getConfig(function (err, config) {
         "password": args['redis-password'] || "",
         "dbIndex": db
       };
+
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
         redisConnections.push(redis.createClient(newDefault.port, newDefault.host));
         if (args['redis-password']) {
