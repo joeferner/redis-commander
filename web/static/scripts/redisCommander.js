@@ -565,7 +565,7 @@ function loadCommandLine () {
     hideCommandLineOutput();
   });
 
-  var readline = require("readline");
+  var readline = require("readline-browserify");
   var output = document.getElementById('commandLineOutput');
   var rl = readline.createInterface({
     elementId: 'commandLine',
