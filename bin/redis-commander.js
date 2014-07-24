@@ -42,6 +42,12 @@ var args = optimist
     string: true,
     describe: 'The http authorisation password.'
   })
+  .options('address', {
+    alias: 'a',
+    string: true,
+    describe: 'The address to run the server on.',
+    default: "0.0.0.0"
+  })
   .options('port', {
     alias: 'p',
     string: true,
@@ -160,7 +166,7 @@ function connectToDB (redisConnection, db) {
 }
 
 function startWebApp () {     
-  httpServerOptions = {webPort: args.port, username: args["http-auth-username"], password: args["http-auth-password"]};
+  httpServerOptions = {webPort: args.port, webAddress: args.address, username: args["http-auth-username"], password: args["http-auth-password"]};
   console.log("No Save: " + args["nosave"]);
   app(httpServerOptions, redisConnections, args["nosave"]);
 }
