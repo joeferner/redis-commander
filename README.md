@@ -22,4 +22,5 @@ Options:
   --http-auth-username, --http-u  The http authorisation username.   [string]
   --http-auth-password, --http-p  The http authorisation password.   [string]
   --port, -p                      The port to run the server on.     [string]  [default: 8081]
+  --address, -a                   The address to run the server on   [string]  [default: 0.0.0.0]
 ```
