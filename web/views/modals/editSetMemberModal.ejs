@@ -1,0 +1,23 @@
+<div id="editSetMemberModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Edit Set Member</h3>
+  </div>
+  <div class="modal-body">
+    <form id="editSetMemberForm" action="/apiv1/editSetMember/" method="POST" class="form-vertical">  
+      <input id="setKey" name="setKey" hidden="true" />
+      <h3>Member</h3>
+      <input id="setOldMember" name="setOldMember" type="text" readonly/>
+      <h3>Updated Member</h3>
+      <textarea id="setMember" name="setMember" style="width: 500px; height: 150px;"></textarea>
+      <input id="setConnectionId" name="setConnectionId" hidden/>
+      <br>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <button id="removeSetMemberButton" class="btn btn-danger" data-loading-text="<i class='icon-refresh'></i> Removing..." onclick="removeSetElement()">Remove Member</button>
+    <button id="editSetMemberButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editSetMemberForm').submit()">Save</button>
+  </div>
+</div>
+

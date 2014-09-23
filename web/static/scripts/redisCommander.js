@@ -239,6 +239,32 @@ function setupEditListButton () {
   }
 }
 
+function setupEditSetButton () {
+  $('#editSetMemberForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#editSetMemberButton').button('loading');
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      $('#editSetMemberButton').button('reset');
+      saveComplete();
+    }
+  });
+
+  function saveComplete () {
+    setTimeout(function () {
+      $('#editSetMemberModal').modal('hide');
+      refreshTree();
+      getKeyTree().select_node(0);
+    }, 500);
+  }
+}
 function setupEditZSetButton () {
   $('#editZSetRowForm').ajaxForm({
     beforeSubmit: function () {
@@ -384,6 +410,28 @@ function selectTreeNodeHash (data) {
 function selectTreeNodeSet (data) {
   var html = new EJS({ url: '/templates/editSet.ejs' }).render(data);
   $('#body').html(html);
+  $('#addSetMemberForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#saveMemberButton').button('loading');
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      $('#saveMemberButton').button('reset');
+      saveComplete();
+    }
+  });
+  function saveComplete () {
+    setTimeout(function () {
+      $('#addSetMemberModal').modal('hide');
+      $('a.jstree-clicked').click();
+    }, 500);
+  }
 }
 
 function selectTreeNodeList (data) {
@@ -491,13 +539,26 @@ function addListValue (connectionId, key) {
   $('#addListValueModal').modal('show');
 }
 function editListRow (connectionId, key, index, value) {
-  console.log(connectionId);
   $('#editListConnectionId').val(connectionId);
   $('#listKey').val(key);
   $('#listIndex').val(index);
   $('#listValue').val(value);
   $('#editListRowModal').modal('show');
   setupEditListButton();
+}
+function addSetMember (connectionId, key) {
+  $('#addSetKey').val(key);
+  $('#addSetMemberName').val("");
+  $('#addSetConnectionId').val(connectionId);
+  $('#addSetMemberModal').modal('show');
+}
+function editSetMember (connectionId, key, member) {
+  $('#setConnectionId').val(connectionId);
+  $('#setKey').val(key);
+  $('#setMember').val(member);
+  $('#setOldMember').val(member);
+  $('#editSetMemberModal').modal('show');
+  setupEditSetButton();
 }
 function editZSetRow (connectionId, key, score, value) {
   $('#zSetConnectionId').val(connectionId);
@@ -519,6 +580,10 @@ function editHashRow (connectionId, key, field, value) {
 function removeListElement () {
   $('#listValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editListRowForm').submit();
+}
+function removeSetElement () {
+  $('#setMember').val('REDISCOMMANDERTOMBSTONE');
+  $('#editSetMemberForm').submit();
 }
 function removeZSetElement () {
   $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
