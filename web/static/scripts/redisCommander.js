@@ -371,8 +371,16 @@ function selectTreeNodeString (data) {
   }
 
   $('#stringValue').val(data.value);
+  $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
   $('#stringValue').keyup(function () {
     $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "/clippy-jquery/clippy.swf"});
+    var dataTree;
+    try {
+      dataTree = JSONTree.create(JSON.parse($(this).val()));
+    } catch (err) {
+      dataTree = err.message;
+    }
+    $('#jqtree_string_div').html(dataTree);
   }).keyup();
   $('.clippyWrapper').tooltip();
   $('#editStringForm').ajaxForm({

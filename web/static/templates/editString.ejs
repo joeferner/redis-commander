@@ -1,12 +1,15 @@
 <div id="itemActionsBar">
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
+    <button id="vieModeEditButton" class="btn" style="display: none;" onclick="$('#stringValue').css('display','inline');$('#jqtree_string_div').css('display','none');$('#vieModeEditButton').css('display','none');$('#vieModeTreeButton').css('display','inline')">view mode edit</button>
+    <button id="vieModeTreeButton" class="btn" onclick="$('#stringValue').css('display','none');$('#jqtree_string_div').css('display','inline-block');$('#vieModeEditButton').css('display','inline');$('#vieModeTreeButton').css('display','none')">view mode tree</button>
 </div>
 <div id="itemData">
   <form id="editStringForm" action="/apiv1/key/<%= connectionId %>/<%= key %>" method="POST" class="form-vertical">
     <label>Key: <b><%= key %></b></label>
     <label>Value:</label>
     <input type="hidden" id="isJson" name="isJson">
-    <textarea id="stringValue" name="stringValue" style="width: 600px; height: 300px;"></textarea>
+    <textarea id="stringValue" name="stringValue" style="width: 600px; height: 450px;"></textarea>
+    <div id="jqtree_string_div" style="display: none;">loading ...</div>
     <span class="clippyWrapper" title="copy to clipboard">
       <span id="stringValueClippy"></span>
     </span>
