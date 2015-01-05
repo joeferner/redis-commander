@@ -85,7 +85,7 @@ myUtils.getConfig(function (err, config) {
       console.log(err);
       process.exit();
     }
-    if (args['redis-host'] || args['redis-port'] || args['redis-socket']) {
+    if (args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       var db = parseInt(args['redis-db']);
       if (db == null || isNaN(db)) {
         db = 0
