@@ -36,12 +36,12 @@
             value='<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>'
             class="btn btn-primary active"
             onclick="setConnection('<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>');">
-      <%=connection.host + ':' + connection.port + ':' + connection.selected_db%>
+      <%=connection.label + ' (' + connection.host + ':' + connection.port + ':' + connection.selected_db + ')'%>
     </button>
     <% } else { %>
     <button type="button" class="btn btn-primary"
             onclick="setConnection('<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>');">
-      <%=connection.host + ':' + connection.port + ':' + connection.selected_db%>
+      <%=connection.label + ' (' + connection.host + ':' + connection.port + ':' + connection.selected_db + ')'%>
     </button>
     <% }}); %>
   </div>
@@ -71,6 +71,8 @@
   <div class="modal-body">
     <div class="container" id="addServerContainer">
       <form action="login" method="POST" id="addServerForm">
+        <label>Name</label>
+        <input type="text" name="label" id="label" value="">
         <label>Hostname</label>
         <input type="text" name="hostname" id="hostname" value="localhost">
         <label>Port or Unix Socket Path</label>

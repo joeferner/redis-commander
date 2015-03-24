@@ -16,11 +16,12 @@ function loadTree () {
         var json_dataData = [];
 
         data.forEach(function (instance, index) {
+          var label = instance.label;
           var host = instance.host;
           var port = instance.port;
           var db = instance.db;
           json_dataData.push({
-            data: host + ":" + port + ":" + db,
+            data: label + " (" + host + ":" + port + ":" + db + ")",
             state: "closed",
             attr: {
               id: host + ":" + port + ":" + db,

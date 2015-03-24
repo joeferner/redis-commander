@@ -91,6 +91,7 @@ myUtils.getConfig(function (err, config) {
         db = 0
       }
       newDefault = {
+        "label": args['redis-label'] || "local",
         "host": args['redis-host'] || "localhost",
         "port": args['redis-port'] || args['redis-socket'] || "6379",
         "password": args['redis-password'] || "",
@@ -98,7 +99,9 @@ myUtils.getConfig(function (err, config) {
       };
 
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
-        redisConnections.push(redis.createClient(newDefault.port, newDefault.host));
+        var client = redis.createClient(newDefault.port, newDefault.host);
+        client.label = newDefault.label;
+        redisConnections.push(client);
         if (args['redis-password']) {
           redisConnections.getLast().auth(args['redis-password'], function (err) {
             if (err) {
@@ -131,7 +134,9 @@ myUtils.getConfig(function (err, config) {
 function startDefaultConnections (connections, callback) {
   if (connections) {
     connections.forEach(function (connection) {
-      redisConnections.push(redis.createClient(connection.port, connection.host));
+      var client = redis.createClient(connection.port, connection.host);
+      client.label = connection.label;
+      redisConnections.push(client);
       if (connection.password) {
         redisConnections.getLast().auth(connection.password, function (err) {
           if (err) {
@@ -165,7 +170,7 @@ function connectToDB (redisConnection, db) {
   });
 }
 
-function startWebApp () {     
+function startWebApp () {
   httpServerOptions = {webPort: args.port, webAddress: args.address, username: args["http-auth-username"], password: args["http-auth-password"]};
   console.log("No Save: " + args["nosave"]);
   app(httpServerOptions, redisConnections, args["nosave"]);
