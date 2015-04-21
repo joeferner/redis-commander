@@ -6,7 +6,7 @@
     "Alex Ehrnschwender <alexanderscott46@gmail.com>"
   ],
   "name": "redis-commander",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Redis web-based management tool written in node.js",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "async": "~0.1.22",
-    "browserify": "^4.1.11",
+    "browserify": "^9.0.8",
     "browserify-middleware": "^3.0.0",
     "cmdparser": "0.0.3",
     "ejs": "~0.8",
