@@ -21,7 +21,7 @@
   "dependencies": {
     "async": "~0.1.22",
     "browserify": "^9.0.8",
-    "browserify-middleware": "^3.0.0",
+    "browserify-middleware": "^5.0.1",
     "cmdparser": "0.0.3",
     "ejs": "~0.8",
     "express": "2.x.x",
