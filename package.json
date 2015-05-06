@@ -39,5 +39,6 @@
   },
   "bin": {
     "redis-commander": "./bin/redis-commander.js"
-  }
+  },
+  "preferGlobal": true
 }
