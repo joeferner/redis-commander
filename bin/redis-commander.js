@@ -59,11 +59,25 @@ var args = optimist
     boolean: true,
     describe: 'Do not save new connections to config.'
   })
+  .options('clear-config', {
+     alias: 'cc',
+    boolean: false,
+    describe: 'clear configuration file'
+  })
   .argv;
 
 if (args.help) {
   optimist.showHelp();
   return process.exit(-1);
+}
+
+
+if(args['clear-config']) {
+  myUtils.deleteConfig(function(err) {
+    if (err) {
+    console.log("Failed to delete existing config file.");
+    }
+  });
 }
 
 myUtils.getConfig(function (err, config) {
