@@ -3,7 +3,7 @@ var foldingCharacter = ":";
 
 var CmdParser = require('cmdparser');
 function loadTree () {
-  $.get('/apiv1/connection', function (isConnected) {
+  $.get('apiv1/connection', function (isConnected) {
     if (isConnected) {
       $('#keyTree').bind("loaded.jstree", function () {
         var tree = getKeyTree();
@@ -41,10 +41,10 @@ function loadTree () {
                   if (node !== -1) {
                     var path = getFullKeyPath(node);
                     var root = getRootConnection(node);
-                    return '/apiv1/keystree/' + encodeURIComponent(root) + '/' + encodeURIComponent(path) + '?absolute=false';
+                    return 'apiv1/keystree/' + encodeURIComponent(root) + '/' + encodeURIComponent(path) + '?absolute=false';
                   }
                   var root = getRootConnection(node);
-                  return '/apiv1/keystree/' + encodeURIComponent(root);
+                  return 'apiv1/keystree/' + encodeURIComponent(root);
                 }
               }
             },
@@ -52,32 +52,32 @@ function loadTree () {
               types: {
                 "root": {
                   icon: {
-                    image: '/images/treeRoot.png'
+                    image: 'images/treeRoot.png'
                   }
                 },
                 "string": {
                   icon: {
-                    image: '/images/treeString.png'
+                    image: 'images/treeString.png'
                   }
                 },
                 "hash": {
                   icon: {
-                    image: '/images/treeHash.png'
+                    image: 'images/treeHash.png'
                   }
                 },
                 "set": {
                   icon: {
-                    image: '/images/treeSet.png'
+                    image: 'images/treeSet.png'
                   }
                 },
                 "list": {
                   icon: {
-                    image: '/images/treeList.png'
+                    image: 'images/treeList.png'
                   }
                 },
                 "zset": {
                   icon: {
-                    image: '/images/treeZSet.png'
+                    image: 'images/treeZSet.png'
                   }
                 }
               }
@@ -141,7 +141,7 @@ function treeNodeSelected (event, data) {
   var connectionId = pathParts.slice(0, 1)[0];
   if (pathParts.length === 1) {
     var hostAndPort = pathParts[0].split(':');
-    $.get('/apiv1/server/info', function (data, status) {
+    $.get('apiv1/server/info', function (data, status) {
       if (status != 'success') {
         return alert("Could not load server info");
       }
@@ -149,7 +149,7 @@ function treeNodeSelected (event, data) {
       data.forEach(function (instance) {
         if (instance.host == hostAndPort[0] && instance.port == hostAndPort[1]) {
           instance.connectionId = connectionId;
-          var html = new EJS({ url: '/templates/serverInfo.ejs' }).render(instance);
+          var html = new EJS({ url: 'templates/serverInfo.ejs' }).render(instance);
           $('#body').html(html);
           return setupAddKeyButton();
         }
@@ -170,9 +170,9 @@ function getRootConnection (node) {
 
 function loadKey (connectionId, key, index) {
   if (index) {
-    $.get('/apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "/" + index, processData);
+    $.get('apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "/" + index, processData);
   } else {
-    $.get('/apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key), processData);
+    $.get('apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key), processData);
   }
   function processData (data, status) {
     if (status != 'success') {
@@ -210,7 +210,7 @@ function loadKey (connectionId, key, index) {
   }
 }
 function selectTreeNodeBranch (data) {
-  var html = new EJS({ url: '/templates/editBranch.ejs' }).render(data);
+  var html = new EJS({ url: 'templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
 }
 function setupEditListButton () {
@@ -295,7 +295,7 @@ function setupEditZSetButton () {
 
 function setupAddKeyButton (connectionId) {
   $('#keyValue').keyup(function () {
-    var action = "/apiv1/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent($(this).val());
+    var action = "apiv1/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent($(this).val());
     $('#addKeyForm').attr("action", action);
   });
   $('#keyType').change(function () {
@@ -361,7 +361,7 @@ function setupEditHashButton () {
 }
 
 function selectTreeNodeString (data) {
-  var html = new EJS({ url: '/templates/editString.ejs' }).render(data);
+  var html = new EJS({ url: 'templates/editString.ejs' }).render(data);
   $('#body').html(html);
 
   try {
@@ -374,7 +374,7 @@ function selectTreeNodeString (data) {
   $('#stringValue').val(data.value);
   $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
   $('#stringValue').keyup(function () {
-    $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "/clippy-jquery/clippy.swf"});
+    $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "clippy-jquery/clippy.swf"});
     var dataTree;
     try {
       dataTree = JSONTree.create(JSON.parse($(this).val()));
@@ -412,12 +412,12 @@ function selectTreeNodeString (data) {
 }
 
 function selectTreeNodeHash (data) {
-  var html = new EJS({ url: '/templates/editHash.ejs' }).render(data);
+  var html = new EJS({ url: 'templates/editHash.ejs' }).render(data);
   $('#body').html(html);
 }
 
 function selectTreeNodeSet (data) {
-  var html = new EJS({ url: '/templates/editSet.ejs' }).render(data);
+  var html = new EJS({ url: 'templates/editSet.ejs' }).render(data);
   $('#body').html(html);
   $('#addSetMemberForm').ajaxForm({
     beforeSubmit: function () {
@@ -445,7 +445,7 @@ function selectTreeNodeSet (data) {
 
 function selectTreeNodeList (data) {
   if (data.items.length > 0) {
-    var html = new EJS({ url: '/templates/editList.ejs' }).render(data);
+    var html = new EJS({ url: 'templates/editList.ejs' }).render(data);
     $('#body').html(html);
     $('#addListValueForm').ajaxForm({
       beforeSubmit: function () {
@@ -476,7 +476,7 @@ function selectTreeNodeList (data) {
 
 function selectTreeNodeZSet (data) {
   if (data.items.length > 0) {
-    var html = new EJS({ url: '/templates/editZSet.ejs' }).render(data);
+    var html = new EJS({ url: 'templates/editZSet.ejs' }).render(data);
     $('#body').html(html);
   } else {
     alert('Index out of bounds');
@@ -500,7 +500,7 @@ function addKey (connectionId, key) {
     var pathParts = getKeyTree().get_path(connectionId, true);
     connectionId = pathParts.slice(0, 1)[0];
   }
-  $('#addKeyForm').attr('action', '/apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key));
+  $('#addKeyForm').attr('action', 'apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key));
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
   setupAddKeyButton(connectionId);
@@ -513,7 +513,7 @@ function deleteKey (connectionId, key) {
   }
   var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
   if (result) {
-    $.post('/apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
+    $.post('apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
       if (status != 'success') {
         return alert("Could not delete key");
       }
@@ -530,7 +530,7 @@ function deleteBranch (connectionId, branchPrefix) {
   var query = branchPrefix + ':*';
   var result = confirm('Are you sure you want to delete "' + query + ' from ' + connectionId + '"? This will delete all children as well!');
   if (result) {
-    $.post('/apiv1/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
+    $.post('apiv1/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
       if (status != 'success') {
         return alert("Could not delete branch");
       }
@@ -669,7 +669,7 @@ function loadCommandLine () {
       refreshTree();
       rl.write("OK");
     } else {
-      $.post('/apiv1/exec', { cmd: line, connection: $('#selectedConnection').val() }, function (data, status) {
+      $.post('apiv1/exec', { cmd: line, connection: $('#selectedConnection').val() }, function (data, status) {
         rl.prompt();
 
         if (status != 'success') {
@@ -856,7 +856,7 @@ var cmdparser = new CmdParser([
 ], {
   key: function (partial, callback) {
     var redisConnection = $('#selectedConnection').val();
-    $.get('/apiv1/keys/' + encodeURIComponent(redisConnection) + "/" + partial + '*?limit=20', function (data, status) {
+    $.get('apiv1/keys/' + encodeURIComponent(redisConnection) + "/" + partial + '*?limit=20', function (data, status) {
       if (status != 'success') {
         return callback(new Error("Could not get keys"));
       }
@@ -876,7 +876,7 @@ var prevCLIOpen;
 var configLoaded = false;
 
 function getServerInfo (callback) {
-  $.get('/apiv1/server/info', function (data, status) {
+  $.get('apiv1/server/info', function (data, status) {
     callback(JSON.parse(data))
   });
 }
@@ -888,7 +888,7 @@ function removeServer (connectionId) {
   }
   var result = confirm('Are you sure you want to disconnect from "' + connectionId + '"?');
   if (result) {
-    $.post('/logout/' + encodeURIComponent(connectionId), function (err, status) {
+    $.post('logout/' + encodeURIComponent(connectionId), function (err, status) {
       if (status != 'success') {
         return alert("Could not remove instance");
       }
@@ -936,13 +936,13 @@ function saveConfig () {
   var sidebarWidth = $('#sideBar').width();
   var locked = !$('#lockCommandButton').hasClass('disabled');
   var CLIHeight = $('#commandLineContainer').height();
-  $.get('/config', function (config) {
+  $.get('config', function (config) {
     if (config) {
       config["sidebarWidth"] = sidebarWidth;
       config["locked"] = locked;
       config["CLIHeight"] = CLIHeight;
       config["CLIOpen"] = CLIOpen;
-      $.post('/config', config, function (data, status) {
+      $.post('config', config, function (data, status) {
       });
     } else {
       var config = {
@@ -952,13 +952,13 @@ function saveConfig () {
         "CLIOpen": CLIOpen,
         "default_connections": []
       };
-      $.post('/config', config, function (data, status) {
+      $.post('config', config, function (data, status) {
       });
     }
   });
 }
 function loadConfig (callback) {
-  $.get('/config', function (data) {
+  $.get('config', function (data) {
     if (data) {
       if (data['sidebarWidth']) {
         $('#sideBar').width(data['sidebarWidth']);
@@ -1085,7 +1085,7 @@ $(function() {
    * Export redis data.
    */
   $('#app-container').on('submit', '#redisExportForm', function () {
-    window.open("/tools/export?" + $(this).serialize(), '_blank');
+    window.open("tools/export?" + $(this).serialize(), '_blank');
     return false;
   });
 
@@ -1097,7 +1097,7 @@ $(function() {
 
     $.ajax({
       type: 'POST',
-      url: '/tools/import',
+      url: 'tools/import',
       data: $(this).serialize(),
       dataType: 'JSON',
       success: function (res) {
@@ -1117,7 +1117,7 @@ $(function() {
   $('#redisImportData').on('click', function () {
     $.ajax({
       type: 'POST',
-      url: '/tools/forms/import',
+      url: 'tools/forms/import',
       success: function (res) {
         $('#body').html(res);
       }
@@ -1130,7 +1130,7 @@ $(function() {
   $('#redisExportData').on('click', function () {
     $.ajax({
       type: 'POST',
-      url: '/tools/forms/export',
+      url: 'tools/forms/export',
       success: function (res) {
         $('#body').html(res);
       }

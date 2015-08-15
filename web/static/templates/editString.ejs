@@ -4,7 +4,7 @@
     <button id="vieModeTreeButton" class="btn" onclick="$('#stringValue').css('display','none');$('#jqtree_string_div').css('display','inline-block');$('#vieModeEditButton').css('display','inline');$('#vieModeTreeButton').css('display','none')">view mode tree</button>
 </div>
 <div id="itemData">
-  <form id="editStringForm" action="/apiv1/key/<%= connectionId %>/<%= key %>" method="POST" class="form-vertical">
+  <form id="editStringForm" action="apiv1/key/<%= connectionId %>/<%= key %>" method="POST" class="form-vertical">
     <label>Key: <b><%= key %></b></label>
     <label>Value:</label>
     <input type="hidden" id="isJson" name="isJson">
