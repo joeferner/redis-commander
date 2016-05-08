@@ -119,24 +119,22 @@ myUtils.getConfig(function (err, config) {
       if (db == null || isNaN(db)) {
         db = 0
       }
+
       newDefault = {
         "label": args['redis-label'] || "local",
         "host": args['redis-host'] || "localhost",
-        "sentinel_host": args['setinel-host'],
+        "sentinel_host": args['sentinel-host'],
         "sentinel_port": args['sentinel-port'],
         "port": args['redis-port'] || args['redis-socket'] || "6379",
         "password": args['redis-password'] || "",
         "dbIndex": db
       };
-	console.log('dumping config');
-	console.dir(config.default_connections);
 
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
-	console.log('!myUtils.containsConnection');
         var client;
 	if (newDefault.sentinel_host) {
 		console.log('setinels!!');
-		client = new Redis({sentinels: [{ host: newDefault.setinel_host, port: newDefault.sentinel_port}]});
+		client = new Redis({sentinels: [{ host: newDefault.setinel_host, port: newDefault.sentinel_port}],name: 'mymaster' });
 	}
 	else
            client = new Redis(newDefault.port, newDefault.host);
@@ -175,6 +173,7 @@ myUtils.getConfig(function (err, config) {
 function startDefaultConnections (connections, callback) {
   if (connections) {
     connections.forEach(function (connection) {
+	console.log('## starting default');
       var client = new Redis(connection.port, connection.host);
       client.label = connection.label;
       redisConnections.push(client);
