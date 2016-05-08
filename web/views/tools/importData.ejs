@@ -8,9 +8,9 @@
         <% var connections = getConnections(); %>
         <% connections.forEach(function(connection, index) {%>
         <% if (index == 0) { %>
-        <option value="<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>"><%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%></option>
+        <option value="<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db%>"><%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %></option>
         <% } else { %>
-        <option value="<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>"><%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%></option>
+        <option value="<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>"><%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %></option>
         <% }}); %>
       </select>
     </div>

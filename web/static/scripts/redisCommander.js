@@ -14,8 +14,11 @@ function loadTree () {
       });
       getServerInfo(function (data) {
         var json_dataData = [];
+	
+	console.log('getServerInfo');
 
         data.forEach(function (instance, index) {
+		console.dir(instance);
           var label = instance.label;
           var host = instance.host;
           var port = instance.port;

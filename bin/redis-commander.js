@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var optimist = require('optimist');
-var redis = require('redis');
+var Redis = require('ioredis');
 var app = require('../lib/app');
 var fs = require('fs');
 var myUtils = require('../lib/util');
@@ -16,9 +16,17 @@ var args = optimist
     string: true,
     describe: 'The port to find redis on.'
   })
+  .options('sentinel-port', {
+    string: true,
+    describe: 'The port to find sentinel on.'
+  })
   .options('redis-host', {
     string: true,
     describe: 'The host to find redis on.'
+  })
+  .options('sentinel-host', {
+    string: true,
+    describe: 'The host to find sentinel on.'
   })
   .options('redis-socket', {
     string: true,
@@ -99,7 +107,7 @@ myUtils.getConfig(function (err, config) {
       console.log(err);
       process.exit();
     }
-    if (args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
+    if (args['redis-sentinel'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       var db = parseInt(args['redis-db']);
       if (db == null || isNaN(db)) {
         db = 0
@@ -107,13 +115,20 @@ myUtils.getConfig(function (err, config) {
       newDefault = {
         "label": args['redis-label'] || "local",
         "host": args['redis-host'] || "localhost",
+        "sentinel_host": args['setinel-host'],
+        "sentinel_port": args['sentinel-port'],
         "port": args['redis-port'] || args['redis-socket'] || "6379",
         "password": args['redis-password'] || "",
         "dbIndex": db
       };
 
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
-        var client = redis.createClient(newDefault.port, newDefault.host);
+        var client;
+	if (newDefault.sentinel_host) {
+		client = new Redis({sentinels: [{ host: newDefault.setinel_host, port: newDefault.sentinel_port}]});
+	}
+	else
+           client = new Redis(newDefault.port, newDefault.host);
         client.label = newDefault.label;
         redisConnections.push(client);
         if (args['redis-password']) {
@@ -138,7 +153,7 @@ myUtils.getConfig(function (err, config) {
       if (db == null || isNaN(db)) {
         db = 0
       }
-      redisConnections.push(redis.createClient());
+      redisConnections.push(new Redis());
       setUpConnection(redisConnections.getLast(), db);
     }
   });
@@ -148,7 +163,7 @@ myUtils.getConfig(function (err, config) {
 function startDefaultConnections (connections, callback) {
   if (connections) {
     connections.forEach(function (connection) {
-      var client = redis.createClient(connection.port, connection.host);
+      var client = new Redis(connection.port, connection.host);
       client.label = connection.label;
       redisConnections.push(client);
       if (connection.password) {
@@ -180,7 +195,7 @@ function connectToDB (redisConnection, db) {
       console.log(err);
       process.exit();
     }
-    console.log("Redis Connection " + redisConnection.host + ":" + redisConnection.port + " Using Redis DB #" + db);
+    console.log("Redis Connection " + redisConnection.options.host + ":" + redisConnection.options.port + " Using Redis DB #" + redisConnection.options.db);
   });
 }
 

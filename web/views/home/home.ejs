@@ -33,15 +33,15 @@
     <% connections.forEach(function(connection, index) {%>
     <% if (index == 0) { %>
     <button type="button" id="firstConnection"
-            value='<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>'
+            value='<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db%>'
             class="btn btn-primary active"
-            onclick="setConnection('<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>');">
-      <%=connection.label + ' (' + connection.host + ':' + connection.port + ':' + connection.selected_db + ')'%>
+            onclick="setConnection('<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db%>');">
+      <%=connection.label + ' (' + connection.options.host + ':' + connection.options.port + ':' + connection.options.db + ')'%>
     </button>
     <% } else { %>
     <button type="button" class="btn btn-primary"
-            onclick="setConnection('<%=connection.host%>:<%=connection.port%>:<%=connection.selected_db%>');">
-      <%=connection.label + ' (' + connection.host + ':' + connection.port + ':' + connection.selected_db + ')'%>
+            onclick="setConnection('<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>');">
+      <%=connection.label + ' (' + connection.options.host + ':' + connection.options.port + ':' + connection.options.db + ')'%>
     </button>
     <% }}); %>
   </div>
