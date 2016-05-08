@@ -67,6 +67,11 @@ var args = optimist
     boolean: true,
     describe: 'Do not save new connections to config.'
   })
+  .options('noload', {
+     alias: 'nl',
+    boolean: true,
+    describe: 'Do not load connections from config.'
+  })
   .options('clear-config', {
      alias: 'cc',
     boolean: false,
@@ -90,6 +95,7 @@ if(args['clear-config']) {
 
 myUtils.getConfig(function (err, config) {
   if (err) {
+    console.dir(err);
     console.log("No config found or was invalid.\nUsing default configuration.");
     config = {
       "sidebarWidth": 250,
@@ -107,7 +113,8 @@ myUtils.getConfig(function (err, config) {
       console.log(err);
       process.exit();
     }
-    if (args['redis-sentinel'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
+    console.log('!! starting default');
+    if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       var db = parseInt(args['redis-db']);
       if (db == null || isNaN(db)) {
         db = 0
@@ -121,14 +128,19 @@ myUtils.getConfig(function (err, config) {
         "password": args['redis-password'] || "",
         "dbIndex": db
       };
+	console.log('dumping config');
+	console.dir(config.default_connections);
 
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
+	console.log('!myUtils.containsConnection');
         var client;
 	if (newDefault.sentinel_host) {
+		console.log('setinels!!');
 		client = new Redis({sentinels: [{ host: newDefault.setinel_host, port: newDefault.sentinel_port}]});
 	}
 	else
            client = new Redis(newDefault.port, newDefault.host);
+        console.dir(client);
         client.label = newDefault.label;
         redisConnections.push(client);
         if (args['redis-password']) {
