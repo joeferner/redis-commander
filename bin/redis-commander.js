@@ -113,7 +113,6 @@ myUtils.getConfig(function (err, config) {
       console.log(err);
       process.exit();
     }
-    console.log('!! starting default');
     if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       var db = parseInt(args['redis-db']);
       if (db == null || isNaN(db)) {
