@@ -133,12 +133,10 @@ myUtils.getConfig(function (err, config) {
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
         var client;
 	if (newDefault.sentinel_host) {
-		console.log('setinels!!');
 		client = new Redis({showFriendlyErrorStack: true , sentinels: [{ host: newDefault.setinel_host, port: newDefault.sentinel_port}],name: 'mymaster' });
 	}
 	else
            client = new Redis(newDefault.port, newDefault.host);
-        console.dir(client);
         client.label = newDefault.label;
         redisConnections.push(client);
         if (args['redis-password']) {
@@ -173,7 +171,6 @@ myUtils.getConfig(function (err, config) {
 function startDefaultConnections (connections, callback) {
   if (connections) {
     connections.forEach(function (connection) {
-	console.log('## starting default');
       var client = new Redis(connection.port, connection.host);
       client.label = connection.label;
       redisConnections.push(client);
