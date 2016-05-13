@@ -26,6 +26,7 @@
     "ejs": "~0.8",
     "express": "2.x.x",
     "inflection": "~1.2.0",
+    "ioredis": "^1.15.1",
     "node-redis-dump": "~0.2.0",
     "optimist": "~0.3.4",
     "readline-browserify": "0.0.4",
