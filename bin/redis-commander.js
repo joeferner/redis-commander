@@ -88,7 +88,7 @@ if (args.help) {
 if(args['clear-config']) {
   myUtils.deleteConfig(function(err) {
     if (err) {
-    console.log("Failed to delete existing config file.");
+      console.log("Failed to delete existing config file.");
     }
   });
 }
@@ -131,11 +131,11 @@ myUtils.getConfig(function (err, config) {
 
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
         var client;
-	if (newDefault.sentinel_host) {
-		client = new Redis({showFriendlyErrorStack: true , sentinels: [{ host: newDefault.sentinel_host, port: newDefault.sentinel_port}],name: 'mymaster' });
-	}
-	else
-           client = new Redis(newDefault.port, newDefault.host);
+        if (newDefault.sentinel_host) {
+          client = new Redis({showFriendlyErrorStack: true , sentinels: [{ host: newDefault.sentinel_host, port: newDefault.sentinel_port}],name: 'mymaster' });
+        } else {
+          client = new Redis(newDefault.port, newDefault.host);
+        }
         client.label = newDefault.label;
         redisConnections.push(client);
         if (args['redis-password']) {
