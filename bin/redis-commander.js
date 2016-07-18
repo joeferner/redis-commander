@@ -63,17 +63,23 @@ var args = optimist
     default: 8081
   })
   .options('nosave', {
-     alias: 'ns',
+    alias: 'ns',
     boolean: true,
-    describe: 'Do not save new connections to config.'
+    describe: 'Do not save new connections to config.',
+    default: true
+  })
+  .options('save', {
+    alias: 's',
+    boolean: true,
+    describe: 'Save new connections to config.'
   })
   .options('noload', {
-     alias: 'nl',
+    alias: 'nl',
     boolean: true,
     describe: 'Do not load connections from config.'
   })
   .options('clear-config', {
-     alias: 'cc',
+    alias: 'cc',
     boolean: false,
     describe: 'clear configuration file'
   })
@@ -208,6 +214,9 @@ function connectToDB (redisConnection, db) {
 
 function startWebApp () {
   httpServerOptions = {webPort: args.port, webAddress: args.address, username: args["http-auth-username"], password: args["http-auth-password"]};
+  if (args['save']) {
+    args['nosave'] = false;
+  }
   console.log("No Save: " + args["nosave"]);
   app(httpServerOptions, redisConnections, args["nosave"]);
 }
