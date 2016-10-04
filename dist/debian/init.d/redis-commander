@@ -4,8 +4,8 @@
 #
 ### BEGIN INIT INFO
 # Provides:          redis-commander
-# Required-Start:    $local_fs $remote_fs $network
-# Required-Stop:     $local_fs $remote_fs $network
+# Required-Start:    $local_fs $network $named $time $syslog
+# Required-Stop:     $local_fs $network $named $time $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: start Redis Commander (redis-commander)
@@ -19,10 +19,10 @@ RUN_MODE="daemons"
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 NAME="redis-commander"
-USER="redis-commander"
-GROUP="nodejs"
+USER="redis"
+GROUP="redis"
 DESC="Redis Commander"
-DAEMON="/usr/local/bin/redis-commander"
+DAEMON="/usr/bin/redis-commander"
 DAEMONOPTS=""
 PIDDIR="/var/run/$NAME"
 PIDFILE="$PIDDIR/$NAME.pid"
