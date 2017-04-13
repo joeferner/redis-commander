@@ -83,6 +83,12 @@ var args = optimist
     boolean: false,
     describe: 'clear configuration file'
   })
+  .options('root-pattern', {
+      alias: 'rp',
+      boolean: false,
+      describe: 'default root pattern for redis keys',
+      default: '*'
+  })
   .argv;
 
 if (args.help) {
@@ -218,5 +224,5 @@ function startWebApp () {
     args['nosave'] = false;
   }
   console.log("No Save: " + args["nosave"]);
-  app(httpServerOptions, redisConnections, args["nosave"]);
+  app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
 }
