@@ -6,16 +6,16 @@ var argsPath = path.join(os.homedir(), '.redis-commander-args');
 
 var args = '';
 try {
-	args = fs.readFileSync(argsPath).toString();
-	console.log(`Custom args from '${argsPath}' file: '${args}'`);
+  args = fs.readFileSync(argsPath).toString();
+  console.log(`Custom args from '${argsPath}' file: '${args}'`);
 } catch (e) {
-	console.log(`args file '${argsPath}' not found. Default: no args`);
+  console.log(`args file '${argsPath}' not found. Default: no args`);
 }
 
 module.exports = {
-	apps: [{
-		name: 'Redis Commander',
-		script: 'bin/redis-commander.js',
-		args: args
-	}]
+  apps: [{
+    name: 'Redis Commander',
+    script: 'bin/redis-commander.js',
+    args: args
+  }]
 };
