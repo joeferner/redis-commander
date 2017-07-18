@@ -1,5 +1,6 @@
 <div id="itemActionsBar">
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
+  <button class="btn btn-primary" id="base64Button" onclick="decodeKey('<%= connectionId %>','<%= key %>')">Decode <small>base64</small</button>
     <button id="vieModeEditButton" class="btn" style="display: none;" onclick="$('#stringValue').css('display','inline');$('#jqtree_string_div').css('display','none');$('#vieModeEditButton').css('display','none');$('#vieModeTreeButton').css('display','inline')">view mode edit</button>
     <button id="vieModeTreeButton" class="btn" onclick="$('#stringValue').css('display','none');$('#jqtree_string_div').css('display','inline-block');$('#vieModeEditButton').css('display','inline');$('#vieModeTreeButton').css('display','none')">view mode tree</button>
 </div>
