@@ -1,0 +1,15 @@
+{
+  "sidebarWidth":250,
+  "locked":false,
+  "CLIHeight":50,
+  "CLIOpen":false,
+  "default_connections": [
+    {
+      "label":"local",
+      "host":"localhost",
+      "port":"6379",
+      "password":"",
+      "dbIndex":0
+    }
+  ]
+}
