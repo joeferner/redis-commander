@@ -14,7 +14,7 @@ function loadTree () {
       });
       getServerInfo(function (data) {
         var json_dataData = [];
-	
+
         data.forEach(function (instance, index) {
           var label = instance.label;
           var host = instance.host;
@@ -525,6 +525,44 @@ function deleteKey (connectionId, key) {
   }
 }
 
+function decodeKey (connectionId, key) {
+  if (typeof(connectionId) == 'object') {
+    key = getFullKeyPath(connectionId);
+    var pathParts = getKeyTree().get_path(connectionId, true);
+    connectionId = pathParts.slice(0, 1)[0];
+  }
+
+  $.post('apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=decode', function (data, status) {
+    if (status != 'success') {
+      return alert("Could not decode key");
+    }
+
+    $('#base64Button').html('Encode <small>base64</small');
+    $('#base64Button').off('click');
+    $('#base64Button').on('click', function() {
+      encodeString(connectionId, key)
+    });
+    $('#stringValue').val(data);
+  });
+}
+
+function encodeString (connectionId, key) {
+  $.post('apiv1/encodeString/' + encodeURIComponent($('#stringValue').val()), function (data, status) {
+    if (status != 'success') {
+      return alert("Could not encode key");
+    }
+
+    // needed to debounce
+    setTimeout(function() {
+      $('#base64Button').html('Decode <small>base64</small');
+      $('#base64Button').off('click');
+      $('#base64Button').on('click', function() {
+        decodeKey(connectionId,key)
+      });
+      $('#stringValue').val(data);
+    }, 100);
+  });
+}
 
 function deleteBranch (connectionId, branchPrefix) {
   var query = branchPrefix + ':*';
