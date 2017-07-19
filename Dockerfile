@@ -1,15 +1,17 @@
-# Simple Dockerfile to execute redis-commander from docker
-# build it with like: docker build -t redis-commander .
-# to run: docker run -d --name redis-commander -p 8081:8081 redis-commander -- --redis-host your-redis-host
-FROM node
+FROM mhart/alpine-node:8
 
-RUN mkdir -p /usr/src
-WORKDIR /usr/src
+COPY . /src/redis-commander
 
-RUN git clone https://github.com/joeferner/redis-commander.git \
-	&& cd redis-commander \
-	&& npm install -g redis-commander
+RUN cd /src/redis-commander \
+ && npm install \
+ && adduser -S redis-commander \
+ && chmod a+x /src/redis-commander/docker/entrypoint.sh \
+ && mv /src/redis-commander/docker/entrypoint.sh /usr/bin/entrypoint \
+ && mv /src/redis-commander/docker/redis-commander.json /home/redis-commander/.redis-commander \
+ && chown -R redis-commander /home/redis-commander /src/redis-commander
 
-ENTRYPOINT [ "redis-commander" ]
+USER redis-commander
+
+ENTRYPOINT entrypoint
 
 EXPOSE 8081

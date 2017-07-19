@@ -25,3 +25,75 @@ Options:
   --address, -a                   The address to run the server on   [string]  [default: 0.0.0.0]
   --root-pattern, -rp             The root pattern of the redis keys [string]  [default: *]
 ```
+
+## Docker
+
+Hosts can be optionally specified with a comma separated string by setting the `REDIS_HOSTS` environment variable.
+
+After running the container, `redis-commander` will be available at [localhost:8081](http://localhost:8081).
+
+### Valid host strings
+
+Form should follow one of these templates:
+
+`hostname`
+
+`label:hostname`
+
+`label:hostname:port`
+
+`label:hostname:port:dbIndex`
+
+`label:hostname:port:dbIndex:password`
+
+### With docker-compose
+
+```yml
+version: '3'
+services:
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis
+
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: stevenaldinger/redis-commander:latest
+    build: .
+    restart: always
+    environment:
+    - REDIS_HOSTS=local:redis:6379
+    ports:
+    - 8081:8081
+```
+
+### Without docker-compose
+
+#### Simplest
+
+If you're running redis on `localhost:6379`, this is all you need to get started.
+
+```bash
+docker run --rm --name redis-commander -d \
+  -p 8081:8081 \
+  stevenaldinger/redis-commander:latest
+```
+
+#### Specify single host
+
+```bash
+docker run --rm --name redis-commander -d \
+  --env REDIS_HOSTS=10.10.20.30 \
+  -p 8081:8081 \
+  stevenaldinger/redis-commander:latest
+```
+
+#### Specify multiple hosts with labels
+
+```bash
+docker run --rm --name redis-commander -d \
+  --env REDIS_HOSTS=local:localhost:6379,myredis:10.10.20.30 \
+  -p 8081:8081 \
+  stevenaldinger/redis-commander:latest
+```
