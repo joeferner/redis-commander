@@ -59,7 +59,7 @@ services:
   redis-commander:
     container_name: redis-commander
     hostname: redis-commander
-    image: stevenaldinger/redis-commander:latest
+    image: rediscommander/redis-commander:latest
     build: .
     restart: always
     environment:
@@ -77,7 +77,7 @@ If you're running redis on `localhost:6379`, this is all you need to get started
 ```bash
 docker run --rm --name redis-commander -d \
   -p 8081:8081 \
-  stevenaldinger/redis-commander:latest
+  rediscommander/redis-commander:latest
 ```
 
 #### Specify single host
@@ -86,7 +86,7 @@ docker run --rm --name redis-commander -d \
 docker run --rm --name redis-commander -d \
   --env REDIS_HOSTS=10.10.20.30 \
   -p 8081:8081 \
-  stevenaldinger/redis-commander:latest
+  rediscommander/redis-commander:latest
 ```
 
 #### Specify multiple hosts with labels
@@ -95,5 +95,5 @@ docker run --rm --name redis-commander -d \
 docker run --rm --name redis-commander -d \
   --env REDIS_HOSTS=local:localhost:6379,myredis:10.10.20.30 \
   -p 8081:8081 \
-  stevenaldinger/redis-commander:latest
+  rediscommander/redis-commander:latest
 ```
