@@ -97,3 +97,23 @@ docker run --rm --name redis-commander -d \
   -p 8081:8081 \
   rediscommander/redis-commander:latest
 ```
+
+## Kubernetes
+
+An example deployment can be found at [k8s/redis-commander/deployment.yaml](k8s/redis-commander/deployment.yaml).
+
+If you already have a cluster running with `redis` in the default namespace, deploy `redis-commander` with `kubectl apply -f k8s/redis-commander`. If you don't have `redis` running yet, you can deploy a simple pod with `kubectl apply -f k8s/redis`.
+
+Alternatively, you can add a container to a deployment's spec like this:
+
+```
+containers:
+- name: redis-commander
+  image: rediscommander/redis-commander
+  env:
+  - name: REDIS_HOSTS
+    value: instance1:redis:6379
+  ports:
+  - name: redis-commander
+    containerPort: 8081
+```

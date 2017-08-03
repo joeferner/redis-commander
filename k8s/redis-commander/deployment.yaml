@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis-commander
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-commander
+  template:
+    metadata:
+      labels:
+        app: redis-commander
+        tier: backend
+    spec:
+      containers:
+      - name: redis-commander
+        image: rediscommander/redis-commander
+        env:
+        - name: REDIS_HOSTS
+          value: instance1:redis:6379
+        ports:
+        - name: redis-commander
+          containerPort: 8081
