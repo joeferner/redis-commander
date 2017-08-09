@@ -184,6 +184,9 @@ function startDefaultConnections (connections, callback) {
     connections.forEach(function (connection) {
       var client = new Redis(connection.port, connection.host);
       client.label = connection.label;
+      if(connection.dbIndex){
+        client.options.db = connection.dbIndex;
+      }
       redisConnections.push(client);
       if (connection.password) {
         redisConnections.getLast().auth(connection.password, function (err) {
