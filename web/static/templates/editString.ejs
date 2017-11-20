@@ -7,6 +7,7 @@
 <div id="itemData">
   <form id="editStringForm" action="apiv1/key/<%= connectionId %>/<%= key %>" method="POST" class="form-vertical">
     <label>Key: <b><%= key %></b></label>
+    <label>TTL: <b><%= ttl %></b></label>
     <label>Value:</label>
     <input type="hidden" id="isJson" name="isJson">
     <textarea id="stringValue" name="stringValue" style="width: 600px; height: 450px;"></textarea>
