@@ -144,7 +144,12 @@ myUtils.getConfig(function (err, config) {
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
         var client;
         if (newDefault.sentinel_host) {
-          client = new Redis({showFriendlyErrorStack: true , sentinels: [{ host: newDefault.sentinel_host, port: newDefault.sentinel_port}],name: 'mymaster' });
+          client = new Redis({
+            showFriendlyErrorStack: true,
+            sentinels: [{host: newDefault.sentinel_host, port: newDefault.sentinel_port}],
+            password: newDefault.password,
+            name: 'mymaster'
+          });
         } else {
           client = new Redis({
             port: newDefault.port,
