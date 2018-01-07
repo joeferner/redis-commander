@@ -50,6 +50,11 @@ var args = optimist
     string: true,
     describe: 'The http authorisation password.'
   })
+  .options('http-auth-password-hash', {
+    alias: "http-h",
+    string: true,
+    describe: 'The http authorisation password hash.'
+  })
   .options('address', {
     alias: 'a',
     string: true,
@@ -233,7 +238,7 @@ function connectToDB (redisConnection, db) {
 }
 
 function startWebApp () {
-  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"]};
+  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"]};
   if (args['save']) {
     args['nosave'] = false;
   }
@@ -241,5 +246,5 @@ function startWebApp () {
   var appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
 
   appInstance.listen(args.port, args.address);
-  console.log("listening on ", args.address, ":", args.address);
+  console.log("listening on ", args.address, ":", args.port);
 }
