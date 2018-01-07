@@ -233,10 +233,13 @@ function connectToDB (redisConnection, db) {
 }
 
 function startWebApp () {
-  httpServerOptions = {webPort: args.port, webAddress: args.address, username: args["http-auth-username"], password: args["http-auth-password"]};
+  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"]};
   if (args['save']) {
     args['nosave'] = false;
   }
   console.log("No Save: " + args["nosave"]);
-  app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
+  var appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
+
+  appInstance.listen(args.port, args.address);
+  console.log("listening on ", args.address, ":", args.address);
 }
