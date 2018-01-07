@@ -19,6 +19,7 @@
     "redis-gui",
     "redis-node"
   ],
+  "main": "lib/app.js",
   "dependencies": {
     "async": "~0.1.22",
     "body-parser": "^1.15.2",
