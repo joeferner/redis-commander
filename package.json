@@ -22,6 +22,7 @@
   "main": "lib/app.js",
   "dependencies": {
     "async": "~0.1.22",
+    "basic-auth": "2.0.0",
     "bcryptjs": "2.4.3",
     "body-parser": "^1.15.2",
     "browserify": "^13.0.1",
