@@ -28,22 +28,7 @@
 </div>
 <div id="commandLineContainer">
   <div id="commandLineBorder" style="border-top: 1px solid #ddd;padding-bottom: 5px;"></div>
-  <div class="btn-group" data-toggle="buttons-radio" style="padding-bottom: 5px; padding-left: 5px">
-    <% var connections = getConnections(); %>
-    <% connections.forEach(function(connection, index) {%>
-    <% if (index == 0) { %>
-    <button type="button" id="firstConnection"
-            value='<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db%>'
-            class="btn btn-primary active"
-            onclick="setConnection('<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db%>');">
-      <%=connection.label + ' (' + connection.options.host + ':' + connection.options.port + ':' + connection.options.db + ')'%>
-    </button>
-    <% } else { %>
-    <button type="button" class="btn btn-primary"
-            onclick="setConnection('<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>');">
-      <%=connection.label + ' (' + connection.options.host + ':' + connection.options.port + ':' + connection.options.db + ')'%>
-    </button>
-    <% }}); %>
+  <div class="btn-group" data-toggle="buttons-radio" style="padding-bottom: 5px; padding-left: 5px" id="connectionsBar">
   </div>
   <div style="border-top: 1px solid #ddd;padding-bottom: 5px;"></div>
   <i id="lockCommandButton" class="icon-lock disabled"></i>
@@ -98,26 +83,80 @@
     $('#selectedConnection').val(connectionId);
   };
   $(function () {
-    $('#selectedConnectionLabel').text("Current Instance: " + $('#firstConnection').val());
-    $('#selectedConnection').val($('#firstConnection').val());
-    loadTree();
-    loadConfig(function () {
-      loadCommandLine();
-      setupResizeEvents();
-      setupCommandLock();
-      setupCLIKeyEvents();
-      $('.container').removeClass('container');
-      $('html').css('overflow-y', 'hidden');
-      $('#pageIndex').live('keydown', function (e) {
-        if (e.keyCode == 13) {
-          $('#gotoIndexButton').click();
+    $.ajaxSetup({
+      beforeSend: function(jqXHR) {
+        console.log("beforeSend");
+        console.log(jqXHR);
+        var currentAccessToken = sessionStorage.getItem('redisCommanderAccessToken');
+        console.log("token: " + currentAccessToken);
+        if (currentAccessToken) {
+          jqXHR.setRequestHeader('Authorization', 'Bearer ' + currentAccessToken);
         }
-      });
-      $('#redisCommandsModal').modal({
-        backdrop: false,
-        keyboard: false,
-        show: false
+      }
+    });
+    if (!sessionStorage.getItem('redisCommanderAccessToken')) {
+      $('#signinModal').modal('show');
+      return;
+    }
+    function refreshToken() {
+      console.log("refresh token");
+      $.post('signin', {}, function (data, status) {
+        if (status != 'success') {
+          console.error("refresh token connection problem");
+          return;
+        }
+        if (!data || !data.ok) {
+          sessionStorage.removeItem('redisCommanderAccessToken');
+          $('#signinModal').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+          });
+          return;
+        }
+        sessionStorage.setItem('redisCommanderAccessToken', data.token);
+        sessionStorage.setItem('redisCommanderSingleToken', data.singleToken);
+        setTimeout(refreshToken, 20e3);
+      })
+      .fail(function(err) {
+        console.error("Failed", err);
+        return alert("Failed to send refresh token request");
+      })
+    }
+    refreshToken();
+
+    $.get('connections', function(data, status) {
+      if (status != 'success') {
+        console.error("Failed to fetch connections");
+        return;
+      }
+      console.log("data is" + JSON.stringify(data));
+      $('#connectionsBar').html(new EJS({ url: 'templates/connectionsBar.ejs' }).render(data));
+
+      $('#selectedConnectionLabel').text("Current Instance: " + $('#firstConnection').val());
+      $('#selectedConnection').val($('#firstConnection').val());
+
+      loadTree();
+      loadConfig(function () {
+        loadCommandLine();
+        setupResizeEvents();
+        setupCommandLock();
+        setupCLIKeyEvents();
+        $('.container').removeClass('container');
+        $('html').css('overflow-y', 'hidden');
+        $('#pageIndex').live('keydown', function (e) {
+          if (e.keyCode == 13) {
+            $('#gotoIndexButton').click();
+          }
+        });
+        $('#redisCommandsModal').modal({
+          backdrop: false,
+          keyboard: false,
+          show: false
+        });
       });
     });
+    
+    
   });
 </script>

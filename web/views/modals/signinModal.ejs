@@ -1,0 +1,47 @@
+<div id="signinModal" class="modal hide fade" data-backdrop="static" data-keyboard="false">
+  <div class="modal-header">
+    <h3>Sign In</h3>
+  </div>
+  <div class="modal-body">
+    <form id="signinForm" class="form-vertical">
+      <div class="form-group">
+        <label for="signinUsername">Username:</label>
+        <input type="text" id="signinUsername" />
+      </div>
+      <div class="form-group">
+        <label for="signinPassword">Password:</label>
+        <input type="password" id="signinPassword" />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button id="signinButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Signing-In...">Sign In</button>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+  $('#signinButton').click(function() {
+    $.post('signin', {
+      "username": $('#signinUsername').val(),
+      "password": $('#signinPassword').val()
+    }, function (data, status) {
+      $('#signinUsername').val('');
+      $('#signinPassword').val('');
+      if ((status != 'success') || !data || !data.ok) {
+        return alert("Sign-In Failed");
+      }
+      sessionStorage.setItem('redisCommanderAccessToken', data.token);
+      sessionStorage.setItem('redisCommanderSingleToken', data.singleToken);
+      document.location.reload();
+    })
+    .fail(function(err) {
+      $('#signinUsername').val('');
+      $('#signinPassword').val('');
+      console.error("Failed", err);
+      return alert("Failed to send request");
+    })
+  });
+})
+</script>
+

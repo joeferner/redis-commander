@@ -5,7 +5,6 @@
     <label class="control-label" for="connectionExportField">Connection</label>
     <div class="controls">
       <select name="connection">
-        <% var connections = getConnections(); %>
         <% connections.forEach(function(connection, index) {%>
         <% if (index == 0) { %>
         <option value="<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>"><%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %></option>

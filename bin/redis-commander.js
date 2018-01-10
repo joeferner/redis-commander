@@ -71,12 +71,7 @@ var args = optimist
     alias: 'ns',
     boolean: true,
     describe: 'Do not save new connections to config.',
-    default: true
-  })
-  .options('save', {
-    alias: 's',
-    boolean: true,
-    describe: 'Save new connections to config.'
+    default: false
   })
   .options('noload', {
     alias: 'nl',
@@ -175,12 +170,14 @@ myUtils.getConfig(function (err, config) {
           });
         }
         config.default_connections.push(newDefault);
-        myUtils.saveConfig(config, function (err) {
-          if (err) {
-            console.log("Problem saving config.");
-            console.error(err);
-          }
-        });
+        if (!args.nosave) {
+          myUtils.saveConfig(config, function (err) {
+            if (err) {
+              console.log("Problem saving config.");
+              console.error(err);
+            }
+          });
+        }
         setUpConnection(redisConnections.getLast(), db);
       }
     } else if (config.default_connections.length == 0) {
@@ -219,7 +216,7 @@ function startDefaultConnections (connections, callback) {
 
 function setUpConnection (redisConnection, db) {
   redisConnection.on("error", function (err) {
-    console.error("Redis error", err.stack);
+    console.error("setUpConnection Redis error", err.stack);
   });
   redisConnection.on("end", function () {
     console.log("Connection closed. Attempting to Reconnect...");
@@ -239,9 +236,6 @@ function connectToDB (redisConnection, db) {
 
 function startWebApp () {
   httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"]};
-  if (args['save']) {
-    args['nosave'] = false;
-  }
   console.log("No Save: " + args["nosave"]);
   var appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
 
