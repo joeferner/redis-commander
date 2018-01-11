@@ -31,9 +31,10 @@ $(function() {
       if ((status != 'success') || !data || !data.ok) {
         return alert("Sign-In Failed");
       }
-      sessionStorage.setItem('redisCommanderAccessToken', data.token);
-      sessionStorage.setItem('redisCommanderSingleToken', data.singleToken);
-      document.location.reload();
+      sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
+      sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
+      $(window).unbind('beforeunload'); // not sure if necessary
+      location.reload();
     })
     .fail(function(err) {
       $('#signinUsername').val('');

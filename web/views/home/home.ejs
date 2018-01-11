@@ -83,30 +83,26 @@
     $('#selectedConnection').val(connectionId);
   };
   $(function () {
+    $(window).bind('beforeunload', () => {
+      sessionStorage.clear();
+    });
     $.ajaxSetup({
       beforeSend: function(jqXHR) {
-        console.log("beforeSend");
-        console.log(jqXHR);
-        var currentAccessToken = sessionStorage.getItem('redisCommanderAccessToken');
-        console.log("token: " + currentAccessToken);
-        if (currentAccessToken) {
-          jqXHR.setRequestHeader('Authorization', 'Bearer ' + currentAccessToken);
+        var redisCommanderBearerToken = sessionStorage.getItem('redisCommanderBearerToken');
+        if (redisCommanderBearerToken) {
+          jqXHR.setRequestHeader('Authorization', 'Bearer ' + redisCommanderBearerToken);
         }
       }
     });
-    if (!sessionStorage.getItem('redisCommanderAccessToken')) {
-      $('#signinModal').modal('show');
-      return;
-    }
     function refreshToken() {
-      console.log("refresh token");
       $.post('signin', {}, function (data, status) {
         if (status != 'success') {
           console.error("refresh token connection problem");
           return;
         }
         if (!data || !data.ok) {
-          sessionStorage.removeItem('redisCommanderAccessToken');
+          sessionStorage.removeItem('redisCommanderBearerToken');
+          sessionStorage.removeItem('redisCommanderQueryToken');
           $('#signinModal').modal({
             backdrop: 'static',
             keyboard: false,
@@ -114,23 +110,29 @@
           });
           return;
         }
-        sessionStorage.setItem('redisCommanderAccessToken', data.token);
-        sessionStorage.setItem('redisCommanderSingleToken', data.singleToken);
+        var oldToken = sessionStorage.getItem('redisCommanderBearerToken');
+        sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
+        sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
+        if (!oldToken) {
+          $(window).unbind('beforeunload'); // not sure if necessary
+          location.reload();
+        }
         setTimeout(refreshToken, 20e3);
       })
       .fail(function(err) {
-        console.error("Failed", err);
-        return alert("Failed to send refresh token request");
+        console.error("Failed signin", err);
+        setTimeout(refreshToken, 5e3);
       })
     }
     refreshToken();
-
+    if (!sessionStorage.getItem('redisCommanderBearerToken')) {
+      return;
+    }
     $.get('connections', function(data, status) {
-      if (status != 'success') {
+      if (status !== 'success') {
         console.error("Failed to fetch connections");
         return;
       }
-      console.log("data is" + JSON.stringify(data));
       $('#connectionsBar').html(new EJS({ url: 'templates/connectionsBar.ejs' }).render(data));
 
       $('#selectedConnectionLabel').text("Current Instance: " + $('#firstConnection').val());
@@ -155,6 +157,9 @@
           show: false
         });
       });
+    })
+    .fail(err => {
+      console.error("Failed to fetch connections", err);
     });
     
     

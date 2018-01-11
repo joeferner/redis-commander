@@ -935,6 +935,7 @@ function removeServer (connectionId) {
       if (status != 'success') {
         return alert("Could not remove instance");
       }
+      $(window).unbind('beforeunload'); // not sure if necessary
       location.reload();
     });
   }
@@ -1128,7 +1129,7 @@ $(function() {
    * Export redis data.
    */
   $('#app-container').on('submit', '#redisExportForm', function () {
-    window.open("tools/export?" + $(this).serialize() + '&redisCommanderAccessToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderSingleToken')), '_blank');
+    window.open("tools/export?" + $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken')), '_blank');
     return false;
   });
 
@@ -1141,7 +1142,7 @@ $(function() {
     $.ajax({
       type: 'POST',
       url: 'tools/import',
-      data: $(this).serialize() + '&redisCommanderAccessToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderAccessToken') || ''),
+      data: $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken') || ''),
       dataType: 'JSON',
       success: function (res) {
         $('#body').html('<h2>Import</h2>' +
