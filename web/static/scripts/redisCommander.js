@@ -372,7 +372,12 @@ function selectTreeNodeString (data) {
   }
 
   $('#stringValue').val(data.value);
-  $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
+  try {
+    $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
+  } catch (err) {
+    $('#jqtree_string_div').text(err.message)
+  }
+  
   $('#stringValue').keyup(function () {
     $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "clippy-jquery/clippy.swf"});
     var dataTree;
@@ -381,7 +386,7 @@ function selectTreeNodeString (data) {
     } catch (err) {
       dataTree = err.message;
     }
-    $('#jqtree_string_div').html(dataTree);
+    $('#jqtree_string_div').text(dataTree);
   }).keyup();
   $('.clippyWrapper').tooltip();
   $('#editStringForm').ajaxForm({
@@ -930,6 +935,7 @@ function removeServer (connectionId) {
       if (status != 'success') {
         return alert("Could not remove instance");
       }
+      $(window).unbind('beforeunload'); // not sure if necessary
       location.reload();
     });
   }
@@ -1119,11 +1125,26 @@ function setupCLIKeyEvents () {
 }
 
 $(function() {
+  function refreshQueryToken() {
+    $.post('signin', {}, function (data, status) {
+      if ((status != 'success') || !data || !data.ok) {
+        console.error("Cannot refresh query token");
+        return;
+      }
+      sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
+      sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
+    })
+    .fail(function(err) {
+      console.error("Failed to refresh query token", err);
+    });
+  }
+
   /**
    * Export redis data.
    */
   $('#app-container').on('submit', '#redisExportForm', function () {
-    window.open("tools/export?" + $(this).serialize(), '_blank');
+    window.open("tools/export?" + $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken')), '_blank');
+    refreshQueryToken();
     return false;
   });
 
@@ -1136,7 +1157,7 @@ $(function() {
     $.ajax({
       type: 'POST',
       url: 'tools/import',
-      data: $(this).serialize(),
+      data: $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken') || ''),
       dataType: 'JSON',
       success: function (res) {
         $('#body').html('<h2>Import</h2>' +
@@ -1145,7 +1166,7 @@ $(function() {
           '<span class="label label-' + (res.errors ? 'important' : 'success') + '">' + (res.errors ? 'Errors' : 'Success') + '</span>');
       }
     });
-
+    refreshQueryToken();
     return false;
   });
 

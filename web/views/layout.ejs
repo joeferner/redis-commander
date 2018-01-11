@@ -42,7 +42,7 @@
   <% for(var flashType in flashes) { %>
     <% flashes[flashType].forEach(function (flash) { %>
       <div style="margin-left: 275px;" class="alert alert-block <%= flashType === 'error' ? 'alert-error' : '' %> fade in">
-        <button class="close" data-dismiss="alert">×</button>
+        <button class="close" data-dismiss="alert" onClick="$(window).unbind('beforeunload'); window.location.search='';">×</button>
         <%= flash %>
       </div>
     <% }) %>
@@ -57,5 +57,6 @@
   <% include modals/editListRowModal %>
   <% include modals/addKeyModal %>
   <% include modals/editHashRowModal %>
+  <% include modals/signinModal %>
 </body>
 </html>
