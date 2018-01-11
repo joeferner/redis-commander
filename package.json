@@ -24,7 +24,6 @@
     "async": "0.1.22",
     "bcryptjs": "2.4.3",
     "body-parser": "1.18.2",
-    "browserify": "13.3.0",
     "browserify-middleware": "7.1.0",
     "cmdparser": "0.0.3",
     "ejs": "0.8.8",
