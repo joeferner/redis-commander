@@ -226,6 +226,9 @@ function connectToDB (redisConnection, db) {
 
 function startWebApp () {
   httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"]};
+  if (args['save']) {
+    args['nosave'] = false;
+  }
   console.log("No Save: " + args["nosave"]);
   var appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
 
