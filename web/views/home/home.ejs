@@ -120,7 +120,7 @@
         setTimeout(refreshToken, 20e3);
       })
       .fail(function(err) {
-        console.error("Failed signin", err);
+        console.error("Signin network error", err);
         setTimeout(refreshToken, 5e3);
       })
     }

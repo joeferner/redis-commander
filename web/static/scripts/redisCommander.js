@@ -1125,11 +1125,26 @@ function setupCLIKeyEvents () {
 }
 
 $(function() {
+  function refreshQueryToken() {
+    $.post('signin', {}, function (data, status) {
+      if ((status != 'success') || !data || !data.ok) {
+        console.error("Cannot refresh query token");
+        return;
+      }
+      sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
+      sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
+    })
+    .fail(function(err) {
+      console.error("Failed to refresh query token", err);
+    });
+  }
+
   /**
    * Export redis data.
    */
   $('#app-container').on('submit', '#redisExportForm', function () {
     window.open("tools/export?" + $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken')), '_blank');
+    refreshQueryToken();
     return false;
   });
 
@@ -1151,7 +1166,7 @@ $(function() {
           '<span class="label label-' + (res.errors ? 'important' : 'success') + '">' + (res.errors ? 'Errors' : 'Success') + '</span>');
       }
     });
-
+    refreshQueryToken();
     return false;
   });
 
