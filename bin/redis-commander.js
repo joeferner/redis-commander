@@ -7,7 +7,6 @@ var fs = require('fs');
 var myUtils = require('../lib/util');
 
 var redisConnections = [];
-redisConnections.getLast = myUtils.getLast;
 
 var args = optimist
   .alias('h', 'help')
@@ -50,6 +49,11 @@ var args = optimist
     string: true,
     describe: 'The http authorisation password.'
   })
+  .options('http-auth-password-hash', {
+    alias: "http-h",
+    string: true,
+    describe: 'The http authorisation password hash.'
+  })
   .options('address', {
     alias: 'a',
     string: true,
@@ -66,12 +70,7 @@ var args = optimist
     alias: 'ns',
     boolean: true,
     describe: 'Do not save new connections to config.',
-    default: true
-  })
-  .options('save', {
-    alias: 's',
-    boolean: true,
-    describe: 'Save new connections to config.'
+    default: false
   })
   .options('noload', {
     alias: 'nl',
@@ -127,8 +126,8 @@ myUtils.getConfig(function (err, config) {
     }
     if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       var db = parseInt(args['redis-db']);
-      if (db == null || isNaN(db)) {
-        db = 0
+      if (!db) {
+        db = 0;
       }
 
       newDefault = {
@@ -137,8 +136,8 @@ myUtils.getConfig(function (err, config) {
         "sentinel_host": args['sentinel-host'],
         "sentinel_port": args['sentinel-port'],
         "port": args['redis-port'] || args['redis-socket'] || "6379",
-        "password": args['redis-password'] || "",
-        "dbIndex": db
+        "dbIndex": db,
+        "password": args['redis-password'] || '',
       };
 
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
@@ -161,30 +160,27 @@ myUtils.getConfig(function (err, config) {
         }
         client.label = newDefault.label;
         redisConnections.push(client);
-        if (args['redis-password']) {
-          redisConnections.getLast().auth(args['redis-password'], function (err) {
+        config.default_connections.push(newDefault);
+        if (!args.nosave) {
+          myUtils.saveConfig(config, function (err) {
             if (err) {
-              console.log(err);
-              process.exit();
+              console.log("Problem saving config.");
+              console.error(err);
             }
           });
         }
-        config.default_connections.push(newDefault);
-        myUtils.saveConfig(config, function (err) {
-          if (err) {
-            console.log("Problem saving config.");
-            console.error(err);
-          }
-        });
-        setUpConnection(redisConnections.getLast(), db);
+        setUpConnection(client, db);
       }
     } else if (config.default_connections.length == 0) {
       var db = parseInt(args['redis-db']);
-      if (db == null || isNaN(db)) {
+      if (!db) {
         db = 0
       }
-      redisConnections.push(new Redis());
-      setUpConnection(redisConnections.getLast(), db);
+      client = new Redis();
+      client.label = args['redis-label'] || "local";
+      
+      redisConnections.push(client);
+      setUpConnection(client, db);
     }
   });
   return startWebApp();
@@ -193,20 +189,16 @@ myUtils.getConfig(function (err, config) {
 function startDefaultConnections (connections, callback) {
   if (connections) {
     connections.forEach(function (connection) {
-      var client = new Redis(connection.port, connection.host);
+      var client = new Redis({
+        port: connection.port,
+        host: connection.host,
+        family: 4,
+        password: connection.password,
+        dbIndex: connection.dbIndex
+      });
       client.label = connection.label;
-      if(connection.dbIndex){
-        client.options.db = connection.dbIndex;
-      }
       redisConnections.push(client);
-      if (connection.password) {
-        redisConnections.getLast().auth(connection.password, function (err) {
-          if (err) {
-            return callback(err);
-          }
-        });
-      }
-      setUpConnection(redisConnections.getLast(), connection.dbIndex);
+      setUpConnection(client, connection.dbIndex);
     });
   }
   return callback(null);
@@ -214,7 +206,7 @@ function startDefaultConnections (connections, callback) {
 
 function setUpConnection (redisConnection, db) {
   redisConnection.on("error", function (err) {
-    console.error("Redis error", err.stack);
+    console.error("setUpConnection Redis error", err.stack);
   });
   redisConnection.on("end", function () {
     console.log("Connection closed. Attempting to Reconnect...");
@@ -233,7 +225,7 @@ function connectToDB (redisConnection, db) {
 }
 
 function startWebApp () {
-  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"]};
+  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"]};
   if (args['save']) {
     args['nosave'] = false;
   }
@@ -241,5 +233,5 @@ function startWebApp () {
   var appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
 
   appInstance.listen(args.port, args.address);
-  console.log("listening on ", args.address, ":", args.address);
+  console.log("listening on ", args.address, ":", args.port);
 }
