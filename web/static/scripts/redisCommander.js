@@ -1195,4 +1195,12 @@ $(function() {
       }
     });
   });
+
+  /**
+   * Refresh and expand all nodes in tree
+   */
+  $('#expandAllNodes').on('click', function () {
+    refreshTree();
+    $('#keyTree').jstree('open_all');
+  });
 });
