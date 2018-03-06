@@ -194,7 +194,7 @@ function startDefaultConnections (connections, callback) {
         host: connection.host,
         family: 4,
         password: connection.password,
-        dbIndex: connection.dbIndex
+        db: connection.dbIndex
       });
       client.label = connection.label;
       redisConnections.push(client);
