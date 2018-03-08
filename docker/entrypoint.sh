@@ -103,5 +103,50 @@ EOF
 echo 'Configuration:'
 cat ${HOME}/.redis-commander
 
+# add other commands as environment variables
+if [[ ! -z "$REDIS_PORT" ]]; then
+    set -- "$@" "--redis-port $REDIS_PORT"
+fi
+
+if [[ ! -z "$REDIS_HOST" ]]; then
+    set -- "$@" "--redis-host $REDIS_HOST"
+fi
+
+if [[ ! -z "$REDIS_SOCKET" ]]; then
+    set -- "$@" "--redis-socket $REDIS_SOCKET"
+fi
+
+if [[ ! -z "$REDIS_PASSWORD" ]]; then
+    set -- "$@" "--redis-password $REDIS_PASSWORD"
+fi
+
+if [[ ! -z "$REDIS_DB" ]]; then
+    set -- "$@" "--redis-db $REDIS_DB"
+fi
+
+if [[ ! -z "$HTTP_USER" ]]; then
+    set -- "$@" "--http-u $HTTP_USER"
+fi
+
+if [[ ! -z "$HTTP_PASSWORD" ]]; then
+    set -- "$@" "--http-p $HTTP_PASSWORD"
+fi
+
+if [[ ! -z "$HTTP_PASSWORD_HASH" ]]; then
+    set -- "$@" "--http-h $HTTP_PASSWORD_HASH"
+fi
+
+if [[ ! -z "$PORT" ]]; then
+    set -- "$@" "--port $PORT"
+fi
+
+if [[ ! -z "$ADDRESS" ]]; then
+    set -- "$@" "--address $ADDRESS"
+fi
+
+if [[ ! -z "$ROOT_PATTERN" ]]; then
+    set -- "$@" "--root-pattern $ROOT_PATTERN"
+fi
+
 echo "node /src/redis-commander/bin/redis-commander "$@""
-exec node /src/redis-commander/bin/redis-commander "$@"
+exec node /src/redis-commander/bin/redis-commander $@
