@@ -1,16 +1,17 @@
-FROM mhart/alpine-node:8
+FROM mhart/alpine-node:9
 
-COPY . /src/redis-commander
+ADD docker/entrypoint.sh .
+ADD docker/redis-commander.json .
 
-RUN cd /src/redis-commander \
- && npm install \
+RUN npm install -g redis-commander@0.4.5 \
  && adduser -S redis-commander \
- && chmod a+x /src/redis-commander/docker/entrypoint.sh \
- && mv /src/redis-commander/docker/redis-commander.json /home/redis-commander/.redis-commander \
- && chown -R redis-commander /home/redis-commander /src/redis-commander
+ && chmod a+x entrypoint.sh \
+ && mv entrypoint.sh /home/redis-commander/entrypoint.sh \
+ && mv redis-commander.json /home/redis-commander/.redis-commander \
+ && chown -R redis-commander /home/redis-commander
 
 USER redis-commander
 
-ENTRYPOINT ["/src/redis-commander/docker/entrypoint.sh"]
+ENTRYPOINT ["/home/redis-commander/entrypoint.sh"]
 
 EXPOSE 8081
