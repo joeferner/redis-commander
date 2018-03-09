@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # if REDIS_HOSTS isn't set just run the script
-[ -z "${REDIS_HOSTS}" ] && exec node /src/redis-commander/bin/redis-commander "$@"
+[ -z "${REDIS_HOSTS}" ] && exec node /usr/bin/redis-commander "$@"
 
 echo 'Creating custom redis-commander config.'
 
@@ -148,5 +148,5 @@ if [[ ! -z "$ROOT_PATTERN" ]]; then
     set -- "$@" "--root-pattern $ROOT_PATTERN"
 fi
 
-echo "node /src/redis-commander/bin/redis-commander "$@""
-exec node /src/redis-commander/bin/redis-commander $@
+echo "node /usr/bin/redis-commander "$@""
+exec node /usr/bin/redis-commander $@
