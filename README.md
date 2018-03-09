@@ -29,6 +29,23 @@ Options:
 
 ## Docker
 
+Available environment variables:
+
+```
+REDIS_PORT
+REDIS_HOST
+REDIS_SOCKET
+REDIS_PASSWORD
+REDIS_DB
+REDIS_HOSTS
+HTTP_USER
+HTTP_PASSWORD
+HTTP_PASSWORD_HASH
+PORT
+ADDRESS
+ROOT_PATTERN
+```
+
 Hosts can be optionally specified with a comma separated string by setting the `REDIS_HOSTS` environment variable.
 
 After running the container, `redis-commander` will be available at [localhost:8081](http://localhost:8081).
