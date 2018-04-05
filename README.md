@@ -25,6 +25,7 @@ Options:
   --port, -p                           The port to run the server on.          [string]  [default: 8081]
   --address, -a                        The address to run the server on        [string]  [default: 0.0.0.0]
   --root-pattern, -rp                  The root pattern of the redis keys      [string]  [default: *]
+  --use-scan, -sc                      Use scan instead of keys                [boolean] [default: false]
 ```
 
 ## Docker

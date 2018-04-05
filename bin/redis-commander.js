@@ -88,6 +88,7 @@ var args = optimist
       describe: 'default root pattern for redis keys',
       default: '*'
   })
+  .alias('sc', 'use-scan')
   .argv;
 
 if (args.help) {
@@ -95,6 +96,30 @@ if (args.help) {
   return process.exit(-1);
 }
 
+if (args['use-scan']) {
+  Object.defineProperty(Redis.prototype, 'keys', {
+    value: function(pattern, cb) {
+      var keys = [];
+      var scanCB = function(err, res) {
+        if (err) {
+          cb(err);
+        } else {
+          var count = res[0], curKeys = res[1];
+          keys = keys.concat(curKeys);
+          if (Number(count) === 0) {
+            console.log('FINISHED');
+            cb(null, keys);
+          } else {
+            console.log('KEYS', keys);
+            console.log('COUNT', count);
+            this.scan(pattern, count, scanCB);
+          }
+        }
+      };
+      return this.scan(0, 'MATCH', pattern, scanCB);
+    }
+  });
+}
 
 if(args['clear-config']) {
   myUtils.deleteConfig(function(err) {
