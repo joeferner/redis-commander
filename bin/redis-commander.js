@@ -97,6 +97,7 @@ if (args.help) {
 }
 
 if (args['use-scan']) {
+  console.log('Using scan instead of keys');
   Object.defineProperty(Redis.prototype, 'keys', {
     value: function(pattern, cb) {
       var keys = [];
@@ -107,11 +108,8 @@ if (args['use-scan']) {
           var count = res[0], curKeys = res[1];
           keys = keys.concat(curKeys);
           if (Number(count) === 0) {
-            console.log('FINISHED');
             cb(null, keys);
           } else {
-            console.log('KEYS', keys);
-            console.log('COUNT', count);
             this.scan(pattern, count, scanCB);
           }
         }
