@@ -3,7 +3,7 @@ FROM mhart/alpine-node:9
 ADD docker/entrypoint.sh .
 ADD docker/redis-commander.json .
 
-RUN npm install -g redis-commander@0.4.5 \
+RUN npm install -g @awearsolutions/redis-commander@0.4.5-rc.5 \
  && adduser -S redis-commander \
  && chmod a+x entrypoint.sh \
  && mv entrypoint.sh /home/redis-commander/entrypoint.sh \
