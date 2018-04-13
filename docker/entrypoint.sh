@@ -148,5 +148,9 @@ if [[ ! -z "$ROOT_PATTERN" ]]; then
     set -- "$@" "--root-pattern $ROOT_PATTERN"
 fi
 
+if [[ ! -z "$URL_PREFIX" ]]; then
+    set -- "$@" "--url-prefix $URL_PREFIX"
+fi
+
 echo "node /usr/bin/redis-commander "$@""
 exec node /usr/bin/redis-commander $@
