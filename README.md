@@ -23,6 +23,7 @@ Options:
   --http-auth-password, --http-p       The http authorisation password.        [string]
   --http-auth-password-hash, --http-h  The http authorisation password hash.   [string]
   --port, -p                           The port to run the server on.          [string]  [default: 8081]
+  --url-prefix, -u                     The url prefix to respond on.           [string]  [default: ""]
   --address, -a                        The address to run the server on        [string]  [default: 0.0.0.0]
   --root-pattern, -rp                  The root pattern of the redis keys      [string]  [default: *]
   --use-scan, -sc                      Use scan instead of keys                [boolean] [default: false]
@@ -45,6 +46,7 @@ HTTP_PASSWORD_HASH
 PORT
 ADDRESS
 ROOT_PATTERN
+URL_PREFIX
 ```
 
 Hosts can be optionally specified with a comma separated string by setting the `REDIS_HOSTS` environment variable.
