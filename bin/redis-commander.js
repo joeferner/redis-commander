@@ -259,7 +259,7 @@ function startWebApp () {
   if (args['save']) {
     args['nosave'] = false;
   }
-  if (!urlPrefix.startsWith('/')) {
+  if (urlPrefix && !urlPrefix.startsWith('/')) {
     console.log("url-prefix must begin with leading '/'");
     process.exit();
   }
