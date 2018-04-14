@@ -66,6 +66,12 @@ var args = optimist
     describe: 'The port to run the server on.',
     default: 8081
   })
+  .options('url-prefix', {
+    alias: 'u',
+    string: true,
+    describe: 'The url prefix to respond on.',
+    default: '',
+  })
   .options('nosave', {
     alias: 'ns',
     boolean: true,
@@ -201,7 +207,7 @@ myUtils.getConfig(function (err, config) {
       }
       client = new Redis();
       client.label = args['redis-label'] || "local";
-      
+
       redisConnections.push(client);
       setUpConnection(client, db);
     }
@@ -248,13 +254,21 @@ function connectToDB (redisConnection, db) {
 }
 
 function startWebApp () {
-  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"]};
+  var urlPrefix = args['url-prefix'];
+  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"], urlPrefix };
   if (args['save']) {
     args['nosave'] = false;
+  }
+  if (urlPrefix && !urlPrefix.startsWith('/')) {
+    console.log("url-prefix must begin with leading '/'");
+    process.exit();
   }
   console.log("No Save: " + args["nosave"]);
   var appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
 
   appInstance.listen(args.port, args.address);
   console.log("listening on ", args.address, ":", args.port);
+  if (urlPrefix) {
+    console.log(`using url prefix ${urlPrefix}/`);
+  }
 }
