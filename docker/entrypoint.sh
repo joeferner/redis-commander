@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # if REDIS_HOSTS isn't set just run the script
-[ -z "${REDIS_HOSTS}" ] && exec node /usr/bin/redis-commander "$@"
+[ -z "${REDIS_HOSTS}" ] && exec node ./bin/redis-commander "$@"
 
 echo 'Creating custom redis-commander config.'
 
@@ -152,5 +152,5 @@ if [[ ! -z "$URL_PREFIX" ]]; then
     set -- "$@" "--url-prefix $URL_PREFIX"
 fi
 
-echo "node /usr/bin/redis-commander "$@""
-exec node /usr/bin/redis-commander $@
+echo "node ./bin/redis-commander "$@""
+exec node ./bin/redis-commander $@
