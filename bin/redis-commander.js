@@ -66,6 +66,12 @@ var args = optimist
     describe: 'The port to run the server on.',
     default: 8081
   })
+  .options('url-prefix', {
+    alias: 'u',
+    string: true,
+    describe: 'The url prefix to respond on.',
+    default: '',
+  })
   .options('nosave', {
     alias: 'ns',
     boolean: true,
@@ -88,6 +94,7 @@ var args = optimist
       describe: 'default root pattern for redis keys',
       default: '*'
   })
+  .alias('sc', 'use-scan')
   .argv;
 
 if (args.help) {
@@ -95,6 +102,28 @@ if (args.help) {
   return process.exit(-1);
 }
 
+if (args['use-scan']) {
+  console.log('Using scan instead of keys');
+  Object.defineProperty(Redis.prototype, 'keys', {
+    value: function(pattern, cb) {
+      var keys = [];
+      var scanCB = function(err, res) {
+        if (err) {
+          cb(err);
+        } else {
+          var count = res[0], curKeys = res[1];
+          keys = keys.concat(curKeys);
+          if (Number(count) === 0) {
+            cb(null, keys);
+          } else {
+            this.scan(pattern, count, scanCB);
+          }
+        }
+      };
+      return this.scan(0, 'MATCH', pattern, scanCB);
+    }
+  });
+}
 
 if(args['clear-config']) {
   myUtils.deleteConfig(function(err) {
@@ -178,7 +207,7 @@ myUtils.getConfig(function (err, config) {
       }
       client = new Redis();
       client.label = args['redis-label'] || "local";
-      
+
       redisConnections.push(client);
       setUpConnection(client, db);
     }
@@ -194,7 +223,7 @@ function startDefaultConnections (connections, callback) {
         host: connection.host,
         family: 4,
         password: connection.password,
-        dbIndex: connection.dbIndex
+        db: connection.dbIndex
       });
       client.label = connection.label;
       redisConnections.push(client);
@@ -225,13 +254,21 @@ function connectToDB (redisConnection, db) {
 }
 
 function startWebApp () {
-  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"]};
+  var urlPrefix = args['url-prefix'];
+  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"], urlPrefix };
   if (args['save']) {
     args['nosave'] = false;
+  }
+  if (urlPrefix && !urlPrefix.startsWith('/')) {
+    console.log("url-prefix must begin with leading '/'");
+    process.exit();
   }
   console.log("No Save: " + args["nosave"]);
   var appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
 
   appInstance.listen(args.port, args.address);
   console.log("listening on ", args.address, ":", args.port);
+  if (urlPrefix) {
+    console.log(`using url prefix ${urlPrefix}/`);
+  }
 }
