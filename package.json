@@ -24,13 +24,13 @@
     "async": "0.1.22",
     "bcryptjs": "2.4.3",
     "body-parser": "1.18.2",
-    "browserify-middleware": "7.1.0",
+    "browserify-middleware": "8.1.0",
     "cmdparser": "0.0.3",
-    "ejs": "0.8.8",
-    "express": "3.x.x",
+    "ejs": "2.6.1",
+    "express": "4.16.3",
     "express-partials": "0.3.0",
     "inflection": "1.2.7",
-    "ioredis": "1.15.1",
+    "ioredis": "3.2.2",
     "jsonwebtoken": "8.1.0",
     "method-override": "2.3.10",
     "node-redis-dump": "0.2.1",
@@ -39,7 +39,7 @@
     "sf": "0.1.9"
   },
   "optionalDependencies": {
-    "bcrypt": "1.0.3"
+    "bcrypt": "~2.0.1"
   },
   "devDependencies": {},
   "engines": {
