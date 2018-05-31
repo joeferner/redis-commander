@@ -123,6 +123,14 @@ fi
 echo 'Configuration:'
 cat ${CONFIG_FILE}
 
+# load HTTP password from a file (e.g. a Docker secret mounted in the container)
+HTTP_PASSWORD_FILE=${HTTP_PASSWORD_FILE:-/}
+
+if [ -f $HTTP_PASSWORD_FILE ]; then
+    HTTP_PASSWORD=$(cat $HTTP_PASSWORD_FILE)
+    export HTTP_PASSWORD="$HTTP_PASSWORD"
+fi
+
 # add other commands as environment variables
 if [[ ! -z "$REDIS_PORT" ]]; then
     set -- "$@" "--redis-port $REDIS_PORT"
