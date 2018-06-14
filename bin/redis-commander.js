@@ -94,7 +94,17 @@ var args = optimist
       describe: 'default root pattern for redis keys',
       default: '*'
   })
-  .alias('sc', 'use-scan')
+  .options('use-scan', {
+      alias: 'sc',
+      boolean: true,
+      default: false,
+      describe: 'Use SCAN instead of KEYS'
+  })
+  .options('scan-count', {
+      boolean: false,
+      default: 100,
+      describe: 'The size of each seperate scan'
+  })
   .argv;
 
 if (args.help) {
@@ -107,20 +117,22 @@ if (args['use-scan']) {
   Object.defineProperty(Redis.prototype, 'keys', {
     value: function(pattern, cb) {
       var keys = [];
+      var that = this;
       var scanCB = function(err, res) {
         if (err) {
           cb(err);
         } else {
           var count = res[0], curKeys = res[1];
+	  console.log("scanning: " + count + ": " + curKeys.length);
           keys = keys.concat(curKeys);
           if (Number(count) === 0) {
             cb(null, keys);
           } else {
-            this.scan(pattern, count, scanCB);
+            that.scan(count, 'MATCH', pattern, 'COUNT', args['scan-count'], scanCB);
           }
         }
       };
-      return this.scan(0, 'MATCH', pattern, scanCB);
+      return this.scan(0, 'MATCH', pattern, 'COUNT', args['scan-count'], scanCB);
     }
   });
 }
