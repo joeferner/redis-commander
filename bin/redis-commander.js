@@ -70,7 +70,7 @@ var args = optimist
     alias: 'u',
     string: true,
     describe: 'The url prefix to respond on.',
-    default: '',
+    default: ''
   })
   .options('nosave', {
     alias: 'ns',
@@ -165,12 +165,12 @@ myUtils.getConfig(function (err, config) {
       console.log(err);
       process.exit();
     }
-    if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
-      var db = parseInt(args['redis-db']);
-      if (!db) {
+    var db = parseInt(args['redis-db']);
+    if (!db) {
         db = 0;
-      }
+    }
 
+    if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       newDefault = {
         "label": args['redis-label'] || "local",
         "host": args['redis-host'] || "localhost",
@@ -178,7 +178,7 @@ myUtils.getConfig(function (err, config) {
         "sentinel_port": args['sentinel-port'],
         "port": args['redis-port'] || args['redis-socket'] || "6379",
         "dbIndex": db,
-        "password": args['redis-password'] || '',
+        "password": args['redis-password'] || ''
       };
 
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
@@ -212,11 +212,7 @@ myUtils.getConfig(function (err, config) {
         }
         setUpConnection(client, db);
       }
-    } else if (config.default_connections.length == 0) {
-      var db = parseInt(args['redis-db']);
-      if (!db) {
-        db = 0
-      }
+    } else if (config.default_connections.length === 0) {
       client = new Redis();
       client.label = args['redis-label'] || "local";
 
