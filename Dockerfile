@@ -1,12 +1,14 @@
 FROM node:9-alpine
 
 WORKDIR /redis-commander
+ENV SERVICEUSER=redis
 
 RUN  apk update \
-  && apk add ca-certificates wget \
-  && update-ca-certificates    \
-  && wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64 \
-  && chmod +x /usr/local/bin/dumb-init
+  && apk upgrade \
+  && apk add ca-certificates wget dumb-init \
+  && update-ca-certificates \
+  && adduser $SERVICEUSER -h /redis-commander -S \
+  && chown -R $SERVICEUSER /redis-commander
 
 COPY package.json .
 RUN npm install --production -s
@@ -16,7 +18,8 @@ COPY bin ./bin
 COPY docker/entrypoint.sh .
 COPY docker/redis-commander.json .redis_commander
 
-ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
+USER $SERVICEUSER
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["/redis-commander/entrypoint.sh"]
 
 EXPOSE 8081
