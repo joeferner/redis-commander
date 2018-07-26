@@ -162,6 +162,14 @@ if [[ ! -z "$REDIS_DB" ]]; then
     set -- "$@" "--redis-db $REDIS_DB"
 fi
 
+if [[ ! -z "$SENTINEL_PORT" ]]; then
+    set -- "$@" "--sentinel-port $SENTINEL_PORT"
+fi
+
+if [[ ! -z "$SENTINEL_HOST" ]]; then
+    set -- "$@" "--sentinel-host $SENTINEL_HOST"
+fi
+
 if [[ ! -z "$HTTP_USER" ]]; then
     set -- "$@" "--http-u $HTTP_USER"
 fi
@@ -190,6 +198,9 @@ if [[ ! -z "$URL_PREFIX" ]]; then
     set -- "$@" "--url-prefix $URL_PREFIX"
 fi
 
+if [[ ! -z "$NO_LOG_DATA" ]]; then
+    set -- "$@" "--no-log-data"
+fi
 
 # install trap for SIGTERM to delay end of app a bit for kubernetes
 # otherwise container might get requests after exiting itself

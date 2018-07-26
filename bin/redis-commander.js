@@ -2,10 +2,9 @@
 
 'use strict';
 
-const optimist = require('optimist');
-const Redis = require('ioredis');
-const fs = require('fs');
-const myUtils = require('../lib/util');
+let optimist = require('optimist');
+let Redis = require('ioredis');
+let myUtils = require('../lib/util');
 let app = require('../lib/app');
 
 let redisConnections = [];
@@ -111,6 +110,13 @@ let args = optimist
       boolean: false,
       default: 100,
       describe: 'The size of each seperate scan.'
+  })
+  .options('no-log-data', {
+    // through no-  this is a negated param, if set args[log-data]=true
+    // internal handling of optimist is diffferent to nosave (without "-")
+    boolean: true,
+    default: false,
+    describe: 'Do not log data values from redis store.'
   })
   .argv;
 
@@ -279,7 +285,7 @@ function startWebApp () {
     process.exit();
   }
   console.log("No Save: " + args["nosave"]);
-  let appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
+  let appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern'], (args['log-data']===false));
 
   appInstance.listen(args.port, args.address, function() {
     console.log("listening on ", args.address, ":", args.port);

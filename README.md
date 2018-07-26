@@ -29,11 +29,12 @@ Options:
   --port, -p                           The port to run the server on.           [string]  [default: 8081]
   --url-prefix, -u                     The url prefix to respond on.            [string]  [default: ""]
   --root-pattern, -rp                  The root pattern of the redis keys.      [string]  [default: *]
-  --no-save, -ns                       Do not save new connections to config.   [boolean] [default: true]
-  --no-load, -nl                       Do not load connections from config.     [boolean] [default: false]
+  --nosave, -ns                        Do not save new connections to config.   [boolean] [default: true]
+  --noload, -nl                        Do not load connections from config.     [boolean] [default: false]
   --use-scan, -sc                      Use scan instead of keys.                [boolean] [default: false]
   --clear-config, -cc                  clear configuration file.                [boolean] [default: false]
-  --scan-count, -sc                    'The size of each seperate scan.         [integer] [default: 100]
+  --scan-count, -sc                    The size of each seperate scan.          [integer] [default: 100]
+  --no-log-data                        Do not log data values from redis store. [boolean] [default: false]
 ```
 
 The connection can be established either via direct connection to redis server or indirect 
@@ -50,6 +51,8 @@ REDIS_SOCKET
 REDIS_PASSWORD
 REDIS_DB
 REDIS_HOSTS
+SENTINEL_PORT
+SENTINEL_HOST
 HTTP_USER
 HTTP_PASSWORD
 HTTP_PASSWORD_HASH
@@ -57,6 +60,7 @@ PORT
 ADDRESS
 ROOT_PATTERN
 URL_PREFIX
+NO_LOG_DATA
 K8S_SIGTERM
 ```
 
