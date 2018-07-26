@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 const optimist = require('optimist');
 const Redis = require('ioredis');
 const fs = require('fs');
@@ -175,6 +177,7 @@ myUtils.getConfig(function (err, config) {
         db = 0;
     }
 
+    let client;
     if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       let newDefault = {
         "label": args['redis-label'] || "local",
@@ -187,7 +190,6 @@ myUtils.getConfig(function (err, config) {
       };
 
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
-        let client;
         if (newDefault.sentinel_host) {
           client = new Redis({
             showFriendlyErrorStack: true,
@@ -268,7 +270,7 @@ function connectToDB (redisConnection, db) {
 
 function startWebApp () {
   let urlPrefix = args['url-prefix'];
-  httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"], urlPrefix };
+  let httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"], urlPrefix };
   if (args['save']) {
     args['nosave'] = false;
   }
