@@ -377,7 +377,7 @@ function selectTreeNodeString (data) {
   } catch (err) {
     $('#jqtree_string_div').text(err.message)
   }
-  
+
   $('#stringValue').keyup(function () {
     $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "clippy-jquery/clippy.swf"});
     var dataTree;
@@ -542,7 +542,7 @@ function decodeKey (connectionId, key) {
       return alert("Could not decode key");
     }
 
-    $('#base64Button').html('Encode <small>base64</small');
+    $('#base64Button').html('Encode <small>base64</small>');
     $('#base64Button').off('click');
     $('#base64Button').on('click', function() {
       encodeString(connectionId, key)
@@ -559,7 +559,7 @@ function encodeString (connectionId, key) {
 
     // needed to debounce
     setTimeout(function() {
-      $('#base64Button').html('Decode <small>base64</small');
+      $('#base64Button').html('Decode <small>base64</small>');
       $('#base64Button').off('click');
       $('#base64Button').on('click', function() {
         decodeKey(connectionId,key)
