@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-var optimist = require('optimist');
-var Redis = require('ioredis');
-var app = require('../lib/app');
-var fs = require('fs');
-var myUtils = require('../lib/util');
+const optimist = require('optimist');
+const Redis = require('ioredis');
+const fs = require('fs');
+const myUtils = require('../lib/util');
+let app = require('../lib/app');
 
-var redisConnections = [];
+let redisConnections = [];
 
-var args = optimist
+let args = optimist
   .alias('h', 'help')
   .alias('h', '?')
   .options('redis-port', {
@@ -38,6 +38,11 @@ var args = optimist
   .options('redis-db', {
     string: true,
     describe: 'The redis database.'
+  })
+  .options('redis-label', {
+    string: true,
+    describe: 'The label to display for the connection.',
+    default: 'local'
   })
   .options('http-auth-username', {
     alias: "http-u",
@@ -86,24 +91,24 @@ var args = optimist
   .options('clear-config', {
     alias: 'cc',
     boolean: false,
-    describe: 'clear configuration file'
+    describe: 'clear configuration file.'
   })
   .options('root-pattern', {
       alias: 'rp',
       boolean: false,
-      describe: 'default root pattern for redis keys',
+      describe: 'default root pattern for redis keys.',
       default: '*'
   })
   .options('use-scan', {
       alias: 'sc',
       boolean: true,
       default: false,
-      describe: 'Use SCAN instead of KEYS'
+      describe: 'Use SCAN instead of KEYS.'
   })
   .options('scan-count', {
       boolean: false,
       default: 100,
-      describe: 'The size of each seperate scan'
+      describe: 'The size of each seperate scan.'
   })
   .argv;
 
@@ -116,14 +121,14 @@ if (args['use-scan']) {
   console.log('Using scan instead of keys');
   Object.defineProperty(Redis.prototype, 'keys', {
     value: function(pattern, cb) {
-      var keys = [];
-      var that = this;
-      var scanCB = function(err, res) {
+      let keys = [];
+      let that = this;
+      let scanCB = function(err, res) {
         if (err) {
           cb(err);
         } else {
-          var count = res[0], curKeys = res[1];
-	  console.log("scanning: " + count + ": " + curKeys.length);
+          let count = res[0], curKeys = res[1];
+	      console.log("scanning: " + count + ": " + curKeys.length);
           keys = keys.concat(curKeys);
           if (Number(count) === 0) {
             cb(null, keys);
@@ -165,13 +170,13 @@ myUtils.getConfig(function (err, config) {
       console.log(err);
       process.exit();
     }
-    var db = parseInt(args['redis-db']);
-    if (!db) {
+    let db = parseInt(args['redis-db']);
+    if (isNaN(db)) {
         db = 0;
     }
 
     if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
-      newDefault = {
+      let newDefault = {
         "label": args['redis-label'] || "local",
         "host": args['redis-host'] || "localhost",
         "sentinel_host": args['sentinel-host'],
@@ -182,7 +187,7 @@ myUtils.getConfig(function (err, config) {
       };
 
       if (!myUtils.containsConnection(config.default_connections, newDefault)) {
-        var client;
+        let client;
         if (newDefault.sentinel_host) {
           client = new Redis({
             showFriendlyErrorStack: true,
@@ -226,7 +231,7 @@ myUtils.getConfig(function (err, config) {
 function startDefaultConnections (connections, callback) {
   if (connections) {
     connections.forEach(function (connection) {
-      var client = new Redis({
+      let client = new Redis({
         port: connection.port,
         host: connection.host,
         family: 4,
@@ -262,7 +267,7 @@ function connectToDB (redisConnection, db) {
 }
 
 function startWebApp () {
-  var urlPrefix = args['url-prefix'];
+  let urlPrefix = args['url-prefix'];
   httpServerOptions = {username: args["http-auth-username"], password: args["http-auth-password"], passwordHash: args["http-auth-password-hash"], urlPrefix };
   if (args['save']) {
     args['nosave'] = false;
@@ -272,11 +277,12 @@ function startWebApp () {
     process.exit();
   }
   console.log("No Save: " + args["nosave"]);
-  var appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
+  let appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern']);
 
-  appInstance.listen(args.port, args.address);
-  console.log("listening on ", args.address, ":", args.port);
-  if (urlPrefix) {
-    console.log(`using url prefix ${urlPrefix}/`);
-  }
+  appInstance.listen(args.port, args.address, function() {
+    console.log("listening on ", args.address, ":", args.port);
+    if (urlPrefix) {
+      console.log(`using url prefix ${urlPrefix}/`);
+    }
+  });
 }
