@@ -1,6 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 CONFIG_FILE=${HOME}/.redis-commander
+
+# when running in kubernetes we need to wait a bit before exiting on SIGTERM
+# https://github.com/kubernetes/contrib/issues/1140#issuecomment-290836405
+K8S_SIGTERM=${K8S_SIGTERM:-0}
+
+# seconds to wait befor sending sigterm to app on exit
+# only used if K8S_SIGTERM=1
+GRACE_PERIOD=6
+
+
 
 writeDefaultConfigBeginning() {
     echo 'Creating custom redis-commander config.'
@@ -30,12 +40,12 @@ EOF
 
 parseRedisHosts() {
     writeDefaultConfigBeginning
-    
+
     # split REDIS_HOSTS on comma (,)
     # local:localhost:6379,custom-label:my.hostname
     #   -> local:localhost:6379 custom-label:my.hostname
     redis_hosts_split="$(echo ${REDIS_HOSTS} | sed "s/,/ /g")"
-    
+
     # get hosts count
     num_redis_hosts="$(echo ${redis_hosts_split} | wc -w)"
 
@@ -58,7 +68,7 @@ parseRedisHosts() {
         # local:localhost:6379
         #   -> local localhost 6379
         host_split="$(echo ${redis_host} | sed "s/:/ /g")"
-    
+
         # get host param count
         num_host_params="$(echo "${host_split}" | wc -w)"
 
@@ -106,7 +116,7 @@ EOF
 
     done
     # ================ end loop on redis hosts and generate config =============== #
-    
+
     writeDefaultConfigEnd
 }
 
@@ -180,5 +190,25 @@ if [[ ! -z "$URL_PREFIX" ]]; then
     set -- "$@" "--url-prefix $URL_PREFIX"
 fi
 
-echo "node ./bin/redis-commander "$@""
-exec node ./bin/redis-commander $@
+
+# install trap for SIGTERM to delay end of app a bit for kubernetes
+# otherwise container might get requests after exiting itself
+exitTrap() {
+    echo "Got signal, wait a bit before exit"
+    sleep $GRACE_PERIOD
+    kill -TERM $NODE_PID
+}
+
+if [ "$K8S_SIGTERM" = "1" ]; then
+    trap exitTrap TERM INT
+    echo "node ./bin/redis-commander "$@" for k8s"
+    setsid /usr/local/bin/node ./bin/redis-commander $@ &
+    NODE_PID=$!
+    wait $NODE_PID
+    trap - TERM INT
+    wait $NODE_PID
+else
+    echo "node ./bin/redis-commander "$@""
+    exec /usr/local/bin/node ./bin/redis-commander $@
+fi
+
