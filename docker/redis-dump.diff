@@ -1,0 +1,12 @@
+diff -ur node_modules/node-redis-dump/lib/node-redis-dump.js node_modules_save/node-redis-dump/lib/node-redis-dump.js
+--- node_modules/node-redis-dump/lib/node-redis-dump.js	2018-07-24 17:48:39.774935081 +0200
++++ node_modules_save/node-redis-dump/lib/node-redis-dump.js	2018-07-24 17:45:50.811077357 +0200
+@@ -417,7 +417,7 @@
+ 				}
+ 
+ 				callArgs.push(Callback);
+-				this.getClient()[ command ].apply(this.getClient(), callArgs);
++				this.getClient()[ command.toLowerCase() ].apply(this.getClient(), callArgs);
+ 			}.bind(this);
+ 
+ 			AddRecursive();

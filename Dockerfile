@@ -13,10 +13,13 @@ COPY docker/redis-commander.json .redis_commander
 RUN  apk update \
   && apk upgrade \
   && apk add --no-cache ca-certificates dumb-init \
+  && apk add --no-cache --virtual .patch-dep patch \
   && update-ca-certificates \
   && adduser ${SERVICE_USER} -h ${HOME} -S \
   && chown -R ${SERVICE_USER} ${HOME} \
   && npm install --production -s \
+  && patch -p0 < docker/redis-dump.diff \
+  && apk del .patch-dep \
   && rm -rf /tmp/* /root/.??* /root/cache /var/cache/apk/* \
   && ${HOME}/docker/harden.sh
 
