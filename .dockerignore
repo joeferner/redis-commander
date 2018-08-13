@@ -2,12 +2,15 @@
 .DS_Store
 .dockerignore
 .gitignore
+*.iml
 docker-compose.yml
 Dockerfile
-package-lock.json
 README.md
 
 # directories
 .git
+.idea
+dist
+k8s
 node_modules
 test

@@ -14,20 +14,31 @@ $ redis-commander
 ```bash
 $ redis-commander --help
 Options:
-  --redis-port                         The port to find redis on.              [string]
-  --redis-host                         The host to find redis on.              [string]
-  --redis-socket                       The unix-socket to find redis on.       [string]
-  --redis-password                     The redis password.                     [string]
-  --redis-db                           The redis database.                     [string]
-  --http-auth-username, --http-u       The http authorisation username.        [string]
-  --http-auth-password, --http-p       The http authorisation password.        [string]
-  --http-auth-password-hash, --http-h  The http authorisation password hash.   [string]
-  --port, -p                           The port to run the server on.          [string]  [default: 8081]
-  --url-prefix, -u                     The url prefix to respond on.           [string]  [default: ""]
-  --address, -a                        The address to run the server on        [string]  [default: 0.0.0.0]
-  --root-pattern, -rp                  The root pattern of the redis keys      [string]  [default: *]
-  --use-scan, -sc                      Use scan instead of keys                [boolean] [default: false]
+  --redis-port                         The port to find redis on.               [string]
+  --redis-host                         The host to find redis on.               [string]
+  --redis-socket                       The unix-socket to find redis on.        [string]
+  --redis-password                     The redis password.                      [string]
+  --redis-db                           The redis database.                      [string]
+  --redis-label                        The label to display for the connection. [string]
+  --sentinel-port                      The port to find redis sentinel on.      [string]
+  --sentinel-host                      The host to find redis sentinel on.      [string]
+  --http-auth-username, --http-u       The http authorisation username.         [string]
+  --http-auth-password, --http-p       The http authorisation password.         [string]
+  --http-auth-password-hash, --http-h  The http authorisation password hash.    [string]
+  --address, -a                        The address to run the server on.        [string]  [default: 0.0.0.0]
+  --port, -p                           The port to run the server on.           [string]  [default: 8081]
+  --url-prefix, -u                     The url prefix to respond on.            [string]  [default: ""]
+  --root-pattern, -rp                  The root pattern of the redis keys.      [string]  [default: *]
+  --nosave, -ns                        Do not save new connections to config.   [boolean] [default: true]
+  --noload, -nl                        Do not load connections from config.     [boolean] [default: false]
+  --use-scan, -sc                      Use scan instead of keys.                [boolean] [default: false]
+  --clear-config, -cc                  clear configuration file.                [boolean] [default: false]
+  --scan-count, -sc                    The size of each seperate scan.          [integer] [default: 100]
+  --no-log-data                        Do not log data values from redis store. [boolean] [default: false]
 ```
+
+The connection can be established either via direct connection to redis server or indirect 
+via a sentinel instance.
 
 ## Docker
 
@@ -40,6 +51,8 @@ REDIS_SOCKET
 REDIS_PASSWORD
 REDIS_DB
 REDIS_HOSTS
+SENTINEL_PORT
+SENTINEL_HOST
 HTTP_USER
 HTTP_PASSWORD
 HTTP_PASSWORD_HASH
@@ -47,7 +60,13 @@ PORT
 ADDRESS
 ROOT_PATTERN
 URL_PREFIX
+NO_LOG_DATA
+K8S_SIGTERM
 ```
+
+The K8S_SIGTERM variable (default "0") can be set to "1" to work around kubernetes specificas
+to allow pod replacement with zero downtime. More information on how kubernetes handles termination of old pods and the
+setup of new ones can be found within the thread [https://github.com/kubernetes/contrib/issues/1140#issuecomment-290836405]
 
 Hosts can be optionally specified with a comma separated string by setting the `REDIS_HOSTS` environment variable.
 

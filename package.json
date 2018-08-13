@@ -21,10 +21,11 @@
   ],
   "main": "lib/app.js",
   "dependencies": {
+    "anymatch": "2.0.0",
     "async": "0.1.22",
     "bcryptjs": "2.4.3",
     "body-parser": "1.18.2",
-    "browserify-middleware": "8.1.0",
+    "browserify-middleware": "8.1.1",
     "cmdparser": "0.0.3",
     "ejs": "2.6.1",
     "express": "4.16.3",
@@ -39,7 +40,7 @@
     "sf": "0.1.9"
   },
   "optionalDependencies": {
-    "bcrypt": "~2.0.1"
+    "bcrypt": "~3.0.0"
   },
   "devDependencies": {},
   "engines": {
