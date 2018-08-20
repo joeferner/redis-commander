@@ -282,3 +282,7 @@ body {
 .modal .form-horizontal {
   margin: 0;
 }
+
+#signinForm {
+  margin: 0;
+}
