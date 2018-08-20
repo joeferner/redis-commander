@@ -2,21 +2,21 @@
   <div class="modal-header">
     <h3>Sign In</h3>
   </div>
+  <form id="signinForm" class="form-vertical">
   <div class="modal-body">
-    <form id="signinForm" class="form-vertical">
       <div class="form-group">
         <label for="signinUsername">Username:</label>
-        <input type="text" id="signinUsername" />
+        <input type="text" class="form-control" id="signinUsername" autofocus/>
       </div>
       <div class="form-group">
         <label for="signinPassword">Password:</label>
-        <input type="password" id="signinPassword" />
+        <input type="password" class="form-control" id="signinPassword" />
       </div>
-    </form>
   </div>
   <div class="modal-footer">
-    <button id="signinButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Signing-In...">Sign In</button>
+    <button id="signinButton" type="submit" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Signing-In...">Sign In</button>
   </div>
+  </form>
 </div>
 
 <script type="text/javascript">
