@@ -109,13 +109,13 @@ function loadTree () {
                   }
                 };
                 var rel = node.attr('rel');
-                if (rel != undefined && rel != 'root') {
+                if (typeof rel !== 'undefined' && rel !== 'root') {
                   delete menu['addKey'];
                 }
-                if (rel != 'root') {
+                if (rel !== 'root') {
                   delete menu['remConnection'];
                 }
-                if (rel == 'root') {
+                if (rel === 'root') {
                   delete menu['remKey'];
                 }
                 return menu;
@@ -142,7 +142,7 @@ function treeNodeSelected (event, data) {
   if (pathParts.length === 1) {
     var hostAndPort = pathParts[0].split(':');
     $.get('apiv1/server/info', function (data, status) {
-      if (status != 'success') {
+      if (status !== 'success') {
         return alert("Could not load server info");
       }
       data = JSON.parse(data);
@@ -170,12 +170,12 @@ function getRootConnection (node) {
 
 function loadKey (connectionId, key, index) {
   if (index) {
-    $.get('apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "/" + index, processData);
+    $.get('apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "?index=" + index, processData);
   } else {
     $.get('apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key), processData);
   }
   function processData (data, status) {
-    if (status != 'success') {
+    if (status !== 'success') {
       return alert("Could not load key data");
     }
 
@@ -300,7 +300,7 @@ function setupAddKeyButton (connectionId) {
   });
   $('#keyType').change(function () {
     var score = $('#scoreWrap');
-    if ($(this).val() == 'zset') {
+    if ($(this).val() === 'zset') {
       score.show();
     } else {
       score.hide();
@@ -309,8 +309,7 @@ function setupAddKeyButton (connectionId) {
   $('#addKeyForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
-      $('#saveKeyButton').attr("disabled", "disabled");
-      $('#saveKeyButton').html("<i class='icon-refresh'></i> Saving");
+      $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
     },
     error: function (err) {
       console.log('save error', arguments);
@@ -325,8 +324,7 @@ function setupAddKeyButton (connectionId) {
 
   function saveComplete () {
     setTimeout(function () {
-      $('#saveKeyButton').html("Save");
-      $('#saveKeyButton').removeAttr("disabled");
+      $('#saveKeyButton').removeAttr("disabled").html("Save");
       refreshTree();
       $('#addKeyModal').modal('hide');
     }, 500);
@@ -392,8 +390,7 @@ function selectTreeNodeString (data) {
   $('#editStringForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
-      $('#saveKeyButton').attr("disabled", "disabled");
-      $('#saveKeyButton').html("<i class='icon-refresh'></i> Saving");
+      $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
     },
     error: function (err) {
       console.log('save error', arguments);
@@ -410,8 +407,7 @@ function selectTreeNodeString (data) {
 
   function saveComplete () {
     setTimeout(function () {
-      $('#saveKeyButton').html("Save");
-      $('#saveKeyButton').removeAttr("disabled");
+      $('#saveKeyButton').removeAttr("disabled").html("Save");
     }, 500);
   }
 }
@@ -497,7 +493,7 @@ function refreshTree () {
 }
 
 function addKey (connectionId, key) {
-  if (typeof(connectionId) == 'object') {
+  if (typeof(connectionId) === 'object') {
     key = getFullKeyPath(connectionId);
     if (key.length > 0) {
       key = key + ":";
@@ -511,7 +507,7 @@ function addKey (connectionId, key) {
   setupAddKeyButton(connectionId);
 }
 function deleteKey (connectionId, key) {
-  if (typeof(connectionId) == 'object') {
+  if (typeof(connectionId) === 'object') {
     key = getFullKeyPath(connectionId);
     var pathParts = getKeyTree().get_path(connectionId, true);
     connectionId = pathParts.slice(0, 1)[0];
@@ -519,7 +515,7 @@ function deleteKey (connectionId, key) {
   var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
   if (result) {
     $.post('apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
-      if (status != 'success') {
+      if (status !== 'success') {
         return alert("Could not delete key");
       }
 
@@ -531,14 +527,14 @@ function deleteKey (connectionId, key) {
 }
 
 function decodeKey (connectionId, key) {
-  if (typeof(connectionId) == 'object') {
+  if (typeof(connectionId) === 'object') {
     key = getFullKeyPath(connectionId);
     var pathParts = getKeyTree().get_path(connectionId, true);
     connectionId = pathParts.slice(0, 1)[0];
   }
 
   $.post('apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=decode', function (data, status) {
-    if (status != 'success') {
+    if (status !== 'success') {
       return alert("Could not decode key");
     }
 
@@ -553,7 +549,7 @@ function decodeKey (connectionId, key) {
 
 function encodeString (connectionId, key) {
   $.post('apiv1/encodeString/' + encodeURIComponent($('#stringValue').val()), function (data, status) {
-    if (status != 'success') {
+    if (status !== 'success') {
       return alert("Could not encode key");
     }
 
@@ -574,7 +570,7 @@ function deleteBranch (connectionId, branchPrefix) {
   var result = confirm('Are you sure you want to delete "' + query + ' from ' + connectionId + '"? This will delete all children as well!');
   if (result) {
     $.post('apiv1/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
-      if (status != 'success') {
+      if (status !== 'success') {
         return alert("Could not delete branch");
       }
 
@@ -715,7 +711,7 @@ function loadCommandLine () {
       $.post('apiv1/exec', { cmd: line, connection: $('#selectedConnection').val() }, function (data, status) {
         rl.prompt();
 
-        if (status != 'success') {
+        if (status !== 'success') {
           return alert("Could not delete branch");
         }
 
@@ -900,7 +896,7 @@ var cmdparser = new CmdParser([
   key: function (partial, callback) {
     var redisConnection = $('#selectedConnection').val();
     $.get('apiv1/keys/' + encodeURIComponent(redisConnection) + "/" + partial + '*?limit=20', function (data, status) {
-      if (status != 'success') {
+      if (status !== 'success') {
         return callback(new Error("Could not get keys"));
       }
       data = JSON.parse(data)
@@ -925,14 +921,14 @@ function getServerInfo (callback) {
 }
 
 function removeServer (connectionId) {
-  if (typeof(connectionId) == 'object') {
+  if (typeof(connectionId) === 'object') {
     var pathParts = getKeyTree().get_path(connectionId, true);
     connectionId = pathParts.slice(0, 1)[0];
   }
   var result = confirm('Are you sure you want to disconnect from "' + connectionId + '"?');
   if (result) {
     $.post('logout/' + encodeURIComponent(connectionId), function (err, status) {
-      if (status != 'success') {
+      if (status !== 'success') {
         return alert("Could not remove instance");
       }
       $(window).unbind('beforeunload'); // not sure if necessary
@@ -959,7 +955,7 @@ function configChange () {
     var locked = !$('#lockCommandButton').hasClass('disabled');
     var CLIWidth = $('#commandLineContainer').height();
 
-    if (typeof(prevSidebarWidth) != 'undefined' &&
+    if (typeof(prevSidebarWidth) !== 'undefined' &&
       (sidebarWidth != prevSidebarWidth ||
         locked != prevLocked ||
         CLIWidth != prevCLIWidth ||
@@ -989,7 +985,7 @@ function saveConfig () {
       $.post('config', config, function (data, status) {
       });
     } else {
-      var config = {
+      config = {
         "sidebarWidth": sidebarWidth,
         "locked": locked,
         "CLIHeight": CLIHeight,
@@ -1032,8 +1028,7 @@ function resizeApp () {
   $('#sideBar').css('width', barWidth);
   var bodyMargin = parseInt($('#body').css('margin-left'), 10);
   var newBodyWidth = $(window).width() - barWidth - bodyMargin;
-  $('#body,#itemActionsBar').css('width', newBodyWidth);
-  $('#body,#itemActionsBar').css('left', barWidth);
+  $('#body,#itemActionsBar').css('width', newBodyWidth).css('left', barWidth);
 
   $('#keyTree').height($(window).height() - $('#keyTree').offset().top - $('#commandLineContainer').outerHeight(true));
   $('#body, #sidebarResize').css('height', $('#sideBar').css('height'));
@@ -1090,18 +1085,18 @@ function setupCLIKeyEvents () {
   cli.live('keydown', function (e) {
     var key = e.which;
     //ctrl
-    if (key == 17 && isMac) {
+    if (key === 17 && isMac) {
       ctrl_down = true;
     }
 
     //c
-    if (key == 67 && ctrl_down) {
+    if (key === 67 && ctrl_down) {
       clearCLI();
       e.preventDefault();
     }
 
     //esc
-    if (key == 27) {
+    if (key === 27) {
       clearCLI();
       e.preventDefault();
     }
@@ -1109,7 +1104,7 @@ function setupCLIKeyEvents () {
   cli.live('keyup', function (e) {
     var key = e.which;
     //ctrl
-    if (key == 17 && isMac) {
+    if (key === 17 && isMac) {
       ctrl_down = false;
     }
   });
@@ -1127,7 +1122,7 @@ function setupCLIKeyEvents () {
 $(function() {
   function refreshQueryToken() {
     $.post('signin', {}, function (data, status) {
-      if ((status != 'success') || !data || !data.ok) {
+      if ((status !== 'success') || !data || !data.ok) {
         console.error("Cannot refresh query token");
         return;
       }
