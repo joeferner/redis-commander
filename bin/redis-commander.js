@@ -118,6 +118,20 @@ let args = optimist
     default: false,
     describe: 'Do not log data values from redis store.'
   })
+  .options('folding-char', {
+    alias: 'fc',
+    boolean: false,
+    describe: 'Character to fold keys at for tree view.',
+    default: ':'
+  })
+  .check(function(value) {
+      switch (value['folding-char']) {
+        case '&':
+        case '?':
+        case '*':
+          throw new Error('Characters &, ? and * are invalid for param folding-char!');
+      }
+  })
   .argv;
 
 if (args.help) {
@@ -285,7 +299,13 @@ function startWebApp () {
     process.exit();
   }
   console.log("No Save: " + args["nosave"]);
-  let appInstance = app(httpServerOptions, redisConnections, args["nosave"], args['root-pattern'], (args['log-data']===false));
+  let appOptions = {
+    noSave: args["nosave"],
+    rootPattern: args['root-pattern'],
+    noLogData: (args['log-data']===false),
+    foldingChar: args['folding-char']
+  };
+  let appInstance = app(httpServerOptions, redisConnections, appOptions);
 
   appInstance.listen(args.port, args.address, function() {
     console.log("listening on ", args.address, ":", args.port);

@@ -28,13 +28,14 @@ Options:
   --address, -a                        The address to run the server on.        [string]  [default: 0.0.0.0]
   --port, -p                           The port to run the server on.           [string]  [default: 8081]
   --url-prefix, -u                     The url prefix to respond on.            [string]  [default: ""]
-  --root-pattern, -rp                  The root pattern of the redis keys.      [string]  [default: *]
-  --nosave, -ns                        Do not save new connections to config.   [boolean] [default: true]
-  --noload, -nl                        Do not load connections from config.     [boolean] [default: false]
-  --use-scan, -sc                      Use scan instead of keys.                [boolean] [default: false]
-  --clear-config, -cc                  clear configuration file.                [boolean] [default: false]
-  --scan-count, -sc                    The size of each seperate scan.          [integer] [default: 100]
+  --root-pattern, --rp                 The root pattern of the redis keys.      [string]  [default: "*"]
+  --nosave, --ns                       Do not save new connections to config.   [boolean] [default: true]
+  --noload, --nl                       Do not load connections from config.     [boolean] [default: false]
+  --use-scan, --sc                     Use scan instead of keys.                [boolean] [default: false]
+  --clear-config, --cc                 clear configuration file.                [boolean] [default: false]
+  --scan-count, --sc                   The size of each seperate scan.          [integer] [default: 100]
   --no-log-data                        Do not log data values from redis store. [boolean] [default: false]
+  --folding-char, --fc                 Character to fold keys at in tree view.  [character] [default: ":"]
 ```
 
 The connection can be established either via direct connection to redis server or indirect 
@@ -61,6 +62,7 @@ ADDRESS
 ROOT_PATTERN
 URL_PREFIX
 NO_LOG_DATA
+FOLDING_CHAR
 K8S_SIGTERM
 ```
 
@@ -153,6 +155,8 @@ containers:
   env:
   - name: REDIS_HOSTS
     value: instance1:redis:6379
+  - name: K8S_SIGTERM
+    value: 1  
   ports:
   - name: redis-commander
     containerPort: 8081

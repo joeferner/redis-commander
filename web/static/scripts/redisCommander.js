@@ -1,5 +1,4 @@
 'use strict';
-var foldingCharacter = ":";
 
 var CmdParser = require('cmdparser');
 function loadTree () {
