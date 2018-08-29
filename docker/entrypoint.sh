@@ -202,6 +202,10 @@ if [[ ! -z "$NO_LOG_DATA" ]]; then
     set -- "$@" "--no-log-data"
 fi
 
+if [[ ! -z "$FOLDING_CHAR" ]]; then
+    set -- "$@" "--folding-char $FOLDING_CHAR"
+fi
+
 # install trap for SIGTERM to delay end of app a bit for kubernetes
 # otherwise container might get requests after exiting itself
 exitTrap() {

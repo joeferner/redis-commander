@@ -57,15 +57,15 @@
   <div class="modal-body">
     <div class="container" id="addServerContainer">
       <form action="login" method="POST" id="addServerForm">
-        <label>Name</label>
+        <label for="label">Name</label>
         <input type="text" name="label" id="label" value="">
-        <label>Hostname</label>
+        <label for="hostname">Hostname</label>
         <input type="text" name="hostname" id="hostname" value="localhost">
-        <label>Port or Unix Socket Path</label>
+        <label for="port">Port or Unix Socket Path</label>
         <input type="text" name="port" id="port" value="6379">
-        <label>Password</label>
+        <label for="password">Password</label>
         <input type="password" name="password" id="password" value="">
-        <label>Database Index</label>
+        <label for="dbIndex">Database Index</label>
         <input type="number" name="dbIndex" id="dbIndex" value="0">
         <br>
       </form>
@@ -79,6 +79,7 @@
 <!-- /COMMANDS MODAL -->
 
 <script type="text/javascript">
+  var foldingCharacter = '<%= foldingCharacter %>';
   var setConnection = function (connectionId) {
     $('#selectedConnectionLabel').text("Current Instance: " + connectionId);
     $('#selectedConnection').val(connectionId);
@@ -97,7 +98,7 @@
     });
     function refreshToken() {
       $.post('signin', {}, function (data, status) {
-        if (status != 'success') {
+        if (status !== 'success') {
           console.error("refresh token connection problem");
           return;
         }
@@ -148,7 +149,7 @@
         $('.container').removeClass('container');
         $('html').css('overflow-y', 'hidden');
         $('#pageIndex').live('keydown', function (e) {
-          if (e.keyCode == 13) {
+          if (e.keyCode === 13) {
             $('#gotoIndexButton').click();
           }
         });
@@ -162,7 +163,5 @@
     .fail(err => {
       console.error("Failed to fetch connections", err);
     });
-    
-    
   });
 </script>
