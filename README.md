@@ -155,8 +155,6 @@ containers:
   env:
   - name: REDIS_HOSTS
     value: instance1:redis:6379
-  - name: K8S_SIGTERM
-    value: 1  
   ports:
   - name: redis-commander
     containerPort: 8081
