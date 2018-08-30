@@ -707,7 +707,7 @@ function loadCommandLine () {
       refreshTree();
       rl.write("OK");
     } else {
-      $.post('apiv1/exec', { cmd: line, connection: $('#selectedConnection').val() }, function (data, status) {
+      $.post('apiv1/exec/' + encodeURIComponent($('#selectedConnection').val()), { cmd: line }, function (data, status) {
         rl.prompt();
 
         if (status !== 'success') {
