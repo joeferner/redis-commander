@@ -159,3 +159,9 @@ containers:
   - name: redis-commander
     containerPort: 8081
 ```
+
+## Build images based on this one
+
+To use this images as a base image for other images you need to call "apk update" inside your Dockerfile
+before adding other apk packages with "apk add foo". Afterwards, to reduce your image size, you may
+remove all temporary apk configs too again as this Dockerfile does.

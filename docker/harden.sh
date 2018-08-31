@@ -2,7 +2,7 @@
 set -x
 set -e
 
-# this script is taken from 
+# this script is taken from
 # https://github.com/ellerbrock/docker-collection/tree/master/dockerfiles/alpine-harden
 
 # Be informative after successful login.
@@ -28,11 +28,15 @@ rm -fr /etc/crontabs
 rm -fr /etc/periodic
 
 # Remove all but a handful of admin commands.
+if [ "$REMOVE_APK" = "0" ]; then
+    APK_CMD="-a ! -name apk"
+fi
 find /sbin /usr/sbin ! -type d \
   -a ! -name login_duo \
   -a ! -name setup-proxy \
   -a ! -name sshd \
   -a ! -name start.sh \
+  ${APK_CMD} \
   -delete
 
 # Remove world-writable permissions.
@@ -57,7 +61,9 @@ sysdirs="
 "
 
 # Remove apk configs.
-find $sysdirs -xdev -regex '.*apk.*' -exec rm -fr {} +
+if [ "$REMOVE_APK" != "0" ]; then
+    find $sysdirs -xdev -regex '.*apk.*' -exec rm -fr {} +
+fi
 
 # Remove crufty...
 #   /etc/shadow-
