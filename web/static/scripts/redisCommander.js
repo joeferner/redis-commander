@@ -508,7 +508,7 @@ function addKey (connectionId, key) {
     var node = getKeyTree().get_node(connectionId.reference[0]);
     key = getFullKeyPath(node);
     if (key.length > 0) {
-      key = key + ":";
+      key = key + foldingCharacter;
     }
     connectionId = getRootConnection(node);
   }
