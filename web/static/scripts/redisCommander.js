@@ -75,48 +75,52 @@ function loadTree () {
           $('#keyTree').jstree({
               core: {
                   data: getJsonTreeData,
-                  contextmenu: {
-                      items: function (node) {
-                          var menu = {
-                              "addKey": {
-                                  icon: 'icon-plus',
-                                  label: "Add Key",
-                                  action: addKey
-                              },
-                              "refresh": {
-                                  icon: 'icon-refresh',
-                                  label: "Refresh",
-                                  action: function (obj) {
-                                      jQuery.jstree.reference("#keyTree").refresh(obj);
-                                  }
-                              },
-                              "remKey": {
-                                  icon: 'icon-trash',
-                                  label: 'Remove Key',
-                                  action: deleteKey
-                              },
-                              "remConnection": {
-                                  icon: 'icon-trash',
-                                  label: 'Disconnect',
-                                  action: removeServer
-                              }
-                          };
-                          var rel = node.attr('rel');
-                          if (typeof rel !== 'undefined' && rel !== 'root') {
-                              delete menu['addKey'];
-                          }
-                          if (rel !== 'root') {
-                              delete menu['remConnection'];
-                          }
-                          if (rel === 'root') {
-                              delete menu['remKey'];
-                          }
-                          return menu;
-                      }
-                  },
                   multiple : false,
-                  plugins: [ "themes", "contextmenu" ]
-              }
+                  check_callback : true,
+                  //themes: {
+                  //    responsive: true
+                  //}
+              },
+              contextmenu: {
+                  items: function (node) {
+                      var menu = {
+                          "addKey": {
+                              icon: './images/icon-plus.png',
+                              label: "Add Key",
+                              action: addKey
+                          },
+                          "refresh": {
+                              icon: './images/icon-refresh.png',
+                              label: "Refresh",
+                              action: function (obj) {
+                                  jQuery.jstree.reference("#keyTree").refresh(obj);
+                              }
+                          },
+                          "remKey": {
+                              icon: './images/icon-trash.png',
+                              label: 'Remove Key',
+                              action: deleteKey
+                          },
+                          "remConnection": {
+                              icon: './images/icon-trash.png',
+                              label: 'Disconnect',
+                              action: removeServer
+                          }
+                      };
+                      var rel = node.original.rel;
+                      if (typeof rel !== 'undefined' && rel !== 'root') {
+                          delete menu['addKey'];
+                      }
+                      if (rel !== 'root') {
+                          delete menu['remConnection'];
+                      }
+                      if (rel === 'root') {
+                          delete menu['remKey'];
+                      }
+                      return menu;
+                  }
+              },
+              plugins: [ "themes", "contextmenu" ]
           })
             .bind("select_node.jstree", treeNodeSelected)
             .delegate("a", "click", function (event, data) {
@@ -212,10 +216,12 @@ function loadKey (connectionId, key, index) {
     resizeApp();
   }
 }
+
 function selectTreeNodeBranch (data) {
   var html = new EJS({ url: 'templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
 }
+
 function setupEditListButton () {
   $('#editListRowForm').ajaxForm({
     beforeSubmit: function () {
@@ -269,6 +275,7 @@ function setupEditSetButton () {
     }, 500);
   }
 }
+
 function setupEditZSetButton () {
   $('#editZSetRowForm').ajaxForm({
     beforeSubmit: function () {
@@ -497,23 +504,26 @@ function refreshTree () {
 
 function addKey (connectionId, key) {
   if (typeof(connectionId) === 'object') {
-    key = getFullKeyPath(connectionId);
+    // context menu click
+    var node = getKeyTree().get_node(connectionId.reference[0]);
+    key = getFullKeyPath(node);
     if (key.length > 0) {
       key = key + ":";
     }
-    var pathParts = getKeyTree().get_path(connectionId, true);
-    connectionId = pathParts.slice(0, 1)[0];
+    connectionId = getRootConnection(node);
   }
   $('#addKeyForm').attr('action', 'apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key));
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
   setupAddKeyButton(connectionId);
 }
+
 function deleteKey (connectionId, key) {
   if (typeof(connectionId) === 'object') {
-    key = getFullKeyPath(connectionId);
-    var pathParts = getKeyTree().get_path(connectionId, true);
-    connectionId = pathParts.slice(0, 1)[0];
+      // context menu click
+      var node = getKeyTree().get_node(connectionId.reference[0]);
+      key = getFullKeyPath(node);
+      connectionId = getRootConnection(node);
   }
   var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
   if (result) {
@@ -531,9 +541,10 @@ function deleteKey (connectionId, key) {
 
 function decodeKey (connectionId, key) {
   if (typeof(connectionId) === 'object') {
-    key = getFullKeyPath(connectionId);
-    var pathParts = getKeyTree().get_path(connectionId, true);
-    connectionId = pathParts.slice(0, 1)[0];
+      // context menu click
+      var node = getKeyTree().get_node(connectionId.reference[0]);
+      key = getFullKeyPath(node);
+      connectionId = getRootConnection(node);
   }
 
   $.post('apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=decode', function (data, status) {
@@ -589,6 +600,7 @@ function addListValue (connectionId, key) {
   $('#addListConnectionId').val(connectionId);
   $('#addListValueModal').modal('show');
 }
+
 function editListRow (connectionId, key, index, value) {
   $('#editListConnectionId').val(connectionId);
   $('#listKey').val(key);
@@ -597,12 +609,14 @@ function editListRow (connectionId, key, index, value) {
   $('#editListRowModal').modal('show');
   setupEditListButton();
 }
+
 function addSetMember (connectionId, key) {
   $('#addSetKey').val(key);
   $('#addSetMemberName').val("");
   $('#addSetConnectionId').val(connectionId);
   $('#addSetMemberModal').modal('show');
 }
+
 function editSetMember (connectionId, key, member) {
   $('#setConnectionId').val(connectionId);
   $('#setKey').val(key);
@@ -611,6 +625,7 @@ function editSetMember (connectionId, key, member) {
   $('#editSetMemberModal').modal('show');
   setupEditSetButton();
 }
+
 function editZSetRow (connectionId, key, score, value) {
   $('#zSetConnectionId').val(connectionId);
   $('#zSetKey').val(key);
@@ -620,6 +635,7 @@ function editZSetRow (connectionId, key, score, value) {
   $('#editZSetRowModal').modal('show');
   setupEditZSetButton();
 }
+
 function editHashRow (connectionId, key, field, value) {
   $('#hashConnectionId').val(connectionId);
   $('#hashKey').val(key);
@@ -628,18 +644,22 @@ function editHashRow (connectionId, key, field, value) {
   $('#editHashRowModal').modal('show');
   setupEditHashButton();
 }
+
 function removeListElement () {
   $('#listValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editListRowForm').submit();
 }
+
 function removeSetElement () {
   $('#setMember').val('REDISCOMMANDERTOMBSTONE');
   $('#editSetMemberForm').submit();
 }
+
 function removeZSetElement () {
   $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editZSetRowForm').submit();
 }
+
 function removeHashField () {
   $('#hashFieldValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editHashFieldForm').submit();
@@ -910,6 +930,7 @@ var cmdparser = new CmdParser([
     });
   }
 });
+
 var configTimer;
 var prevSidebarWidth;
 var prevLocked;
@@ -925,8 +946,9 @@ function getServerInfo (callback) {
 
 function removeServer (connectionId) {
   if (typeof(connectionId) === 'object') {
-    var pathParts = getKeyTree().get_path(connectionId, true);
-    connectionId = pathParts.slice(0, 1)[0];
+      // context menu click
+      var node = getKeyTree().get_node(connectionId.reference[0]);
+      connectionId = getRootConnection(node);
   }
   var result = confirm('Are you sure you want to disconnect from "' + connectionId + '"?');
   if (result) {
@@ -1000,6 +1022,7 @@ function saveConfig () {
     }
   });
 }
+
 function loadConfig (callback) {
   $.get('config', function (data) {
     if (data) {
@@ -1026,6 +1049,7 @@ function loadConfig (callback) {
     }
   });
 }
+
 function resizeApp () {
   var barWidth = $('#keyTree').outerWidth(true);
   $('#sideBar').css('width', barWidth);
@@ -1037,6 +1061,7 @@ function resizeApp () {
   $('#body, #sidebarResize').css('height', $('#sideBar').css('height'));
   configChange();
 }
+
 function setupResizeEvents () {
   var sidebarResizing = false;
   var sidebarFrame = $("#sideBar").width();
@@ -1074,6 +1099,7 @@ function setupResizeEvents () {
     }
   });
 }
+
 function setupCommandLock () {
   $('#lockCommandButton').click(function () {
     $(this).toggleClass('disabled');
