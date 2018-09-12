@@ -7,7 +7,7 @@ function loadTree () {
       $('#keyTree').bind("loaded.jstree", function () {
         var tree = getKeyTree();
         if (tree) {
-          var root = tree._get_children(-1)[0];
+          var root = tree.get_container().children("ul:eq(0)").children("li");
           tree.open_node(root, null, true);
         }
       });
@@ -20,107 +20,107 @@ function loadTree () {
           var port = instance.port;
           var db = instance.db;
           json_dataData.push({
-            data: label + " (" + host + ":" + port + ":" + db + ")",
-            state: "closed",
-            attr: {
-              id: host + ":" + port + ":" + db,
-              rel: "root"
-            }
+            id: host + ":" + port + ":" + db,
+            text: label + " (" + host + ":" + port + ":" + db + ")",
+            state: { opened: false },
+            icon: getIconForType('root'),
+            children: true,
+            rel: "root"
           });
           if (index === data.length - 1) {
             return onJSONDataComplete();
           }
         });
+        function getJsonTreeData(node, cb) {
+          if (node.id === '#') return cb(json_dataData);
+
+          var dataUrl;
+          if (node.parent === '#') {
+              dataUrl = 'apiv1/keystree/' + encodeURIComponent(node.id) + '/';
+          }
+          else {
+              var root = getRootConnection(node);
+              var path = getFullKeyPath(node);
+              dataUrl = 'apiv1/keystree/' + encodeURIComponent(root) + '/' + encodeURIComponent(path) + '?absolute=false';
+          }
+          $.get({
+              url: dataUrl,
+              dataType: 'json'
+          }).done(function(nodeData) {
+            if (Array.isArray(nodeData)) {
+              nodeData.forEach(function(elem) {
+                 if (elem.rel) elem.icon = getIconForType(elem.rel);
+              });
+            }
+            cb(nodeData)
+          }).fail(function(error) {
+            console.log('Error fetching data for node ' + node.id + ': ' + JSON.stringify(error));
+            cb('Error fetching data');
+          });
+        }
+
+        function getIconForType(type) {
+          switch (type) {
+              case 'root': return 'images/treeRoot.png';
+              case 'string': return 'images/treeString.png';
+              case 'hash': return 'images/treeHash.png';
+              case 'set': return 'images/treeSet.png';
+              case 'list': return 'images/treeList.png';
+              case 'zset': return 'images/treeZSet.png';
+              default: return null;
+          }
+        }
+
         function onJSONDataComplete () {
           $('#keyTree').jstree({
-            json_data: {
-              data: json_dataData,
-              ajax: {
-                url: function (node) {
-                  if (node !== -1) {
-                    var path = getFullKeyPath(node);
-                    var root = getRootConnection(node);
-                    return 'apiv1/keystree/' + encodeURIComponent(root) + '/' + encodeURIComponent(path) + '?absolute=false';
+              core: {
+                  data: getJsonTreeData,
+                  multiple : false,
+                  check_callback : true,
+                  //themes: {
+                  //    responsive: true
+                  //}
+              },
+              contextmenu: {
+                  items: function (node) {
+                      var menu = {
+                          "addKey": {
+                              icon: './images/icon-plus.png',
+                              label: "Add Key",
+                              action: addKey
+                          },
+                          "refresh": {
+                              icon: './images/icon-refresh.png',
+                              label: "Refresh",
+                              action: function (obj) {
+                                  jQuery.jstree.reference("#keyTree").refresh(obj);
+                              }
+                          },
+                          "remKey": {
+                              icon: './images/icon-trash.png',
+                              label: 'Remove Key',
+                              action: deleteKey
+                          },
+                          "remConnection": {
+                              icon: './images/icon-trash.png',
+                              label: 'Disconnect',
+                              action: removeServer
+                          }
+                      };
+                      var rel = node.original.rel;
+                      if (typeof rel !== 'undefined' && rel !== 'root') {
+                          delete menu['addKey'];
+                      }
+                      if (rel !== 'root') {
+                          delete menu['remConnection'];
+                      }
+                      if (rel === 'root') {
+                          delete menu['remKey'];
+                      }
+                      return menu;
                   }
-                  var root = getRootConnection(node);
-                  return 'apiv1/keystree/' + encodeURIComponent(root);
-                }
-              }
-            },
-            types: {
-              types: {
-                "root": {
-                  icon: {
-                    image: 'images/treeRoot.png'
-                  }
-                },
-                "string": {
-                  icon: {
-                    image: 'images/treeString.png'
-                  }
-                },
-                "hash": {
-                  icon: {
-                    image: 'images/treeHash.png'
-                  }
-                },
-                "set": {
-                  icon: {
-                    image: 'images/treeSet.png'
-                  }
-                },
-                "list": {
-                  icon: {
-                    image: 'images/treeList.png'
-                  }
-                },
-                "zset": {
-                  icon: {
-                    image: 'images/treeZSet.png'
-                  }
-                }
-              }
-            },
-            contextmenu: {
-              items: function (node) {
-                var menu = {
-                  "addKey": {
-                    icon: 'icon-plus',
-                    label: "Add Key",
-                    action: addKey
-                  },
-                  "refresh": {
-                    icon: 'icon-refresh',
-                    label: "Refresh",
-                    action: function (obj) {
-                      jQuery.jstree._reference("#keyTree").refresh(obj);
-                    }
-                  },
-                  "remKey": {
-                    icon: 'icon-trash',
-                    label: 'Remove Key',
-                    action: deleteKey
-                  },
-                  "remConnection": {
-                    icon: 'icon-trash',
-                    label: 'Disconnect',
-                    action: removeServer
-                  }
-                };
-                var rel = node.attr('rel');
-                if (typeof rel !== 'undefined' && rel !== 'root') {
-                  delete menu['addKey'];
-                }
-                if (rel !== 'root') {
-                  delete menu['remConnection'];
-                }
-                if (rel === 'root') {
-                  delete menu['remKey'];
-                }
-                return menu;
-              }
-            },
-            plugins: [ "themes", "json_data", "types", "ui", "contextmenu" ]
+              },
+              plugins: [ "themes", "contextmenu" ]
           })
             .bind("select_node.jstree", treeNodeSelected)
             .delegate("a", "click", function (event, data) {
@@ -134,12 +134,10 @@ function loadTree () {
 
 function treeNodeSelected (event, data) {
   $('#body').html('Loading...');
-
-  var pathParts = getKeyTree().get_path(data.rslt.obj, true);
-  var path = pathParts.slice(1).join(foldingCharacter);
-  var connectionId = pathParts.slice(0, 1)[0];
-  if (pathParts.length === 1) {
-    var hostAndPort = pathParts[0].split(':');
+  var connectionId;
+  if (data.node.parent === '#') {
+    connectionId = data.node.id;
+    var hostAndPort = connectionId.split(':');
     $.get('apiv1/server/info', function (data, status) {
       if (status !== 'success') {
         return alert("Could not load server info");
@@ -155,16 +153,26 @@ function treeNodeSelected (event, data) {
       });
     });
   } else {
+    connectionId = getRootConnection(data.node);
+    var path = getFullKeyPath(data.node);
     return loadKey(connectionId, path);
   }
 }
 
 function getFullKeyPath (node) {
-  return $.jstree._focused().get_path(node, true).slice(1).join(foldingCharacter);
+  if (node.parent === '#') {
+      return '';
+  }
+  var keyList = node.parents.slice(0,-2).reverse();
+  keyList.push(node.id);
+  return keyList.join(foldingCharacter);
 }
 
 function getRootConnection (node) {
-  return $.jstree._focused().get_path(node, true).slice(0, 1);
+  if (node.parent === '#') {
+      return node.id;
+  }
+  return node.parents[node.parents.length-2];
 }
 
 function loadKey (connectionId, key, index) {
@@ -208,10 +216,12 @@ function loadKey (connectionId, key, index) {
     resizeApp();
   }
 }
+
 function selectTreeNodeBranch (data) {
   var html = new EJS({ url: 'templates/editBranch.ejs' }).render(data);
   $('#body').html(html);
 }
+
 function setupEditListButton () {
   $('#editListRowForm').ajaxForm({
     beforeSubmit: function () {
@@ -265,6 +275,7 @@ function setupEditSetButton () {
     }, 500);
   }
 }
+
 function setupEditZSetButton () {
   $('#editZSetRowForm').ajaxForm({
     beforeSubmit: function () {
@@ -484,7 +495,7 @@ function selectTreeNodeZSet (data) {
 }
 
 function getKeyTree () {
-  return $.jstree._reference('#keyTree');
+  return $.jstree.reference('#keyTree');
 }
 
 function refreshTree () {
@@ -493,23 +504,26 @@ function refreshTree () {
 
 function addKey (connectionId, key) {
   if (typeof(connectionId) === 'object') {
-    key = getFullKeyPath(connectionId);
+    // context menu click
+    var node = getKeyTree().get_node(connectionId.reference[0]);
+    key = getFullKeyPath(node);
     if (key.length > 0) {
-      key = key + ":";
+      key = key + foldingCharacter;
     }
-    var pathParts = getKeyTree().get_path(connectionId, true);
-    connectionId = pathParts.slice(0, 1)[0];
+    connectionId = getRootConnection(node);
   }
   $('#addKeyForm').attr('action', 'apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key));
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
   setupAddKeyButton(connectionId);
 }
+
 function deleteKey (connectionId, key) {
   if (typeof(connectionId) === 'object') {
-    key = getFullKeyPath(connectionId);
-    var pathParts = getKeyTree().get_path(connectionId, true);
-    connectionId = pathParts.slice(0, 1)[0];
+      // context menu click
+      var node = getKeyTree().get_node(connectionId.reference[0]);
+      key = getFullKeyPath(node);
+      connectionId = getRootConnection(node);
   }
   var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
   if (result) {
@@ -527,9 +541,10 @@ function deleteKey (connectionId, key) {
 
 function decodeKey (connectionId, key) {
   if (typeof(connectionId) === 'object') {
-    key = getFullKeyPath(connectionId);
-    var pathParts = getKeyTree().get_path(connectionId, true);
-    connectionId = pathParts.slice(0, 1)[0];
+      // context menu click
+      var node = getKeyTree().get_node(connectionId.reference[0]);
+      key = getFullKeyPath(node);
+      connectionId = getRootConnection(node);
   }
 
   $.post('apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=decode', function (data, status) {
@@ -537,11 +552,11 @@ function decodeKey (connectionId, key) {
       return alert("Could not decode key");
     }
 
-    $('#base64Button').html('Encode <small>base64</small>');
-    $('#base64Button').off('click');
-    $('#base64Button').on('click', function() {
-      encodeString(connectionId, key)
-    });
+    $('#base64Button').html('Encode <small>base64</small>')
+      .off('click')
+      .on('click', function() {
+        encodeString(connectionId, key)
+      });
     $('#stringValue').val(data);
   });
 }
@@ -554,11 +569,11 @@ function encodeString (connectionId, key) {
 
     // needed to debounce
     setTimeout(function() {
-      $('#base64Button').html('Decode <small>base64</small>');
-      $('#base64Button').off('click');
-      $('#base64Button').on('click', function() {
-        decodeKey(connectionId,key)
-      });
+      $('#base64Button').html('Decode <small>base64</small>')
+        .off('click')
+        .on('click', function() {
+          decodeKey(connectionId,key)
+        });
       $('#stringValue').val(data);
     }, 100);
   });
@@ -585,6 +600,7 @@ function addListValue (connectionId, key) {
   $('#addListConnectionId').val(connectionId);
   $('#addListValueModal').modal('show');
 }
+
 function editListRow (connectionId, key, index, value) {
   $('#editListConnectionId').val(connectionId);
   $('#listKey').val(key);
@@ -593,12 +609,14 @@ function editListRow (connectionId, key, index, value) {
   $('#editListRowModal').modal('show');
   setupEditListButton();
 }
+
 function addSetMember (connectionId, key) {
   $('#addSetKey').val(key);
   $('#addSetMemberName').val("");
   $('#addSetConnectionId').val(connectionId);
   $('#addSetMemberModal').modal('show');
 }
+
 function editSetMember (connectionId, key, member) {
   $('#setConnectionId').val(connectionId);
   $('#setKey').val(key);
@@ -607,6 +625,7 @@ function editSetMember (connectionId, key, member) {
   $('#editSetMemberModal').modal('show');
   setupEditSetButton();
 }
+
 function editZSetRow (connectionId, key, score, value) {
   $('#zSetConnectionId').val(connectionId);
   $('#zSetKey').val(key);
@@ -616,6 +635,7 @@ function editZSetRow (connectionId, key, score, value) {
   $('#editZSetRowModal').modal('show');
   setupEditZSetButton();
 }
+
 function editHashRow (connectionId, key, field, value) {
   $('#hashConnectionId').val(connectionId);
   $('#hashKey').val(key);
@@ -624,18 +644,22 @@ function editHashRow (connectionId, key, field, value) {
   $('#editHashRowModal').modal('show');
   setupEditHashButton();
 }
+
 function removeListElement () {
   $('#listValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editListRowForm').submit();
 }
+
 function removeSetElement () {
   $('#setMember').val('REDISCOMMANDERTOMBSTONE');
   $('#editSetMemberForm').submit();
 }
+
 function removeZSetElement () {
   $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editZSetRowForm').submit();
 }
+
 function removeHashField () {
   $('#hashFieldValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editHashFieldForm').submit();
@@ -906,6 +930,7 @@ var cmdparser = new CmdParser([
     });
   }
 });
+
 var configTimer;
 var prevSidebarWidth;
 var prevLocked;
@@ -921,8 +946,9 @@ function getServerInfo (callback) {
 
 function removeServer (connectionId) {
   if (typeof(connectionId) === 'object') {
-    var pathParts = getKeyTree().get_path(connectionId, true);
-    connectionId = pathParts.slice(0, 1)[0];
+      // context menu click
+      var node = getKeyTree().get_node(connectionId.reference[0]);
+      connectionId = getRootConnection(node);
   }
   var result = confirm('Are you sure you want to disconnect from "' + connectionId + '"?');
   if (result) {
@@ -996,6 +1022,7 @@ function saveConfig () {
     }
   });
 }
+
 function loadConfig (callback) {
   $.get('config', function (data) {
     if (data) {
@@ -1022,6 +1049,7 @@ function loadConfig (callback) {
     }
   });
 }
+
 function resizeApp () {
   var barWidth = $('#keyTree').outerWidth(true);
   $('#sideBar').css('width', barWidth);
@@ -1033,6 +1061,7 @@ function resizeApp () {
   $('#body, #sidebarResize').css('height', $('#sideBar').css('height'));
   configChange();
 }
+
 function setupResizeEvents () {
   var sidebarResizing = false;
   var sidebarFrame = $("#sideBar").width();
@@ -1070,6 +1099,7 @@ function setupResizeEvents () {
     }
   });
 }
+
 function setupCommandLock () {
   $('#lockCommandButton').click(function () {
     $(this).toggleClass('disabled');
@@ -1081,7 +1111,7 @@ function setupCLIKeyEvents () {
   var ctrl_down = false;
   var isMac = navigator.appVersion.indexOf("Mac") != -1;
   var cli = $('#_readline_cliForm input');
-  cli.live('keydown', function (e) {
+  cli.on('keydown', function (e) {
     var key = e.which;
     //ctrl
     if (key === 17 && isMac) {
@@ -1100,7 +1130,7 @@ function setupCLIKeyEvents () {
       e.preventDefault();
     }
   });
-  cli.live('keyup', function (e) {
+  cli.on('keyup', function (e) {
     var key = e.which;
     //ctrl
     if (key === 17 && isMac) {

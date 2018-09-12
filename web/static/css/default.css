@@ -286,3 +286,10 @@ body {
 #signinForm {
   margin: 0;
 }
+
+/* without explicit z-index tree and contextmenu marged into one layer, preventing clicks
+   must be larger than command line z-index
+ */
+.jstree-contextmenu {
+  z-index: 1100;
+}
