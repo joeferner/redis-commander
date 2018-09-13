@@ -137,8 +137,9 @@
       }
       $('#connectionsBar').html(new EJS({ url: 'templates/connectionsBar.ejs' }).render(data));
 
-      $('#selectedConnectionLabel').text("Current Instance: " + $('#firstConnection').val());
-      $('#selectedConnection').val($('#firstConnection').val());
+      var firstConnection = $('#firstConnection').val();
+      $('#selectedConnectionLabel').text("Current Instance: " + firstConnection);
+      $('#selectedConnection').val(firstConnection);
 
       loadTree();
       loadConfig(function () {
