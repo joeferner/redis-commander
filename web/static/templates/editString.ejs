@@ -1,8 +1,8 @@
 <div id="itemActionsBar">
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <button id="base64Button" class="btn btn-primary" onclick="decodeKey('<%= connectionId %>','<%= key %>')">Decode <small>base64</small></button>
-  <button id="vieModeEditButton" class="btn" style="display: none;" onclick="$('#stringValue').css('display','inline');$('#jqtree_string_div').css('display','none');$('#vieModeEditButton').css('display','none');$('#vieModeTreeButton').css('display','inline')">view mode edit</button>
-  <button id="vieModeTreeButton" class="btn" onclick="$('#stringValue').css('display','none');$('#jqtree_string_div').css('display','inline-block');$('#vieModeEditButton').css('display','inline');$('#vieModeTreeButton').css('display','none')">view mode tree</button>
+  <button id="vieModeEditButton" class="btn" style="display: none;" onclick="onModeEditButtonClick()">view mode edit</button>
+  <button id="vieModeTreeButton" class="btn" onclick="onModeTreeButtonClick()">View mode tree</button>
   <button id="copyTextButton" class="btn" data-clipboard-target="#stringValue">Copy Text</button>
 </div>
 <div id="itemData">
@@ -19,4 +19,26 @@
 </div>
 <script>
   new ClipboardJS('#copyTextButton');
+
+  function onModeEditButtonClick() {
+      $('#stringValue').css('display','inline');
+      $('#jqtree_string_div').css('display','none');
+      $('#vieModeEditButton').css('display','none');
+      $('#vieModeTreeButton').css('display','inline')
+  }
+
+  function onModeTreeButtonClick() {
+      $('#stringValue').css('display','none');
+      $('#jqtree_string_div').css('display','inline-block');
+      $('#vieModeEditButton').css('display','inline');
+      $('#vieModeTreeButton').css('display','none')
+  }
+
+  $('#stringValue').on('blur', function(event) {
+      try {
+          $('#jqtree_string_div').html(JSONTree.create(JSON.parse(event.target.value)));
+      } catch (err) {
+          $('#jqtree_string_div').text('Text is no valid JSON: ' + err.message);
+      }
+  });
 </script>

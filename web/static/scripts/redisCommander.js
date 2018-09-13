@@ -383,18 +383,9 @@ function selectTreeNodeString (data) {
   try {
     $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
   } catch (err) {
-    $('#jqtree_string_div').text(err.message)
+    $('#jqtree_string_div').text('Text is no valid JSON: ' + err.message);
   }
 
-  $('#stringValue').keyup(function () {
-    var dataTree;
-    try {
-      dataTree = JSONTree.create(JSON.parse($(this).val()));
-    } catch (err) {
-      dataTree = err.message;
-    }
-    $('#jqtree_string_div').text(dataTree);
-  }).keyup();
   $('#editStringForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
