@@ -4,16 +4,15 @@
     <h3>Edit Row</h3>
   </div>
   <div class="modal-body">
-    <form id="editZSetRowForm" action="apiv1/editZSetRow/" method="POST" class="form-vertical">
-      <h3>Key</h3>
+    <form id="editZSetRowForm" action="apiv1/editZSetRow/" method="POST" class="form-vertical label-big">
+      <label class="control-label lead" for="zSetKey">Key</label>
       <input id="zSetKey" name="zSetKey" type="text" readonly/>
-      <h3>Score</h3>
+      <label class="control-label lead" for="zSetScore">Score</label>
       <input id="zSetScore" name="zSetScore" type="text"/>
-      <h3>Value</h3>
+      <label class="control-label lead" for="zSetValue">Value</label>
       <textarea id="zSetValue" name="zSetValue" style="width: 500px; height: 150px;"></textarea>
-      <input id="zSetOldValue" name="zSetOldValue" hidden="true"/>
-      <input id="zSetConnectionId" name="zSetConnectionId" hidden/>
-      <br>
+      <input id="zSetOldValue" name="zSetOldValue" type="hidden"/>
+      <input id="zSetConnectionId" name="zSetConnectionId" type="hidden"/>
     </form>
   </div>
   <div class="modal-footer">

@@ -276,6 +276,11 @@ body {
   margin: 0;
 }
 
+.label-big .lead {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 #signinForm {
   margin: 0;
 }

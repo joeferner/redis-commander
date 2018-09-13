@@ -4,15 +4,14 @@
     <h3>Edit Row</h3>
   </div>
   <div class="modal-body">
-    <form id="editListRowForm" action="apiv1/editListRow/" method="POST" class="form-vertical">  
-      <h3>Key</h3>
+    <form id="editListRowForm" action="apiv1/editListRow/" method="POST" class="form-vertical label-big">
+      <label class="control-label lead" for="listKey">Key</label>
       <input id="listKey" name="listKey" type="text" readonly/>
-      <h3>Index</h3>
+      <label class="control-label lead" for="listIndex">Index</label>
       <input id="listIndex" name="listIndex" type="text" readonly/>
-      <h3>Value</h3>
+      <label class="control-label lead" for="listValue">Value</label>
       <textarea id="listValue" name="listValue" style="width: 500px; height: 250px;"></textarea>
-      <input id="editListConnectionId" name="listConnectionId" hidden/>
-      <br>
+      <input id="editListConnectionId" name="listConnectionId" type="hidden"/>
     </form>
   </div>
   <div class="modal-footer">
