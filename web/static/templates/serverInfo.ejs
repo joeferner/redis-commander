@@ -1,10 +1,11 @@
 <button class="btn" onclick="addKey('<%= connectionId %>')" style="margin-right: 5px">Add New Key...</button>
-<button class="btn btn-danger" onclick="removeServer('<%= connectionId %>')" style="margin-right: 5px">Disconnect
-</button>
+<button class="btn btn-danger" onclick="removeServer('<%= connectionId %>')" style="margin-right: 5px">Disconnect</button>
 <table class="table">
   <thead>
-  <th>Name</th>
-  <th>Value</th>
+  <tr>
+    <th>Name</th>
+    <th>Value</th>
+  </tr>
   </thead>
   <tbody>
   <% info.forEach(function(infoItem) { %>

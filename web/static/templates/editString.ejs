@@ -1,21 +1,44 @@
 <div id="itemActionsBar">
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
-  <button class="btn btn-primary" id="base64Button" onclick="decodeKey('<%= connectionId %>','<%= key %>')">Decode <small>base64</small</button>
-    <button id="vieModeEditButton" class="btn" style="display: none;" onclick="$('#stringValue').css('display','inline');$('#jqtree_string_div').css('display','none');$('#vieModeEditButton').css('display','none');$('#vieModeTreeButton').css('display','inline')">view mode edit</button>
-    <button id="vieModeTreeButton" class="btn" onclick="$('#stringValue').css('display','none');$('#jqtree_string_div').css('display','inline-block');$('#vieModeEditButton').css('display','inline');$('#vieModeTreeButton').css('display','none')">view mode tree</button>
+  <button id="base64Button" class="btn btn-primary" onclick="decodeKey('<%= connectionId %>','<%= key %>')">Decode <small>base64</small></button>
+  <button id="vieModeEditButton" class="btn" style="display: none;" onclick="onModeEditButtonClick()">view mode edit</button>
+  <button id="vieModeTreeButton" class="btn" onclick="onModeTreeButtonClick()">View mode tree</button>
+  <button id="copyTextButton" class="btn" data-clipboard-target="#stringValue">Copy Text</button>
 </div>
 <div id="itemData">
   <form id="editStringForm" action="apiv1/key/<%= connectionId %>/<%= key %>" method="POST" class="form-vertical">
     <label>Key: <b><%= key %></b></label>
     <label>TTL: <b><%= ttl %></b></label>
     <label>Value:</label>
-    <input type="hidden" id="isJson" name="isJson">
+    <input id="isJson" name="isJson" type="hidden">
     <textarea id="stringValue" name="stringValue" style="width: 600px; height: 450px;"></textarea>
     <div id="jqtree_string_div" style="display: none;">loading ...</div>
-    <span class="clippyWrapper" title="copy to clipboard">
-      <span id="stringValueClippy"></span>
-    </span>
     <br>
     <button id="saveKeyButton" type="button" class="btn" onclick="$('#editStringForm').submit()">Save</button>
   </form>
 </div>
+<script>
+  new ClipboardJS('#copyTextButton');
+
+  function onModeEditButtonClick() {
+      $('#stringValue').css('display','inline');
+      $('#jqtree_string_div').css('display','none');
+      $('#vieModeEditButton').css('display','none');
+      $('#vieModeTreeButton').css('display','inline')
+  }
+
+  function onModeTreeButtonClick() {
+      $('#stringValue').css('display','none');
+      $('#jqtree_string_div').css('display','inline-block');
+      $('#vieModeEditButton').css('display','inline');
+      $('#vieModeTreeButton').css('display','none')
+  }
+
+  $('#stringValue').on('blur', function(event) {
+      try {
+          $('#jqtree_string_div').html(JSONTree.create(JSON.parse(event.target.value)));
+      } catch (err) {
+          $('#jqtree_string_div').text('Text is no valid JSON: ' + err.message);
+      }
+  });
+</script>

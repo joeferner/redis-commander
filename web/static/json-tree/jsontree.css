@@ -1,0 +1,45 @@
+.jstValue {
+    white-space: pre-wrap;
+    font-size: 10px;
+    font-weight: 400;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+.jstComma {
+    white-space: pre-wrap;
+}
+.jstProperty {
+    color: #666;
+    word-wrap: break-word;
+}
+.jstBracket {
+    white-space: pre-wrap;;
+}
+.jstBool {
+    color: #2525CC;
+}
+.jstNum {
+    color: #D036D0;
+}
+.jstNull {
+    color: gray;
+}
+.jstStr {
+    color: #2DB669;
+}
+.jstFold:after {
+    content: ' -';
+    cursor: pointer;
+}
+.jstExpand {
+    white-space: normal;
+}
+.jstExpand:after {
+    content: ' +';
+    cursor: pointer;
+}
+.jstFolded {
+    white-space: normal !important;
+}
+.jstHiddenBlock {
+    display: none;
+}

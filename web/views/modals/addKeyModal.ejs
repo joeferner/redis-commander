@@ -6,13 +6,13 @@
   <div class="modal-body">
     <form id="addKeyForm" action="apiv1/key/" method="POST" class="form-vertical">
       <div class="control-group">
-        <label class="control-label">Key</label>
+        <label class="control-label" for="keyValue">Key</label>
         <div class="controls">
           <input id="keyValue" type="text" value="" />
         </div>
       </div>
       <div class="control-group">
-        <label class="control-label">Type</label>
+        <label class="control-label" for="keyType">Type</label>
         <div class="controls">
           <select id="keyType" name="keyType">
             <option value="string">String</option>
@@ -20,21 +20,17 @@
             <option value="set">Set</option>
             <option value="zset">Sorted Set</option>
           </select>
-          <span id="scoreWrap">Score
+          <span id="scoreWrap"><label class="control-label" for="keyScore">Score</label>
           <input id="keyScore" name="keyScore" class="input-mini" type="text"/>
           </span>
         </div>
       </div>
       <div class="control-group" style="display:inline;">
-
         <div class="controls">
-
         </div>
       </div>
-      <label>Value</label>
+      <label class="control-label" for="stringValue">Value</label>
       <textarea id="stringValue" name="stringValue" style="width: 500px; height: 250px;"></textarea>
-
-      <br>
     </form>
   </div>
   <div class="modal-footer">

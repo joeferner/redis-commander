@@ -4,7 +4,7 @@
     <h3>Add Value</h3>
   </div>
   <div class="modal-body">
-    <form id="addListValueForm" action="apiv1/listvalue/" method="POST" class="form-vertical">
+    <form id="addListValueForm" action="apiv1/listvalue/" method="POST" class="form-vertical label-big">
       <input id="key" name="key" type="hidden"/>
       <label class="radio inline">
         <input id="typeLpush" type="radio" name="type" value="lpush" checked="checked"/>
@@ -15,10 +15,9 @@
         RPUSH
       </label>
       <br/>
-      <h3>Value</h3>
+      <label class="control-label lead" for="addStringValue">Value</label>
       <textarea id="addStringValue" name="stringValue" style="width: 500px; height: 250px;"></textarea>
-      <input id="addListConnectionId" name="listConnectionId" hidden/>
-      <br>
+      <input id="addListConnectionId" name="listConnectionId" type="hidden"/>
     </form>
   </div>
   <div class="modal-footer">
