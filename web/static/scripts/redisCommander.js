@@ -387,7 +387,6 @@ function selectTreeNodeString (data) {
   }
 
   $('#stringValue').keyup(function () {
-    $('#stringValueClippy').clippy({'text': $(this).val(), clippy_path: "clippy-jquery/clippy.swf"});
     var dataTree;
     try {
       dataTree = JSONTree.create(JSON.parse($(this).val()));
@@ -396,7 +395,6 @@ function selectTreeNodeString (data) {
     }
     $('#jqtree_string_div').text(dataTree);
   }).keyup();
-  $('.clippyWrapper').tooltip();
   $('#editStringForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
