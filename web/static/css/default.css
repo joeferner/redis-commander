@@ -97,6 +97,10 @@ body {
   z-index: 1039;
 }
 
+#commandLineContainer .btn-group {
+    white-space: normal;
+}
+
 #commandLineContainer form {
   margin: 0;
 }
