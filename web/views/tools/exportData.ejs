@@ -4,12 +4,12 @@
   <div class="control-group">
     <label class="control-label" for="connectionExportField">Connection</label>
     <div class="controls">
-      <select name="connection">
+      <select name="connection" class="redisDumpSelect">
         <% connections.forEach(function(connection, index) {%>
         <% if (index == 0) { %>
-        <option value="<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>"><%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %></option>
+        <option value="<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>"><%=connection.label%> (<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>)</option>
         <% } else { %>
-        <option value="<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>"><%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %></option>
+        <option value="<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>"><%=connection.label%> (<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>)</option>
         <% }}); %>
       </select>
     </div>
