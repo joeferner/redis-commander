@@ -289,6 +289,10 @@ body {
   margin: 0;
 }
 
+.redisDumpSelect {
+  min-width: 230px;
+  width: auto;
+}
 /* without explicit z-index tree and contextmenu marged into one layer, preventing clicks
    must be larger than command line z-index
  */

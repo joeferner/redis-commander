@@ -1,10 +1,35 @@
-diff -ur node_modules/node-redis-dump/lib/node-redis-dump.js node_modules_save/node-redis-dump/lib/node-redis-dump.js
---- node_modules/node-redis-dump/lib/node-redis-dump.js	2018-08-29 13:24:53.763884645 +0200
-+++ node_modules_save/node-redis-dump/lib/node-redis-dump.js	2018-08-29 13:03:26.718613348 +0200
-@@ -391,33 +391,43 @@
- 					command = items.pop(),
- 					callArgs = [];
-
+--- node_modules/node-redis-dump/lib/node-redis-dump.js	2013-09-27 16:35:07.000000000 +0200
++++ node_modules_save/node-redis-dump/lib/node-redis-dump.js	2018-09-14 12:34:20.183714444 +0200
+@@ -357,7 +357,7 @@
+ 		 * Import.
+ 		 */
+ 		function(callback) {
+-			var items = params.data.split(new RegExp('(SET|RPUSH|LPUSH|SADD|ZADD|HSET) ', 'g'));
++			var items = params.data.split(new RegExp('(SET|LSET|RPUSH|RPUSHX|LPUSH|LPUSHX|SADD|ZADD|HSET|LTRIM) ', 'g'));
+ 
+ 			/**
+ 			 * Recursive add.
+@@ -377,8 +377,10 @@
+ 						return;
+ 					}
+ 
+-					if (status || status === 'OK') {
+-						report.inserted += _.isNumber(status) ? status : 1;
++					// LPUSH / RPUSH return length of list after insert as status code,therefor cannot just add status
++					// as no multi value insert allowed currently just add 1
++					if (status === 'OK' || _.isNumber(status)) {
++						report.inserted += 1;
+ 					} else {
+ 						//	Hm...
+ 						report.errors += 1;
+@@ -387,37 +389,59 @@
+ 					AddRecursive();
+ 				};
+ 
+-				var args = items.pop(),
+-					command = items.pop(),
+-					callArgs = [];
+-
 -				switch (command) {
 -					case 'SET':
 -					case 'SADD':
@@ -28,44 +53,67 @@ diff -ur node_modules/node-redis-dump/lib/node-redis-dump.js node_modules_save/n
 -						console.error(command, args);
 -						callback('Error import data! Not supported type!');
 -						return;
-+				try {
-+                    switch (command) {
-+                        case 'SET':
-+                        case 'SADD':
-+                        case 'LPUSH':
-+                        case 'LPUSHX':
-+                        case 'RPUSH':
-+                        case 'RPUSHX':
-+                            // only simple form with one value is allowed, no options (EX, NX, ...)
-+                            callArgs = args.match(new RegExp('"?(.+?)"?\\s+(["\'](.+?)["\']|(.+?))(?:\\s|$)', 'i')).slice(1, 3);
-+                            callArgs[1] = callArgs[1].replace(/(^["']|["']$)/g, '');   // remove optional quotes around value string
-+                            break;
++				var args,
++				    command,
++				    callArgs = [];
 +
-+                        case 'ZADD':
-+                        case 'LSET':
-+                        	// only simple form with one value: "ZADD key 1 value", no options (NX, XX, ...)
-+                            callArgs = args.match(new RegExp('"?(.+?)"?\\s+"?([0-9]+?)"?\\s+(["\'](.+?)["\']|(.+?))(\\s|$)', 'i')).slice(1, 4);
-+                            callArgs[2] = callArgs[2].replace(/(^["']|["']$)/g, '');   // remove optional quotes around value string
-+                            break;
-+
-+                        case 'HSET':
-+                            callArgs = args.match(new RegExp('"?(.+?)"?\\s+"?(.+?)"?\\s+(["\'](.+?)["\']|(.+?))(\\s|$)', 'i')).slice(1, 4);
-+                            callArgs[2] = callArgs[2].replace(/(^["']|["']$)/g, '');   // remove optional quotes around value string
-+                            break;
-+
-+                        default:
-+                            console.error(command, args);
-+                            callback('Error import data! Not supported type!');
-+                            return;
-+                    }
++				do {
++                    command = items.shift().trim();
 +                }
-+                catch (errCmd) {
-+					callback('FAIL parse command of known type');
++				while (command === "");
++                args = items.shift();
++
++                if (!(command && args)) return;
++				try {
++					switch (command) {
++						case 'SET':
++						case 'SADD':
++						case 'LPUSH':
++						case 'LPUSHX':
++						case 'RPUSH':
++						case 'RPUSHX':
++							// only simple form with one value is allowed, no options (EX, NX, ...)
++							callArgs = args.match(new RegExp('"?(.+?)"?\\s+(["\'](.+?)["\']|(.+?))(?:\\s|$)', 'i')).slice(1, 3);
++							callArgs[1] = callArgs[1].replace(/(^["']|["']$)/g, '');   // remove optional quotes around value string
++							break;
++
++						case 'ZADD':
++						case 'LSET':
++							// only simple form with one value: "ZADD key 1 value", no options (NX, XX, ...)
++							callArgs = args.match(new RegExp('"?(.+?)"?\\s+"?([0-9]+?)"?\\s+(["\'](.+?)["\']|(.+?))(\\s|$)', 'i')).slice(1, 4);
++							callArgs[2] = callArgs[2].replace(/(^["']|["']$)/g, '');   // remove optional quotes around value string
++							break;
++
++						case 'HSET':
++							callArgs = args.match(new RegExp('"?(.+?)"?\\s+"?(.+?)"?\\s+(["\'](.+?)["\']|(.+?))\\s*$', 'i')).slice(1, 4);
++							callArgs[2] = callArgs[2].replace(/(^["']|["']$)/g, '');   // remove optional quotes around value string
++							break;
++
++						case 'LTRIM':
++							// command "LTRIM key 1 1"
++							callArgs = args.match(new RegExp('"?(.+?)"?\\s+([0-9]+?)\\s+([0-9]+?)\\s*$', 'i')).slice(1, 4);
++							break;
++
++						default:
++							console.error(command, args);
++							callback('Error import data! Not supported type!');
++							return;
++					}
++				}
++				catch (errCmd) {
++					callback('FAIL parse command of known type: ' + command);
  				}
-
+ 
  				callArgs.push(Callback);
 -				this.getClient()[ command ].apply(this.getClient(), callArgs);
 +				this.getClient()[ command.toLowerCase() ].apply(this.getClient(), callArgs);
  			}.bind(this);
-
+ 
  			AddRecursive();
+@@ -429,4 +453,4 @@
+ 
+ 		params.callback(err, report);
+ 	});
+-};
+\ Kein Zeilenumbruch am Dateiende.
++};
