@@ -569,7 +569,7 @@ function encodeString (connectionId, key) {
 }
 
 function deleteBranch (connectionId, branchPrefix) {
-  var query = branchPrefix + ':*';
+  var query = branchPrefix + foldingCharacter + '*';
   var result = confirm('Are you sure you want to delete "' + query + ' from ' + connectionId + '"? This will delete all children as well!');
   if (result) {
     $.post('apiv1/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
