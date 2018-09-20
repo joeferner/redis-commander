@@ -163,9 +163,7 @@ function getFullKeyPath (node) {
   if (node.parent === '#') {
       return '';
   }
-  var keyList = node.parents.slice(0,-2).reverse();
-  keyList.push(node.id);
-  return keyList.join(foldingCharacter);
+  return node.id.substr(getRootConnection(node).length + 1);
 }
 
 function getRootConnection (node) {
