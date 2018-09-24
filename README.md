@@ -107,7 +107,7 @@ services:
     environment:
     - REDIS_HOSTS=local:redis:6379
     ports:
-    - 8081:8081
+    - "8081:8081"
 ```
 
 ### Without docker-compose
