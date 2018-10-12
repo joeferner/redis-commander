@@ -176,13 +176,7 @@ myUtils.getConfig(function (err, config) {
   if (err) {
     console.dir(err);
     console.log("No config found or was invalid.\nUsing default configuration.");
-    config = {
-      "sidebarWidth": 250,
-      "locked": false,
-      "CLIHeight": 50,
-      "CLIOpen": false,
-      "default_connections": []
-    };
+    config = myUtils.defaultConfig();
   }
   if (!config.default_connections) {
     config.default_connections = [];
