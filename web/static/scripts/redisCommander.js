@@ -372,7 +372,7 @@ function selectTreeNodeString (data) {
   $('#body').html(html);
 
   try {
-    data.value = JSON.stringify(JSON.parse(data.value), null, '  ');
+    JSON.parse(data.value);
     $('#isJson').val('true');
   } catch (ex) {
     $('#isJson').val('false');
