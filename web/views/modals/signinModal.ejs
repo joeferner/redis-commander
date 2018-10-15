@@ -28,12 +28,12 @@ $(function() {
     }, function (data, status) {
       $('#signinUsername').val('');
       $('#signinPassword').val('');
-      if ((status != 'success') || !data || !data.ok) {
+      if ((status !== 'success') || !data || !data.ok) {
         return alert("Sign-In Failed");
       }
       sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
       sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
-      $(window).unbind('beforeunload'); // not sure if necessary
+      $(window).unbind('beforeunload');
       location.reload();
     })
     .fail(function(err) {

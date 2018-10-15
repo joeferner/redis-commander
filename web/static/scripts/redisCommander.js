@@ -943,7 +943,7 @@ function removeServer (connectionId) {
       if (status !== 'success') {
         return alert("Could not remove instance");
       }
-      $(window).unbind('beforeunload'); // not sure if necessary
+      $(window).unbind('beforeunload');
       location.reload();
     });
   }
