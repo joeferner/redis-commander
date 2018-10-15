@@ -37,16 +37,6 @@
   </div>
 </div>
 <div class="container">
-  <% var flashes = getFlashes(); %>
-  <% for(var flashType in flashes) { %>
-    <% flashes[flashType].forEach(function (flash) { %>
-      <div style="margin-left: 300px;" class="alert alert-block <%= flashType === 'error' ? 'alert-error' : '' %> fade in">
-        <button class="close" data-dismiss="alert" onClick="$(window).unbind('beforeunload'); window.location.search='';">×</button>
-        <%= flash %>
-      </div>
-    <% }) %>
-  <% } %>
-
   <%- body %>
 </div>
   <% include modals/addListValueModal %>
