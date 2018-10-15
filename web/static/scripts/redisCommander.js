@@ -302,6 +302,7 @@ function setupEditZSetButton () {
 }
 
 function setupAddKeyButton (connectionId) {
+  $('#stringValue').val('');
   $('#keyValue').keyup(function () {
     var action = "apiv1/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent($(this).val());
     $('#addKeyForm').attr("action", action);
