@@ -25,6 +25,7 @@
       $('#jqtree_string_div').css('display','none');
       $('#vieModeEditButton').css('display','none');
       $('#vieModeTreeButton').css('display','inline')
+      $('#copyTextButton').css('display','inline')
   }
 
   function onModeTreeButtonClick() {
@@ -32,6 +33,8 @@
       $('#jqtree_string_div').css('display','inline-block');
       $('#vieModeEditButton').css('display','inline');
       $('#vieModeTreeButton').css('display','none')
+      // selection api from copy text does not work with hidden elements
+      $('#copyTextButton').css('display','none');
   }
 
   $('#stringValue').on('blur', function(event) {
