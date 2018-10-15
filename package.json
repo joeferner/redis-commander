@@ -33,7 +33,6 @@
     "inflection": "1.2.7",
     "ioredis": "3.2.2",
     "jsonwebtoken": "8.1.0",
-    "method-override": "2.3.10",
     "node-redis-dump": "0.2.1",
     "optimist": "0.3.7",
     "readline-browserify": "0.0.4",

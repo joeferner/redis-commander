@@ -116,7 +116,7 @@
         sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
         sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
         if (!oldToken) {
-          $(window).unbind('beforeunload'); // not sure if necessary
+          $(window).unbind('beforeunload');
           location.reload();
         }
         setTimeout(refreshToken, 20e3);
@@ -148,6 +148,7 @@
           console.log('Connect successful');
           $('#addServerBtn').prop("disabled", false).text("Connect...");
           setTimeout(function() {
+              $(window).unbind('beforeunload');
               location.reload();
           }, 500);
       }

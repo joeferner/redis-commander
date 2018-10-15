@@ -302,6 +302,7 @@ function setupEditZSetButton () {
 }
 
 function setupAddKeyButton (connectionId) {
+  $('#stringValue').val('');
   $('#keyValue').keyup(function () {
     var action = "apiv1/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent($(this).val());
     $('#addKeyForm').attr("action", action);
@@ -371,7 +372,7 @@ function selectTreeNodeString (data) {
   $('#body').html(html);
 
   try {
-    data.value = JSON.stringify(JSON.parse(data.value), null, '  ');
+    JSON.parse(data.value);
     $('#isJson').val('true');
   } catch (ex) {
     $('#isJson').val('false');
@@ -943,7 +944,7 @@ function removeServer (connectionId) {
       if (status !== 'success') {
         return alert("Could not remove instance");
       }
-      $(window).unbind('beforeunload'); // not sure if necessary
+      $(window).unbind('beforeunload');
       location.reload();
     });
   }
