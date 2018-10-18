@@ -206,6 +206,10 @@ if [[ ! -z "$FOLDING_CHAR" ]]; then
     set -- "$@" "--folding-char $FOLDING_CHAR"
 fi
 
+if [[ ! -z "$USE_SCAN" ]]; then
+    set -- "$@" "--use-scan"
+fi
+
 # install trap for SIGTERM to delay end of app a bit for kubernetes
 # otherwise container might get requests after exiting itself
 exitTrap() {
