@@ -64,6 +64,7 @@ URL_PREFIX
 NO_LOG_DATA
 FOLDING_CHAR
 K8S_SIGTERM
+USE_SCAN
 ```
 
 The K8S_SIGTERM variable (default "0") can be set to "1" to work around kubernetes specificas
