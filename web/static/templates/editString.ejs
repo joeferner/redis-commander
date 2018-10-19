@@ -6,10 +6,10 @@
   <button id="copyTextButton" class="btn" data-clipboard-target="#stringValue">Copy Text</button>
 </div>
 <div id="itemData">
+  <label>Key: <b><%= key %></b></label>
+  <label>TTL: <b><%= ttl %></b></label>
+  <label>Type: <b>String</b></label>
   <form id="editStringForm" action="apiv1/key/<%= connectionId %>/<%= key %>" method="POST" class="form-vertical">
-    <label>Key: <b><%= key %></b></label>
-    <label>TTL: <b><%= ttl %></b></label>
-    <label>Value:</label>
     <input id="isJson" name="isJson" type="hidden">
     <textarea id="stringValue" name="stringValue" style="width: 600px; height: 450px;"></textarea>
     <div id="jqtree_string_div" style="display: none;">loading ...</div>

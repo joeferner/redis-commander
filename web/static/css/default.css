@@ -64,7 +64,7 @@ body {
 
 #itemData {
   overflow: scroll;
-  margin-top: 32px;
+  margin-top: 40px;
 }
 
 #body {
@@ -82,7 +82,7 @@ body {
   margin-left: 30px;
   width: 100%;
   margin-top: 30px;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   padding-top: 20px;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
@@ -177,6 +177,7 @@ body {
   display: inline-block;
   float: right;
   margin-right: 20px;
+  margin-bottom: 0;
 }
 
 #lockCommandButton.disabled {
