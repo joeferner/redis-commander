@@ -15,8 +15,9 @@
         RPUSH
       </label>
       <br/>
-      <label class="control-label lead" for="addStringValue">Value</label>
-      <textarea id="addStringValue" name="stringValue" style="width: 500px; height: 250px;"></textarea>
+      <label class="control-label lead" for="addListValue">Value</label>
+      <textarea id="addListValue" name="stringValue" style="width: 500px; height: 250px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="addListValueIsJson" name="isJson">Validate as JSON</label>
       <input id="addListConnectionId" name="listConnectionId" type="hidden"/>
     </form>
   </div>
@@ -25,3 +26,12 @@
     <button id="saveValueButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#addListValueForm').submit()">Save</button>
   </div>
 </div>
+<script>
+  $('#addListValueIsJson').on('change', function(element) {
+      if (element.target.checked) addInputValidator('addListValue', 'json');
+      else removeInputValidator('addListValue');
+  });
+  $('#addListValueModal').on('hidden', function() {
+      removeInputValidator('addListValue');
+  })
+</script>

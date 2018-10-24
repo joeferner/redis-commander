@@ -40,6 +40,11 @@
       $('#copyTextButton').css('display','none');
   }
 
+  $('#isJson').on('change', function(element) {
+      if (element.target.checked) addInputValidator('stringValue', 'json');
+      else removeInputValidator('stringValue');
+  });
+
   $('#stringValue').on('blur', function(event) {
       try {
           $('#jqtree_string_div').html(JSONTree.create(JSON.parse(event.target.value)));

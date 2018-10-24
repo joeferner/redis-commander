@@ -4,13 +4,14 @@
     <h3>Edit Hash Field</h3>
   </div>
   <div class="modal-body">
-    <form id="editHashFieldForm" action="apiv1/editHashRow/" method="POST" class="form-vertical label-big">
-      <label class="control-label lead" for="hashKey">Key</label>
+    <form id="editHashFieldForm" action="apiv1/editHashRow/" method="POST" class="form-vertical">
+      <label class="control-label" for="hashKey">Key</label>
       <input id="hashKey" name="hashKey" type="text" readonly/>
-      <label class="control-label lead" for="hashField">Field</label>
+      <label class="control-label" for="hashField">Field</label>
       <input id="hashField" name="hashField" type="text" readonly/>
-      <label class="control-label lead" for="hashFieldValue">Value</label>
+      <label class="control-label" for="hashFieldValue">Value</label>
       <textarea id="hashFieldValue" name="hashFieldValue" style="width: 500px; height: 250px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="hashFieldIsJson" name="isJson">Validate as JSON</label>
       <input id="hashConnectionId" name="hashConnectionId" type="hidden"/>
     </form>
   </div>
@@ -20,3 +21,12 @@
     <button id="editHashFieldButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editHashFieldForm').submit()">Save</button>
   </div>
 </div>
+<script>
+  $('#hashFieldIsJson').on('change', function(element) {
+    if (element.target.checked) addInputValidator('hashFieldValue', 'json');
+    else removeInputValidator('hashFieldValue');
+  });
+  $('#editHashRowModal').on('hidden', function() {
+    removeInputValidator('hashFieldValue');
+  })
+</script>

@@ -39,3 +39,8 @@
     <button id="saveKeyButton" type="button" class="btn btn-primary" onclick="$('#addKeyForm').submit()">Save</button>
   </div>
 </div>
+<script>
+  $('#addKeyModal').on('hidden', function() {
+      removeInputValidator('stringValue');
+  })
+</script>

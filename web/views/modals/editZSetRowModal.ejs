@@ -4,13 +4,14 @@
     <h3>Edit Row</h3>
   </div>
   <div class="modal-body">
-    <form id="editZSetRowForm" action="apiv1/editZSetRow/" method="POST" class="form-vertical label-big">
-      <label class="control-label lead" for="zSetKey">Key</label>
+    <form id="editZSetRowForm" action="apiv1/editZSetRow/" method="POST" class="form-vertical">
+      <label class="control-label" for="zSetKey">Key</label>
       <input id="zSetKey" name="zSetKey" type="text" readonly/>
-      <label class="control-label lead" for="zSetScore">Score</label>
+      <label class="control-label" for="zSetScore">Score</label>
       <input id="zSetScore" name="zSetScore" type="text"/>
-      <label class="control-label lead" for="zSetValue">Value</label>
+      <label class="control-label" for="zSetValue">Value</label>
       <textarea id="zSetValue" name="zSetValue" style="width: 500px; height: 150px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="zSetValueIsJson" name="isJson">Validate as JSON</label>
       <input id="zSetOldValue" name="zSetOldValue" type="hidden"/>
       <input id="zSetConnectionId" name="zSetConnectionId" type="hidden"/>
     </form>
@@ -21,3 +22,12 @@
     <button id="editZSetValueButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editZSetRowForm').submit()">Save</button>
   </div>
 </div>
+<script>
+  $('#zSetValueIsJson').on('change', function(element) {
+    if (element.target.checked) addInputValidator('zSetValue', 'json');
+    else removeInputValidator('zSetValue');
+  });
+  $('#editZSetRowModal').on('hidden', function() {
+    removeInputValidator('zSetValue');
+  })
+</script>

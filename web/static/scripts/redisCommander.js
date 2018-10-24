@@ -316,7 +316,7 @@ function setupAddKeyButton (connectionId) {
     }
   });
   $('#addKeyIsJson').on('change', function(element) {
-    if (element.target.checked) addInputValidator('stringValue', 'json', true);
+    if (element.target.checked) addInputValidator('stringValue', 'json');
     else removeInputValidator('stringValue');
   });
 
@@ -341,7 +341,6 @@ function setupAddKeyButton (connectionId) {
       $('#saveKeyButton').removeAttr("disabled").html("Save");
       refreshTree();
       $('#addKeyModal').modal('hide');
-      removeInputValidator('stringValue')
     }, 500);
   }
 }
@@ -375,22 +374,22 @@ function setupEditHashButton () {
 
 function selectTreeNodeString (data) {
   var html = new EJS({ url: 'templates/editString.ejs' }).render(data);
+  var isJsonParsed = false;
   $('#body').html(html);
 
   try {
     JSON.parse(data.value);
-    // a this is json now assume it shall be json if it is object or array, but not for numbers
-    if (data.value.match(/^\s*[\{\[]/)) {
-      $('#isJson').on('change', function(element) {
-          if (element.target.checked) addInputValidator('stringValue', 'json', true);
-          else removeInputValidator('stringValue');
-      }).click();
-    }
+    isJsonParsed = true;
   } catch (ex) {
     $('#isJson').prop('checked', false);
   }
 
   $('#stringValue').val(data.value);
+  // a this is json now assume it shall be json if it is object or array, but not for numbers
+  if (isJsonParsed && data.value.match(/^\s*[\{\[]/)) {
+      $('#isJson').click();
+  }
+
   try {
     $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
   } catch (err) {
@@ -430,6 +429,7 @@ function selectTreeNodeHash (data) {
 function selectTreeNodeSet (data) {
   var html = new EJS({ url: 'templates/editSet.ejs' }).render(data);
   $('#body').html(html);
+
   $('#addSetMemberForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
@@ -596,7 +596,7 @@ function deleteBranch (connectionId, branchPrefix) {
 }
 function addListValue (connectionId, key) {
   $('#key').val(key);
-  $('#addStringValue').val("");
+  $('#addListValue').val("");
   $('#addListConnectionId').val(connectionId);
   $('#addListValueModal').modal('show');
 }
@@ -606,8 +606,10 @@ function editListRow (connectionId, key, index, value) {
   $('#listKey').val(key);
   $('#listIndex').val(index);
   $('#listValue').val(value);
+  $('#listValueIsJson').prop('checked', false);
   $('#editListRowModal').modal('show');
   setupEditListButton();
+  enableJsonValidationCheck(value, '#listValueIsJson');
 }
 
 function addSetMember (connectionId, key) {
@@ -622,8 +624,10 @@ function editSetMember (connectionId, key, member) {
   $('#setKey').val(key);
   $('#setMember').val(member);
   $('#setOldMember').val(member);
+  $('#setMemberIsJson').prop('checked', false);
   $('#editSetMemberModal').modal('show');
   setupEditSetButton();
+  enableJsonValidationCheck(member, '#setMemberIsJson');
 }
 
 function editZSetRow (connectionId, key, score, value) {
@@ -632,8 +636,10 @@ function editZSetRow (connectionId, key, score, value) {
   $('#zSetScore').val(score);
   $('#zSetValue').val(value);
   $('#zSetOldValue').val(value);
+  $('#zSetValueIsJson').prop('checked', false);
   $('#editZSetRowModal').modal('show');
   setupEditZSetButton();
+  enableJsonValidationCheck(value, '#zSetValueIsJson');
 }
 
 function editHashRow (connectionId, key, field, value) {
@@ -641,8 +647,20 @@ function editHashRow (connectionId, key, field, value) {
   $('#hashKey').val(key);
   $('#hashField').val(field);
   $('#hashFieldValue').val(value);
+  $('#hashFieldIsJson').prop('checked', false);
   $('#editHashRowModal').modal('show');
   setupEditHashButton();
+  enableJsonValidationCheck(value, '#hashFieldIsJson');
+}
+
+function enableJsonValidationCheck(value, isJsonCheckBox) {
+  try {
+    JSON.parse(value);
+    if (value.match(/^\s*[\{\[]/)) {
+      $(isJsonCheckBox).click();
+    }
+  }
+  catch {}
 }
 
 function removeListElement () {
@@ -769,13 +787,9 @@ function loadCommandLine () {
  */
 function removeInputValidator(inputId) {
   if (typeof inputId === 'string') {
-      var e = document.getElementById(inputId);
-      e.onkeyup = null;
-      e.className = '';
+      inputId = $(document.getElementById(inputId));
   }
-  else {
-    inputId.off('keyup').removeClass('validate-negative').removeClass('validate-positive');
-  }
+  inputId.off('keyup').removeClass('validate-negative').removeClass('validate-positive');
 }
 
 /** Add data format validation function to an input element.
@@ -813,6 +827,9 @@ function addInputValidator(inputId, format, currentState) {
   if (typeof currentState === 'boolean') {
     setValidationClasses(input.get(0), currentState);
   }
+  else {
+    input.trigger( "keyup" );
+  }
 }
 
 /** method to check if a input field contains valid json and set visual accordingly.
@@ -840,7 +857,7 @@ function validateInputAsJson() {
  */
 function setValidationClasses(element, success) {
   var add = (success ? 'validate-positive' : 'validate-negative');
-  var remove = (!success ? 'validate-negative' : 'validate-positive');
+  var remove = (success ? 'validate-negative' : 'validate-positive');
   if (element.className.indexOf(add) < 0) {
     $(element).removeClass(remove).addClass(add);
   }
