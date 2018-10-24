@@ -653,9 +653,17 @@ function editHashRow (connectionId, key, field, value) {
   enableJsonValidationCheck(value, '#hashFieldIsJson');
 }
 
+/** check if given string value is valid json and, if so enable validation
+ *  for given field if this is an json object or array. Do not automatically
+ *  enable validation on numbers or quted strings. May be coincidence that this is json...
+ *
+ *  @param {string} value string to check if valid json
+ *  @param {string} isJsonCheckBox id string of checkbox element to activate validation
+ */
 function enableJsonValidationCheck(value, isJsonCheckBox) {
   try {
     JSON.parse(value);
+    // if this is valid json and is array or object assume we want validation active
     if (value.match(/^\s*[\{\[]/)) {
       $(isJsonCheckBox).click();
     }
@@ -781,9 +789,9 @@ function loadCommandLine () {
 }
 
 /** Remove all input validators attached to an form element (keyup handler)
- *  as well as visal decorations applied
+ *  as well as visual decorations applied
  *
- *  @param {string} inputId id of input element to remove handler and decoration from
+ *  @param {string|object} inputId id of input element or jquery object to remove handler and decoration from
  */
 function removeInputValidator(inputId) {
   if (typeof inputId === 'string') {
@@ -798,7 +806,6 @@ function removeInputValidator(inputId) {
  *  @param {string|object} inputId id of html input element to watch or jquery object
  *  @param {string} format data format to validate against, possible values: "json"
  *  @param {boolean} [currentState] optional start state to set now
- *  @constructor
  */
 function addInputValidator(inputId, format, currentState) {
   var input;
