@@ -315,6 +315,11 @@ function setupAddKeyButton (connectionId) {
       score.hide();
     }
   });
+  $('#addKeyIsJson').on('change', function(element) {
+    if (element.target.checked) addInputValidator('stringValue', 'json', true);
+    else removeInputValidator('stringValue');
+  });
+
   $('#addKeyForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
@@ -336,6 +341,7 @@ function setupAddKeyButton (connectionId) {
       $('#saveKeyButton').removeAttr("disabled").html("Save");
       refreshTree();
       $('#addKeyModal').modal('hide');
+      removeInputValidator('stringValue')
     }, 500);
   }
 }
@@ -373,9 +379,15 @@ function selectTreeNodeString (data) {
 
   try {
     JSON.parse(data.value);
-    $('#isJson').val('true');
+    // a this is json now assume it shall be json if it is object or array, but not for numbers
+    if (data.value.match(/^\s*[\{\[]/)) {
+      $('#isJson').on('change', function(element) {
+          if (element.target.checked) addInputValidator('stringValue', 'json', true);
+          else removeInputValidator('stringValue');
+      }).click();
+    }
   } catch (ex) {
-    $('#isJson').val('false');
+    $('#isJson').prop('checked', false);
   }
 
   $('#stringValue').val(data.value);
@@ -748,6 +760,90 @@ function loadCommandLine () {
       refreshTree();
     }
   });
+}
+
+/** Remove all input validators attached to an form element (keyup handler)
+ *  as well as visal decorations applied
+ *
+ *  @param {string} inputId id of input element to remove handler and decoration from
+ */
+function removeInputValidator(inputId) {
+  if (typeof inputId === 'string') {
+      var e = document.getElementById(inputId);
+      e.onkeyup = null;
+      e.className = '';
+  }
+  else {
+    inputId.off('keyup').removeClass('validate-negative').removeClass('validate-positive');
+  }
+}
+
+/** Add data format validation function to an input element.
+ *  The field gets decorated to visualize if input is valid for given data format.
+ *
+ *  @param {string|object} inputId id of html input element to watch or jquery object
+ *  @param {string} format data format to validate against, possible values: "json"
+ *  @param {boolean} [currentState] optional start state to set now
+ *  @constructor
+ */
+function addInputValidator(inputId, format, currentState) {
+  var input;
+  if (typeof inputId === 'string') {
+    input = $('#' + inputId)
+  }
+  else if (typeof inputId === 'object') {
+    input = inputId;
+  }
+
+  if (!input){
+    console.log('Invalid html id given to validate format: ', inputId);
+    return;
+  }
+
+  switch (format) {
+    case 'json':
+        input.on('keyup', validateInputAsJson);
+        break;
+    default:
+        console.log('Invalid format given to validate input: ', format);
+        return;
+  }
+
+  // set initial state if requested
+  if (typeof currentState === 'boolean') {
+    setValidationClasses(input.get(0), currentState);
+  }
+}
+
+/** method to check if a input field contains valid json and set visual accordingly.
+ *
+ */
+function validateInputAsJson() {
+  if (this.value) {
+    try {
+      JSON.parse(this.value);
+      setValidationClasses(this, true);
+    }
+    catch(e) {
+      setValidationClasses(this, false);
+    }
+  }
+  else {
+    setValidationClasses(this, false)
+  }
+}
+
+/** classes are only changed if not set right now
+ *
+ * @param {Element} element HTML DOM element to change validation classes
+ * @param {boolean} success true if positive validation class shall be assigned, false for error class
+ */
+function setValidationClasses(element, success) {
+  var add = (success ? 'validate-positive' : 'validate-negative');
+  var remove = (!success ? 'validate-negative' : 'validate-positive');
+  if (element.className.indexOf(add) < 0) {
+    $(element).removeClass(remove).addClass(add);
+  }
 }
 
 function escapeHtml (str) {

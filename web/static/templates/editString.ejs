@@ -10,9 +10,12 @@
   <label>TTL: <b><%= ttl %></b></label>
   <label>Type: <b>String</b></label>
   <form id="editStringForm" action="apiv1/key/<%= connectionId %>/<%= key %>" method="POST" class="form-vertical">
-    <input id="isJson" name="isJson" type="hidden">
-    <textarea id="stringValue" name="stringValue" style="width: 600px; height: 450px;"></textarea>
     <div id="jqtree_string_div" style="display: none;">loading ...</div>
+    <span id="stringValueBox">
+      <textarea id="stringValue" name="stringValue" style="width: 600px; height: 450px;"></textarea>
+      <br>
+      <label class="checkbox"><input type="checkbox" id="isJson" name="isJson">Validate as JSON</label>
+    </span>
     <br>
     <button id="saveKeyButton" type="button" class="btn" onclick="$('#editStringForm').submit()">Save</button>
   </form>
@@ -21,7 +24,7 @@
   new ClipboardJS('#copyTextButton');
 
   function onModeEditButtonClick() {
-      $('#stringValue').css('display','inline');
+      $('#stringValueBox').css('display','inline');
       $('#jqtree_string_div').css('display','none');
       $('#vieModeEditButton').css('display','none');
       $('#vieModeTreeButton').css('display','inline')
@@ -29,7 +32,7 @@
   }
 
   function onModeTreeButtonClick() {
-      $('#stringValue').css('display','none');
+      $('#stringValueBox').css('display','none');
       $('#jqtree_string_div').css('display','inline-block');
       $('#vieModeEditButton').css('display','inline');
       $('#vieModeTreeButton').css('display','none')
