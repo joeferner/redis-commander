@@ -315,6 +315,11 @@ function setupAddKeyButton (connectionId) {
       score.hide();
     }
   });
+  $('#addKeyIsJson').on('change', function(element) {
+    if (element.target.checked) addInputValidator('stringValue', 'json');
+    else removeInputValidator('stringValue');
+  });
+
   $('#addKeyForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
@@ -369,16 +374,22 @@ function setupEditHashButton () {
 
 function selectTreeNodeString (data) {
   var html = new EJS({ url: 'templates/editString.ejs' }).render(data);
+  var isJsonParsed = false;
   $('#body').html(html);
 
   try {
     JSON.parse(data.value);
-    $('#isJson').val('true');
+    isJsonParsed = true;
   } catch (ex) {
-    $('#isJson').val('false');
+    $('#isJson').prop('checked', false);
   }
 
   $('#stringValue').val(data.value);
+  // a this is json now assume it shall be json if it is object or array, but not for numbers
+  if (isJsonParsed && data.value.match(/^\s*[\{\[]/)) {
+      $('#isJson').click();
+  }
+
   try {
     $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
   } catch (err) {
@@ -418,6 +429,7 @@ function selectTreeNodeHash (data) {
 function selectTreeNodeSet (data) {
   var html = new EJS({ url: 'templates/editSet.ejs' }).render(data);
   $('#body').html(html);
+
   $('#addSetMemberForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
@@ -584,7 +596,7 @@ function deleteBranch (connectionId, branchPrefix) {
 }
 function addListValue (connectionId, key) {
   $('#key').val(key);
-  $('#addStringValue').val("");
+  $('#addListValue').val("");
   $('#addListConnectionId').val(connectionId);
   $('#addListValueModal').modal('show');
 }
@@ -594,8 +606,10 @@ function editListRow (connectionId, key, index, value) {
   $('#listKey').val(key);
   $('#listIndex').val(index);
   $('#listValue').val(value);
+  $('#listValueIsJson').prop('checked', false);
   $('#editListRowModal').modal('show');
   setupEditListButton();
+  enableJsonValidationCheck(value, '#listValueIsJson');
 }
 
 function addSetMember (connectionId, key) {
@@ -610,8 +624,10 @@ function editSetMember (connectionId, key, member) {
   $('#setKey').val(key);
   $('#setMember').val(member);
   $('#setOldMember').val(member);
+  $('#setMemberIsJson').prop('checked', false);
   $('#editSetMemberModal').modal('show');
   setupEditSetButton();
+  enableJsonValidationCheck(member, '#setMemberIsJson');
 }
 
 function editZSetRow (connectionId, key, score, value) {
@@ -620,8 +636,10 @@ function editZSetRow (connectionId, key, score, value) {
   $('#zSetScore').val(score);
   $('#zSetValue').val(value);
   $('#zSetOldValue').val(value);
+  $('#zSetValueIsJson').prop('checked', false);
   $('#editZSetRowModal').modal('show');
   setupEditZSetButton();
+  enableJsonValidationCheck(value, '#zSetValueIsJson');
 }
 
 function editHashRow (connectionId, key, field, value) {
@@ -629,8 +647,28 @@ function editHashRow (connectionId, key, field, value) {
   $('#hashKey').val(key);
   $('#hashField').val(field);
   $('#hashFieldValue').val(value);
+  $('#hashFieldIsJson').prop('checked', false);
   $('#editHashRowModal').modal('show');
   setupEditHashButton();
+  enableJsonValidationCheck(value, '#hashFieldIsJson');
+}
+
+/** check if given string value is valid json and, if so enable validation
+ *  for given field if this is an json object or array. Do not automatically
+ *  enable validation on numbers or quted strings. May be coincidence that this is json...
+ *
+ *  @param {string} value string to check if valid json
+ *  @param {string} isJsonCheckBox id string of checkbox element to activate validation
+ */
+function enableJsonValidationCheck(value, isJsonCheckBox) {
+  try {
+    JSON.parse(value);
+    // if this is valid json and is array or object assume we want validation active
+    if (value.match(/^\s*[\{\[]/)) {
+      $(isJsonCheckBox).click();
+    }
+  }
+  catch {}
 }
 
 function removeListElement () {
@@ -748,6 +786,88 @@ function loadCommandLine () {
       refreshTree();
     }
   });
+}
+
+/** Remove all input validators attached to an form element (keyup handler)
+ *  as well as visual decorations applied
+ *
+ *  @param {string|object} inputId id of input element or jquery object to remove handler and decoration from
+ */
+function removeInputValidator(inputId) {
+  if (typeof inputId === 'string') {
+      inputId = $(document.getElementById(inputId));
+  }
+  inputId.off('keyup').removeClass('validate-negative').removeClass('validate-positive');
+}
+
+/** Add data format validation function to an input element.
+ *  The field gets decorated to visualize if input is valid for given data format.
+ *
+ *  @param {string|object} inputId id of html input element to watch or jquery object
+ *  @param {string} format data format to validate against, possible values: "json"
+ *  @param {boolean} [currentState] optional start state to set now
+ */
+function addInputValidator(inputId, format, currentState) {
+  var input;
+  if (typeof inputId === 'string') {
+    input = $('#' + inputId)
+  }
+  else if (typeof inputId === 'object') {
+    input = inputId;
+  }
+
+  if (!input){
+    console.log('Invalid html id given to validate format: ', inputId);
+    return;
+  }
+
+  switch (format) {
+    case 'json':
+        input.on('keyup', validateInputAsJson);
+        break;
+    default:
+        console.log('Invalid format given to validate input: ', format);
+        return;
+  }
+
+  // set initial state if requested
+  if (typeof currentState === 'boolean') {
+    setValidationClasses(input.get(0), currentState);
+  }
+  else {
+    input.trigger( "keyup" );
+  }
+}
+
+/** method to check if a input field contains valid json and set visual accordingly.
+ *
+ */
+function validateInputAsJson() {
+  if (this.value) {
+    try {
+      JSON.parse(this.value);
+      setValidationClasses(this, true);
+    }
+    catch(e) {
+      setValidationClasses(this, false);
+    }
+  }
+  else {
+    setValidationClasses(this, false)
+  }
+}
+
+/** classes are only changed if not set right now
+ *
+ * @param {Element} element HTML DOM element to change validation classes
+ * @param {boolean} success true if positive validation class shall be assigned, false for error class
+ */
+function setValidationClasses(element, success) {
+  var add = (success ? 'validate-positive' : 'validate-negative');
+  var remove = (success ? 'validate-negative' : 'validate-positive');
+  if (element.className.indexOf(add) < 0) {
+    $(element).removeClass(remove).addClass(add);
+  }
 }
 
 function escapeHtml (str) {

@@ -4,12 +4,13 @@
     <h3>Edit Set Member</h3>
   </div>
   <div class="modal-body">
-    <form id="editSetMemberForm" action="apiv1/editSetMember/" method="POST" class="form-vertical label-big">
+    <form id="editSetMemberForm" action="apiv1/editSetMember/" method="POST" class="form-vertical">
       <input id="setKey" name="setKey" type="hidden"/>
-      <label class="control-label lead" for="setOldMember">Member</label>
+      <label class="control-label" for="setOldMember">Member</label>
       <input id="setOldMember" name="setOldMember" type="text" readonly/>
-      <label class="control-label lead" for="setMember">Updated Member</label>
+      <label class="control-label" for="setMember">Updated Member</label>
       <textarea id="setMember" name="setMember" style="width: 500px; height: 150px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="setMemberIsJson" name="isJson">Validate as JSON</label>
       <input id="setConnectionId" name="setConnectionId" type="hidden"/>
     </form>
   </div>
@@ -19,4 +20,12 @@
     <button id="editSetMemberButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editSetMemberForm').submit()">Save</button>
   </div>
 </div>
-
+<script>
+  $('#setMemberIsJson').on('change', function(element) {
+      if (element.target.checked) addInputValidator('setMember', 'json');
+      else removeInputValidator('setMember');
+  });
+  $('#editSetMemberModal').on('hidden', function() {
+      removeInputValidator('setMember');
+  })
+</script>

@@ -30,7 +30,8 @@
         </div>
       </div>
       <label class="control-label" for="stringValue">Value</label>
-      <textarea id="stringValue" name="stringValue" style="width: 500px; height: 250px;"></textarea>
+      <textarea id="stringValue" name="stringValue" style="width: 500px; height: 200px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="addKeyIsJson" name="isJson">Validate as JSON</label>
     </form>
   </div>
   <div class="modal-footer">
@@ -38,3 +39,8 @@
     <button id="saveKeyButton" type="button" class="btn btn-primary" onclick="$('#addKeyForm').submit()">Save</button>
   </div>
 </div>
+<script>
+  $('#addKeyModal').on('hidden', function() {
+      removeInputValidator('stringValue');
+  })
+</script>

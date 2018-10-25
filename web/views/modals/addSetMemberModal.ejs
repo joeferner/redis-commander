@@ -8,6 +8,7 @@
       <input id="addSetKey" name="setKey" type="hidden"/>
       <label class="control-label lead" for="addSetMemberName">Member</label>
       <textarea id="addSetMemberName" name="setMemberName" style="width: 500px; height: 250px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="addSetMemberIsJson" name="isJson">Validate as JSON</label>
       <input id="addSetConnectionId" name="setConnectionId" type="hidden"/>
     </form>
   </div>
@@ -16,3 +17,12 @@
     <button id="saveMemberButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#addSetMemberForm').submit()">Save</button>
   </div>
 </div>
+<script>
+  $('#addSetMemberIsJson').on('change', function(element) {
+      if (element.target.checked) addInputValidator('addSetMemberName', 'json');
+      else removeInputValidator('addSetMemberName');
+  });
+  $('#addSetMemberModal').on('hidden', function() {
+      removeInputValidator('addSetMemberName');
+  })
+</script>

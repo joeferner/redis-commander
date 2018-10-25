@@ -4,13 +4,14 @@
     <h3>Edit Row</h3>
   </div>
   <div class="modal-body">
-    <form id="editListRowForm" action="apiv1/editListRow/" method="POST" class="form-vertical label-big">
-      <label class="control-label lead" for="listKey">Key</label>
+    <form id="editListRowForm" action="apiv1/editListRow/" method="POST" class="form-vertical">
+      <label class="control-label" for="listKey">Key</label>
       <input id="listKey" name="listKey" type="text" readonly/>
-      <label class="control-label lead" for="listIndex">Index</label>
+      <label class="control-label" for="listIndex">Index</label>
       <input id="listIndex" name="listIndex" type="text" readonly/>
-      <label class="control-label lead" for="listValue">Value</label>
+      <label class="control-label" for="listValue">Value</label>
       <textarea id="listValue" name="listValue" style="width: 500px; height: 250px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="listValueIsJson" name="isJson">Validate as JSON</label>
       <input id="editListConnectionId" name="listConnectionId" type="hidden"/>
     </form>
   </div>
@@ -20,3 +21,12 @@
     <button id="editListValueButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editListRowForm').submit()">Save</button>
   </div>
 </div>
+<script>
+  $('#listValueIsJson').on('change', function(element) {
+      if (element.target.checked) addInputValidator('listValue', 'json');
+      else removeInputValidator('listValue');
+  });
+  $('#editListRowModal').on('hidden', function() {
+      removeInputValidator('listValue');
+  })
+</script>
