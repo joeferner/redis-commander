@@ -6,11 +6,11 @@
   <div class="modal-body">
     <form id="editHashFieldForm" action="apiv1/editHashRow/" method="POST" class="form-vertical">
       <label class="control-label" for="hashKey">Key</label>
-      <input id="hashKey" name="hashKey" type="text" readonly/>
+      <input id="hashKey" name="hashKey" type="text" class="modal-content-width" readonly/>
       <label class="control-label" for="hashField">Field</label>
-      <input id="hashField" name="hashField" type="text" readonly/>
+      <input id="hashField" name="hashField" type="text" class="modal-content-width" readonly/>
       <label class="control-label" for="hashFieldValue">Value</label>
-      <textarea id="hashFieldValue" name="hashFieldValue" style="width: 500px; height: 250px;"></textarea>
+      <textarea id="hashFieldValue" name="hashFieldValue" class="modal-content-width" style="height: 250px;"></textarea>
       <label class="checkbox"><input type="checkbox" id="hashFieldIsJson" name="isJson">Validate as JSON</label>
       <input id="hashConnectionId" name="hashConnectionId" type="hidden"/>
     </form>

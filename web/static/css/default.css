@@ -294,9 +294,14 @@ body {
   margin: 0;
 }
 
-#addKeyForm #keyValue {
-  margin: 0 auto;
-  width: calc(100% - 14px);
+.modal-content-width {
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100% - 15px);
+}
+
+.control-group input, .control-group select{
+  margin-bottom: 0;
 }
 
 .validate-negative, .validate-negative:focus {

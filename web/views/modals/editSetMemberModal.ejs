@@ -7,9 +7,9 @@
     <form id="editSetMemberForm" action="apiv1/editSetMember/" method="POST" class="form-vertical">
       <input id="setKey" name="setKey" type="hidden"/>
       <label class="control-label" for="setOldMember">Member</label>
-      <input id="setOldMember" name="setOldMember" type="text" readonly/>
+      <input id="setOldMember" name="setOldMember" type="text" class="modal-content-width" readonly/>
       <label class="control-label" for="setMember">Updated Member</label>
-      <textarea id="setMember" name="setMember" style="width: 500px; height: 150px;"></textarea>
+      <textarea id="setMember" name="setMember" class="modal-content-width" style="height: 150px;"></textarea>
       <label class="checkbox"><input type="checkbox" id="setMemberIsJson" name="isJson">Validate as JSON</label>
       <input id="setConnectionId" name="setConnectionId" type="hidden"/>
     </form>
