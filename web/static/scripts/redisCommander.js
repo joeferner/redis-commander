@@ -233,7 +233,6 @@ function setupEditListButton () {
     },
     success: function () {
       console.log('saved', arguments);
-      $('#editListValueButton').button('reset');
       saveComplete();
     }
   });
@@ -242,6 +241,7 @@ function setupEditListButton () {
     setTimeout(function () {
       refreshTree();
       getKeyTree().select_node(0);
+      $('#editListValueButton').button('reset');
       $('#editListRowModal').modal('hide');
     }, 500);
   }
@@ -260,13 +260,13 @@ function setupEditSetButton () {
     },
     success: function () {
       console.log('saved', arguments);
-      $('#editSetMemberButton').button('reset');
       saveComplete();
     }
   });
 
   function saveComplete () {
     setTimeout(function () {
+      $('#editSetMemberButton').button('reset');
       $('#editSetMemberModal').modal('hide');
       refreshTree();
       getKeyTree().select_node(0);
@@ -287,7 +287,6 @@ function setupEditZSetButton () {
     },
     success: function () {
       console.log('saved', arguments);
-      $('#editZSetValueButton').button('reset');
       saveComplete();
     }
   });
@@ -296,6 +295,7 @@ function setupEditZSetButton () {
     setTimeout(function () {
       refreshTree();
       getKeyTree().select_node(0);
+      $('#editZSetValueButton').button('reset');
       $('#editZSetRowModal').modal('hide');
     }, 500);
   }
@@ -358,7 +358,6 @@ function setupEditHashButton () {
     },
     success: function () {
       console.log('saved', arguments);
-      $('#editHashFieldButton').button('reset');
       saveComplete();
     }
   });
@@ -367,7 +366,8 @@ function setupEditHashButton () {
     setTimeout(function () {
       refreshTree();
       getKeyTree().select_node(0);
-      $('#editHashRowModal').modal('hide');
+      $('#editHashFieldButton').button('reset');
+      $('#editHashFieldModal').modal('hide');
     }, 500);
   }
 }
@@ -424,6 +424,29 @@ function selectTreeNodeString (data) {
 function selectTreeNodeHash (data) {
   var html = new EJS({ url: 'templates/editHash.ejs' }).render(data);
   $('#body').html(html);
+
+  $('#addHashFieldForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#saveHashFieldButton').button('loading');
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      saveComplete();
+    }
+  });
+  function saveComplete () {
+    setTimeout(function () {
+      $('#saveHashFieldButton').button('reset');
+      $('#addHashFieldModal').modal('hide');
+      $('a.jstree-clicked').click();
+    }, 500);
+  }
 }
 
 function selectTreeNodeSet (data) {
@@ -442,12 +465,12 @@ function selectTreeNodeSet (data) {
     },
     success: function () {
       console.log('saved', arguments);
-      $('#saveMemberButton').button('reset');
       saveComplete();
     }
   });
   function saveComplete () {
     setTimeout(function () {
+      $('#saveMemberButton').button('reset');
       $('#addSetMemberModal').modal('hide');
       $('a.jstree-clicked').click();
     }, 500);
@@ -470,7 +493,6 @@ function selectTreeNodeList (data) {
       },
       success: function () {
         console.log('saved', arguments);
-        $('#saveValueButton').button('reset');
         saveComplete();
       }
     });
@@ -479,6 +501,7 @@ function selectTreeNodeList (data) {
   }
   function saveComplete () {
     setTimeout(function () {
+      $('#saveValueButton').button('reset');
       $('#addListValueModal').modal('hide');
       $('a.jstree-clicked').click();
     }, 500);
@@ -642,13 +665,21 @@ function editZSetRow (connectionId, key, score, value) {
   enableJsonValidationCheck(value, '#zSetValueIsJson');
 }
 
-function editHashRow (connectionId, key, field, value) {
+function addHashField (connectionId, key) {
+    $('#addHashKey').val(key);
+    $('#addHashFieldName').val("");
+    $('#addHashFieldValue').val("");
+    $('#addHashConnectionId').val(connectionId);
+    $('#addHashFieldModal').modal('show');
+}
+
+function editHashField (connectionId, key, field, value) {
   $('#hashConnectionId').val(connectionId);
   $('#hashKey').val(key);
   $('#hashField').val(field);
   $('#hashFieldValue').val(value);
   $('#hashFieldIsJson').prop('checked', false);
-  $('#editHashRowModal').modal('show');
+  $('#editHashFieldModal').modal('show');
   setupEditHashButton();
   enableJsonValidationCheck(value, '#hashFieldIsJson');
 }

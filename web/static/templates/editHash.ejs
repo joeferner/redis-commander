@@ -1,4 +1,7 @@
 <div id="itemActionsBar">
+  <button class="btn" data-toggle="modal" onclick="addHashField('<%= connectionId %>','<%= key %>')"
+      style="margin-right: 5px">Add New Field...
+  </button>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
 </div>
 <div id="itemData">
@@ -33,7 +36,7 @@
       var field = row.children[0].innerHTML.toString();
       var value = row.children[1].innerHTML.toString();
 
-      editHashRow(connectionId, key, field, value);
+      editHashField(connectionId, key, field, value);
     });
   });
 </script>
