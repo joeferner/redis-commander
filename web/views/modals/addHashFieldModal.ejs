@@ -1,0 +1,30 @@
+<div id="addHashFieldModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Add Field</h3>
+  </div>
+  <div class="modal-body">
+    <form id="addHashFieldForm" action="apiv1/hash/field/add" method="POST" class="form-vertical">
+      <input id="addHashKey" name="key" type="hidden"/>
+      <label class="control-label" for="addHashFieldName">Field</label>
+      <input id="addHashFieldName" name="field" type="text" class="modal-content-width"/>
+      <label class="control-label" for="addHashFieldValue">Value</label>
+      <textarea id="addHashFieldValue" name="value" class="modal-content-width" style="height: 250px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="addHashFieldIsJson" name="isJson">Validate as JSON</label>
+      <input id="addHashConnectionId" name="connectionId" type="hidden"/>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <button id="saveHashFieldButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#addHashFieldForm').submit()">Save</button>
+  </div>
+</div>
+<script>
+  $('#addHashFieldIsJson').on('change', function(element) {
+      if (element.target.checked) addInputValidator('addHashFieldValue', 'json');
+      else removeInputValidator('addHashFieldValue');
+  });
+  $('#addHashFieldModal').on('hidden', function() {
+      removeInputValidator('addHashFieldValue');
+  })
+</script>

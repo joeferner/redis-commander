@@ -6,11 +6,11 @@
   <div class="modal-body">
     <form id="editZSetRowForm" action="apiv1/editZSetRow/" method="POST" class="form-vertical">
       <label class="control-label" for="zSetKey">Key</label>
-      <input id="zSetKey" name="zSetKey" type="text" readonly/>
+      <input id="zSetKey" name="zSetKey" type="text" class="modal-content-width" readonly/>
       <label class="control-label" for="zSetScore">Score</label>
       <input id="zSetScore" name="zSetScore" type="text"/>
       <label class="control-label" for="zSetValue">Value</label>
-      <textarea id="zSetValue" name="zSetValue" style="width: 500px; height: 150px;"></textarea>
+      <textarea id="zSetValue" name="zSetValue" class="modal-content-width" style="height: 150px;"></textarea>
       <label class="checkbox"><input type="checkbox" id="zSetValueIsJson" name="isJson">Validate as JSON</label>
       <input id="zSetOldValue" name="zSetOldValue" type="hidden"/>
       <input id="zSetConnectionId" name="zSetConnectionId" type="hidden"/>
