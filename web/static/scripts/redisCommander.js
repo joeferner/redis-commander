@@ -275,7 +275,7 @@ function setupEditSetButton () {
 }
 
 function setupEditZSetButton () {
-  $('#editZSetRowForm').ajaxForm({
+  $('#editZSetMemberForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
       $('#editZSetValueButton').button('loading');
@@ -296,7 +296,7 @@ function setupEditZSetButton () {
       refreshTree();
       getKeyTree().select_node(0);
       $('#editZSetValueButton').button('reset');
-      $('#editZSetRowModal').modal('hide');
+      $('#editZSetMemberModal').modal('hide');
     }, 500);
   }
 }
@@ -515,6 +515,29 @@ function selectTreeNodeZSet (data) {
   } else {
     alert('Index out of bounds');
   }
+
+  $('#addZSetMemberForm').ajaxForm({
+    beforeSubmit: function () {
+      console.log('saving');
+      $('#saveZMemberButton').button('loading');
+    },
+    error: function (err) {
+      console.log('save error', arguments);
+      alert("Could not save '" + err.statusText + "'");
+      saveComplete();
+    },
+    success: function () {
+      console.log('saved', arguments);
+      saveComplete();
+    }
+  });
+  function saveComplete () {
+    setTimeout(function () {
+      $('#saveZMemberButton').button('reset');
+      $('#addZSetMemberModal').modal('hide');
+      $('a.jstree-clicked').click();
+    }, 500);
+  }
 }
 
 function getKeyTree () {
@@ -653,14 +676,22 @@ function editSetMember (connectionId, key, member) {
   enableJsonValidationCheck(member, '#setMemberIsJson');
 }
 
-function editZSetRow (connectionId, key, score, value) {
+function addZSetMember (connectionId, key) {
+    $('#addZSetKey').val(key);
+    $('#addZSetScore').val("");
+    $('#addZSetMemberName').val("");
+    $('#addZSetConnectionId').val(connectionId);
+    $('#addZSetMemberModal').modal('show');
+}
+
+function editZSetMember (connectionId, key, score, value) {
   $('#zSetConnectionId').val(connectionId);
   $('#zSetKey').val(key);
   $('#zSetScore').val(score);
   $('#zSetValue').val(value);
   $('#zSetOldValue').val(value);
   $('#zSetValueIsJson').prop('checked', false);
-  $('#editZSetRowModal').modal('show');
+  $('#editZSetMemberModal').modal('show');
   setupEditZSetButton();
   enableJsonValidationCheck(value, '#zSetValueIsJson');
 }
@@ -714,7 +745,7 @@ function removeSetElement () {
 
 function removeZSetElement () {
   $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
-  $('#editZSetRowForm').submit();
+  $('#editZSetMemberForm').submit();
 }
 
 function removeHashField () {
