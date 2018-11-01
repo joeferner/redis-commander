@@ -2,7 +2,7 @@
 
 var CmdParser = require('cmdparser');
 function loadTree () {
-  $.get('apiv1/connection', function (isConnected) {
+  $.get('apiv2/connection', function (isConnected) {
     if (isConnected) {
       $('#keyTree').bind("loaded.jstree", function () {
         var tree = getKeyTree();
@@ -36,12 +36,12 @@ function loadTree () {
 
           var dataUrl;
           if (node.parent === '#') {
-              dataUrl = 'apiv1/keystree/' + encodeURIComponent(node.id) + '/';
+              dataUrl = 'apiv2/keystree/' + encodeURIComponent(node.id) + '/';
           }
           else {
               var root = getRootConnection(node);
               var path = getFullKeyPath(node);
-              dataUrl = 'apiv1/keystree/' + encodeURIComponent(root) + '/' + encodeURIComponent(path) + '?absolute=false';
+              dataUrl = 'apiv2/keystree/' + encodeURIComponent(root) + '/' + encodeURIComponent(path) + '?absolute=false';
           }
           $.get({
               url: dataUrl,
@@ -138,7 +138,7 @@ function treeNodeSelected (event, data) {
   if (data.node.parent === '#') {
     connectionId = data.node.id;
     var hostAndPort = connectionId.split(':');
-    $.get('apiv1/server/info', function (data, status) {
+    $.get('apiv2/server/info', function (data, status) {
       if (status !== 'success') {
         return alert("Could not load server info");
       }
@@ -175,9 +175,9 @@ function getRootConnection (node) {
 
 function loadKey (connectionId, key, index) {
   if (index) {
-    $.get('apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "?index=" + index, processData);
+    $.get('apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "?index=" + index, processData);
   } else {
-    $.get('apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key), processData);
+    $.get('apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key), processData);
   }
   function processData (data, status) {
     if (status !== 'success') {
@@ -566,7 +566,7 @@ function addKey (connectionId, key) {
     }
     connectionId = getRootConnection(node);
   }
-  $('#addKeyForm').attr('action', 'apiv1/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key));
+  $('#addKeyForm').attr('action', 'apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key));
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
   setupAddKeyButton(connectionId);
@@ -581,7 +581,7 @@ function deleteKey (connectionId, key) {
   }
   var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
   if (result) {
-    $.post('apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
+    $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
       if (status !== 'success') {
         return alert("Could not delete key");
       }
@@ -601,7 +601,7 @@ function decodeKey (connectionId, key) {
       connectionId = getRootConnection(node);
   }
 
-  $.post('apiv1/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=decode', function (data, status) {
+  $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=decode', function (data, status) {
     if (status !== 'success') {
       return alert("Could not decode key");
     }
@@ -616,7 +616,7 @@ function decodeKey (connectionId, key) {
 }
 
 function encodeString (connectionId, key) {
-  $.post('apiv1/encodeString/' + encodeURIComponent($('#stringValue').val()), function (data, status) {
+  $.post('apiv2/encodeString/' + encodeURIComponent($('#stringValue').val()), function (data, status) {
     if (status !== 'success') {
       return alert("Could not encode key");
     }
@@ -637,7 +637,7 @@ function deleteBranch (connectionId, branchPrefix) {
   var query = branchPrefix + foldingCharacter + '*';
   var result = confirm('Are you sure you want to delete "' + query + ' from ' + connectionId + '"? This will delete all children as well!');
   if (result) {
-    $.post('apiv1/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
+    $.post('apiv2/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
       if (status !== 'success') {
         return alert("Could not delete branch");
       }
@@ -827,7 +827,7 @@ function loadCommandLine () {
       refreshTree();
       rl.write("OK");
     } else {
-      $.post('apiv1/exec/' + encodeURIComponent($('#selectedConnection').val()), { cmd: line }, function (data, status) {
+      $.post('apiv2/exec/' + encodeURIComponent($('#selectedConnection').val()), { cmd: line }, function (data, status) {
         rl.prompt();
 
         if (status !== 'success') {
@@ -1096,7 +1096,7 @@ var cmdparser = new CmdParser([
 ], {
   key: function (partial, callback) {
     var redisConnection = $('#selectedConnection').val();
-    $.get('apiv1/keys/' + encodeURIComponent(redisConnection) + "/" + partial + '*?limit=20', function (data, status) {
+    $.get('apiv2/keys/' + encodeURIComponent(redisConnection) + "/" + partial + '*?limit=20', function (data, status) {
       if (status !== 'success') {
         return callback(new Error("Could not get keys"));
       }
@@ -1117,7 +1117,7 @@ var prevCLIOpen;
 var configLoaded = false;
 
 function getServerInfo (callback) {
-  $.get('apiv1/server/info', function (data, status) {
+  $.get('apiv2/server/info', function (data, status) {
     callback(JSON.parse(data))
   });
 }
