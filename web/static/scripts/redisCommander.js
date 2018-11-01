@@ -221,7 +221,7 @@ function selectTreeNodeBranch (data) {
 }
 
 function setupEditListButton () {
-  $('#editListRowForm').ajaxForm({
+  $('#editListValueForm').ajaxForm({
     beforeSubmit: function () {
       console.log('saving');
       $('#editListValueButton').button('loading');
@@ -242,7 +242,7 @@ function setupEditListButton () {
       refreshTree();
       getKeyTree().select_node(0);
       $('#editListValueButton').button('reset');
-      $('#editListRowModal').modal('hide');
+      $('#editListValueModal').modal('hide');
     }, 500);
   }
 }
@@ -450,9 +450,10 @@ function selectTreeNodeHash (data) {
   });
   function saveComplete () {
     setTimeout(function () {
+      refreshTree();
+      getKeyTree().select_node(0);
       $('#saveHashFieldButton').button('reset');
       $('#addHashFieldModal').modal('hide');
-      $('a.jstree-clicked').click();
     }, 500);
   }
 }
@@ -478,9 +479,10 @@ function selectTreeNodeSet (data) {
   });
   function saveComplete () {
     setTimeout(function () {
+      refreshTree();
+      getKeyTree().select_node(0);
       $('#saveMemberButton').button('reset');
       $('#addSetMemberModal').modal('hide');
-      $('a.jstree-clicked').click();
     }, 500);
   }
 }
@@ -509,9 +511,10 @@ function selectTreeNodeList (data) {
   }
   function saveComplete () {
     setTimeout(function () {
+      refreshTree();
+      getKeyTree().select_node(0);
       $('#saveValueButton').button('reset');
       $('#addListValueModal').modal('hide');
-      $('a.jstree-clicked').click();
     }, 500);
   }
 }
@@ -541,9 +544,10 @@ function selectTreeNodeZSet (data) {
   });
   function saveComplete () {
     setTimeout(function () {
+      refreshTree();
+      getKeyTree().select_node(0);
       $('#saveZMemberButton').button('reset');
       $('#addZSetMemberModal').modal('hide');
-      $('a.jstree-clicked').click();
     }, 500);
   }
 }
@@ -655,13 +659,13 @@ function addListValue (connectionId, key) {
   $('#addListValueModal').modal('show');
 }
 
-function editListRow (connectionId, key, index, value) {
+function editListValue (connectionId, key, index, value) {
   $('#editListConnectionId').val(connectionId);
   $('#listKey').val(key);
   $('#listIndex').val(index);
   $('#listValue').val(value);
   $('#listValueIsJson').prop('checked', false);
-  $('#editListRowModal').modal('show');
+  $('#editListValueModal').modal('show');
   setupEditListButton();
   enableJsonValidationCheck(value, '#listValueIsJson');
 }
@@ -743,7 +747,7 @@ function enableJsonValidationCheck(value, isJsonCheckBox) {
 
 function removeListElement () {
   $('#listValue').val('REDISCOMMANDERTOMBSTONE');
-  $('#editListRowForm').submit();
+  $('#editListValueForm').submit();
 }
 
 function removeSetElement () {
