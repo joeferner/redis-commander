@@ -302,9 +302,11 @@ function setupEditZSetButton () {
 }
 
 function setupAddKeyButton (connectionId) {
-  $('#stringValue').val('');
+  $('#newStringValue').val('');
+  $('#newFieldName').val('');
+  $('#keyScore').val('');
   $('#keyValue').keyup(function () {
-    var action = "apiv1/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent($(this).val());
+    var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent($(this).val());
     $('#addKeyForm').attr("action", action);
   });
   $('#keyType').change(function () {
@@ -314,10 +316,16 @@ function setupAddKeyButton (connectionId) {
     } else {
       score.hide();
     }
+    var field = $('#fieldWrap');
+    if ($(this).val() === 'hash') {
+      field.show();
+    } else {
+      field.hide();
+    }
   });
   $('#addKeyIsJson').on('change', function(element) {
-    if (element.target.checked) addInputValidator('stringValue', 'json');
-    else removeInputValidator('stringValue');
+    if (element.target.checked) addInputValidator('newStringValue', 'json');
+    else removeInputValidator('newStringValue');
   });
 
   $('#addKeyForm').ajaxForm({

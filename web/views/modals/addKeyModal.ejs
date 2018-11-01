@@ -4,7 +4,7 @@
     <h3>Add Key</h3>
   </div>
   <div class="modal-body">
-    <form id="addKeyForm" action="apiv1/key/" method="POST" class="form-vertical">
+    <form id="addKeyForm" action="apiv2/key/" method="POST" class="form-vertical">
       <div class="control-group">
         <label class="control-label" for="keyValue">Key</label>
         <div class="controls">
@@ -19,18 +19,24 @@
             <option value="list">List</option>
             <option value="set">Set</option>
             <option value="zset">Sorted Set</option>
+            <option value="hash">Hash</option>
           </select>
-          <span id="scoreWrap"><label class="control-label" for="keyScore">Score</label>
-          <input id="keyScore" name="keyScore" class="input-mini" type="text"/>
-          </span>
         </div>
       </div>
+      <span id="scoreWrap" class="control-group">
+        <label class="control-label" for="keyScore">Score</label>
+        <input id="keyScore" name="keyScore" class="input-mini" type="text"/>
+      </span>
+      <span id="fieldWrap" class="control-group">
+        <label class="control-label" for="newFieldName">Field</label>
+        <input id="newFieldName" name="fieldName" class="modal-content-width" type="text"/>
+      </span>
       <div class="control-group" style="display:inline;">
         <div class="controls">
         </div>
       </div>
-      <label class="control-label" for="stringValue">Value</label>
-      <textarea id="stringValue" name="stringValue" class="modal-content-width" style="height: 200px;"></textarea>
+      <label class="control-label" for="newStringValue">Value</label>
+      <textarea id="newStringValue" name="stringValue" class="modal-content-width" style="height: 200px;"></textarea>
       <label class="checkbox"><input type="checkbox" id="addKeyIsJson" name="isJson">Validate as JSON</label>
     </form>
   </div>
@@ -41,6 +47,6 @@
 </div>
 <script>
   $('#addKeyModal').on('hidden', function() {
-      removeInputValidator('stringValue');
+      removeInputValidator('newStringValue');
   })
 </script>
