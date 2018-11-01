@@ -4,12 +4,12 @@
     <h3>Add Member</h3>
   </div>
   <div class="modal-body">
-    <form id="addSetMemberForm" action="apiv1/setmember/" method="POST" class="form-vertical label-big">
-      <input id="addSetKey" name="setKey" type="hidden"/>
+    <form id="addSetMemberForm" action="apiv2/set/member/add" method="POST" class="form-vertical label-big">
+      <input id="addSetKey" name="key" type="hidden"/>
       <label class="control-label lead" for="addSetMemberName">Member</label>
-      <textarea id="addSetMemberName" name="setMemberName" class="modal-content-width" style="height: 250px;"></textarea>
+      <textarea id="addSetMemberName" name="value" class="modal-content-width" style="height: 250px;"></textarea>
       <label class="checkbox"><input type="checkbox" id="addSetMemberIsJson" name="isJson">Validate as JSON</label>
-      <input id="addSetConnectionId" name="setConnectionId" type="hidden"/>
+      <input id="addSetConnectionId" name="connectionId" type="hidden"/>
     </form>
   </div>
   <div class="modal-footer">
