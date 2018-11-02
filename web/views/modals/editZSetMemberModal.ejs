@@ -1,25 +1,25 @@
-<div id="editZSetRowModal" class="modal hide fade">
+<div id="editZSetMemberModal" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Edit Row</h3>
+    <h3>Edit Set Member</h3>
   </div>
   <div class="modal-body">
-    <form id="editZSetRowForm" action="apiv1/editZSetRow/" method="POST" class="form-vertical">
+    <form id="editZSetMemberForm" action="apiv2/zset/member/edit" method="POST" class="form-vertical">
       <label class="control-label" for="zSetKey">Key</label>
-      <input id="zSetKey" name="zSetKey" type="text" class="modal-content-width" readonly/>
+      <input id="zSetKey" name="key" type="text" class="modal-content-width" readonly/>
       <label class="control-label" for="zSetScore">Score</label>
-      <input id="zSetScore" name="zSetScore" type="text"/>
+      <input id="zSetScore" name="score" type="text"/>
       <label class="control-label" for="zSetValue">Value</label>
-      <textarea id="zSetValue" name="zSetValue" class="modal-content-width" style="height: 150px;"></textarea>
+      <textarea id="zSetValue" name="value" class="modal-content-width" style="height: 150px;"></textarea>
       <label class="checkbox"><input type="checkbox" id="zSetValueIsJson" name="isJson">Validate as JSON</label>
-      <input id="zSetOldValue" name="zSetOldValue" type="hidden"/>
-      <input id="zSetConnectionId" name="zSetConnectionId" type="hidden"/>
+      <input id="zSetOldValue" name="oldValue" type="hidden"/>
+      <input id="zSetConnectionId" name="connectionId" type="hidden"/>
     </form>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal">Close</button>
     <button id="removeZSetValueButton" class="btn btn-danger" data-loading-text="<i class='icon-refresh'></i> Removing..." onclick="removeZSetElement()">Remove Element</button>
-    <button id="editZSetValueButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editZSetRowForm').submit()">Save</button>
+    <button id="editZSetValueButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editZSetMemberForm').submit()">Save</button>
   </div>
 </div>
 <script>
@@ -27,7 +27,7 @@
     if (element.target.checked) addInputValidator('zSetValue', 'json');
     else removeInputValidator('zSetValue');
   });
-  $('#editZSetRowModal').on('hidden', function() {
+  $('#editZSetMemberModal').on('hidden', function() {
     removeInputValidator('zSetValue');
   })
 </script>

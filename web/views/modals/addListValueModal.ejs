@@ -4,7 +4,7 @@
     <h3>Add Value</h3>
   </div>
   <div class="modal-body">
-    <form id="addListValueForm" action="apiv1/listvalue/" method="POST" class="form-vertical label-big">
+    <form id="addListValueForm" action="apiv2/list/value/add" method="POST" class="form-vertical label-big">
       <input id="key" name="key" type="hidden"/>
       <label class="radio inline">
         <input id="typeLpush" type="radio" name="type" value="lpush" checked="checked"/>
@@ -16,9 +16,9 @@
       </label>
       <br/>
       <label class="control-label lead" for="addListValue">Value</label>
-      <textarea id="addListValue" name="stringValue" class="modal-content-width" style="height: 250px;"></textarea>
+      <textarea id="addListValue" name="value" class="modal-content-width" style="height: 250px;"></textarea>
       <label class="checkbox"><input type="checkbox" id="addListValueIsJson" name="isJson">Validate as JSON</label>
-      <input id="addListConnectionId" name="listConnectionId" type="hidden"/>
+      <input id="addListConnectionId" name="connectionId" type="hidden"/>
     </form>
   </div>
   <div class="modal-footer">

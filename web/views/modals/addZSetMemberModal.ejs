@@ -1,0 +1,30 @@
+<div id="addZSetMemberModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Add Member</h3>
+  </div>
+  <div class="modal-body">
+    <form id="addZSetMemberForm" action="apiv2/zset/member/add" method="POST" class="form-vertical">
+      <input id="addZSetKey" name="key" type="hidden"/>
+      <label class="control-label" for="addZSetScore">Score</label>
+      <input id="addZSetScore" name="score" type="text"/>
+      <label class="control-label" for="addSetMemberName">Value</label>
+      <textarea id="addZSetMemberName" name="value" class="modal-content-width" style="height: 250px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="addZSetMemberIsJson" name="isJson">Validate as JSON</label>
+      <input id="addZSetConnectionId" name="connectionId" type="hidden"/>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <button id="saveZMemberButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#addZSetMemberForm').submit()">Save</button>
+  </div>
+</div>
+<script>
+  $('#addZSetMemberIsJson').on('change', function(element) {
+      if (element.target.checked) addInputValidator('addZSetMemberName', 'json');
+      else removeInputValidator('addZSetMemberName');
+  });
+  $('#addZSetMemberModal').on('hidden', function() {
+      removeInputValidator('addZSetMemberName');
+  })
+</script>

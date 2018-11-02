@@ -245,9 +245,12 @@ body {
   padding-left: 20px;
 }
 
-#scoreWrap {
+#scoreWrap, #fieldWrap {
   display: none;
-  margin-left: 10px;
+}
+
+#scoreWrap > input, #fieldWrap > input {
+  margin-bottom: 10px;
 }
 
 #vakata-contextmenu {
