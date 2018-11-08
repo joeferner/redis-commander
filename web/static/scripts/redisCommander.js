@@ -565,7 +565,7 @@ function addKey (connectionId, key) {
     // context menu click
     var node = getKeyTree().get_node(connectionId.reference[0]);
     key = getFullKeyPath(node);
-    if (key.length > 0) {
+    if (key.length > 0 && !key.endsWith(foldingCharacter)) {
       key = key + foldingCharacter;
     }
     connectionId = getRootConnection(node);
@@ -638,7 +638,7 @@ function encodeString (connectionId, key) {
 }
 
 function deleteBranch (connectionId, branchPrefix) {
-  var query = branchPrefix + foldingCharacter + '*';
+  var query = (branchPrefix.endsWith(foldingCharacter) ? branchPrefix : branchPrefix + foldingCharacter) + '*';
   var result = confirm('Are you sure you want to delete "' + query + ' from ' + connectionId + '"? This will delete all children as well!');
   if (result) {
     $.post('apiv2/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
