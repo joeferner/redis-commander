@@ -22,7 +22,7 @@
   "main": "lib/app.js",
   "dependencies": {
     "anymatch": "2.0.0",
-    "async": "0.1.22",
+    "async": "2.6.1",
     "bcryptjs": "2.4.3",
     "body-parser": "1.18.2",
     "browserify-middleware": "8.1.1",
