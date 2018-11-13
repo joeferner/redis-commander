@@ -15,18 +15,17 @@ function loadTree () {
         var json_dataData = [];
 
         data.forEach(function (instance, index) {
-          var label = instance.label;
-          var host = instance.host;
-          var port = instance.port;
-          var db = instance.db;
-          json_dataData.push({
-            id: host + ":" + port + ":" + db,
-            text: label + " (" + host + ":" + port + ":" + db + ")",
+          // build root objects for jsontree
+          var treeObj = {
+            id: instance.host + ":" + instance.port + ":" + instance.db,
+            text: instance.label + " (" + instance.host + ":" + instance.port + ":" + instance.db + ")",
             state: { opened: false },
             icon: getIconForType('root'),
             children: true,
             rel: "root"
-          });
+          };
+          json_dataData.push(treeObj);
+
           if (index === data.length - 1) {
             return onJSONDataComplete();
           }
@@ -144,9 +143,15 @@ function treeNodeSelected (event, data) {
       }
       data = JSON.parse(data);
       data.forEach(function (instance) {
-        if (instance.host == hostAndPort[0] && instance.port == hostAndPort[1]) {
+        if (instance.host == hostAndPort[0] && instance.port == hostAndPort[1] && instance.db == hostAndPort[2]) {
           instance.connectionId = connectionId;
-          var html = new EJS({ url: 'templates/serverInfo.ejs' }).render(instance);
+          var html = "";
+          if (!instance.disabled) {
+            html = new EJS({ url: 'templates/serverInfo.ejs' }).render(instance);
+          }
+          else {
+              html = '<div>ERROR: ' + (instance.error ? instance.error : 'Server not available - cannot query status informations.') + '</div>'
+          }
           $('#body').html(html);
           return setupAddKeyButton();
         }
