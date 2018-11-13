@@ -250,17 +250,19 @@ myUtils.getConfig(function (err, config) {
 function startDefaultConnections (connections, callback) {
   if (connections) {
     connections.forEach(function (connection) {
-      let client = new Redis({
-        port: connection.port,
-        host: connection.host,
-        family: 4,
-        password: connection.password,
-        db: connection.dbIndex,
-        connectionName: "redis-commander"
-      });
-      client.label = connection.label;
-      redisConnections.push(client);
-      setUpConnection(client, connection.dbIndex);
+      if (!myUtils.containsConnection(redisConnections.map(function(c) {return c.options}), connection)) {
+        let client = new Redis({
+          port: connection.port,
+          host: connection.host,
+          family: 4,
+          password: connection.password,
+          db: connection.dbIndex,
+          connectionName: "redis-commander"
+        });
+        client.label = connection.label;
+        redisConnections.push(client);
+        setUpConnection(client, connection.dbIndex);
+      }
     });
   }
   return callback(null);
