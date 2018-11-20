@@ -121,10 +121,23 @@ function loadTree () {
               },
               plugins: [ "themes", "contextmenu" ]
           })
-            .bind("select_node.jstree", treeNodeSelected)
-            .delegate("a", "click", function (event, data) {
-              event.preventDefault();
-            });
+          .bind("select_node.jstree", treeNodeSelected)
+          .delegate("a", "click", function (event, data) {
+            event.preventDefault();
+          })
+          .on('keyup', function (e) {
+              var key = e.which;
+              // delete
+              if (key === 46) {
+                  var node = getKeyTree().get_selected(true)[0];
+                  // do not allow deletion of entire server, only keys within
+                  if (node.parent !== '#') {
+                    var connId = node.parents[node.parents.length-2];
+                    deleteKey(connId, getFullKeyPath(node));
+                  }
+              }
+          });
+
         }
       });
     }
