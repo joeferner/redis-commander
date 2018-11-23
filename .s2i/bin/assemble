@@ -1,0 +1,14 @@
+#!/bin/bash -e
+# The assemble script builds the application artifacts from a source and 
+# places them into appropriate directories inside the image.
+
+
+# Add a start script to package.json - relies on existence of environment variables
+echo 'Adding start script to package.json using REDIS_HOST, REDIS_PORT, and REDIS_PASSWORD env vars...'
+sed -i 's?"preferGlobal?"scripts": {"start": "node ./bin/redis-commander --redis-port ${REDIS_PORT} --redis-host ${REDIS_HOST} --redis-password ${REDIS_PASSWORD} --port 8080"},\n  "preferGlobal?' /tmp/src/package.json
+
+# Execute the default S2I script
+source ${STI_SCRIPTS_PATH}/assemble
+
+# You can write S2I scripts in any programming language, as long as the 
+# scripts are executable inside the builder image.
