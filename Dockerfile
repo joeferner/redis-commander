@@ -16,13 +16,16 @@ ENV NODE_ENV=production
 COPY . .
 COPY docker/redis-commander.json .redis_commander
 
+# for Openshift compatibility set project dir itself group root and make it group writeable
 RUN  apk update \
   && apk upgrade \
   && apk add --no-cache ca-certificates dumb-init \
   && apk add --no-cache --virtual .patch-dep patch \
   && update-ca-certificates \
   && adduser ${SERVICE_USER} -h ${HOME} -S \
-  && chown -R ${SERVICE_USER} ${HOME} \
+  && chown -R root.root ${HOME} \
+  && chmod g+w ${HOME} \
+  && chown ${SERVICE_USER} ${HOME} \
   && npm install --production -s \
   && patch -p0 < docker/redis-dump.diff \
   && apk del .patch-dep \
