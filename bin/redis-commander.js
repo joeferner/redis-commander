@@ -118,6 +118,12 @@ let args = optimist
     default: false,
     describe: 'Do not log data values from redis store.'
   })
+  .options('open', {
+    // open local web-browser to connect to web ui on startup of server daemon too
+    boolean: true,
+    default: false,
+    describe: 'Open web-browser with Redis-Commander.'
+})
   .options('folding-char', {
     alias: 'fc',
     boolean: false,
@@ -246,6 +252,16 @@ myUtils.getConfig(function (err, config) {
   });
   return startWebApp();
 });
+
+
+if(args['open']) {
+  let address = '127.0.0.1';
+  if (args['address'] !== '0.0.0.0' && args['address'] !== '::') {
+    address = args['address'];
+  }
+  require('opener')('http://' + address + ':' + args['port']);
+}
+
 
 function startDefaultConnections (connections, callback) {
   if (connections) {
