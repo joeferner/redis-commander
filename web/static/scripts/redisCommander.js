@@ -1348,6 +1348,22 @@ function setupCLIKeyEvents () {
   }
 }
 
+function toggleRedisModal() {
+  var redisModal = $('#redisCommandsModal');
+  // change 'modal' to 'bs.modal' for bootstrap >=3, isShown to _isShown for bootstrap 4
+  if ((redisModal.data('modal') || {}).isShown) {
+      redisModal.modal('hide');
+  }
+  else {
+      var redisIframe = redisModal.find('#redisCommandsModalSrc');
+      if (!redisIframe.attr('src')) {
+          redisIframe.attr('src', 'https://redis.io/commands');
+          redisModal.find('#redisCommandsExternal').attr('href', 'https://redis.io/commands');
+      }
+      redisModal.modal('show');
+  }
+}
+
 $(function() {
   function refreshQueryToken() {
     $.post('signin', {}, function (data, status) {

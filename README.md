@@ -35,6 +35,7 @@ Options:
   --clear-config, --cc                 clear configuration file.                [boolean] [default: false]
   --scan-count, --sc                   The size of each seperate scan.          [integer] [default: 100]
   --no-log-data                        Do not log data values from redis store. [boolean] [default: false]
+  --open                               Open web-browser with Redis-Commander.   [boolean] [default: false]
   --folding-char, --fc                 Character to fold keys at in tree view.  [character] [default: ":"]
 ```
 
