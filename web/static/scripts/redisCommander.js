@@ -601,6 +601,12 @@ function deleteKey (connectionId, key) {
       key = getFullKeyPath(node);
       connectionId = getRootConnection(node);
   }
+  // context menu or DEL key pressed on folder item
+  if (key.endsWith(foldingCharacter)) {
+    deleteBranch(connectionId, key);
+    return;
+  }
+  // delete this specific key only, no wildcard here
   var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
   if (result) {
     $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
