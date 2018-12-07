@@ -169,7 +169,7 @@
         console.error("Failed to fetch connections");
         return;
       }
-      $('#connectionsBar').html(new EJS({ url: 'templates/connectionsBar.ejs' }).render(data));
+      renderEjs('templates/connectionsBar.ejs', data, $('#connectionsBar'));
 
       var firstConnection = $('#firstConnection').val();
       $('#selectedConnectionLabel').text("Current Instance: " + firstConnection);
