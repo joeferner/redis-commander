@@ -1,6 +1,7 @@
 'use strict';
 
 var CmdParser = require('cmdparser');
+
 function loadTree () {
   $.get('apiv2/connection', function (isConnected) {
     if (isConnected) {
@@ -158,15 +159,15 @@ function treeNodeSelected (event, data) {
       data.forEach(function (instance) {
         if (instance.host == hostAndPort[0] && instance.port == hostAndPort[1] && instance.db == hostAndPort[2]) {
           instance.connectionId = connectionId;
-          var html = "";
           if (!instance.disabled) {
-            html = new EJS({ url: 'templates/serverInfo.ejs' }).render(instance);
+            renderEjs('templates/serverInfo.ejs', instance, $('#body'), setupAddKeyButton);
           }
           else {
-              html = '<div>ERROR: ' + (instance.error ? instance.error : 'Server not available - cannot query status informations.') + '</div>'
+            var html = '<div>ERROR: ' + (instance.error ? instance.error : 'Server not available - cannot query status informations.') + '</div>'
+            $('#body').html(html);
+            setupAddKeyButton();
           }
-          $('#body').html(html);
-          return setupAddKeyButton();
+          return;
         }
       });
     });
@@ -227,15 +228,14 @@ function loadKey (connectionId, key, index) {
       default:
         var html = JSON.stringify(data);
         $('#body').html(html);
+        resizeApp();
         break;
     }
-    resizeApp();
   }
 }
 
 function selectTreeNodeBranch (data) {
-  var html = new EJS({ url: 'templates/editBranch.ejs' }).render(data);
-  $('#body').html(html);
+  renderEjs('templates/editBranch.ejs', data, $('#body'));
 }
 
 function setupEditListButton () {
@@ -399,120 +399,59 @@ function setupEditHashButton () {
 }
 
 function selectTreeNodeString (data) {
-  var html = new EJS({ url: 'templates/editString.ejs' }).render(data);
-  var isJsonParsed = false;
-  $('#body').html(html);
+  renderEjs('templates/editString.ejs', data, $('#body'), function() {
+    var isJsonParsed = false;
+    try {
+      JSON.parse(data.value);
+      isJsonParsed = true;
+    } catch (ex) {
+      $('#isJson').prop('checked', false);
+    }
 
-  try {
-    JSON.parse(data.value);
-    isJsonParsed = true;
-  } catch (ex) {
-    $('#isJson').prop('checked', false);
-  }
-
-  $('#stringValue').val(data.value);
-  // a this is json now assume it shall be json if it is object or array, but not for numbers
-  if (isJsonParsed && data.value.match(/^\s*[\{\[]/)) {
+    $('#stringValue').val(data.value);
+    // a this is json now assume it shall be json if it is object or array, but not for numbers
+    if (isJsonParsed && data.value.match(/^\s*[\{\[]/)) {
       $('#isJson').click();
-  }
+    }
 
-  try {
-    $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
-  } catch (err) {
-    $('#jqtree_string_div').text('Text is no valid JSON: ' + err.message);
-  }
+    try {
+      $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
+    } catch (err) {
+      $('#jqtree_string_div').text('Text is no valid JSON: ' + err.message);
+    }
 
-  $('#editStringForm').ajaxForm({
-    beforeSubmit: function () {
-      console.log('saving');
-      $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      refreshTree();
-      getKeyTree().select_node(0);
-      console.log('saved', arguments);
-      saveComplete();
+    $('#editStringForm').ajaxForm({
+      beforeSubmit: function () {
+        console.log('saving');
+        $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
+      },
+      error: function (err) {
+        console.log('save error', arguments);
+        alert("Could not save '" + err.statusText + "'");
+        saveComplete();
+      },
+      success: function () {
+        refreshTree();
+        getKeyTree().select_node(0);
+        console.log('saved', arguments);
+        saveComplete();
+      }
+    });
+
+    function saveComplete () {
+      setTimeout(function () {
+        $('#saveKeyButton').removeAttr("disabled").html("Save");
+      }, 500);
     }
   });
-
-  function saveComplete () {
-    setTimeout(function () {
-      $('#saveKeyButton').removeAttr("disabled").html("Save");
-    }, 500);
-  }
 }
 
 function selectTreeNodeHash (data) {
-  var html = new EJS({ url: 'templates/editHash.ejs' }).render(data);
-  $('#body').html(html);
-
-  $('#addHashFieldForm').ajaxForm({
-    beforeSubmit: function () {
-      console.log('saving');
-      $('#saveHashFieldButton').button('loading');
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
-  });
-  function saveComplete () {
-    setTimeout(function () {
-      refreshTree();
-      getKeyTree().select_node(0);
-      $('#saveHashFieldButton').button('reset');
-      $('#addHashFieldModal').modal('hide');
-    }, 500);
-  }
-}
-
-function selectTreeNodeSet (data) {
-  var html = new EJS({ url: 'templates/editSet.ejs' }).render(data);
-  $('#body').html(html);
-
-  $('#addSetMemberForm').ajaxForm({
-    beforeSubmit: function () {
-      console.log('saving');
-      $('#saveMemberButton').button('loading');
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
-  });
-  function saveComplete () {
-    setTimeout(function () {
-      refreshTree();
-      getKeyTree().select_node(0);
-      $('#saveMemberButton').button('reset');
-      $('#addSetMemberModal').modal('hide');
-    }, 500);
-  }
-}
-
-function selectTreeNodeList (data) {
-  if (data.items.length > 0) {
-    var html = new EJS({ url: 'templates/editList.ejs' }).render(data);
-    $('#body').html(html);
-    $('#addListValueForm').ajaxForm({
+  renderEjs('templates/editHash.ejs', data, $('#body'), function() {
+    $('#addHashFieldForm').ajaxForm({
       beforeSubmit: function () {
         console.log('saving');
-        $('#saveValueButton').button('loading');
+        $('#saveHashFieldButton').button('loading');
       },
       error: function (err) {
         console.log('save error', arguments);
@@ -524,49 +463,107 @@ function selectTreeNodeList (data) {
         saveComplete();
       }
     });
+    function saveComplete () {
+      setTimeout(function () {
+        refreshTree();
+        getKeyTree().select_node(0);
+        $('#saveHashFieldButton').button('reset');
+        $('#addHashFieldModal').modal('hide');
+      }, 500);
+    }
+  });
+}
+
+function selectTreeNodeSet (data) {
+  renderEjs('templates/editSet.ejs', data, $('#body'), function() {
+    $('#addSetMemberForm').ajaxForm({
+      beforeSubmit: function () {
+        console.log('saving');
+        $('#saveMemberButton').button('loading');
+      },
+      error: function (err) {
+        console.log('save error', arguments);
+        alert("Could not save '" + err.statusText + "'");
+        saveComplete();
+      },
+      success: function () {
+        console.log('saved', arguments);
+        saveComplete();
+      }
+    });
+    function saveComplete () {
+      setTimeout(function () {
+        refreshTree();
+        getKeyTree().select_node(0);
+        $('#saveMemberButton').button('reset');
+        $('#addSetMemberModal').modal('hide');
+      }, 500);
+    }
+  });
+}
+
+function selectTreeNodeList (data) {
+  if (data.items.length > 0) {
+    renderEjs('templates/editList.ejs', data, $('#body'), function() {
+      $('#addListValueForm').ajaxForm({
+        beforeSubmit: function () {
+          console.log('saving');
+          $('#saveValueButton').button('loading');
+        },
+        error: function (err) {
+          console.log('save error', arguments);
+          alert("Could not save '" + err.statusText + "'");
+          saveComplete();
+        },
+        success: function () {
+          console.log('saved', arguments);
+          saveComplete();
+        }
+      });
+
+      function saveComplete () {
+        setTimeout(function () {
+          refreshTree();
+          getKeyTree().select_node(0);
+          $('#saveValueButton').button('reset');
+          $('#addListValueModal').modal('hide');
+        }, 500);
+      }
+    });
   } else {
     alert('Index out of bounds');
-  }
-  function saveComplete () {
-    setTimeout(function () {
-      refreshTree();
-      getKeyTree().select_node(0);
-      $('#saveValueButton').button('reset');
-      $('#addListValueModal').modal('hide');
-    }, 500);
   }
 }
 
 function selectTreeNodeZSet (data) {
   if (data.items.length > 0) {
-    var html = new EJS({ url: 'templates/editZSet.ejs' }).render(data);
-    $('#body').html(html);
+    renderEjs('templates/editZSet.ejs', data, $('#body'), function() {
+      $('#addZSetMemberForm').ajaxForm({
+        beforeSubmit: function () {
+          console.log('saving');
+          $('#saveZMemberButton').button('loading');
+        },
+        error: function (err) {
+          console.log('save error', arguments);
+          alert("Could not save '" + err.statusText + "'");
+          saveComplete();
+        },
+        success: function () {
+          console.log('saved', arguments);
+          saveComplete();
+        }
+      });
+      function saveComplete () {
+        setTimeout(function () {
+          refreshTree();
+          getKeyTree().select_node(0);
+          $('#saveZMemberButton').button('reset');
+          $('#addZSetMemberModal').modal('hide');
+        }, 500);
+      }
+    });
   } else {
     alert('Index out of bounds');
-  }
-
-  $('#addZSetMemberForm').ajaxForm({
-    beforeSubmit: function () {
-      console.log('saving');
-      $('#saveZMemberButton').button('loading');
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
-  });
-  function saveComplete () {
-    setTimeout(function () {
-      refreshTree();
-      getKeyTree().select_node(0);
-      $('#saveZMemberButton').button('reset');
-      $('#addZSetMemberModal').modal('hide');
-    }, 500);
   }
 }
 
@@ -601,6 +598,12 @@ function deleteKey (connectionId, key) {
       key = getFullKeyPath(node);
       connectionId = getRootConnection(node);
   }
+  // context menu or DEL key pressed on folder item
+  if (key.endsWith(foldingCharacter)) {
+    deleteBranch(connectionId, key);
+    return;
+  }
+  // delete this specific key only, no wildcard here
   var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
   if (result) {
     $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
@@ -969,6 +972,31 @@ function escapeHtml (str) {
     .replace(/\n/g, '<br>')
     .replace(/\s/g, '&nbsp;');
 }
+
+/** Fetch the url give at filename from the server and render the content of this
+ *  template with the data object. Afterwards the rendered html is added at the
+ *  html element given.
+ *
+ * @param {string} filename url to retrieve as template
+ * @param {object} data object to use for rendering
+ * @param {object} element jquery html element to attach rendered data to
+ * @param {function} [callback] optional function to call when rendering html is attached to dom
+ */
+function renderEjs(filename, data, element, callback) {
+  $.get(filename)
+    .done(function(htmlTmpl) {
+      element.html(ejs.render(htmlTmpl, data));
+    })
+    .fail(function(error) {
+      console.log('failed to get html template ' + filename + ': ' + JSON.stringify(error));
+      alert('failed to fetch html template ' + filename);
+    })
+    .always(function () {
+      if (typeof callback === 'function') callback();
+      resizeApp();
+    });
+}
+
 
 var cmdparser = new CmdParser([
   "REFRESH",
