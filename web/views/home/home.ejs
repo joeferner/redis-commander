@@ -169,11 +169,11 @@
         console.error("Failed to fetch connections");
         return;
       }
-      renderEjs('templates/connectionsBar.ejs', data, $('#connectionsBar'));
-
-      var firstConnection = $('#firstConnection').val();
-      $('#selectedConnectionLabel').text("Current Instance: " + firstConnection);
-      $('#selectedConnection').val(firstConnection);
+      renderEjs('templates/connectionsBar.ejs', data, $('#connectionsBar'), function() {
+        var firstConnection = $('#firstConnection').val();
+        $('#selectedConnectionLabel').text("Current Instance: " + firstConnection);
+        $('#selectedConnection').val(firstConnection);
+      });
 
       loadTree();
       loadConfig(function () {
