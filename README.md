@@ -104,7 +104,6 @@ services:
     container_name: redis-commander
     hostname: redis-commander
     image: rediscommander/redis-commander:latest
-    build: .
     restart: always
     environment:
     - REDIS_HOSTS=local:redis:6379
