@@ -22,7 +22,8 @@ let args = optimist
   })
   .options('redis-host', {
     string: true,
-    describe: 'The host to find redis on.'
+    describe: 'The host to find redis on.',
+    default: '127.0.0.1'
   })
   .options('sentinel-host', {
     string: true,
