@@ -32,7 +32,8 @@ Options:
   --nosave, --ns                       Do not save new connections to config.   [boolean] [default: true]
   --noload, --nl                       Do not load connections from config.     [boolean] [default: false]
   --use-scan, --sc                     Use scan instead of keys.                [boolean] [default: false]
-  --clear-config, --cc                 clear configuration file.                [boolean] [default: false]
+  --clear-config, --cc                 clear configuration file.
+  --migrate-config                     migrate old configuration file in $HOME to new style.
   --scan-count, --sc                   The size of each seperate scan.          [integer] [default: 100]
   --no-log-data                        Do not log data values from redis store. [boolean] [default: false]
   --open                               Open web-browser with Redis-Commander.   [boolean] [default: false]
@@ -50,7 +51,7 @@ value is used.
 
 For configuration files the `node-config` module (https://github.com/lorenwest/node-config) is used, with default to json syntax.
 
-The order of precedence for all configuration values is (from least to most important):
+The order of precedence for all configuration values (from least to most important) is:
 
 - Configuration files
  
@@ -59,7 +60,7 @@ The order of precedence for all configuration values is (from least to most impo
   `local.json` - optional file, all local overwrites for values inside default.json should be placed here as well
   as a list of redis connections to use at startup
 
-  `local-<NODE_ENV>.json` - Do not modify this file, Redis Commander will overwrite this whenever a
+  `local-<NODE_ENV>.json` - Do not add anything else than connections to this file! Redis Commander will overwrite this whenever a
   connection is added or removed via user interface. Inside docker container this file is used to store
   all connections parsed from REDIS_HOSTS env var. 
   This file overwrites all connections defined inside `local.json`
@@ -67,16 +68,16 @@ The order of precedence for all configuration values is (from least to most impo
   There are some more possible files available to use - please check the node-config Wiki
   for an complete list of all possible file names (https://github.com/lorenwest/node-config/wiki/Configuration-Files) 
 
-- Environment variables - the latest list of env vars possible (except the docker specific ones)
+- Environment variables - the full list of env vars possible (except the docker specific ones)
   can be get from the file `config/custom-environment-variables.json` together with their mapping 
   to the respective configuration key.
 
-- Command line parameters
+- Command line parameters - Overwrites everything
 
 ## Environment Variables
 
 These environment variables can be used starting Redis Commander as normal
-application or inside docker container (defined inside `config/custom-environment-variables.json`):
+application or inside docker container (defined inside file `config/custom-environment-variables.json`):
 
 ```
 HTTP_USER
@@ -97,7 +98,7 @@ REDIS_LABEL
 
 ## Docker
 
-All environment variables listed at "Environment Varaibles" can be used running image
+All environment variables listed at "Environment Variables" can be used running image
 with Docker. The following additional environment variables are available too (defined inside
 docker startup script):
 

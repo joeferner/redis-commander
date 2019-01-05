@@ -64,6 +64,10 @@ let args = optimist
     boolean: false,
     describe: 'clear configuration file.'
   })
+  .options('migrate-config', {
+    boolean: false,
+    describe: 'migrate old configuration file in $HOME to new style.'
+  })
   .options('open', {
     // open local web-browser to connect to web ui on startup of server daemon too
     boolean: true,
@@ -185,6 +189,14 @@ if (args.help) {
 // var to distinguish between commands that exit right after doing some stuff
 // and other to startup http server
 let startServer = true;
+
+
+if(args['migrate-config']) {
+  startServer = false;
+  myUtils.migrateDeprecatedConfig(function() {
+    process.exit();
+  });
+}
 
 
 if(args['clear-config']) {
