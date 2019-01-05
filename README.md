@@ -59,7 +59,7 @@ The order of precedence for all configuration values is (from least to most impo
   `local.json` - optional file, all local overwrites for values inside default.json should be placed here as well
   as a list of redis connections to use at startup
 
-  `local-<hostname>.json` - Do not modify this file, Redis Commander will overwrite this whenever a
+  `local-<NODE_ENV>.json` - Do not modify this file, Redis Commander will overwrite this whenever a
   connection is added or removed via user interface. Inside docker container this file is used to store
   all connections parsed from REDIS_HOSTS env var. 
   This file overwrites all connections defined inside `local.json`

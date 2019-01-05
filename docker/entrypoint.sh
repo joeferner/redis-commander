@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
 
-# autowrite config file containing hostname to let config module automatically pick this up.
+# autowrite config file containing node_env to let config module automatically pick this up.
 # this file is evaluated nearly at the end of all files possible:
 # see https://github.com/lorenwest/node-config/wiki/Configuration-Files
 # this file only contains the connections to load, nothing else
-# to overwrite something else just place additional files beside this one inside config folder
-CONFIG_FILE=${HOME}/config/local-$(hostname).json
+# to overwrite something else just place additional files beside this one inside config folder (e.g. local.json)
+CONFIG_FILE=${HOME}/config/local-${NODE_ENV}.json
 
 # set default instance for node config ("docker") but allow overwriting via docker env vars
 NODE_APP_INSTANCE=${NODE_APP_INSTANCE:-docker}
