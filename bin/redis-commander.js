@@ -85,19 +85,19 @@ let args = optimist
     alias: "http-u",
     string: true,
     describe: 'The http authorisation username.',
-    default: config.get('httpAuth.username')
+    default: config.get('server.httpAuth.username')
   })
   .options('http-auth-password', {
     alias: "http-p",
     string: true,
     describe: 'The http authorisation password.',
-    default: config.get('httpAuth.password')
+    default: config.get('server.httpAuth.password')
   })
   .options('http-auth-password-hash', {
     alias: "http-h",
     string: true,
     describe: 'The http authorisation password hash.',
-    default: config.get('httpAuth.passwordHash')
+    default: config.get('server.httpAuth.passwordHash')
   })
   .options('address', {
     alias: 'a',
@@ -134,7 +134,7 @@ let args = optimist
     alias: 'fc',
     boolean: false,
     describe: 'Character to fold keys at for tree view.',
-    default: config.get('foldingChar')
+    default: config.get('ui.foldingChar')
   })
   .options('root-pattern', {
     alias: 'rp',
@@ -167,7 +167,7 @@ let args = optimist
     // now write back all values into config object to overwrite defaults with cli params
     config.noSave = value['nosave'];
     config.noLogData = (value['log-data']===false);  // due to special negated param
-    config.foldingChar = value['folding-char'];
+    config.ui.foldingChar = value['folding-char'];
     config.redis.useScan = value['use-scan'];
     config.redis.scanCount = value['scan-count'];
     config.redis.rootPattern = value['root-pattern'];
@@ -175,9 +175,9 @@ let args = optimist
     config.server.address = value['address'];
     config.server.port = value['port'];
     config.server.urlPrefix = value['url-prefix'];
-    config.httpAuth.username = value['http-auth-username'];
-    config.httpAuth.password = value['http-auth-password'];
-    config.httpAuth.passwordHash = value['http-auth-password-hash'];
+    config.server.httpAuth.username = value['http-auth-username'];
+    config.server.httpAuth.password = value['http-auth-password'];
+    config.server.httpAuth.passwordHash = value['http-auth-password-hash'];
   })
   .argv;
 

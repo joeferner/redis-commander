@@ -1,22 +1,22 @@
 {
   "noSave": "NOSAVE",
   "noLogData": "NO_LOG_DATA",
-  "foldingChar": "FOLDING_CHAR",
   "redis": {
     "useScan": "USE_SCAN",
     "scanCount": "SCAN_COUNT",
     "rootPattern": "ROOT_PATTERN",
     "connectionName": "REDIS_CONNECTION_NAME",
-    "defaultLabel": "REDIS_LABEL"
+    "defaultLabel": "REDIS_LABEL",
+    "foldingChar": "FOLDING_CHAR"
   },
   "server": {
     "address": "ADDRESS",
     "port": "PORT",
-    "urlPrefix": "URL_PREFIX"
-  },
-  "httpAuth": {
-    "username": "HTTP_USER",
-    "password": "HTTP_PASSWORD",
-    "passwordHash": "HTTP_PASSWORD_HASH"
+    "urlPrefix": "URL_PREFIX",
+    "httpAuth": {
+      "username": "HTTP_USER",
+      "password": "HTTP_PASSWORD",
+      "passwordHash": "HTTP_PASSWORD_HASH"
+    }
   }
 }

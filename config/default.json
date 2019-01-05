@@ -1,12 +1,12 @@
 {
   "noSave": false,
   "noLogData": false,
-  "foldingChar": ":",
   "ui": {
     "sidebarWidth": 250,
     "locked": false,
     "cliHeight": 50,
-    "cliOpen": false
+    "cliOpen": false,
+    "foldingChar": ":"
   },
   "redis": {
     "useScan": false,
@@ -18,15 +18,14 @@
   "server": {
     "address": "0.0.0.0",
     "port": 8081,
-    "urlPrefix": ""
-  },
-  "httpAuth": {
-    "username": "",
-    "password": "",
-    "passwordHash": "",
-    "comment": "to enable http auth set username and either password or passwordHash",
-    "jwtSecret": ""
+    "urlPrefix": "",
+    "httpAuth": {
+      "username": "",
+      "password": "",
+      "passwordHash": "",
+      "comment": "to enable http auth set username and either password or passwordHash",
+      "jwtSecret": ""
+    }
   },
   "connections": []
-
 }
