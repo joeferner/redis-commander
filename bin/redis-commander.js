@@ -357,8 +357,9 @@ function startAllConnections() {
       redisConnections.push(client);
       setUpConnection(client, db);
     }
+
+    return startWebApp();
   });
-  return startWebApp();
 }
 
 

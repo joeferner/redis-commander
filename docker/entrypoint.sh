@@ -21,7 +21,7 @@ GRACE_PERIOD=6
 
 
 writeDefaultConfigBeginning() {
-    echo 'Creating custom redis-commander config "${CONFIG_FILE}".'
+    echo "Creating custom redis-commander config '${CONFIG_FILE}'."
 
     # =============== generate beginning of redis-commander config =============== #
     cat > ${CONFIG_FILE} <<EOF
@@ -133,9 +133,6 @@ if [[ ! -e ${CONFIG_FILE} ]]; then
     writeDefaultConfigBeginning
     writeDefaultConfigEnd
 fi
-
-echo 'Custom Configuration File:'
-cat ${CONFIG_FILE}
 
 # load HTTP password from a file (e.g. a Docker secret mounted in the container)
 HTTP_PASSWORD_FILE=${HTTP_PASSWORD_FILE:-/}

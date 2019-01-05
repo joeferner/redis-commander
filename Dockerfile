@@ -15,7 +15,7 @@ ENV NODE_ENV=production
 # to create less layers
 COPY . .
 
-# for Openshift compatibility set project dir itself group root and make it group writeable
+# for Openshift compatibility set project config dir itself group root and make it group writeable
 RUN  apk update \
   && apk upgrade \
   && apk add --no-cache ca-certificates dumb-init \
@@ -23,8 +23,8 @@ RUN  apk update \
   && update-ca-certificates \
   && adduser ${SERVICE_USER} -h ${HOME} -S \
   && chown -R root.root ${HOME} \
-  && chmod g+w ${HOME} \
-  && chown ${SERVICE_USER} ${HOME} \
+  && chmod g+w ${HOME}/config \
+  && chown ${SERVICE_USER} ${HOME}/config \
   && npm install --production -s \
   && patch -p0 < docker/redis-dump.diff \
   && apk del .patch-dep \
