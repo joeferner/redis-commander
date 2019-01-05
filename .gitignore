@@ -2,3 +2,4 @@
 /node_modules
 *.rdb
 *.iml
+/config/local-*.json

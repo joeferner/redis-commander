@@ -42,9 +42,64 @@ Options:
 The connection can be established either via direct connection to redis server or indirect 
 via a sentinel instance.
 
+## Configuration
+
+Redis Commander can be configured by configuration files, environment variables or using command line 
+parameters. The different types of config values overwrite each other, only the last (most important)
+value is used.
+
+For configuration files the `node-config` module (https://github.com/lorenwest/node-config) is used, with default to json syntax.
+
+The order of precedence for all configuration values is (from least to most important):
+
+- Configuration files
+ 
+  `default.json` - this file contains all default values and SHOULD NOT be changed
+
+  `local.json` - optional file, all local overwrites for values inside default.json should be placed here as well
+  as a list of redis connections to use at startup
+
+  `local-<hostname>.json` - Do not modify this file, Redis Commander will overwrite this whenever a
+  connection is added or removed via user interface. Inside docker container this file is used to store
+  all connections parsed from REDIS_HOSTS env var. 
+  This file overwrites all connections defined inside `local.json`
+  
+  There are some more possible files available to use - please check the node-config Wiki
+  for an complete list of all possible file names (https://github.com/lorenwest/node-config/wiki/Configuration-Files) 
+
+- Environment variables - the latest list of env vars possible (except the docker specific ones)
+  can be get from the file `config/custom-environment-variables.json` together with their mapping 
+  to the respective configuration key.
+
+- Command line parameters
+
+## Environment Variables
+
+These environment variables can be used starting Redis Commander as normal
+application or inside docker container (defined inside `config/custom-environment-variables.json`):
+
+```
+HTTP_USER
+HTTP_PASSWORD
+HTTP_PASSWORD_HASH
+ADDRESS
+PORT
+URL_PREFIX
+ROOT_PATTERN
+NOSAVE
+NO_LOG_DATA
+FOLDING_CHAR
+USE_SCAN
+SCAN_COUNT
+REDIS_CONNECTION_NAME
+REDIS_LABEL
+```
+
 ## Docker
 
-Available environment variables:
+All environment variables listed at "Environment Varaibles" can be used running image
+with Docker. The following additional environment variables are available too (defined inside
+docker startup script):
 
 ```
 REDIS_PORT
@@ -55,17 +110,7 @@ REDIS_DB
 REDIS_HOSTS
 SENTINEL_PORT
 SENTINEL_HOST
-HTTP_USER
-HTTP_PASSWORD
-HTTP_PASSWORD_HASH
-PORT
-ADDRESS
-ROOT_PATTERN
-URL_PREFIX
-NO_LOG_DATA
-FOLDING_CHAR
 K8S_SIGTERM
-USE_SCAN
 ```
 
 The K8S_SIGTERM variable (default "0") can be set to "1" to work around kubernetes specificas
@@ -78,7 +123,9 @@ After running the container, `redis-commander` will be available at [localhost:8
 
 ### Valid host strings
 
-Form should follow one of these templates:
+the REDIS_HOSTS environment variable is a comma separated list of host definitions,
+where each host should follow one of these templates: 
+
 
 `hostname`
 

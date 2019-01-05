@@ -14,7 +14,6 @@ ENV NODE_ENV=production
 # only single copy command for most parts as other files are ignored via .dockerignore
 # to create less layers
 COPY . .
-COPY docker/redis-commander.json .redis_commander
 
 # for Openshift compatibility set project dir itself group root and make it group writeable
 RUN  apk update \

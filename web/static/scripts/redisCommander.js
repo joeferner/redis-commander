@@ -12,25 +12,27 @@ function loadTree () {
           tree.open_node(root, null, true);
         }
       });
-      getServerInfo(function (data) {
+      //getServerInfo(function (data) {
+      $.get('connections', function (data) {
         var json_dataData = [];
 
-        data.forEach(function (instance, index) {
-          // build root objects for jsontree
-          var treeObj = {
-            id: instance.host + ":" + instance.port + ":" + instance.db,
-            text: instance.label + " (" + instance.host + ":" + instance.port + ":" + instance.db + ")",
-            state: { opened: false },
-            icon: getIconForType('root'),
-            children: true,
-            rel: "root"
-          };
-          json_dataData.push(treeObj);
+        if (data.connections) {
+          data.connections.every(function (instance) {
+            // build root objects for jsontree
+            var treeObj = {
+              id: instance.options.host + ":" + instance.options.port + ":" + instance.options.db,
+              text: instance.label + " (" + instance.options.host + ":" + instance.options.port + ":" + instance.options.db + ")",
+              state: {opened: false},
+              icon: getIconForType('root'),
+              children: true,
+              rel: "root"
+            };
+            json_dataData.push(treeObj);
+            return true;
+         });
+        }
+        return onJSONDataComplete();
 
-          if (index === data.length - 1) {
-            return onJSONDataComplete();
-          }
-        });
         function getJsonTreeData(node, cb) {
           if (node.id === '#') return cb(json_dataData);
 
@@ -156,7 +158,7 @@ function treeNodeSelected (event, data) {
         return alert("Could not load server info");
       }
       data = JSON.parse(data);
-      data.forEach(function (instance) {
+      data.some(function (instance) {
         if (instance.host == hostAndPort[0] && instance.port == hostAndPort[1] && instance.db == hostAndPort[2]) {
           instance.connectionId = connectionId;
           if (!instance.disabled) {
@@ -167,8 +169,9 @@ function treeNodeSelected (event, data) {
             $('#body').html(html);
             setupAddKeyButton();
           }
-          return;
+          return true;
         }
+        return false;
       });
     });
   } else {
@@ -787,7 +790,8 @@ function removeHashField () {
 }
 
 var commandLineScrollTop;
-var CLIOpen = false;
+var cliOpen = false;
+
 function hideCommandLineOutput () {
   var output = $('#commandLineOutput');
   if (output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
@@ -795,7 +799,7 @@ function hideCommandLineOutput () {
       resizeApp();
       configChange();
     });
-    CLIOpen = false;
+    cliOpen = false;
     commandLineScrollTop = output.scrollTop() + 20;
     $('#commandLineBorder').removeClass('show-vertical-scroll');
   }
@@ -809,7 +813,7 @@ function showCommandLineOutput () {
       resizeApp();
       configChange();
     });
-    CLIOpen = true;
+    cliOpen = true;
     $('#commandLineBorder').addClass('show-vertical-scroll');
   }
 }
@@ -1162,8 +1166,8 @@ var cmdparser = new CmdParser([
 var configTimer;
 var prevSidebarWidth;
 var prevLocked;
-var prevCLIWidth;
-var prevCLIOpen;
+var prevCliHeight;
+var prevCliOpen;
 var configLoaded = false;
 
 function getServerInfo (callback) {
@@ -1206,49 +1210,25 @@ function configChange () {
   if (!configLoaded) {
     var sidebarWidth = $('#sideBar').width();
     var locked = !$('#lockCommandButton').hasClass('disabled');
-    var CLIWidth = $('#commandLineContainer').height();
+    var cliHeight = $('#commandLineContainer').height();
 
     if (typeof(prevSidebarWidth) !== 'undefined' &&
-      (sidebarWidth != prevSidebarWidth ||
-        locked != prevLocked ||
-        CLIWidth != prevCLIWidth ||
-        CLIOpen != prevCLIOpen)) {
+      (sidebarWidth != prevSidebarWidth || locked != prevLocked ||
+       cliHeight != prevCliHeight || cliOpen != prevCliOpen)) {
       clearTimeout(configTimer);
       configTimer = setTimeout(saveConfig, 2000);
     }
     prevSidebarWidth = sidebarWidth;
     prevLocked = locked;
-    prevCLIWidth = CLIWidth;
-    prevCLIOpen = CLIOpen;
+    prevCliHeight = cliHeight;
+    prevCliOpen = cliOpen;
   } else {
     configLoaded = false;
   }
 }
 
 function saveConfig () {
-  var sidebarWidth = $('#sideBar').width();
-  var locked = !$('#lockCommandButton').hasClass('disabled');
-  var CLIHeight = $('#commandLineContainer').height();
-  $.get('config', function (config) {
-    if (config) {
-      config["sidebarWidth"] = sidebarWidth;
-      config["locked"] = locked;
-      config["CLIHeight"] = CLIHeight;
-      config["CLIOpen"] = CLIOpen;
-      $.post('config', config, function (data, status) {
-      });
-    } else {
-      config = {
-        "sidebarWidth": sidebarWidth,
-        "locked": locked,
-        "CLIHeight": CLIHeight,
-        "CLIOpen": CLIOpen,
-        "default_connections": []
-      };
-      $.post('config', config, function (data, status) {
-      });
-    }
-  });
+  // deprecated - not used anymore
 }
 
 function loadConfig (callback) {
@@ -1257,13 +1237,13 @@ function loadConfig (callback) {
       if (data['sidebarWidth']) {
         $('#sideBar').width(data['sidebarWidth']);
       }
-      if (data['CLIOpen'] == "true") {
+      if (data['cliOpen'] == "true") {
         $('#commandLineOutput').slideDown(0, function () {
-          if (data['CLIHeight']) {
-            $('#commandLineOutput').height(data['CLIHeight']);
+          if (data['cliHeight']) {
+            $('#commandLineOutput').height(data['cliHeight']);
           }
         });
-        CLIOpen = true;
+        cliOpen = true;
       }
       if (data['locked'] == "true") {
         $('#lockCommandButton').removeClass('disabled');
