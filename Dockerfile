@@ -24,7 +24,8 @@ RUN  apk update \
   && adduser ${SERVICE_USER} -h ${HOME} -S \
   && chown -R root.root ${HOME} \
   && chmod g+w ${HOME}/config \
-  && chown ${SERVICE_USER} ${HOME}/config \
+  && chown -R ${SERVICE_USER} ${HOME}/config \
+  && chmod ug+r ${HOME}/config/*.json \
   && npm install --production -s \
   && patch -p0 < docker/redis-dump.diff \
   && apk del .patch-dep \
