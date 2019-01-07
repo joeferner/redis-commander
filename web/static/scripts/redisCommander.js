@@ -326,10 +326,6 @@ function setupAddKeyButton (connectionId) {
   $('#newStringValue').val('');
   $('#newFieldName').val('');
   $('#keyScore').val('');
-  $('#keyValue').keyup(function () {
-    var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent($(this).val());
-    $('#addKeyForm').attr("action", action);
-  });
   $('#keyType').change(function () {
     var score = $('#scoreWrap');
     if ($(this).val() === 'zset') {
@@ -351,7 +347,10 @@ function setupAddKeyButton (connectionId) {
 
   $('#addKeyForm').ajaxForm({
     beforeSubmit: function () {
-      console.log('saving');
+      var newKey = $('#keyValue').val();
+      var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent(newKey);
+      console.log('saving new key ' + newKey);
+      $('#addKeyForm').attr("action", action);
       $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
     },
     error: function (err) {
