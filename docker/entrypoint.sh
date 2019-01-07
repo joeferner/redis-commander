@@ -1,6 +1,14 @@
 #!/usr/bin/env sh
 
-CONFIG_FILE=${HOME}/.redis-commander
+# autowrite config file containing node_env to let config module automatically pick this up.
+# this file is evaluated nearly at the end of all files possible:
+# see https://github.com/lorenwest/node-config/wiki/Configuration-Files
+# this file only contains the connections to load, nothing else
+# to overwrite something else just place additional files beside this one inside config folder (e.g. local.json)
+CONFIG_FILE=${HOME}/config/local-${NODE_ENV}.json
+
+# set default instance for node config ("docker") but allow overwriting via docker env vars
+NODE_APP_INSTANCE=${NODE_APP_INSTANCE:-docker}
 
 # when running in kubernetes we need to wait a bit before exiting on SIGTERM
 # https://github.com/kubernetes/contrib/issues/1140#issuecomment-290836405
@@ -13,16 +21,12 @@ GRACE_PERIOD=6
 
 
 writeDefaultConfigBeginning() {
-    echo 'Creating custom redis-commander config.'
+    echo "Creating custom redis-commander config '${CONFIG_FILE}'."
 
     # =============== generate beginning of redis-commander config =============== #
     cat > ${CONFIG_FILE} <<EOF
     {
-    "sidebarWidth":250,
-    "locked":false,
-    "CLIHeight":50,
-    "CLIOpen":false,
-    "default_connections": [
+    "connections": [
 EOF
     # ============= end generate beginning of redis-commander config ============= #
 }
@@ -31,7 +35,7 @@ EOF
 writeDefaultConfigEnd() {
     # ================== generate end of redis-commander config ================== #
     cat >> ${CONFIG_FILE} <<EOF
-        ]
+      ]
     }
 EOF
     # ================ end generate end of redis-commander config ================ #
@@ -130,18 +134,22 @@ if [[ ! -e ${CONFIG_FILE} ]]; then
     writeDefaultConfigEnd
 fi
 
-echo 'Configuration:'
-cat ${CONFIG_FILE}
-
 # load HTTP password from a file (e.g. a Docker secret mounted in the container)
 HTTP_PASSWORD_FILE=${HTTP_PASSWORD_FILE:-/}
 
 if [ -f $HTTP_PASSWORD_FILE ]; then
     HTTP_PASSWORD=$(cat $HTTP_PASSWORD_FILE)
+    # this env var is evaluated by node-config module, not set as cli param
+    # to not show it in process listing / write to docker logs ...
     export HTTP_PASSWORD="$HTTP_PASSWORD"
 fi
 
 # add other commands as environment variables
+# here only env vars related to redis connections are evaluated
+# all other env vars are checked by node-config module ...
+# for an complete list of all other env vars with their mapping
+# see file "config/custom_environment_variables.json"
+
 if [[ ! -z "$REDIS_PORT" ]]; then
     set -- "$@" "--redis-port $REDIS_PORT"
 fi
@@ -169,46 +177,8 @@ fi
 if [[ ! -z "$SENTINEL_HOST" ]]; then
     set -- "$@" "--sentinel-host $SENTINEL_HOST"
 fi
+# all other env vars are evaluated by node-config module ...
 
-if [[ ! -z "$HTTP_USER" ]]; then
-    set -- "$@" "--http-u $HTTP_USER"
-fi
-
-if [[ ! -z "$HTTP_PASSWORD" ]]; then
-    set -- "$@" "--http-p $HTTP_PASSWORD"
-fi
-
-if [[ ! -z "$HTTP_PASSWORD_HASH" ]]; then
-    set -- "$@" "--http-h $HTTP_PASSWORD_HASH"
-fi
-
-if [[ ! -z "$PORT" ]]; then
-    set -- "$@" "--port $PORT"
-fi
-
-if [[ ! -z "$ADDRESS" ]]; then
-    set -- "$@" "--address $ADDRESS"
-fi
-
-if [[ ! -z "$ROOT_PATTERN" ]]; then
-    set -- "$@" "--root-pattern $ROOT_PATTERN"
-fi
-
-if [[ ! -z "$URL_PREFIX" ]]; then
-    set -- "$@" "--url-prefix $URL_PREFIX"
-fi
-
-if [[ ! -z "$NO_LOG_DATA" ]]; then
-    set -- "$@" "--no-log-data"
-fi
-
-if [[ ! -z "$FOLDING_CHAR" ]]; then
-    set -- "$@" "--folding-char $FOLDING_CHAR"
-fi
-
-if [[ ! -z "$USE_SCAN" ]]; then
-    set -- "$@" "--use-scan"
-fi
 
 # install trap for SIGTERM to delay end of app a bit for kubernetes
 # otherwise container might get requests after exiting itself

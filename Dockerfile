@@ -14,9 +14,8 @@ ENV NODE_ENV=production
 # only single copy command for most parts as other files are ignored via .dockerignore
 # to create less layers
 COPY . .
-COPY docker/redis-commander.json .redis_commander
 
-# for Openshift compatibility set project dir itself group root and make it group writeable
+# for Openshift compatibility set project config dir itself group root and make it group writeable
 RUN  apk update \
   && apk upgrade \
   && apk add --no-cache ca-certificates dumb-init \
@@ -24,8 +23,9 @@ RUN  apk update \
   && update-ca-certificates \
   && adduser ${SERVICE_USER} -h ${HOME} -S \
   && chown -R root.root ${HOME} \
-  && chmod g+w ${HOME} \
-  && chown ${SERVICE_USER} ${HOME} \
+  && chmod g+w ${HOME}/config \
+  && chown -R ${SERVICE_USER} ${HOME}/config \
+  && chmod ug+r ${HOME}/config/*.json \
   && npm install --production -s \
   && patch -p0 < docker/redis-dump.diff \
   && apk del .patch-dep \

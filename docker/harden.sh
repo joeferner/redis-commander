@@ -1,5 +1,5 @@
 #!/bin/sh
-set -x
+#set -x
 set -e
 
 # this script is taken from
