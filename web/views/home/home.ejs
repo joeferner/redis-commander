@@ -81,8 +81,12 @@
 <script type="text/javascript">
   var httpAuthDisabled = <%= httpAuthDisabled %>;
   var foldingCharacter = '<%= foldingCharacter %>';
-  var setConnection = function (connectionId) {
-    $('#selectedConnectionLabel').text("Current Instance: " + connectionId);
+  var setConnection = function (connectionId, label) {
+    if (label) {
+      $('#selectedConnectionLabel').text('Current Instance: "' + label.toUpperCase() + '" (' + connectionId + ')');
+    } else {
+      $('#selectedConnectionLabel').text('Current Instance: ' + connectionId);
+    }
     $('#selectedConnection').val(connectionId);
   };
   $(function () {
@@ -170,9 +174,8 @@
         return;
       }
       renderEjs('templates/connectionsBar.ejs', data, $('#connectionsBar'), function() {
-        var firstConnection = $('#firstConnection').val();
-        $('#selectedConnectionLabel').text("Current Instance: " + firstConnection);
-        $('#selectedConnection').val(firstConnection);
+        var firstConnection = $('#firstConnection');
+        setConnection(firstConnection.val(), firstConnection.data('label'));
       });
 
       loadTree();
