@@ -5,6 +5,7 @@
     "foldingChar": "FOLDING_CHAR"
   },
   "redis": {
+    "flushOnImport": "FLUSH_ON_IMPORT",
     "useScan": "USE_SCAN",
     "scanCount": "SCAN_COUNT",
     "rootPattern": "ROOT_PATTERN",
