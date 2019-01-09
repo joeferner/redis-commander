@@ -765,7 +765,9 @@ function enableJsonValidationCheck(value, isJsonCheckBox) {
       $(isJsonCheckBox).click();
     }
   }
-  catch {}
+  catch (ex) {
+    // do nothing
+  }
 }
 
 function removeListElement () {
