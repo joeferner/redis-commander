@@ -7,7 +7,7 @@
     "Matthew Scragg <scragg@gmail.com>"
   ],
   "name": "redis-commander",
-  "version": "0.6.1-rc1",
+  "version": "0.6.2",
   "description": "Redis web-based management tool written in node.js",
   "repository": {
     "type": "git",
