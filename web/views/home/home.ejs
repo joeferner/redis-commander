@@ -90,7 +90,7 @@
     $('#selectedConnection').val(connectionId);
   };
   $(function () {
-    $(window).bind('beforeunload', () => {
+    $(window).on('beforeunload', 'clearStorage', function() {
       sessionStorage.clear();
     });
     $.ajaxSetup({
@@ -121,7 +121,7 @@
         sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
         sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
         if (!oldToken) {
-          $(window).unbind('beforeunload');
+          $(window).off('beforeunload', 'clearStorage');
           location.reload();
         }
         setTimeout(refreshToken, 20e3);
@@ -153,7 +153,7 @@
           console.log('Connect successful');
           $('#addServerBtn').prop("disabled", false).text("Connect...");
           setTimeout(function() {
-              $(window).unbind('beforeunload');
+              $(window).off('beforeunload', 'clearStorage');
               location.reload();
           }, 500);
       }
@@ -198,7 +198,7 @@
         });
       });
     })
-    .fail(err => {
+    .fail(function(err) {
       console.error("Failed to fetch connections", err);
     });
   });
