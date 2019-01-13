@@ -323,54 +323,55 @@ function setupEditZSetButton () {
 }
 
 function setupAddKeyButton (connectionId) {
-  $('#newStringValue').val('');
-  $('#newFieldName').val('');
-  $('#keyScore').val('');
-  $('#keyType').change(function () {
-    var score = $('#scoreWrap');
+  var newKeyModal = $('#addKeyModal');
+  newKeyModal.find('#newStringValue').val('');
+  newKeyModal.find('#newFieldName').val('');
+  newKeyModal.find('#keyScore').val('');
+  newKeyModal.find('#addKeyConnectionId').val(connectionId);
+  newKeyModal.find('#keyType').change(function () {
+    var score = newKeyModal.find('#scoreWrap');
     if ($(this).val() === 'zset') {
       score.show();
     } else {
       score.hide();
     }
-    var field = $('#fieldWrap');
+    var field = newKeyModal.find('#fieldWrap');
     if ($(this).val() === 'hash') {
       field.show();
     } else {
       field.hide();
     }
   });
-  $('#addKeyIsJson').on('change', function(element) {
+  newKeyModal.find('#addKeyIsJson').on('change', function(element) {
     if (element.target.checked) addInputValidator('newStringValue', 'json');
     else removeInputValidator('newStringValue');
   });
+}
 
-  $('#addKeyForm').ajaxForm({
-    beforeSubmit: function () {
-      var newKey = $('#keyValue').val();
-      var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent(newKey);
-      console.log('saving new key ' + newKey);
-      $('#addKeyForm').attr("action", action);
-      $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
-  });
+function addNewKey() {
+  var newKeyModal = $('#addKeyModal');
+  var newKey = newKeyModal.find('#keyValue').val();
+  var connectionId = newKeyModal.find('#addKeyConnectionId').val();
+  var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent(newKey);
+  console.log('saving new key ' + newKey);
+  newKeyModal.find('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
 
-  function saveComplete () {
+  $.ajax({
+    url: action,
+    method: 'POST',
+    data: newKeyModal.find('#addKeyForm').serialize()
+  }).done(function() {
+    console.log('saved new key ' + newKey + ' at ' + connectionId);
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log('save error for key ' + newKey + ': ' + textStatus);
+    alert("Could not save '" + errorThrown.statusText + "'");
+  }).always(function() {
     setTimeout(function () {
-      $('#saveKeyButton').removeAttr("disabled").html("Save");
+      newKeyModal.find('#saveKeyButton').removeAttr("disabled").html("Save");
       refreshTree();
-      $('#addKeyModal').modal('hide');
+      newKeyModal.modal('hide');
     }, 500);
-  }
+  });
 }
 
 function setupEditHashButton () {
@@ -587,7 +588,6 @@ function addKey (connectionId, key) {
     }
     connectionId = getRootConnection(node);
   }
-  $('#addKeyForm').attr('action', 'apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key));
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
   setupAddKeyButton(connectionId);
