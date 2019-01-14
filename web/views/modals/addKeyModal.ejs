@@ -38,11 +38,12 @@
       <label class="control-label" for="newStringValue">Value</label>
       <textarea id="newStringValue" name="stringValue" class="modal-content-width" style="height: 200px;"></textarea>
       <label class="checkbox"><input type="checkbox" id="addKeyIsJson" name="isJson">Validate as JSON</label>
+      <input id="addKeyConnectionId" type="hidden" value=""/>
     </form>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal">Close</button>
-    <button id="saveKeyButton" type="button" class="btn btn-primary" onclick="$('#addKeyForm').submit()">Save</button>
+    <button id="saveKeyButton" type="button" class="btn btn-primary" onclick="addNewKey()">Save</button>
   </div>
 </div>
 <script>

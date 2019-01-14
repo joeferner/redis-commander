@@ -5,7 +5,7 @@ var CmdParser = require('cmdparser');
 function loadTree () {
   $.get('apiv2/connection', function (isConnected) {
     if (isConnected) {
-      $('#keyTree').bind("loaded.jstree", function () {
+      $('#keyTree').on('loaded.jstree', function () {
         var tree = getKeyTree();
         if (tree) {
           var root = tree.get_container().children("ul:eq(0)").children("li");
@@ -124,7 +124,7 @@ function loadTree () {
               },
               plugins: [ "themes", "contextmenu" ]
           })
-          .bind("select_node.jstree", treeNodeSelected)
+          .on('select_node.jstree', treeNodeSelected)
           .delegate("a", "click", function (event, data) {
             event.preventDefault();
           })
@@ -165,7 +165,7 @@ function treeNodeSelected (event, data) {
             renderEjs('templates/serverInfo.ejs', instance, $('#body'), setupAddKeyButton);
           }
           else {
-            var html = '<div>ERROR: ' + (instance.error ? instance.error : 'Server not available - cannot query status informations.') + '</div>'
+            var html = '<div>ERROR: ' + (instance.error ? instance.error : 'Server not available - cannot query status informations.') + '</div>';
             $('#body').html(html);
             setupAddKeyButton();
           }
@@ -323,54 +323,55 @@ function setupEditZSetButton () {
 }
 
 function setupAddKeyButton (connectionId) {
-  $('#newStringValue').val('');
-  $('#newFieldName').val('');
-  $('#keyScore').val('');
-  $('#keyType').change(function () {
-    var score = $('#scoreWrap');
+  var newKeyModal = $('#addKeyModal');
+  newKeyModal.find('#newStringValue').val('');
+  newKeyModal.find('#newFieldName').val('');
+  newKeyModal.find('#keyScore').val('');
+  newKeyModal.find('#addKeyConnectionId').val(connectionId);
+  newKeyModal.find('#keyType').change(function () {
+    var score = newKeyModal.find('#scoreWrap');
     if ($(this).val() === 'zset') {
       score.show();
     } else {
       score.hide();
     }
-    var field = $('#fieldWrap');
+    var field = newKeyModal.find('#fieldWrap');
     if ($(this).val() === 'hash') {
       field.show();
     } else {
       field.hide();
     }
   });
-  $('#addKeyIsJson').on('change', function(element) {
+  newKeyModal.find('#addKeyIsJson').on('change', function(element) {
     if (element.target.checked) addInputValidator('newStringValue', 'json');
     else removeInputValidator('newStringValue');
   });
+}
 
-  $('#addKeyForm').ajaxForm({
-    beforeSubmit: function () {
-      var newKey = $('#keyValue').val();
-      var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent(newKey);
-      console.log('saving new key ' + newKey);
-      $('#addKeyForm').attr("action", action);
-      $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
-  });
+function addNewKey() {
+  var newKeyModal = $('#addKeyModal');
+  var newKey = newKeyModal.find('#keyValue').val();
+  var connectionId = newKeyModal.find('#addKeyConnectionId').val();
+  var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent(newKey);
+  console.log('saving new key ' + newKey);
+  newKeyModal.find('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
 
-  function saveComplete () {
+  $.ajax({
+    url: action,
+    method: 'POST',
+    data: newKeyModal.find('#addKeyForm').serialize()
+  }).done(function() {
+    console.log('saved new key ' + newKey + ' at ' + connectionId);
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log('save error for key ' + newKey + ': ' + textStatus);
+    alert("Could not save '" + errorThrown.statusText + "'");
+  }).always(function() {
     setTimeout(function () {
-      $('#saveKeyButton').removeAttr("disabled").html("Save");
+      newKeyModal.find('#saveKeyButton').removeAttr("disabled").html("Save");
       refreshTree();
-      $('#addKeyModal').modal('hide');
+      newKeyModal.modal('hide');
     }, 500);
-  }
+  });
 }
 
 function setupEditHashButton () {
@@ -412,7 +413,7 @@ function selectTreeNodeString (data) {
 
     $('#stringValue').val(data.value);
     // a this is json now assume it shall be json if it is object or array, but not for numbers
-    if (isJsonParsed && data.value.match(/^\s*[\{\[]/)) {
+    if (isJsonParsed && data.value.match(/^\s*[{\[]/)) {
       $('#isJson').click();
     }
 
@@ -587,7 +588,6 @@ function addKey (connectionId, key) {
     }
     connectionId = getRootConnection(node);
   }
-  $('#addKeyForm').attr('action', 'apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key));
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
   setupAddKeyButton(connectionId);
@@ -761,7 +761,7 @@ function enableJsonValidationCheck(value, isJsonCheckBox) {
   try {
     JSON.parse(value);
     // if this is valid json and is array or object assume we want validation active
-    if (value.match(/^\s*[\{\[]/)) {
+    if (value.match(/^\s*[{\[]/)) {
       $(isJsonCheckBox).click();
     }
   }
@@ -1189,7 +1189,7 @@ function removeServer (connectionId) {
       if (status !== 'success') {
         return alert("Could not remove instance");
       }
-      $(window).unbind('beforeunload');
+      $(window).off('beforeunload', 'clearStorage');
       location.reload();
     });
   }
@@ -1277,8 +1277,8 @@ function setupResizeEvents () {
   var commandResizing = false;
   var commandFrame = $('#commandLineOutput').height();
 
-  $('#keyTree').bind('resize', resizeApp);
-  $(window).bind('resize', resizeApp);
+  $('#keyTree').on('resize', resizeApp);
+  $(window).on('resize', resizeApp);
 
   $(document).mouseup(function (event) {
     sidebarResizing = false;
@@ -1318,7 +1318,7 @@ function setupCommandLock () {
 
 function setupCLIKeyEvents () {
   var ctrl_down = false;
-  var isMac = navigator.appVersion.indexOf("Mac") != -1;
+  var isMac = navigator.appVersion.indexOf("Mac") !== -1;
   var cli = $('#_readline_cliForm input');
   cli.on('keydown', function (e) {
     var key = e.which;
@@ -1404,10 +1404,10 @@ $(function() {
     $('#body').html('<h2>Import</h2>Importing in progress. Prease wait...');
 
     $.ajax({
-      type: 'POST',
+      method: 'POST',
       url: 'tools/import',
       data: $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken') || ''),
-      dataType: 'JSON',
+      dataType: 'json',
       success: function (res) {
         $('#body').html('<h2>Import</h2>' +
           '<div>Inserted: ' + res.inserted + '</div>' +
@@ -1424,7 +1424,7 @@ $(function() {
    */
   $('#redisImportData').on('click', function () {
     $.ajax({
-      type: 'POST',
+      method: 'POST',
       url: 'tools/forms/import',
       success: function (res) {
         $('#body').html(res);
@@ -1437,7 +1437,7 @@ $(function() {
    */
   $('#redisExportData').on('click', function () {
     $.ajax({
-      type: 'POST',
+      method: 'POST',
       url: 'tools/forms/export',
       success: function (res) {
         $('#body').html(res);
@@ -1453,3 +1453,14 @@ $(function() {
     $('#keyTree').jstree('open_all');
   });
 });
+
+
+/// IE11 polyfills
+if (!String.prototype.endsWith) {
+  String.prototype.endsWith = function(search, this_len) {
+    if (this_len === undefined || this_len > this.length) {
+      this_len = this.length;
+    }
+    return this.substring(this_len - search.length, this_len) === search;
+  };
+}

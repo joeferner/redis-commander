@@ -236,14 +236,20 @@ if (startServer) {
         let that = this;
         let scanCB = function(err, res) {
           if (err) {
-            cb(err);
+            if (typeof cb === 'function') cb(err);
+            else {
+              console.log('ERROR in redefined "keys" function to use "scan" instead without callback: ' + JSON.stringify(err));
+            }
           }
           else {
             let count = res[0], curKeys = res[1];
             console.log("scanning: " + count + ": " + curKeys.length);
             keys = keys.concat(curKeys);
             if (Number(count) === 0) {
-              cb(null, keys);
+              if (typeof cb === 'function') cb(null, keys);
+              else {
+                console.log('ERROR in redefined "keys" function to use "scan" instead - no callback given!');
+              }
             }
             else {
               that.scan(count, 'MATCH', pattern, 'COUNT', config.get('redis.scanCount'), scanCB);
