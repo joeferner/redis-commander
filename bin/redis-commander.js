@@ -228,6 +228,8 @@ if(args['clear-config']) {
 
 
 if (startServer) {
+  myUtils.validateConfig();
+
   if (config.get('redis.useScan')) {
     console.log('Using scan instead of keys');
     Object.defineProperty(Redis.prototype, 'keys', {
