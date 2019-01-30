@@ -11,7 +11,7 @@ $ redis-commander
 
 # Usage
 
-```bash
+```
 $ redis-commander --help
 Options:
   --redis-port                         The port to find redis on.               [string]
@@ -38,6 +38,7 @@ Options:
   --no-log-data                        Do not log data values from redis store. [boolean] [default: false]
   --open                               Open web-browser with Redis-Commander.   [boolean] [default: false]
   --folding-char, --fc                 Character to fold keys at in tree view.  [character] [default: ":"]
+  --test, -t                           test final configuration (file, env-vars, command line)
 ```
 
 The connection can be established either via direct connection to redis server or indirect 
@@ -73,6 +74,10 @@ The order of precedence for all configuration values (from least to most importa
   to the respective configuration key.
 
 - Command line parameters - Overwrites everything
+
+To check the final configuration created from files, env-vars set and command line param overwrites 
+start redis commander with additional param "--test". All invalid configuration keys will be listed
+in the output. The config test does not check if hostnames or ip addresses can be resolved.
 
 ## Environment Variables
 

@@ -68,6 +68,11 @@ let args = optimist
     boolean: false,
     describe: 'migrate old configuration file in $HOME to new style.'
   })
+  .options('test', {
+    alias: 't',
+    boolean: false,
+    describe: 'test final configuration (file, env-vars, command line)'
+  })
   .options('open', {
     // open local web-browser to connect to web ui on startup of server daemon too
     boolean: true,
@@ -224,6 +229,20 @@ if(args['clear-config']) {
       process.exit();
     });
   });
+}
+
+
+if(args['test']) {
+  startServer = false;
+  try {
+    myUtils.validateConfig();
+    console.log('Configuration created from files, env-vars and command line is valid.');
+    process.exit(0);
+  }
+  catch(e) {
+    console.error(e.message);
+    process.exit(2);
+  }
 }
 
 
