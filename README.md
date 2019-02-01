@@ -11,7 +11,7 @@ $ redis-commander
 
 # Usage
 
-```bash
+```
 $ redis-commander --help
 Options:
   --redis-port                         The port to find redis on.               [string]
@@ -38,6 +38,7 @@ Options:
   --no-log-data                        Do not log data values from redis store. [boolean] [default: false]
   --open                               Open web-browser with Redis-Commander.   [boolean] [default: false]
   --folding-char, --fc                 Character to fold keys at in tree view.  [character] [default: ":"]
+  --test, -t                           test final configuration (file, env-vars, command line)
 ```
 
 The connection can be established either via direct connection to redis server or indirect 
@@ -74,6 +75,10 @@ The order of precedence for all configuration values (from least to most importa
 
 - Command line parameters - Overwrites everything
 
+To check the final configuration created from files, env-vars set and command line param overwrites 
+start redis commander with additional param "--test". All invalid configuration keys will be listed
+in the output. The config test does not check if hostnames or ip addresses can be resolved.
+
 ## Environment Variables
 
 These environment variables can be used starting Redis Commander as normal
@@ -107,6 +112,7 @@ docker startup script):
 REDIS_PORT
 REDIS_HOST
 REDIS_SOCKET
+REDIS_TLS
 REDIS_PASSWORD
 REDIS_DB
 REDIS_HOSTS
@@ -128,7 +134,6 @@ After running the container, `redis-commander` will be available at [localhost:8
 the REDIS_HOSTS environment variable is a comma separated list of host definitions,
 where each host should follow one of these templates: 
 
-
 `hostname`
 
 `label:hostname`
@@ -139,6 +144,10 @@ where each host should follow one of these templates:
 
 `label:hostname:port:dbIndex:password`
 
+Connection strings defined with `REDIS_HOSTS` variable do not support TLS connections.
+If remote redis server needs TLS write all connections into a config file instead
+of using `REDIS_HOSTS`.
+ 
 ### With docker-compose
 
 ```yml
