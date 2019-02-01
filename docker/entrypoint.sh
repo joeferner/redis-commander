@@ -162,6 +162,12 @@ if [[ ! -z "$REDIS_SOCKET" ]]; then
     set -- "$@" "--redis-socket $REDIS_SOCKET"
 fi
 
+if [[ ! -z "$REDIS_TLS" ]]; then
+    if [[ "$REDIS_TLS" = "1" || "$REDIS_TLS" = "true" || "$REDIS_TLS" = "yes" || "$REDIS_TLS" = "on" ]]; then
+        set -- "$@" "--redis-tls"
+    fi
+fi
+
 if [[ ! -z "$REDIS_PASSWORD" ]]; then
     set -- "$@" "--redis-password $REDIS_PASSWORD"
 fi

@@ -327,3 +327,11 @@ body {
 .jstree-contextmenu {
   z-index: 1100;
 }
+
+input[type="checkbox"].checkbox-oneline {
+  margin: 0 0 0 10px;
+  overflow: hidden;
+  position: relative;
+  top: -3px;
+  vertical-align: bottom;
+}

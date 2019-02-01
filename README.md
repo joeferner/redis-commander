@@ -112,6 +112,7 @@ docker startup script):
 REDIS_PORT
 REDIS_HOST
 REDIS_SOCKET
+REDIS_TLS
 REDIS_PASSWORD
 REDIS_DB
 REDIS_HOSTS
@@ -133,7 +134,6 @@ After running the container, `redis-commander` will be available at [localhost:8
 the REDIS_HOSTS environment variable is a comma separated list of host definitions,
 where each host should follow one of these templates: 
 
-
 `hostname`
 
 `label:hostname`
@@ -144,6 +144,10 @@ where each host should follow one of these templates:
 
 `label:hostname:port:dbIndex:password`
 
+Connection strings defined with `REDIS_HOSTS` variable do not support TLS connections.
+If remote redis server needs TLS write all connections into a config file instead
+of using `REDIS_HOSTS`.
+ 
 ### With docker-compose
 
 ```yml
