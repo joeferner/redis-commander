@@ -252,8 +252,46 @@ if(args['test']) {
 
 
 if (startServer) {
-  myUtils.validateConfig();
+  // check if old deprecated config exists and merge into current one
+  if (myUtils.hasDeprecatedConfig()) {
+    console.log('==================================================================================================');
+    console.log('DEPRECATION WARNING: Old style configuration file found at ' + myUtils.getDeprecatedConfigPath());
+    console.log('  Please delete file or migrate to new format calling app with "--migrate-config" parameter');
+    console.log('==================================================================================================');
 
+    myUtils.getDeprecatedConfig(function(err, oldConfig) {
+      // old config only contains some ui parameters or connection definitions
+      config.ui = config.util.extendDeep(config.ui, oldConfig.ui);
+      if (Array.isArray(oldConfig.connections) && oldConfig.connections.length > 0) {
+        oldConfig.connections.forEach(function(cfg) {
+          if (!myUtils.containsConnection(config.connections, cfg)) {
+            config.connections.push(cfg);
+          }
+        });
+      }
+      startAllConnections();
+    });
+  }
+  else {
+    startAllConnections();
+  }
+}
+
+
+// ==============================================
+// end main programm / special cli param handling
+// functions below...
+
+function startAllConnections() {
+  try {
+    myUtils.validateConfig();
+  }
+  catch(e) {
+    console.error(e.message);
+    process.exit(2);
+  }
+
+  // redefine keys method before connections are started
   if (config.get('redis.useScan')) {
     console.log('Using scan instead of keys');
     Object.defineProperty(Redis.prototype, 'keys', {
@@ -287,49 +325,6 @@ if (startServer) {
     });
   }
 
-  // check if old deprecated config exists and merge into current one
-  if (myUtils.hasDeprecatedConfig()) {
-    console.log('==================================================================================================');
-    console.log('DEPRECATION WARNING: Old style configuration file found at ' + myUtils.getDeprecatedConfigPath());
-    console.log('  Please delete file or migrate to new format calling app with "--migrate-config" parameter');
-    console.log('==================================================================================================');
-
-    myUtils.getDeprecatedConfig(function(err, oldConfig) {
-      // old config only contains some ui parameters or connection definitions
-      config.ui = config.util.extendDeep(config.ui, oldConfig.ui);
-      if (Array.isArray(oldConfig.connections) && oldConfig.connections.length > 0) {
-        oldConfig.connections.forEach(function(cfg) {
-          if (!myUtils.containsConnection(config.connections, cfg)) {
-            config.connections.push(cfg);
-          }
-        });
-      }
-      startAllConnections();
-    });
-  }
-  else {
-    startAllConnections();
-  }
-}
-
-
-if(args['open']) {
-  // wait a bit before starting browser to let http server start
-  setTimeout(function() {
-    let address = '127.0.0.1';
-    if (config.get('server.address') !== '0.0.0.0' && config.get('server.address') !== '::') {
-      address = config.get('server.address');
-    }
-    require('opener')('http://' + address + ':' + config.get('server.port'));
-  }, 1000);
-}
-
-
-// ==============================================
-// end main programm / special cli param handling
-// functions below...
-
-function startAllConnections() {
   // first default connections from config object
   // second connection from cli params (redis-host, redis-port, ...)
   startDefaultConnections(config.connections, function (err) {
@@ -408,6 +403,17 @@ function startAllConnections() {
 
     return startWebApp();
   });
+
+  // wait a bit before starting browser to let http server start
+  if (args['open']) {
+    setTimeout(function() {
+      let address = '127.0.0.1';
+      if (config.get('server.address') !== '0.0.0.0' && config.get('server.address') !== '::') {
+        address = config.get('server.address');
+      }
+      require('opener')('http://' + address + ':' + config.get('server.port'));
+    }, 1000);
+  }
 }
 
 
