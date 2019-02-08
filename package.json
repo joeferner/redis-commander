@@ -4,10 +4,11 @@
     "Evan Oxfeld <eoxfeld@gmail.com>",
     "Dmitriy Yurchenko <feedback@evildev.ru>",
     "Alex Ehrnschwender <alexanderscott46@gmail.com>",
-    "Matthew Scragg <scragg@gmail.com>"
+    "Matthew Scragg <scragg@gmail.com>",
+    "Stefan Seide <account-github@seide.st"
   ],
   "name": "redis-commander",
-  "version": "0.6.3-rc1",
+  "version": "0.6.3-rc2",
   "description": "Redis web-based management tool written in node.js",
   "repository": {
     "type": "git",
