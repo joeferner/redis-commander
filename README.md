@@ -29,6 +29,7 @@ Options:
   --port, -p                           The port to run the server on.           [string]  [default: 8081]
   --url-prefix, -u                     The url prefix to respond on.            [string]  [default: ""]
   --root-pattern, --rp                 The root pattern of the redis keys.      [string]  [default: "*"]
+  --read-only                          Start app in read-only mode.             [boolean] [default: false]
   --nosave, --ns                       Do not save new connections to config.   [boolean] [default: true]
   --noload, --nl                       Do not load connections from config.     [boolean] [default: false]
   --use-scan, --sc                     Use scan instead of keys.                [boolean] [default: false]
@@ -90,6 +91,7 @@ HTTP_PASSWORD
 HTTP_PASSWORD_HASH
 ADDRESS
 PORT
+READ_ONLY
 URL_PREFIX
 ROOT_PATTERN
 NOSAVE
