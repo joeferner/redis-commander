@@ -91,6 +91,11 @@ let args = optimist
     describe: 'The label to display for the connection.',
     default: config.get('redis.defaultLabel')
   })
+  .options('read-only', {
+    booelan: true,
+    describe: 'Start app in read-only mode.',
+    default: config.get('redis.readOnly')
+  })
   .options('http-auth-username', {
     alias: "http-u",
     string: true,
@@ -179,6 +184,7 @@ let args = optimist
     config.noLogData = (value['log-data']===false);  // due to special negated param
     config.ui.foldingChar = value['folding-char'];
     config.redis.useScan = value['use-scan'];
+    config.redis.readOnly = value['read-only'];
     config.redis.scanCount = value['scan-count'];
     config.redis.rootPattern = value['root-pattern'];
     config.redis.defaultLabel = value['redis-label'];

@@ -1,8 +1,10 @@
 <div id="itemActionsBar">
+  <% if (!redisReadOnly) { %>
   <button class="btn" data-toggle="modal" onclick="addSetMember('<%= connectionId %>','<%= key %>')"
           style="margin-right: 5px">Add New Member...
   </button>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
+  <% } %>
 </div>
 <div id="itemData">
 <label>Key: <b><%= key %></b></label>
@@ -23,12 +25,14 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function () {
-    $('.table tbody tr').dblclick(function (event) {
-      var row = event.currentTarget;
-      var member = row.children[0].innerHTML.toString();
-      var key = "<%= key %>";
-      var connectionId = "<%= connectionId %>";
-      editSetMember(connectionId, key, member);
-    });
+    if (!redisReadOnly) {
+      $('.table tbody tr').dblclick(function(event) {
+        var row = event.currentTarget;
+        var member = row.children[0].innerHTML.toString();
+        var key = "<%= key %>";
+        var connectionId = "<%= connectionId %>";
+        editSetMember(connectionId, key, member);
+      });
+    }
   });
 </script>

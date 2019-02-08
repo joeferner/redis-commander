@@ -1,5 +1,7 @@
 <div id="itemActionsBar">
+  <% if (!redisReadOnly) { %>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
+  <% } %>
   <button id="base64Button" class="btn btn-primary" onclick="decodeKey('<%= connectionId %>','<%= key %>')">Decode <small>base64</small></button>
   <button id="vieModeEditButton" class="btn" style="display: none;" onclick="onModeEditButtonClick()">View mode edit</button>
   <button id="vieModeTreeButton" class="btn" onclick="onModeTreeButtonClick()">View mode tree</button>
@@ -17,7 +19,9 @@
       <label class="checkbox"><input type="checkbox" id="isJson" name="isJson">Validate as JSON</label>
     </span>
     <br>
+    <% if (!redisReadOnly) { %>
     <button id="saveKeyButton" type="button" class="btn" onclick="$('#editStringForm').submit()">Save</button>
+    <% } %>
   </form>
 </div>
 <script>

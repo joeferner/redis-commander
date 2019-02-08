@@ -9,6 +9,7 @@
     "foldingChar": ":"
   },
   "redis": {
+    "readOnly": true,
     "flushOnImport": true,
     "useScan": false,
     "scanCount": 100,

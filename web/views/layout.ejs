@@ -39,6 +39,7 @@
 <div class="container">
   <%- body %>
 </div>
+<% if (!redisReadOnly) { %>
   <% include modals/addListValueModal %>
   <% include modals/addSetMemberModal %>
   <% include modals/addZSetMemberModal %>
@@ -48,6 +49,7 @@
   <% include modals/editListValueModal %>
   <% include modals/addKeyModal %>
   <% include modals/editHashFieldModal %>
+<% } %>
   <% include modals/signinModal %>
 </body>
 </html>

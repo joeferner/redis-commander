@@ -119,6 +119,10 @@ function loadTree () {
                       if (rel === 'root') {
                           delete menu['remKey'];
                       }
+                      if (redisReadOnly) {
+                          delete menu['addKey'];
+                          delete menu['remKey'];
+                      }
                       return menu;
                   }
               },
@@ -423,26 +427,28 @@ function selectTreeNodeString (data) {
       $('#jqtree_string_div').text('Text is no valid JSON: ' + err.message);
     }
 
-    $('#editStringForm').ajaxForm({
-      beforeSubmit: function () {
-        console.log('saving');
-        $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
-      },
-      error: function (err) {
-        console.log('save error', arguments);
-        alert("Could not save '" + err.statusText + "'");
-        saveComplete();
-      },
-      success: function () {
-        refreshTree();
-        getKeyTree().select_node(0);
-        console.log('saved', arguments);
-        saveComplete();
-      }
-    });
+    if (!redisReadOnly) {
+      $('#editStringForm').ajaxForm({
+        beforeSubmit: function() {
+          console.log('saving');
+          $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
+        },
+        error: function(err) {
+          console.log('save error', arguments);
+          alert("Could not save '" + err.statusText + "'");
+          saveComplete();
+        },
+        success: function() {
+          refreshTree();
+          getKeyTree().select_node(0);
+          console.log('saved', arguments);
+          saveComplete();
+        }
+      });
+    }
 
-    function saveComplete () {
-      setTimeout(function () {
+    function saveComplete() {
+      setTimeout(function() {
         $('#saveKeyButton').removeAttr("disabled").html("Save");
       }, 500);
     }
@@ -451,21 +457,24 @@ function selectTreeNodeString (data) {
 
 function selectTreeNodeHash (data) {
   renderEjs('templates/editHash.ejs', data, $('#body'), function() {
-    $('#addHashFieldForm').ajaxForm({
-      beforeSubmit: function () {
-        console.log('saving');
-        $('#saveHashFieldButton').button('loading');
-      },
-      error: function (err) {
-        console.log('save error', arguments);
-        alert("Could not save '" + err.statusText + "'");
-        saveComplete();
-      },
-      success: function () {
-        console.log('saved', arguments);
-        saveComplete();
-      }
-    });
+    if (!redisReadOnly) {
+      $('#addHashFieldForm').ajaxForm({
+        beforeSubmit: function() {
+          console.log('saving');
+          $('#saveHashFieldButton').button('loading');
+        },
+        error: function(err) {
+          console.log('save error', arguments);
+          alert("Could not save '" + err.statusText + "'");
+          saveComplete();
+        },
+        success: function() {
+          console.log('saved', arguments);
+          saveComplete();
+        }
+      });
+    }
+
     function saveComplete () {
       setTimeout(function () {
         refreshTree();
@@ -479,21 +488,24 @@ function selectTreeNodeHash (data) {
 
 function selectTreeNodeSet (data) {
   renderEjs('templates/editSet.ejs', data, $('#body'), function() {
-    $('#addSetMemberForm').ajaxForm({
-      beforeSubmit: function () {
-        console.log('saving');
-        $('#saveMemberButton').button('loading');
-      },
-      error: function (err) {
-        console.log('save error', arguments);
-        alert("Could not save '" + err.statusText + "'");
-        saveComplete();
-      },
-      success: function () {
-        console.log('saved', arguments);
-        saveComplete();
-      }
-    });
+    if (!redisReadOnly) {
+      $('#addSetMemberForm').ajaxForm({
+        beforeSubmit: function() {
+          console.log('saving');
+          $('#saveMemberButton').button('loading');
+        },
+        error: function(err) {
+          console.log('save error', arguments);
+          alert("Could not save '" + err.statusText + "'");
+          saveComplete();
+        },
+        success: function() {
+          console.log('saved', arguments);
+          saveComplete();
+        }
+      });
+    }
+
     function saveComplete () {
       setTimeout(function () {
         refreshTree();
@@ -508,21 +520,23 @@ function selectTreeNodeSet (data) {
 function selectTreeNodeList (data) {
   if (data.items.length > 0) {
     renderEjs('templates/editList.ejs', data, $('#body'), function() {
-      $('#addListValueForm').ajaxForm({
-        beforeSubmit: function () {
-          console.log('saving');
-          $('#saveValueButton').button('loading');
-        },
-        error: function (err) {
-          console.log('save error', arguments);
-          alert("Could not save '" + err.statusText + "'");
-          saveComplete();
-        },
-        success: function () {
-          console.log('saved', arguments);
-          saveComplete();
-        }
-      });
+      if (!redisReadOnly) {
+        $('#addListValueForm').ajaxForm({
+          beforeSubmit: function() {
+            console.log('saving');
+            $('#saveValueButton').button('loading');
+          },
+          error: function(err) {
+            console.log('save error', arguments);
+            alert("Could not save '" + err.statusText + "'");
+            saveComplete();
+          },
+          success: function() {
+            console.log('saved', arguments);
+            saveComplete();
+          }
+        });
+      }
 
       function saveComplete () {
         setTimeout(function () {
@@ -541,21 +555,24 @@ function selectTreeNodeList (data) {
 function selectTreeNodeZSet (data) {
   if (data.items.length > 0) {
     renderEjs('templates/editZSet.ejs', data, $('#body'), function() {
-      $('#addZSetMemberForm').ajaxForm({
-        beforeSubmit: function () {
-          console.log('saving');
-          $('#saveZMemberButton').button('loading');
-        },
-        error: function (err) {
-          console.log('save error', arguments);
-          alert("Could not save '" + err.statusText + "'");
-          saveComplete();
-        },
-        success: function () {
-          console.log('saved', arguments);
-          saveComplete();
-        }
-      });
+      if (!redisReadOnly) {
+        $('#addZSetMemberForm').ajaxForm({
+          beforeSubmit: function() {
+            console.log('saving');
+            $('#saveZMemberButton').button('loading');
+          },
+          error: function(err) {
+            console.log('save error', arguments);
+            alert("Could not save '" + err.statusText + "'");
+            saveComplete();
+          },
+          success: function() {
+            console.log('saved', arguments);
+            saveComplete();
+          }
+        });
+      }
+
       function saveComplete () {
         setTimeout(function () {
           refreshTree();
@@ -1398,41 +1415,6 @@ $(function() {
   });
 
   /**
-   * Import redis data.
-   */
-  $('#app-container').on('submit', '#redisImportForm', function () {
-    $('#body').html('<h2>Import</h2>Importing in progress. Prease wait...');
-
-    $.ajax({
-      method: 'POST',
-      url: 'tools/import',
-      data: $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken') || ''),
-      dataType: 'json',
-      success: function (res) {
-        $('#body').html('<h2>Import</h2>' +
-          '<div>Inserted: ' + res.inserted + '</div>' +
-          '<div>Errors: ' + res.errors + '</div><br/>' +
-          '<span class="label label-' + (res.errors ? 'important' : 'success') + '">' + (res.errors ? 'Errors' : 'Success') + '</span>');
-      }
-    });
-    refreshQueryToken();
-    return false;
-  });
-
-  /**
-   * Show import form.
-   */
-  $('#redisImportData').on('click', function () {
-    $.ajax({
-      method: 'POST',
-      url: 'tools/forms/import',
-      success: function (res) {
-        $('#body').html(res);
-      }
-    });
-  });
-
-  /**
    * Show export form.
    */
   $('#redisExportData').on('click', function () {
@@ -1444,6 +1426,44 @@ $(function() {
       }
     });
   });
+
+  /**
+   * Import redis data.
+   */
+  if (!redisReadOnly) {
+    $('#app-container').on('submit', '#redisImportForm', function() {
+      $('#body').html('<h2>Import</h2>Importing in progress. Prease wait...');
+
+      $.ajax({
+        method: 'POST',
+        url: 'tools/import',
+        data: $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken') || ''),
+        dataType: 'json',
+        success: function(res) {
+          $('#body').html('<h2>Import</h2>' +
+            '<div>Inserted: ' + res.inserted + '</div>' +
+            '<div>Errors: ' + res.errors + '</div><br/>' +
+            '<span class="label label-' + (res.errors ? 'important' : 'success') + '">' + (res.errors ? 'Errors' : 'Success') + '</span>');
+        }
+      });
+      refreshQueryToken();
+      return false;
+    });
+
+    /**
+     * Show import form.
+     */
+    $('#redisImportData').on('click', function () {
+      $.ajax({
+        method: 'POST',
+        url: 'tools/forms/import',
+        success: function (res) {
+          $('#body').html(res);
+        }
+      });
+    });
+  }
+
 
   /**
    * Refresh and expand all nodes in tree

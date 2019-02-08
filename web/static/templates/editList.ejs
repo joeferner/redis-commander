@@ -1,8 +1,10 @@
 <div id="itemActionsBar" class="form">
+  <% if (!redisReadOnly) { %>
   <button class="btn" data-toggle="modal" onclick="addListValue('<%= connectionId %>','<%= key %>')"
           style="margin-right: 5px">Add New Value...
   </button>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
+  <% } %>
   <div id="pageNav" class="input-append input-prepend">
     <button type="button" class="btn" onclick="loadKey('<%= connectionId %>','<%= key %>','0')"
     <% if(beginning){%>disabled="disabled" <%}%> ><i class="icon-fast-backward"></i>
@@ -46,13 +48,15 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function () {
-    $('.table tbody tr').dblclick(function (event) {
-      var row = event.currentTarget;
-      var index = row.children[0].innerHTML.toString();
-      var value = row.children[1].innerHTML.toString();
-      var key = "<%= key %>";
-      var connectionId = "<%= connectionId %>";
-      editListValue(connectionId, key, index, value);
-    });
+    if (!redisReadOnly) {
+      $('.table tbody tr').dblclick(function(event) {
+        var row = event.currentTarget;
+        var index = row.children[0].innerHTML.toString();
+        var value = row.children[1].innerHTML.toString();
+        var key = "<%= key %>";
+        var connectionId = "<%= connectionId %>";
+        editListValue(connectionId, key, index, value);
+      });
+    }
   });
 </script>
