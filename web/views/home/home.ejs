@@ -183,6 +183,7 @@
         setConnection(firstConnection.val(), firstConnection.data('label'));
       });
 
+      initCmdParser();
       loadTree();
       loadConfig(function () {
         loadCommandLine();
