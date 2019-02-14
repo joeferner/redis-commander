@@ -14,32 +14,37 @@
       </div>
   </div>
   <div class="modal-footer">
-    <button id="signinButton" type="button" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Signing-In...">Sign In</button>
+    <button id="signinButton" type="submit" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Signing-In...">Sign In</button>
   </div>
   </form>
 </div>
 
 <script type="text/javascript">
 $(function() {
-  $('#signinButton').click(function() {
+  $('#signinModal').on('shown', function(event) {
+    $(event.target).find('#signinUsername').focus();
+  });
+
+  $('#signinForm').on('submit', function(event) {
+    event.preventDefault();
+    var signinForm = $(event.target);
     $.post('signin', {
-      "username": $('#signinUsername').val(),
-      "password": $('#signinPassword').val()
-    }, function (data, status) {
-      $('#signinUsername').val('');
-      $('#signinPassword').val('');
+      "username": signinForm.find('#signinUsername').val(),
+      "password": signinForm.find('#signinPassword').val()
+    }).done(function (data, status) {
+      signinForm.trigger('reset');
       if ((status !== 'success') || !data || !data.ok) {
+        signinForm.find('#signinUsername').focus();
         return alert("Sign-In Failed");
       }
       sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
       sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
       $(window).unbind('beforeunload');
       location.reload();
-    })
-    .fail(function(err) {
-      $('#signinUsername').val('');
-      $('#signinPassword').val('');
+    }).fail(function(err) {
+      signinForm.trigger('reset');
       console.error("Failed", err);
+      signinForm.find('#signinUsername').focus();
       return alert("Failed to send request");
     })
   });
