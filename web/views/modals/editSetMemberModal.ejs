@@ -21,11 +21,6 @@
   </div>
 </div>
 <script>
-  $('#setMemberIsJson').on('change', function(element) {
-      if (element.target.checked) addInputValidator('setMember', 'json');
-      else removeInputValidator('setMember');
-  });
-  $('#editSetMemberModal').on('hidden', function() {
-      removeInputValidator('setMember');
-  })
+  setupEditDataModals('editSetMemberForm', 'editSetMemberButton');
+  setupJsonInputValidator('setMemberIsJson', 'setMember');
 </script>

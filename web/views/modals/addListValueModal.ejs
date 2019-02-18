@@ -27,11 +27,6 @@
   </div>
 </div>
 <script>
-  $('#addListValueIsJson').on('change', function(element) {
-      if (element.target.checked) addInputValidator('addListValue', 'json');
-      else removeInputValidator('addListValue');
-  });
-  $('#addListValueModal').on('hidden', function() {
-      removeInputValidator('addListValue');
-  })
+  setupEditDataModals('addListValueForm', 'saveValueButton');
+  setupJsonInputValidator('addListValueIsJson', 'addListValue');
 </script>

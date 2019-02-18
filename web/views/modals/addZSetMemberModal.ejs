@@ -20,11 +20,6 @@
   </div>
 </div>
 <script>
-  $('#addZSetMemberIsJson').on('change', function(element) {
-      if (element.target.checked) addInputValidator('addZSetMemberName', 'json');
-      else removeInputValidator('addZSetMemberName');
-  });
-  $('#addZSetMemberModal').on('hidden', function() {
-      removeInputValidator('addZSetMemberName');
-  })
+  setupEditDataModals('addZSetMemberForm', 'saveZMemberButton');
+  setupJsonInputValidator('addZSetMemberIsJson', 'addZSetMemberName')
 </script>

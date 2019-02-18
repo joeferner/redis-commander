@@ -10,7 +10,7 @@
       <label class="control-label" for="listIndex">Index</label>
       <input id="listIndex" name="index" type="text" readonly/>
       <label class="control-label" for="listValue">Value</label>
-      <textarea id="listValue" name="value" class="modal-content-width" style="height: 250px;"></textarea>
+      <textarea id="listValue" name="value" class="modal-content-width" style="height: 220px;"></textarea>
       <label class="checkbox"><input type="checkbox" id="listValueIsJson" name="isJson">Validate as JSON</label>
       <input id="editListConnectionId" name="connectionId" type="hidden"/>
     </form>
@@ -22,11 +22,6 @@
   </div>
 </div>
 <script>
-  $('#listValueIsJson').on('change', function(element) {
-      if (element.target.checked) addInputValidator('listValue', 'json');
-      else removeInputValidator('listValue');
-  });
-  $('#editListValueModal').on('hidden', function() {
-      removeInputValidator('listValue');
-  })
+  setupEditDataModals('editListValueForm', 'editListValueButton');
+  setupJsonInputValidator('listValueIsJson', 'listValue');
 </script>

@@ -47,7 +47,5 @@
   </div>
 </div>
 <script>
-  $('#addKeyModal').on('hidden', function() {
-      removeInputValidator('newStringValue');
-  })
+  setupJsonInputValidator('addKeyIsJson', 'newStringValue');
 </script>

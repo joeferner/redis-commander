@@ -18,11 +18,6 @@
   </div>
 </div>
 <script>
-  $('#addSetMemberIsJson').on('change', function(element) {
-      if (element.target.checked) addInputValidator('addSetMemberName', 'json');
-      else removeInputValidator('addSetMemberName');
-  });
-  $('#addSetMemberModal').on('hidden', function() {
-      removeInputValidator('addSetMemberName');
-  })
+  setupEditDataModals('addSetMemberForm', 'saveMemberButton');
+  setupJsonInputValidator('addSetMemberIsJson', 'addSetMemberName');
 </script>

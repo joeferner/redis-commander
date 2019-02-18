@@ -20,11 +20,6 @@
   </div>
 </div>
 <script>
-  $('#addHashFieldIsJson').on('change', function(element) {
-      if (element.target.checked) addInputValidator('addHashFieldValue', 'json');
-      else removeInputValidator('addHashFieldValue');
-  });
-  $('#addHashFieldModal').on('hidden', function() {
-      removeInputValidator('addHashFieldValue');
-  })
+  setupEditDataModals('addHashFieldForm', 'saveHashFieldButton');
+  setupJsonInputValidator('addHashFieldIsJson', 'addHashFieldValue');
 </script>

@@ -22,11 +22,6 @@
   </div>
 </div>
 <script>
-  $('#hashFieldIsJson').on('change', function(element) {
-    if (element.target.checked) addInputValidator('hashFieldValue', 'json');
-    else removeInputValidator('hashFieldValue');
-  });
-  $('#editHashFieldModal').on('hidden', function() {
-    removeInputValidator('hashFieldValue');
-  })
+  setupEditDataModals('editHashFieldForm', 'editHashFieldButton');
+  setupJsonInputValidator('hashFieldIsJson', 'hashFieldValue');
 </script>

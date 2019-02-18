@@ -246,85 +246,43 @@ function selectTreeNodeBranch (data) {
   renderEjs('templates/editBranch.ejs', data, $('#body'));
 }
 
-function setupEditListButton () {
-  $('#editListValueForm').ajaxForm({
-    beforeSubmit: function () {
-      console.log('saving');
-      $('#editListValueButton').button('loading');
-    },
-    error: function (err) {
+function setupEditDataModals(idForm, idSaveBtn) {
+  $('#' + idForm).off('submit').on('submit', function(event) {
+    console.log('saving');
+    event.preventDefault();
+    var editForm = $(event.target);
+    var editModal = editForm.closest('.modal');
+    editModal.find('#' + idSaveBtn).button('loading');
+
+    $.post(editForm.attr('action'), editForm.serialize()
+    ).done(function (data, status) {
+      console.log('saved', arguments);
+    })
+    .fail(function (err) {
       console.log('save error', arguments);
       alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
+    })
+    .always(function () {
+      setTimeout(function () {
+        refreshTree();
+        getKeyTree().select_node(0);
+        editModal.find('#' + idSaveBtn).button('reset');
+        editModal.modal('hide');
+      }, 500);
+    });
   });
-
-  function saveComplete () {
-    setTimeout(function () {
-      refreshTree();
-      getKeyTree().select_node(0);
-      $('#editListValueButton').button('reset');
-      $('#editListValueModal').modal('hide');
-    }, 500);
-  }
 }
 
-function setupEditSetButton () {
-  $('#editSetMemberForm').ajaxForm({
-    beforeSubmit: function () {
-      console.log('saving');
-      $('#editSetMemberButton').button('loading');
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
+function setupJsonInputValidator(idJsonCheckbox, idInput) {
+  var chkBox = $('#' + idJsonCheckbox);
+  chkBox.on('change', function(element) {
+    if (element.target.checked) addInputValidator(idInput, 'json');
+    else removeInputValidator(idInput);
   });
-
-  function saveComplete () {
-    setTimeout(function () {
-      $('#editSetMemberButton').button('reset');
-      $('#editSetMemberModal').modal('hide');
-      refreshTree();
-      getKeyTree().select_node(0);
-    }, 500);
-  }
-}
-
-function setupEditZSetButton () {
-  $('#editZSetMemberForm').ajaxForm({
-    beforeSubmit: function () {
-      console.log('saving');
-      $('#editZSetValueButton').button('loading');
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
-  });
-
-  function saveComplete () {
-    setTimeout(function () {
-      refreshTree();
-      getKeyTree().select_node(0);
-      $('#editZSetValueButton').button('reset');
-      $('#editZSetMemberModal').modal('hide');
-    }, 500);
-  }
+  chkBox.closest('.modal').on('hidden', function() {
+    removeInputValidator(idInput);
+    chkBox.prop('checked', false);
+  })
 }
 
 function setupAddKeyButton (connectionId) {
@@ -333,6 +291,7 @@ function setupAddKeyButton (connectionId) {
   newKeyModal.find('#newFieldName').val('');
   newKeyModal.find('#keyScore').val('');
   newKeyModal.find('#addKeyConnectionId').val(connectionId);
+  newKeyModal.find('#addKeyIsJson').prop('checked', false);
   newKeyModal.find('#keyType').change(function () {
     var score = newKeyModal.find('#scoreWrap');
     if ($(this).val() === 'zset') {
@@ -346,10 +305,6 @@ function setupAddKeyButton (connectionId) {
     } else {
       field.hide();
     }
-  });
-  newKeyModal.find('#addKeyIsJson').on('change', function(element) {
-    if (element.target.checked) addInputValidator('newStringValue', 'json');
-    else removeInputValidator('newStringValue');
   });
 }
 
@@ -379,33 +334,6 @@ function addNewKey() {
   });
 }
 
-function setupEditHashButton () {
-  $('#editHashFieldForm').ajaxForm({
-    beforeSubmit: function () {
-      console.log('saving');
-      $('#editHashFieldButton').button('loading');
-    },
-    error: function (err) {
-      console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
-      saveComplete();
-    },
-    success: function () {
-      console.log('saved', arguments);
-      saveComplete();
-    }
-  });
-
-  function saveComplete () {
-    setTimeout(function () {
-      refreshTree();
-      getKeyTree().select_node(0);
-      $('#editHashFieldButton').button('reset');
-      $('#editHashFieldModal').modal('hide');
-    }, 500);
-  }
-}
-
 function selectTreeNodeString (data) {
   renderEjs('templates/editString.ejs', data, $('#body'), function() {
     var isJsonParsed = false;
@@ -429,124 +357,48 @@ function selectTreeNodeString (data) {
     }
 
     if (!redisReadOnly) {
-      $('#editStringForm').ajaxForm({
-        beforeSubmit: function() {
-          console.log('saving');
-          $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
-        },
-        error: function(err) {
-          console.log('save error', arguments);
-          alert("Could not save '" + err.statusText + "'");
-          saveComplete();
-        },
-        success: function() {
+      $('#editStringForm').off('submit').on('submit', function(event) {
+        console.log('saving');
+        event.preventDefault();
+        var editForm = $(event.target);
+        $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
+
+        $.post(editForm.attr('action'), editForm.serialize()
+        ).done(function(data, status) {
+          console.log('saved', arguments);
           refreshTree();
           getKeyTree().select_node(0);
-          console.log('saved', arguments);
-          saveComplete();
-        }
+        })
+        .fail(function(err) {
+          console.log('save error', arguments);
+          alert("Could not save '" + err.statusText + "'");
+        })
+        .always(function() {
+          setTimeout(function() {
+            $('#saveKeyButton').removeAttr("disabled").html("Save");
+          }, 500);
+        });
       });
-    }
-
-    function saveComplete() {
-      setTimeout(function() {
-        $('#saveKeyButton').removeAttr("disabled").html("Save");
-      }, 500);
     }
   });
 }
 
 function selectTreeNodeHash (data) {
   renderEjs('templates/editHash.ejs', data, $('#body'), function() {
-    if (!redisReadOnly) {
-      $('#addHashFieldForm').ajaxForm({
-        beforeSubmit: function() {
-          console.log('saving');
-          $('#saveHashFieldButton').button('loading');
-        },
-        error: function(err) {
-          console.log('save error', arguments);
-          alert("Could not save '" + err.statusText + "'");
-          saveComplete();
-        },
-        success: function() {
-          console.log('saved', arguments);
-          saveComplete();
-        }
-      });
-    }
-
-    function saveComplete () {
-      setTimeout(function () {
-        refreshTree();
-        getKeyTree().select_node(0);
-        $('#saveHashFieldButton').button('reset');
-        $('#addHashFieldModal').modal('hide');
-      }, 500);
-    }
+    console.log('edit hash template rendered');
   });
 }
 
 function selectTreeNodeSet (data) {
   renderEjs('templates/editSet.ejs', data, $('#body'), function() {
-    if (!redisReadOnly) {
-      $('#addSetMemberForm').ajaxForm({
-        beforeSubmit: function() {
-          console.log('saving');
-          $('#saveMemberButton').button('loading');
-        },
-        error: function(err) {
-          console.log('save error', arguments);
-          alert("Could not save '" + err.statusText + "'");
-          saveComplete();
-        },
-        success: function() {
-          console.log('saved', arguments);
-          saveComplete();
-        }
-      });
-    }
-
-    function saveComplete () {
-      setTimeout(function () {
-        refreshTree();
-        getKeyTree().select_node(0);
-        $('#saveMemberButton').button('reset');
-        $('#addSetMemberModal').modal('hide');
-      }, 500);
-    }
+    console.debug('edit set template rendered');
   });
 }
 
 function selectTreeNodeList (data) {
   if (data.items.length > 0) {
     renderEjs('templates/editList.ejs', data, $('#body'), function() {
-      if (!redisReadOnly) {
-        $('#addListValueForm').ajaxForm({
-          beforeSubmit: function() {
-            console.log('saving');
-            $('#saveValueButton').button('loading');
-          },
-          error: function(err) {
-            console.log('save error', arguments);
-            alert("Could not save '" + err.statusText + "'");
-            saveComplete();
-          },
-          success: function() {
-            console.log('saved', arguments);
-            saveComplete();
-          }
-        });
-      }
-
-      function saveComplete () {
-        setTimeout(function () {
-          refreshTree();
-          getKeyTree().select_node(0);
-          $('#saveValueButton').button('reset');
-          $('#addListValueModal').modal('hide');
-        }, 500);
-      }
+      console.log('edit list template rendered');
     });
   } else {
     alert('Index out of bounds');
@@ -556,32 +408,7 @@ function selectTreeNodeList (data) {
 function selectTreeNodeZSet (data) {
   if (data.items.length > 0) {
     renderEjs('templates/editZSet.ejs', data, $('#body'), function() {
-      if (!redisReadOnly) {
-        $('#addZSetMemberForm').ajaxForm({
-          beforeSubmit: function() {
-            console.log('saving');
-            $('#saveZMemberButton').button('loading');
-          },
-          error: function(err) {
-            console.log('save error', arguments);
-            alert("Could not save '" + err.statusText + "'");
-            saveComplete();
-          },
-          success: function() {
-            console.log('saved', arguments);
-            saveComplete();
-          }
-        });
-      }
-
-      function saveComplete () {
-        setTimeout(function () {
-          refreshTree();
-          getKeyTree().select_node(0);
-          $('#saveZMemberButton').button('reset');
-          $('#addZSetMemberModal').modal('hide');
-        }, 500);
-      }
+      console.log('rendered zset template');
     });
   } else {
     alert('Index out of bounds');
@@ -707,7 +534,6 @@ function editListValue (connectionId, key, index, value) {
   $('#listValue').val(value);
   $('#listValueIsJson').prop('checked', false);
   $('#editListValueModal').modal('show');
-  setupEditListButton();
   enableJsonValidationCheck(value, '#listValueIsJson');
 }
 
@@ -725,7 +551,6 @@ function editSetMember (connectionId, key, member) {
   $('#setOldMember').val(member);
   $('#setMemberIsJson').prop('checked', false);
   $('#editSetMemberModal').modal('show');
-  setupEditSetButton();
   enableJsonValidationCheck(member, '#setMemberIsJson');
 }
 
@@ -745,7 +570,6 @@ function editZSetMember (connectionId, key, score, value) {
   $('#zSetOldValue').val(value);
   $('#zSetValueIsJson').prop('checked', false);
   $('#editZSetMemberModal').modal('show');
-  setupEditZSetButton();
   enableJsonValidationCheck(value, '#zSetValueIsJson');
 }
 
@@ -764,7 +588,6 @@ function editHashField (connectionId, key, field, value) {
   $('#hashFieldValue').val(value);
   $('#hashFieldIsJson').prop('checked', false);
   $('#editHashFieldModal').modal('show');
-  setupEditHashButton();
   enableJsonValidationCheck(value, '#hashFieldIsJson');
 }
 

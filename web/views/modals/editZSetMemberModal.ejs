@@ -23,11 +23,6 @@
   </div>
 </div>
 <script>
-  $('#zSetValueIsJson').on('change', function(element) {
-    if (element.target.checked) addInputValidator('zSetValue', 'json');
-    else removeInputValidator('zSetValue');
-  });
-  $('#editZSetMemberModal').on('hidden', function() {
-    removeInputValidator('zSetValue');
-  })
+  setupEditDataModals('editZSetMemberForm', 'editZSetValueButton');
+  setupJsonInputValidator('zSetValueIsJson', 'zSetValue');
 </script>
