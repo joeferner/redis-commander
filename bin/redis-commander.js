@@ -472,10 +472,11 @@ function connectToDB (redisConnection, db) {
       console.log('redis command "command" not supported, cannot build dynamic command list');
       return;
     }
-    console.debug('Got list of ' + cmdList.length + ' commands from server');
+    // console.debug('Got list of ' + cmdList.length + ' commands from server ' + redisConnection.options.host + ':' +
+    //   redisConnection.options.port);
     redisConnection.options.commandList = {
-      all: cmdList.map((item) => (item[0])),
-      ro: cmdList.filter((item) => (item[2].indexOf('readonly') >= 0)).map((item) => (item[0]))
+      all: cmdList.map((item) => (item[0].toLowerCase())),
+      ro: cmdList.filter((item) => (item[2].indexOf('readonly') >= 0)).map((item) => (item[0].toLowerCase()))
     };
   });
 
