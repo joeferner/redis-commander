@@ -467,6 +467,18 @@ function setUpConnection (redisConnection, db) {
 
 
 function connectToDB (redisConnection, db) {
+  redisConnection.call('command', function(errCmd, cmdList) {
+    if (errCmd || !Array.isArray(cmdList)) {
+      console.log('redis command "command" not supported, cannot build dynamic command list');
+      return;
+    }
+    console.debug('Got list of ' + cmdList.length + ' commands from server');
+    redisConnection.options.commandList = {
+      all: cmdList.map((item) => (item[0])),
+      ro: cmdList.filter((item) => (item[2].indexOf('readonly') >= 0)).map((item) => (item[0]))
+    };
+  });
+
   redisConnection.select(db, function (err) {
     if (err) {
       console.log(err);
