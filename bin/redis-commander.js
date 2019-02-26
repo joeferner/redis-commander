@@ -347,14 +347,21 @@ function startAllConnections() {
     if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       let newDefault = {
         "label": config.get('redis.defaultLabel'),
-        "host": args['redis-host'] || "localhost",
-        "sentinel_host": args['sentinel-host'],
-        "sentinel_port": args['sentinel-port'],
-        "port": args['redis-port'] || args['redis-socket'] || "6379",
         "dbIndex": db,
         "password": args['redis-password'] || '',
         "connectionName": config.get('redis.connectionName')
       };
+
+      if (args['redis-socket']) {
+        newDefault.path = args['redis-socket'];
+      }
+      else {
+        newDefault.host = args['redis-host'] || "localhost";
+        newDefault.sentinel_host = args['sentinel-host'];
+        newDefault.sentinel_port = args['sentinel-port'];
+        newDefault.port = args['redis-port'] || "6379";
+      }
+
       if (args['redis-tls']) {
         newDefault.tls = {};
       }
@@ -375,6 +382,7 @@ function startAllConnections() {
           client = new Redis({
             port: newDefault.port,
             host: newDefault.host,
+            path: newDefault.path,
             tls: newDefault.tls,
             family: 4,
             password: newDefault.password,
@@ -430,6 +438,7 @@ function startDefaultConnections (connections, callback) {
         let opts = {
           port: connection.port,
           host: connection.host,
+          path: connection.path,
           family: 4,
           password: connection.password,
           db: connection.dbIndex,
@@ -485,9 +494,9 @@ function connectToDB (redisConnection, db) {
       console.log(err);
       process.exit();
     }
-    console.log('Redis Connection ' + redisConnection.options.host + ':' + redisConnection.options.port +
-      (redisConnection.options.tls ? ' with TLS' : '') +
-      ' using Redis DB #' + redisConnection.options.db);
+    let opt = redisConnection.options;
+    console.log('Redis Connection ' + (opt.path ? opt.path : opt.host + ':' + opt.port) +
+      (opt.tls ? ' with TLS' : '') + ' using Redis DB #' + opt.db);
   });
 }
 
