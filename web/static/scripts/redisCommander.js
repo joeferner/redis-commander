@@ -13,7 +13,6 @@ function loadTree () {
           tree.open_node(root, null, true);
         }
       });
-      //getServerInfo(function (data) {
       $.get('connections', function (data) {
         var json_dataData = [];
 
@@ -21,7 +20,7 @@ function loadTree () {
           data.connections.every(function (instance) {
             // build root objects for jsontree
             var treeObj = {
-              id: instance.options.host + ":" + instance.options.port + ":" + instance.options.db,
+              id: instance.conId,
               text: instance.label + " (" + instance.options.host + ":" + instance.options.port + ":" + instance.options.db + ")",
               state: {opened: false},
               icon: getIconForType('root'),
@@ -157,15 +156,13 @@ function treeNodeSelected (event, data) {
   var connectionId;
   if (data.node.parent === '#') {
     connectionId = data.node.id;
-    var hostAndPort = connectionId.split(':');
-    $.get('apiv2/server/info', function (data, status) {
+    $.get('apiv2/server/' + connectionId + '/info', function (data, status) {
       if (status !== 'success') {
         return alert("Could not load server info");
       }
       data = JSON.parse(data);
       data.some(function (instance) {
-        if (instance.host == hostAndPort[0] && instance.port == hostAndPort[1] && instance.db == hostAndPort[2]) {
-          instance.connectionId = connectionId;
+        if (instance.connectionId === connectionId) {
           if (!instance.disabled) {
             renderEjs('templates/serverInfo.ejs', instance, $('#body'), setupAddKeyButton);
           }
@@ -439,19 +436,22 @@ function addKey (connectionId, key) {
 }
 
 function deleteKey (connectionId, key) {
+  var node = null;
   if (typeof(connectionId) === 'object') {
       // context menu click
-      var node = getKeyTree().get_node(connectionId.reference[0]);
+      node = getKeyTree().get_node(connectionId.reference[0]);
       key = getFullKeyPath(node);
       connectionId = getRootConnection(node);
   }
+  node = getKeyTree().get_node(connectionId);
+
   // context menu or DEL key pressed on folder item
   if (key.endsWith(foldingCharacter)) {
     deleteBranch(connectionId, key);
     return;
   }
   // delete this specific key only, no wildcard here
-  var result = confirm('Are you sure you want to delete "' + key + ' from ' + connectionId + '"?');
+  var result = confirm('Are you sure you want to delete "' + key + '" from "' + node.text + '"?');
   if (result) {
     $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
       if (status !== 'success') {
@@ -506,8 +506,9 @@ function encodeString (connectionId, key) {
 }
 
 function deleteBranch (connectionId, branchPrefix) {
+  var node = getKeyTree().get_node(connectionId)
   var query = (branchPrefix.endsWith(foldingCharacter) ? branchPrefix : branchPrefix + foldingCharacter) + '*';
-  var result = confirm('Are you sure you want to delete "' + query + ' from ' + connectionId + '"? This will delete all children as well!');
+  var result = confirm('Are you sure you want to delete "' + query + '" from "' + node.text + '"? This will delete all children as well!');
   if (result) {
     $.post('apiv2/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
       if (status !== 'success') {
@@ -878,19 +879,17 @@ function initCmdParser() {
   });
 }
 
-function getServerInfo (callback) {
-  $.get('apiv2/server/info', function (data, status) {
-    callback(JSON.parse(data))
-  });
-}
-
 function removeServer (connectionId) {
+  var node = null;
   if (typeof(connectionId) === 'object') {
       // context menu click
-      var node = getKeyTree().get_node(connectionId.reference[0]);
+      node = getKeyTree().get_node(connectionId.reference[0]);
       connectionId = getRootConnection(node);
   }
-  var result = confirm('Are you sure you want to disconnect from "' + connectionId + '"?');
+  else {
+    node = getKeyTree().get_node(connectionId);
+  }
+  var result = confirm('Are you sure you want to disconnect from "' + node.text + '"?');
   if (result) {
     $.post('logout/' + encodeURIComponent(connectionId), function (err, status) {
       if (status !== 'success') {
