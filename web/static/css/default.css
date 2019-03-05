@@ -78,9 +78,9 @@ body {
 #itemActionsBar {
   position: fixed;
   top: 0;
-  left: 250px;
+  left: inherit;
   margin-left: 30px;
-  width: 100%;
+  width: inherit;
   margin-top: 30px;
   padding-bottom: 10px;
   padding-top: 20px;
