@@ -48,7 +48,9 @@ body {
   height: 100%;
   width: 1px;
   background-color: transparent;
-  border: 10px solid transparent;
+  border-width: 0 10px;
+  border-style: solid;
+  border-color: transparent;
   cursor: col-resize;
 }
 
@@ -64,7 +66,7 @@ body {
 
 #itemData {
   overflow: scroll;
-  margin-top: 40px;
+  margin-top: 62px;
 }
 
 #body {
@@ -242,7 +244,7 @@ body {
 }
 
 #addServerContainer {
-  padding-left: 20px;
+  padding-left: 35px;
 }
 
 #scoreWrap, #fieldWrap {

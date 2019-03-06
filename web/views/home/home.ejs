@@ -1,32 +1,29 @@
 <div id="app-container">
-  <div>
-    <div id="sideBar">
-      <div id="keyTreeActions">
-        <button class="btn btn-success btn-mini" onclick="refreshTree()"><b class="icon-refresh icon-white"></b> Refresh</button>
-        <button class="btn btn-mini" onclick="toggleRedisModal()"><b class="icon-info-sign"></b> Commands</button>
-        <div class="btn-group">
-          <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
-            <b class="icon-wrench"></b>
-            More...
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a data-toggle="modal" id="expandAllNodes" href="#"><b class="icon-plus-sign"></b><b class="icon-th"></b> Refresh+Expand All Nodes</a></li>
-            <% if (!redisReadOnly) { %>
-            <li><a data-toggle="modal" id="redisImportData" href="#"><b class="icon-arrow-right"></b><b class="icon-th"></b> Import</a></li>
-            <% } %>
-            <li><a data-toggle="modal" id="redisExportData" href="#"><b class="icon-arrow-left"></b><b class="icon-th"></b> Export</a></li>
-            <li><a data-toggle="modal" href="#addServerModal"><b class="icon-plus-sign"></b> Add Server</a></li>
-          </ul>
-        </div>
+  <div id="sideBar">
+    <div id="keyTreeActions">
+      <button class="btn btn-success btn-mini" onclick="refreshTree()"><b class="icon-refresh icon-white"></b> Refresh</button>
+      <button class="btn btn-mini" onclick="toggleRedisModal()"><b class="icon-info-sign"></b> Commands</button>
+      <div class="btn-group">
+        <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
+          <b class="icon-wrench"></b>
+          More...
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="modal" id="expandAllNodes" href="#"><b class="icon-plus-sign"></b><b class="icon-th"></b> Refresh+Expand All Nodes</a></li>
+          <% if (!redisReadOnly) { %>
+          <li><a data-toggle="modal" id="redisImportData" href="#"><b class="icon-arrow-right"></b><b class="icon-th"></b> Import</a></li>
+          <% } %>
+          <li><a data-toggle="modal" id="redisExportData" href="#"><b class="icon-arrow-left"></b><b class="icon-th"></b> Export</a></li>
+          <li><a data-toggle="modal" href="#addServerModal"><b class="icon-plus-sign"></b> Add Server</a></li>
+        </ul>
       </div>
-      <div id="keyTree"></div>
-      <div id="sidebarResize"></div>
     </div>
+    <div id="keyTree"></div>
+    <div id="sidebarResize"></div>
+  </div>
 
-    <div id="body">
-
-    </div>
+  <div id="body">
   </div>
 </div>
 <div id="commandLineContainer">
@@ -43,7 +40,7 @@
   <div id="commandLine"></div>
 </div>
 
-<!-- COMMANDS MODAL -->
+<!-- COMMANDS AND CONNECTION MODALS -->
 <div id="redisCommandsModal" class="modal hide fade">
   <a id="redisCommandsExternal" target="_blank" href="">Open in new window</a>
   <button id="redisCommandsClose" type="button" class="close" data-dismiss="modal">×</button>
@@ -51,28 +48,27 @@
     <iframe id="redisCommandsModalSrc" seamless="seamless" src="">test</iframe>
   </div>
 </div>
+
 <div id="addServerModal" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Add a connection</h3>
   </div>
-  <div class="modal-body">
-    <div class="container" id="addServerContainer">
-      <form action="login" method="POST" id="addServerForm">
-        <label for="label">Name</label>
-        <input type="text" name="label" id="label" value="">
-        <label for="hostname">Hostname</label>
-        <input type="text" name="hostname" id="hostname" value="localhost">
-        <label for="port">Port or Unix Socket Path</label>
-        <input type="text" name="port" id="port" value="6379">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" value="">
-        <label for="dbIndex">Database Index</label>
-        <input type="number" name="dbIndex" id="dbIndex" value="0">
-        <label for="usetls">UseTLS <input type="checkbox" name="usetls" id="usetls" class="checkbox-oneline"></label>
-        <br>
-      </form>
-    </div>
+  <div class="modal-body" id="addServerContainer">
+    <form action="login" method="POST" id="addServerForm">
+      <label for="label">Name</label>
+      <input type="text" name="label" id="label" value="">
+      <label for="hostname">Hostname</label>
+      <input type="text" name="hostname" id="hostname" value="localhost">
+      <label for="port">Port or Unix Socket Path</label>
+      <input type="text" name="port" id="port" value="6379">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" value="">
+      <label for="dbIndex">Database Index</label>
+      <input type="number" name="dbIndex" id="dbIndex" value="0">
+      <label for="usetls">UseTLS <input type="checkbox" name="usetls" id="usetls" class="checkbox-oneline"></label>
+      <br>
+    </form>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -191,7 +187,6 @@
         setupResizeEvents();
         setupCommandLock();
         setupCLIKeyEvents();
-        $('.container').removeClass('container');
         $('html').css('overflow-y', 'hidden');
         $('#pageIndex').on('keydown', function (e) {
           if (e.keyCode === 13) {

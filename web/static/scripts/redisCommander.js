@@ -967,14 +967,15 @@ function loadConfig (callback) {
 }
 
 function resizeApp () {
-  var barWidth = $('#keyTree').outerWidth(true);
-  $('#sideBar').css('width', barWidth);
-  var bodyMargin = parseInt($('#body').css('margin-left'), 10);
-  var newBodyWidth = $(window).width() - barWidth - bodyMargin;
-  $('#body').css('width', newBodyWidth).css('left', barWidth);
-
-  $('#keyTree').height($(window).height() - $('#keyTree').offset().top - $('#commandLineContainer').outerHeight(true));
-  $('#body, #sidebarResize').css('height', $('#sideBar').css('height'));
+  var body = $('#body');
+  var keyTree = $('#keyTree');
+  var sideBar =  $('#sideBar');
+  var barWidth = keyTree.outerWidth(true);
+  var newBodyWidth = $(window).width() - barWidth - parseInt(body.css('margin-left'), 10);
+  sideBar.css('width', barWidth);
+  body.css({'width': newBodyWidth, 'left': barWidth, 'height': sideBar.css('height')});
+  keyTree.height($(window).height() - keyTree.offset().top - $('#commandLineContainer').outerHeight(true));
+  $('#itemData').css('margin-top', $('#itemActionsBar').outerHeight(false));
   configChange();
 }
 

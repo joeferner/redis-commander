@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
   <style type="text/css">
     body {
-      padding-top: 60px;
+      padding-top: 40px;
       padding-bottom: 40px;
     }
   </style>
@@ -28,16 +28,12 @@
 <body>
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="./"><img src="images/RedisCommandLogo.png"/></a>
-      <ul class="nav">
-      </ul>
-    </div>
+    <a class="brand" href="./"><img src="images/RedisCommandLogo.png"/></a>
   </div>
 </div>
-<div class="container">
-  <%- body %>
-</div>
+
+<%- body %>
+
 <% if (!redisReadOnly) { %>
   <% include modals/addListValueModal %>
   <% include modals/addSetMemberModal %>
@@ -49,6 +45,6 @@
   <% include modals/addKeyModal %>
   <% include modals/editHashFieldModal %>
 <% } %>
-  <% include modals/signinModal %>
+<% include modals/signinModal %>
 </body>
 </html>
