@@ -7,9 +7,9 @@
       <select name="connection" class="redisDumpSelect">
         <% connections.forEach(function(connection, index) {%>
         <% if (index == 0) { %>
-        <option value="<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db%>"><%=connection.label%> (<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>)</option>
+        <option value="<%=connection.options.connectionId %>"><%=connection.label%> (<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>)</option>
         <% } else { %>
-        <option value="<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>"><%=connection.label%> (<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>)</option>
+        <option value="<%=connection.options.connectionId %>"><%=connection.label%> (<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>)</option>
         <% }}); %>
       </select>
     </div>

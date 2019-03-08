@@ -86,14 +86,12 @@
   var foldingCharacter = '<%= foldingCharacter %>';
   var redisReadOnly = <%= redisReadOnly %>;
 
-  var setConnection = function (connectionId, label) {
-    if (label) {
-      $('#selectedConnectionLabel').text('Current Instance: "' + label.toUpperCase() + '" (' + connectionId + ')');
-    } else {
-      $('#selectedConnectionLabel').text('Current Instance: ' + connectionId);
-    }
-    $('#selectedConnection').val(connectionId);
+  var setConnection = function (connectionBtn) {
+    $('#selectedConnectionLabel').text('Current Instance: "' + connectionBtn.dataset.label +
+            '" (' + connectionBtn.dataset.visibleid + ')');
+    $('#selectedConnection').val(connectionBtn.value);
   };
+
   $(function () {
     $(window).on('beforeunload', 'clearStorage', function() {
       sessionStorage.clear();
@@ -180,8 +178,7 @@
         return;
       }
       renderEjs('templates/connectionsBar.ejs', data, $('#connectionsBar'), function() {
-        var firstConnection = $('#firstConnection');
-        setConnection(firstConnection.val(), firstConnection.data('label'));
+        setConnection(document.getElementById('firstConnection'));
       });
 
       initCmdParser();

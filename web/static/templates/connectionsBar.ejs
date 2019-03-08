@@ -1,15 +1,14 @@
 <% connections.forEach(function(connection, index) {%>
+<button type="button"
 <% if (index == 0) { %>
-<button type="button" id="firstConnection"
-        value='<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db%>'
-        data-label="<%=connection.label%>"
-        class="btn btn-primary active"
-        onclick="setConnection('<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db%>', '<%=connection.label%>');">
-    <%=connection.label + ' (' + connection.options.host + ':' + connection.options.port + ':' + connection.options.db + ')'%>
-</button>
+        id="firstConnection"  class="btn btn-primary active"
 <% } else { %>
-<button type="button" class="btn btn-primary"
-        onclick="setConnection('<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>', '<%=connection.label%>');">
-    <%=connection.label + ' (' + connection.options.host + ':' + connection.options.port + ':' + connection.options.db + ')'%>
+        class="btn btn-primary"
+<% } %>
+        value='<%= connection.conId %>'
+        data-label="<%= connection.label %>"
+        data-visibleid="<%= connection.options.host + ':' + connection.options.port + ':' + connection.options.db %>"
+        onclick="setConnection(event.target);">
+    <%= connection.label + ' (' + connection.options.host + ':' + connection.options.port + ':' + connection.options.db + ')' %>
 </button>
-<% }}); %>
+<% }); %>
