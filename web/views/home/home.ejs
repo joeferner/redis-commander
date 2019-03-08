@@ -57,15 +57,15 @@
   <div class="modal-body" id="addServerContainer">
     <form action="login" method="POST" id="addServerForm">
       <label for="label">Name</label>
-      <input type="text" name="label" id="label" value="">
-      <label for="hostname">Hostname</label>
-      <input type="text" name="hostname" id="hostname" value="localhost">
-      <label for="port">Port or Unix Socket Path</label>
-      <input type="text" name="port" id="port" value="6379">
+      <input type="text" name="label" id="label" value="" required>
+      <label for="hostname">Hostname or Unix Socket Path</label>
+      <input type="text" name="hostname" id="hostname" value="localhost" required>
+      <label for="port">Port</label>
+      <input type="number" name="port" id="port" value="6379">
       <label for="password">Password</label>
       <input type="password" name="password" id="password" value="">
       <label for="dbIndex">Database Index</label>
-      <input type="number" name="dbIndex" id="dbIndex" value="0">
+      <input type="number" name="dbIndex" id="dbIndex" value="0" required>
       <label for="usetls">UseTLS <input type="checkbox" name="usetls" id="usetls" class="checkbox-oneline"></label>
       <br>
     </form>
@@ -82,14 +82,12 @@
   var foldingCharacter = '<%= foldingCharacter %>';
   var redisReadOnly = <%= redisReadOnly %>;
 
-  var setConnection = function (connectionId, label) {
-    if (label) {
-      $('#selectedConnectionLabel').text('Current Instance: "' + label.toUpperCase() + '" (' + connectionId + ')');
-    } else {
-      $('#selectedConnectionLabel').text('Current Instance: ' + connectionId);
-    }
-    $('#selectedConnection').val(connectionId);
+  var setConnection = function (connectionBtn) {
+    $('#selectedConnectionLabel').text('Current Instance: "' + connectionBtn.dataset.label +
+            '" (' + connectionBtn.dataset.visibleid + ')');
+    $('#selectedConnection').val(connectionBtn.value);
   };
+
   $(function () {
     $(window).on('beforeunload', 'clearStorage', function() {
       sessionStorage.clear();
@@ -176,8 +174,7 @@
         return;
       }
       renderEjs('templates/connectionsBar.ejs', data, $('#connectionsBar'), function() {
-        var firstConnection = $('#firstConnection');
-        setConnection(firstConnection.val(), firstConnection.data('label'));
+        setConnection(document.getElementById('firstConnection'));
       });
 
       initCmdParser();

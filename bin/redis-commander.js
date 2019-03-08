@@ -347,45 +347,27 @@ function startAllConnections() {
     if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       let newDefault = {
         "label": config.get('redis.defaultLabel'),
-        "host": args['redis-host'] || "localhost",
-        "sentinel_host": args['sentinel-host'],
-        "sentinel_port": args['sentinel-port'],
-        "port": args['redis-port'] || args['redis-socket'] || "6379",
         "dbIndex": db,
         "password": args['redis-password'] || '',
         "connectionName": config.get('redis.connectionName')
       };
+
+      if (args['redis-socket']) {
+        newDefault.path = args['redis-socket'];
+      }
+      else {
+        newDefault.host = args['redis-host'] || "localhost";
+        newDefault.sentinel_host = args['sentinel-host'];
+        newDefault.sentinel_port = args['sentinel-port'];
+        newDefault.port = args['redis-port'] || "6379";
+      }
+
       if (args['redis-tls']) {
         newDefault.tls = {};
       }
+
       if (!myUtils.containsConnection(config.connections, newDefault)) {
-        if (newDefault.sentinel_host) {
-          client = new Redis({
-            showFriendlyErrorStack: true,
-            sentinels: [{host: newDefault.sentinel_host, port: newDefault.sentinel_port}],
-            tls: newDefault.tls,
-            password: newDefault.password,
-            name: 'mymaster',
-            connectionName: newDefault.connectionName,
-            retryStrategy: function (times) {
-              return 1000;
-            }
-          });
-        } else {
-          client = new Redis({
-            port: newDefault.port,
-            host: newDefault.host,
-            tls: newDefault.tls,
-            family: 4,
-            password: newDefault.password,
-            db: newDefault.dbIndex,
-            connectionName: newDefault.connectionName,
-            retryStrategy: function (times) {
-              return 1000;
-            }
-          });
-        }
-        client.label = newDefault.label;
+        client = myUtils.createRedisClient(newDefault);
         redisConnections.push(client);
         config.connections.push(newDefault);
         if (!config.get('noSave')) {
@@ -400,9 +382,7 @@ function startAllConnections() {
       }
     } else if (config.connections.length === 0) {
       // fallback to localhost if nothing els configured
-      client = new Redis();
-      client.label = config.get('redis.defaultLabel');
-
+      client = myUtils.createRedisClient({label: config.get('redis.defaultLabel')});
       redisConnections.push(client);
       setUpConnection(client, db);
     }
@@ -427,26 +407,7 @@ function startDefaultConnections (connections, callback) {
   if (connections && Array.isArray(connections)) {
     connections.forEach(function (connection) {
       if (!myUtils.containsConnection(redisConnections.map(function(c) {return c.options}), connection)) {
-        let opts = {
-          port: connection.port,
-          host: connection.host,
-          family: 4,
-          password: connection.password,
-          db: connection.dbIndex,
-          connectionName: config.get('redis.connectionName')
-        };
-        // add tls support (simple and complex)
-        // 1) boolean flag - simple tls without cert validation and similiar
-        // 2) object - all params allowed for tls socket possible (see https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
-        if (typeof connection.tls === 'boolean' && connection.tls) {
-          opts.tls = {};
-        }
-        else if (typeof connection.tls === 'object') {
-          opts.tls = connection.tls;
-        }
-
-        let client = new Redis(opts);
-        client.label = connection.label;
+        let client = myUtils.createRedisClient(connection);
         redisConnections.push(client);
         setUpConnection(client, connection.dbIndex);
       }
@@ -485,9 +446,9 @@ function connectToDB (redisConnection, db) {
       console.log(err);
       process.exit();
     }
-    console.log('Redis Connection ' + redisConnection.options.host + ':' + redisConnection.options.port +
-      (redisConnection.options.tls ? ' with TLS' : '') +
-      ' using Redis DB #' + redisConnection.options.db);
+    let opt = redisConnection.options;
+    console.log('Redis Connection ' + (opt.path ? opt.path : opt.host + ':' + opt.port) +
+      (opt.tls ? ' with TLS' : '') + ' using Redis DB #' + opt.db);
   });
 }
 
