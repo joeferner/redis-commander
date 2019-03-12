@@ -9,6 +9,10 @@ $ npm install -g redis-commander
 $ redis-commander
 ```
 
+Installation via `yarn` is currently not supported. Please use `npm` as package manager.
+
+Or run Redis Commander as Docker image `rediscommander/redis-commander` (instructions see below).
+
 # Usage
 
 ```
