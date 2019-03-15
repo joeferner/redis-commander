@@ -35,11 +35,11 @@
     "express-partials": "0.3.0",
     "inflection": "1.2.7",
     "ioredis": "3.2.2",
-    "jsonwebtoken": "8.1.0",
+    "jsonwebtoken": "8.5.0",
     "jstree": "3.3.7",
     "node-redis-dump": "0.2.1",
     "opener": "1.5.1",
-    "optimist": "0.3.7",
+    "optimist": "0.6.1",
     "readline-browserify": "0.0.4",
     "sf": "0.2.0"
   },
