@@ -22,17 +22,9 @@ let args = optimist
     string: true,
     describe: 'The port to find redis on.'
   })
-  .options('sentinel-port', {
-    string: true,
-    describe: 'The port to find sentinel on.'
-  })
   .options('redis-host', {
     string: true,
     describe: 'The host to find redis on.'
-  })
-  .options('sentinel-host', {
-    string: true,
-    describe: 'The host to find sentinel on.'
   })
   .options('redis-socket', {
     string: true,
@@ -53,6 +45,10 @@ let args = optimist
   .options('sentinel-host', {
     string: true,
     describe: 'The host to find sentinel on.'
+  })
+  .options('sentinel-name', {
+    string: true,
+    describe: 'The sentinel group name to use.'
   })
   .options('redis-tls', {
     boolean: true,
@@ -359,6 +355,7 @@ function startAllConnections() {
         newDefault.host = args['redis-host'] || "localhost";
         newDefault.sentinel_host = args['sentinel-host'];
         newDefault.sentinel_port = args['sentinel-port'];
+        newDefault.sentinel_name = args['sentinel-name'];
         newDefault.port = args['redis-port'] || "6379";
       }
 

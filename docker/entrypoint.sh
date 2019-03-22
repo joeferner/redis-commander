@@ -183,6 +183,10 @@ fi
 if [[ ! -z "$SENTINEL_HOST" ]]; then
     set -- "$@" "--sentinel-host $SENTINEL_HOST"
 fi
+
+if [[ ! -z "$SENTINEL_NAME" ]]; then
+    set -- "$@" "--sentinel-name $SENTINEL_NAME"
+fi
 # all other env vars are evaluated by node-config module ...
 
 
