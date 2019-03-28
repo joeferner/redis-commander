@@ -35,6 +35,7 @@ Options:
   --url-prefix, -u                     The url prefix to respond on.            [string]  [default: ""]
   --root-pattern, --rp                 The root pattern of the redis keys.      [string]  [default: "*"]
   --read-only                          Start app in read-only mode.             [boolean] [default: false]
+  --trust-proxy                        App is run behind proxy (enable Express "trust proxy") [boolean|string] [default: false]
   --nosave, --ns                       Do not save new connections to config.   [boolean] [default: true]
   --noload, --nl                       Do not load connections from config.     [boolean] [default: false]
   --use-scan, --sc                     Use scan instead of keys.                [boolean] [default: false]

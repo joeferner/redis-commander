@@ -128,6 +128,11 @@ let args = optimist
     describe: 'The url prefix to respond on.',
     default: config.get('server.urlPrefix'),
   })
+  .options('trust-proxy', {
+    string: true,
+    describe: 'App is run behind proxy (enable Express "trust proxy")',
+    default: config.get('server.trustProxy')
+  })
   .options('nosave', {
     alias: 'ns',
     boolean: true,
@@ -187,6 +192,7 @@ let args = optimist
     config.server.address = value['address'];
     config.server.port = value['port'];
     config.server.urlPrefix = value['url-prefix'];
+    config.server.trustProxy = value['trust-proxy'];
     config.server.httpAuth.username = value['http-auth-username'];
     config.server.httpAuth.password = value['http-auth-password'];
     config.server.httpAuth.passwordHash = value['http-auth-password-hash'];
