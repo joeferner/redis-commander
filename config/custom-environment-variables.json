@@ -17,6 +17,7 @@
     "address": "ADDRESS",
     "port": "PORT",
     "urlPrefix": "URL_PREFIX",
+    "trustProxy": "TRUST_PROXY",
     "httpAuth": {
       "username": "HTTP_USER",
       "password": "HTTP_PASSWORD",
