@@ -63,16 +63,16 @@ let args = optimist
   .options('clear-config', {
     alias: 'cc',
     boolean: false,
-    describe: 'clear configuration file.'
+    describe: 'Clear configuration file.'
   })
   .options('migrate-config', {
     boolean: false,
-    describe: 'migrate old configuration file in $HOME to new style.'
+    describe: 'Migrate old configuration file in $HOME to new style.'
   })
   .options('test', {
     alias: 't',
     boolean: false,
-    describe: 'test final configuration (file, env-vars, command line)'
+    describe: 'Test final configuration (file, env-vars, command line)'
   })
   .options('open', {
     // open local web-browser to connect to web ui on startup of server daemon too
@@ -155,7 +155,7 @@ let args = optimist
   .options('root-pattern', {
     alias: 'rp',
     boolean: false,
-    describe: 'default root pattern for redis keys.',
+    describe: 'Default root pattern for redis keys.',
     default: config.get('redis.rootPattern')
   })
   .options('use-scan', {
