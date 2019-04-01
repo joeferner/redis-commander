@@ -46,13 +46,23 @@
       });
     }
     
+    createJSONTree();
+
+  });
+
+  function createJSONTree(){
     var jqtreeCollection = $('td[id^="jqtree_"]');
     for(var i=0; i<jqtreeCollection.length; i++){
       var current = $(jqtreeCollection[i]);
       var plain = current.prev().html();
-      current.html(JSONTree.create(JSON.parse(plain))); 
+
+      try{
+        current.html(JSONTree.create(JSON.parse(plain))); 
+      }catch(e){
+        current.html(plain);
+      }
     }
-  });
+  }
 
   function onModeStringButtonClick() {
       $('td[id^="plain_"]').css('display','inline-block');
