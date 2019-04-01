@@ -5,6 +5,8 @@
   </button>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <% } %>
+  <button id="vieModeStringButton" class="btn" style="display:none;" onclick="onModeStringButtonClick()">View mode string</button>
+  <button id="vieModeTreeButton" class="btn" onclick="onModeTreeButtonClick()">View mode tree</button>
 </div>
 <div id="itemData">
   <label>Key: <b><%= key %></b></label>
@@ -14,7 +16,7 @@
     <thead>
     <tr>
       <th>Field</th>
-      <th>Value</th>
+      <th colspan="2">Value</th>
     </tr>
     </thead>
     <tbody>
@@ -23,7 +25,8 @@
           <td><%= field %></td>
         <% console.log(field);%>
         <% console.log(data[field]);%>
-          <td><%= data[field] %></td>
+          <td id="plain_<%= field %>"><%= data[field] %></td>
+          <td id="jqtree_<%= field %>" style="display:none;">loading ...</td>
         </tr>
       <% } %>
     </tbody>
@@ -42,5 +45,39 @@
         editHashField(connectionId, key, field, value);
       });
     }
+    
+    createJSONTree();
+
   });
+
+  function createJSONTree(){
+    var jqtreeCollection = $('td[id^="jqtree_"]');
+    for(var i=0; i<jqtreeCollection.length; i++){
+      var current = $(jqtreeCollection[i]);
+      var plain = current.prev().html();
+
+      try{
+        current.html(JSONTree.create(JSON.parse(plain))); 
+      }catch(e){
+        current.html(plain);
+      }
+    }
+  }
+
+  function onModeStringButtonClick() {
+      $('td[id^="plain_"]').css('display','inline-block');
+      $('td[id^="jqtree_"]').css('display','none');
+
+      $('#vieModeTreeButton').css('display','inline');
+      $('#vieModeStringButton').css('display','none');
+  }
+
+  function onModeTreeButtonClick() {
+      $('td[id^="plain_"]').css('display','none');
+      $('td[id^="jqtree_"]').css('display','inline-block');
+  
+      $('#vieModeTreeButton').css('display','none');
+      $('#vieModeStringButton').css('display','inline');
+  }
+
 </script>
