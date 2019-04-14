@@ -247,11 +247,11 @@ body {
   padding-left: 35px;
 }
 
-#scoreWrap, #fieldWrap {
+#scoreWrap, #fieldWrap, #timestampWrap, #fieldValueWrap {
   display: none;
 }
 
-#scoreWrap > input, #fieldWrap > input {
+#scoreWrap > input, #fieldWrap > input, #timestampWrap > input, #fieldValueWrap > input, #fieldValueWrap > textarea {
   margin-bottom: 10px;
 }
 

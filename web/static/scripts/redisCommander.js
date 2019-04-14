@@ -69,6 +69,7 @@ function loadTree () {
               case 'set': return 'images/treeSet.png';
               case 'list': return 'images/treeList.png';
               case 'zset': return 'images/treeZSet.png';
+              case 'stream': return 'images/treeStream.png';
               default: return null;
           }
         }
@@ -227,6 +228,9 @@ function loadKey (connectionId, key, index) {
       case 'zset':
         selectTreeNodeZSet(data);
         break;
+      case 'stream':
+        selectTreeNodeStream(data);
+        break;
       case 'none':
         selectTreeNodeBranch(data);
         break;
@@ -301,6 +305,18 @@ function setupAddKeyButton (connectionId) {
       field.show();
     } else {
       field.hide();
+    }
+    var fieldValue = newKeyModal.find('#fieldValueWrap');
+    if ($(this).val() === 'stream') {
+      fieldValue.show();
+    } else {
+      fieldValue.hide();
+    }
+    var timestamp = newKeyModal.find('#timestampWrap');
+    if ($(this).val() === 'stream') {
+      timestamp.show();
+    } else {
+      timestamp.hide();
     }
   });
 }
@@ -410,6 +426,16 @@ function selectTreeNodeZSet (data) {
   } else {
     alert('Index out of bounds');
   }
+}
+
+function selectTreeNodeStream (data) {
+  // if (data.items.length > 0) {
+    renderEjs('templates/editStream.ejs', data, $('#body'), function() {
+      console.log('rendered stream template');
+    });
+  // } else {
+  //   alert('Index out of bounds');
+  // }
 }
 
 function getKeyTree () {
@@ -574,6 +600,28 @@ function editZSetMember (connectionId, key, score, value) {
   enableJsonValidationCheck(value, '#zSetValueIsJson');
 }
 
+function addXSetMember (connectionId, key) {
+  $('#addXSetKey').val(key);
+  $('#addXSetTimestamp').val(Date.now()+'-0');
+  $('#addXSetField').val("");
+  $('#addXSetValue').val("");
+  $('#addXSetConnectionId').val(connectionId);
+  $('#addXSetMemberModal').modal('show');
+}
+
+function editXSetMember (connectionId, key, timestamp, field, value) {
+  $('#xSetConnectionId').val(connectionId);
+  $('#xSetKey').val(key);
+  $('#xSetTimestamp').val(timestamp);
+  $('#xSetField').val(field);
+  $('#xSetValue').val(value);
+  $('#xSetFieldIsJson').prop('checked', false);
+  $('#xSetValueIsJson').prop('checked', false);
+  $('#editXSetMemberModal').modal('show');
+  enableJsonValidationCheck(value, '#xSetFieldIsJson');
+  enableJsonValidationCheck(value, '#xSetValueIsJson');
+}
+
 function addHashField (connectionId, key) {
     $('#addHashKey').val(key);
     $('#addHashFieldName').val("");
@@ -625,6 +673,11 @@ function removeSetElement () {
 function removeZSetElement () {
   $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editZSetMemberForm').submit();
+}
+
+function removeXSetElement () {
+  $('#xSetValue').val('REDISCOMMANDERTOMBSTONE');
+  $('#editXSetMemberForm').submit();
 }
 
 function removeHashField () {

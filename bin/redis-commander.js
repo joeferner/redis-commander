@@ -3,7 +3,7 @@
 'use strict';
 
 let optimist = require('optimist');
-let Redis = require('ioredis');
+// let Redis = require('ioredis');
 let myUtils = require('../lib/util');
 
 // fix the cwd to project base dir for browserify and config loading
