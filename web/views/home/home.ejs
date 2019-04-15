@@ -55,19 +55,38 @@
     <h3>Add a connection</h3>
   </div>
   <div class="modal-body" id="addServerContainer">
-    <form action="login" method="POST" id="addServerForm">
-      <label for="label">Name</label>
-      <input type="text" name="label" id="label" value="" required>
-      <label for="hostname">Hostname or Unix Socket Path</label>
-      <input type="text" name="hostname" id="hostname" value="localhost" required>
-      <label for="port">Port</label>
-      <input type="number" name="port" id="port" value="6379">
+    <form action="login" method="POST" id="addServerForm" class="form-vertical">
+      <label for="label">Display-Name</label>
+      <input type="text" name="label" id="label" value="" class="span6" required>
+      <div class="control-group">
+        <label class="control-label" for="serverType">Server Type</label>
+        <div class="controls">
+          <select id="serverType" name="serverType">
+            <option value="redis">Standalone Redis-Server</option>
+            <option value="sentinel">Sentinel</option>
+            <!--option value="cluster">Cluster</option-->
+          </select>
+        </div>
+      </div>
+      <div id="addServerGroupRedis">
+        <label for="hostname">Hostname or Unix Socket Path</label>
+        <input type="text" name="hostname" id="hostname" value="localhost" class="span6" required>
+        <label for="port">Port</label>
+        <input type="number" name="port" id="port" value="6379">
+      </div>
+      <div id="addServerGroupSentinel">
+        <label for="sentinelName">Sentinel Group Name</label>
+        <input type="text" name="sentinelName" id="sentinelName" value="mymaster" class="span6" required>
+        <label for="sentinels">List of sentinels</label>
+        <input type="text" name="sentinels" id="sentinels" value="localhost:26379" class="span6" required>
+        <div>Add comma-separated list of sentinels with "host-1:port,host-2 ..."</div>
+        <br>
+      </div>
       <label for="password">Password</label>
-      <input type="password" name="password" id="password" value="">
+      <input type="password" name="password" id="password" value="" class="span6">
       <label for="dbIndex">Database Index</label>
       <input type="number" name="dbIndex" id="dbIndex" value="0" required>
       <label for="usetls">UseTLS <input type="checkbox" name="usetls" id="usetls" class="checkbox-oneline"></label>
-      <br>
     </form>
   </div>
   <div class="modal-footer">
@@ -184,6 +203,7 @@
         setupResizeEvents();
         setupCommandLock();
         setupCLIKeyEvents();
+        setupAddServerForm();
         $('html').css('overflow-y', 'hidden');
         $('#pageIndex').on('keydown', function (e) {
           if (e.keyCode === 13) {

@@ -184,6 +184,10 @@ if [[ ! -z "$SENTINEL_HOST" ]]; then
     set -- "$@" "--sentinel-host $SENTINEL_HOST"
 fi
 
+if [[ ! -z "$SENTINELS" ]]; then
+    set -- "$@" "--sentinels $SENTINELS"
+fi
+
 if [[ ! -z "$SENTINEL_NAME" ]]; then
     set -- "$@" "--sentinel-name $SENTINEL_NAME"
 fi
