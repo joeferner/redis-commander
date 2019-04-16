@@ -46,13 +46,17 @@ let args = optimist
     string: true,
     describe: 'The host to find sentinel on.'
   })
+  .options('sentinels', {
+    string: true,
+    describe: 'Comma separated list of sentinels with host:port.'
+  })
   .options('sentinel-name', {
     string: true,
     describe: 'The sentinel group name to use.'
   })
   .options('redis-tls', {
     boolean: true,
-    describe: 'Use TLS for connection to redis server.',
+    describe: 'Use TLS for connection to redis server or sentinel.',
     default: false
   })
   .options('noload', {
@@ -346,7 +350,7 @@ function startAllConnections() {
     }
 
     let client;
-    if (args['sentinel-host'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
+    if (args['sentinel-host'] || args['sentinels'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
       let newDefault = {
         "label": config.get('redis.defaultLabel'),
         "dbIndex": db,
@@ -359,10 +363,15 @@ function startAllConnections() {
       }
       else {
         newDefault.host = args['redis-host'] || "localhost";
-        newDefault.sentinel_host = args['sentinel-host'];
-        newDefault.sentinel_port = args['sentinel-port'];
-        newDefault.sentinel_name = args['sentinel-name'];
         newDefault.port = args['redis-port'] || "6379";
+        newDefault.sentinel_name = args['sentinel-name'];
+        if (args['sentinels']) {
+          newDefault.sentinels = myUtils.parseRedisSentinel('--sentinels', args['sentinels']);
+        }
+        else if (args['sentinel-host']) {
+          newDefault.sentinels = myUtils.parseRedisSentinel( '--sentinel-host or --sentinel-port',
+            args['sentinel-host'] + ':' + args['sentinel-port']);
+        }
       }
 
       if (args['redis-tls']) {
@@ -384,7 +393,7 @@ function startAllConnections() {
         setUpConnection(client, db);
       }
     } else if (config.connections.length === 0) {
-      // fallback to localhost if nothing els configured
+      // fallback to localhost if nothing else configured
       client = myUtils.createRedisClient({label: config.get('redis.defaultLabel')});
       redisConnections.push(client);
       setUpConnection(client, db);

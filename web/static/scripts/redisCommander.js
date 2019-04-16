@@ -282,6 +282,20 @@ function setupJsonInputValidator(idJsonCheckbox, idInput) {
   })
 }
 
+function setupAddServerForm() {
+  var serverModal = $('#addServerModal');
+  serverModal.find('#addServerGroupSentinel').hide();
+  serverModal.find('#serverType').change(function () {
+    if ($(this).val() === 'redis') {
+      serverModal.find('#addServerGroupRedis').show();
+      serverModal.find('#addServerGroupSentinel').hide();
+    } else {
+      serverModal.find('#addServerGroupRedis').hide();
+      serverModal.find('#addServerGroupSentinel').show();
+    }
+  });
+}
+
 function setupAddKeyButton (connectionId) {
   var newKeyModal = $('#addKeyModal');
   newKeyModal.find('#newStringValue').val('');

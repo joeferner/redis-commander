@@ -24,8 +24,10 @@ Options:
   --redis-password                     The redis password.                      [string]
   --redis-db                           The redis database.                      [string]
   --redis-label                        The label to display for the connection. [string]
+  --redis-tls                          Use TLS for connection to redis server or sentinel. [boolean] [default: false]
   --sentinel-port                      The port to find redis sentinel on.      [string]
   --sentinel-host                      The host to find redis sentinel on.      [string]
+  --sentinels                          Comma separated list of sentinels with host:port. [string]  [default: mymaster]
   --sentinel-name                      The redis sentinel group name to use.    [string]  [default: mymaster]
   --http-auth-username, --http-u       The http authorisation username.         [string]
   --http-auth-password, --http-p       The http authorisation password.         [string]
@@ -126,11 +128,12 @@ REDIS_DB
 REDIS_HOSTS
 SENTINEL_PORT
 SENTINEL_HOST
+SENTINELS
 SENTINEL_NAME
 K8S_SIGTERM
 ```
 
-The K8S_SIGTERM variable (default "0") can be set to "1" to work around kubernetes specificas
+The `K8S_SIGTERM` variable (default "0") can be set to "1" to work around kubernetes specificas
 to allow pod replacement with zero downtime. More information on how kubernetes handles termination of old pods and the
 setup of new ones can be found within the thread [https://github.com/kubernetes/contrib/issues/1140#issuecomment-290836405]
 
@@ -140,7 +143,7 @@ After running the container, `redis-commander` will be available at [localhost:8
 
 ### Valid host strings
 
-the REDIS_HOSTS environment variable is a comma separated list of host definitions,
+the `REDIS_HOSTS` environment variable is a comma separated list of host definitions,
 where each host should follow one of these templates: 
 
 `hostname`
