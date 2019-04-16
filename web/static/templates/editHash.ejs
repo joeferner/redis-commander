@@ -30,7 +30,7 @@
         </tr>
       <% } %>
     </tbody>
-   </table>
+  </table>
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
@@ -45,9 +45,8 @@
         editHashField(connectionId, key, field, value);
       });
     }
-    
-    createJSONTree();
 
+    createJSONTree();
   });
 
   function createJSONTree(){
@@ -57,7 +56,7 @@
       var plain = current.prev().html();
 
       try{
-        current.html(JSONTree.create(JSON.parse(plain))); 
+        current.html(JSONTree.create(JSON.parse(plain)));
       }catch(e){
         current.html(plain);
       }
@@ -75,7 +74,7 @@
   function onModeTreeButtonClick() {
       $('td[id^="plain_"]').css('display','none');
       $('td[id^="jqtree_"]').css('display','inline-block');
-  
+
       $('#vieModeTreeButton').css('display','none');
       $('#vieModeStringButton').css('display','inline');
   }

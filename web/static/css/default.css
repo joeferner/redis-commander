@@ -65,13 +65,13 @@ body {
 }
 
 #itemData {
-  overflow: scroll;
+  overflow-x: auto;
   margin-top: 62px;
 }
 
 #body {
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   left: 250px;
   margin-left: 30px;
