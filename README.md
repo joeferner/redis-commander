@@ -1,6 +1,6 @@
 # Redis Commander
 
-Redis management tool written in node.js
+Redis web management tool written in node.js
 
 # Install and Run
 
@@ -12,6 +12,17 @@ $ redis-commander
 Installation via `yarn` is currently not supported. Please use `npm` as package manager.
 
 Or run Redis Commander as Docker image `rediscommander/redis-commander` (instructions see below).
+
+# Features
+
+Web-UI to display and edit data within multiple different Redis servers. 
+
+It has support for the following data types to view, add, update and delete data:
+* Strings
+* Lists
+* Sets
+* Sorted Set
+* Streams (Basic support based on HFXBus project from https://github.com/exocet-engineering/hfx-bus, only view/add/delete data)
 
 # Usage
 
