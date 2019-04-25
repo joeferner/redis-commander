@@ -292,7 +292,8 @@ function setupAddKeyButton (connectionId) {
   newKeyModal.find('#newFieldName').val('');
   newKeyModal.find('#keyScore').val('');
   newKeyModal.find('#addKeyConnectionId').val(connectionId);
-  newKeyModal.find('#addKeyIsJson').prop('checked', false);
+  newKeyModal.find('#addKeyValueIsJson').prop('checked', false);
+  newKeyModal.find('#addKeyFieldIsJson').prop('checked', false);
   newKeyModal.find('#keyType').change(function () {
     var score = newKeyModal.find('#scoreWrap');
     if ($(this).val() === 'zset') {
@@ -307,15 +308,12 @@ function setupAddKeyButton (connectionId) {
       field.hide();
     }
     var fieldValue = newKeyModal.find('#fieldValueWrap');
-    if ($(this).val() === 'stream') {
-      fieldValue.show();
-    } else {
-      fieldValue.hide();
-    }
     var timestamp = newKeyModal.find('#timestampWrap');
     if ($(this).val() === 'stream') {
+      fieldValue.show();
       timestamp.show();
     } else {
+      fieldValue.hide();
       timestamp.hide();
     }
   });
@@ -429,13 +427,9 @@ function selectTreeNodeZSet (data) {
 }
 
 function selectTreeNodeStream (data) {
-  // if (data.items.length > 0) {
-    renderEjs('templates/editStream.ejs', data, $('#body'), function() {
-      console.log('rendered stream template');
-    });
-  // } else {
-  //   alert('Index out of bounds');
-  // }
+  renderEjs('templates/editStream.ejs', data, $('#body'), function() {
+    console.log('rendered stream template');
+  });
 }
 
 function getKeyTree () {
