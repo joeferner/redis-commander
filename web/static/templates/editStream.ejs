@@ -6,8 +6,8 @@
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <% } %>
   <div id="pageNav" class="input-append input-prepend">
-    <% if (items.length > 0) { %>
-    <input class="span2" id="timestampIndex" type="text" value="<%= items[0].timestamp %>"/>
+    <% if (length > 0) { %>
+    <input class="span2" id="timestampIndex" type="text" value="<%= items.length > 0 ? items[0].timestamp : 1 %>"/>
     <button id="gotoTimestampButton" class="btn btn-primary" type="button"
             onclick="loadKey('<%= connectionId %>','<%= key%>', $('#timestampIndex').val())">Goto Timestamp
     </button>
