@@ -25,6 +25,7 @@
       <th>Timestamp</th>
       <th>Field</th>
       <th>Value</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -34,25 +35,30 @@
       <td><%= item.timestamp %></td>
       <td><%= item.field %></td>
       <td><%= item.value %></td>
+      <td>
+        <% if (!redisReadOnly) { %>
+        <button class="btn btn-mini btn-remove">
+        <b class="icon-remove-circle" style="margin-top: 1px"></b>
+        </button>
+        <% } %>
+      </td>
     </tr>
     <% }) %>
     </tbody>
   </table>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (!redisReadOnly) {
+        $('#itemData tbody button.btn-remove').click(function(event) {
+          var row = $(event.currentTarget).closest('tr');
+          var timestamp = row.children(':eq(1)').text();
+          var key = '<%= key %>';
+          var connectionId = '<%= connectionId %>';
+          if (confirm('Delete timestamp ' + timestamp + ' from stream at "' + key + '"?')) {
+            removeXSetElement(connectionId, key, timestamp)
+          }
+        });
+      }
+    });
+  </script>
 </div>
-<script type="text/javascript">
-  $(document).ready(function () {
-    if (!redisReadOnly)
-    {
-      $('.table tbody tr').dblclick(function(event) {
-        var row = event.currentTarget;
-        var timestamp = row.children[1].innerHTML.toString();
-        var field = row.children[2].innerHTML.toString();
-        var value = row.children[3].innerHTML.toString();
-        var key = "<%= key %>";
-        var connectionId = "<%= connectionId %>";
-
-        editXSetMember(connectionId, key, timestamp, field, value);
-      });
-    }
-  });
-</script>

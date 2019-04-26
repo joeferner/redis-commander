@@ -526,7 +526,7 @@ function encodeString (connectionId, key) {
 }
 
 function deleteBranch (connectionId, branchPrefix) {
-  var node = getKeyTree().get_node(connectionId)
+  var node = getKeyTree().get_node(connectionId);
   var query = (branchPrefix.endsWith(foldingCharacter) ? branchPrefix : branchPrefix + foldingCharacter) + '*';
   var result = confirm('Are you sure you want to delete "' + query + '" from "' + node.text + '"? This will delete all children as well!');
   if (result) {
@@ -603,19 +603,6 @@ function addXSetMember (connectionId, key) {
   $('#addXSetMemberModal').modal('show');
 }
 
-function editXSetMember (connectionId, key, timestamp, field, value) {
-  $('#xSetConnectionId').val(connectionId);
-  $('#xSetKey').val(key);
-  $('#xSetTimestamp').val(timestamp);
-  $('#xSetField').val(field);
-  $('#xSetValue').val(value);
-  $('#xSetFieldIsJson').prop('checked', false);
-  $('#xSetValueIsJson').prop('checked', false);
-  $('#editXSetMemberModal').modal('show');
-  enableJsonValidationCheck(value, '#xSetFieldIsJson');
-  enableJsonValidationCheck(value, '#xSetValueIsJson');
-}
-
 function addHashField (connectionId, key) {
     $('#addHashKey').val(key);
     $('#addHashFieldName').val("");
@@ -669,15 +656,31 @@ function removeZSetElement () {
   $('#editZSetMemberForm').submit();
 }
 
-function removeXSetElement () {
-  $('#xSetValue').val('REDISCOMMANDERTOMBSTONE');
-  $('#editXSetMemberForm').submit();
-}
-
 function removeHashField () {
   $('#hashFieldValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editHashFieldForm').submit();
 }
+
+function removeXSetElement (connectionId, key, timestamp) {
+  $.ajax({
+    url: 'apiv2/xset/member',
+    method: 'DELETE',
+    data: {
+      connectionId: connectionId,
+      key: key,
+      timestamp: timestamp
+    }
+  }).done(function(data, status) {
+    console.log('entry at timestamp ' + timestamp + ' deleted');
+    refreshTree();
+    getKeyTree().select_node(0);
+  })
+  .fail(function(err) {
+    console.log('delete stream entry error', arguments);
+    alert("Could not delete stream member at timestamp " + timestamp + ': ' + err.statusText);
+  });
+}
+
 
 var commandLineScrollTop;
 var cliOpen = false;
