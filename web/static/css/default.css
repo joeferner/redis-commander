@@ -64,9 +64,18 @@ body {
   margin-top: 5px;
 }
 
+#keyTreeActions .btn-mini [class^="icon-"], #keyTreeActions .btn-mini [class*=" icon-"] {
+  margin-top: 0;
+  vertical-align: top;
+}
+
 #itemData {
   overflow: scroll;
   margin-top: 62px;
+}
+
+#itemData .btn-mini [class^="icon-"], #itemData .btn-mini [class*=" icon-"] {
+  margin-top: 1px;
 }
 
 #body {
