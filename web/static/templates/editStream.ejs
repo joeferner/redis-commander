@@ -1,0 +1,64 @@
+<div id="itemActionsBar">
+  <% if (!redisReadOnly) { %>
+  <button class="btn" data-toggle="modal" onclick="addXSetMember('<%= connectionId %>','<%= key %>')"
+          style="margin-right: 5px">Add New Entry...
+  </button>
+  <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
+  <% } %>
+  <div id="pageNav" class="input-append input-prepend">
+    <% if (length > 0) { %>
+    <input class="span2" id="timestampIndex" type="text" value="<%= items.length > 0 ? items[0].timestamp : 1 %>"/>
+    <button id="gotoTimestampButton" class="btn btn-primary" type="button"
+            onclick="loadKey('<%= connectionId %>','<%= key%>', $('#timestampIndex').val())">Goto Timestamp
+    </button>
+    <% } %>
+  </div>
+</div>
+<div id="itemData">
+  <label>Key: <b><%= key %></b></label>
+  <label>TTL: <b><%= ttl %></b></label>
+  <label>Type: <b>Stream</b> (<%= length %> Entries)</label>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Timestamp</th>
+      <th>Field</th>
+      <th>Value</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% items.forEach(function(item) { %>
+    <tr>
+      <td><%= item.number %></td>
+      <td><%= item.timestamp %></td>
+      <td><%= item.field %></td>
+      <td><%= item.value %></td>
+      <td>
+        <% if (!redisReadOnly) { %>
+        <button class="btn btn-mini btn-remove">
+        <b class="icon-remove-circle"></b>
+        </button>
+        <% } %>
+      </td>
+    </tr>
+    <% }) %>
+    </tbody>
+  </table>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (!redisReadOnly) {
+        $('#itemData tbody button.btn-remove').click(function(event) {
+          var row = $(event.currentTarget).closest('tr');
+          var timestamp = row.children(':eq(1)').text();
+          var key = '<%= key %>';
+          var connectionId = '<%= connectionId %>';
+          if (confirm('Delete timestamp ' + timestamp + ' from stream at "' + key + '"?')) {
+            removeXSetElement(connectionId, key, timestamp)
+          }
+        });
+      }
+    });
+  </script>
+</div>

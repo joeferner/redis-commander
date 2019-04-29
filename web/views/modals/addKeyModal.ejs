@@ -20,9 +20,14 @@
             <option value="set">Set</option>
             <option value="zset">Sorted Set</option>
             <option value="hash">Hash</option>
+            <option value="stream">Stream</option>
           </select>
         </div>
       </div>
+      <span id="timestampWrap" class="control-group">
+        <label class="control-label" for="keyTimestamp">Timestamp</label>
+        <input id="keyTimestamp" name="keyTimestamp" class="input-mini span2" type="text" value="*"/>
+      </span>
       <span id="scoreWrap" class="control-group">
         <label class="control-label" for="keyScore">Score</label>
         <input id="keyScore" name="keyScore" class="input-mini" type="text"/>
@@ -35,9 +40,15 @@
         <div class="controls">
         </div>
       </div>
+      <span id="fieldValueWrap" class="control-group">
+        <label class="control-label" for="newFieldValue">Field</label>
+        <textarea id="newFieldValue" name="fieldValue" class="modal-content-width" style="height: 200px;"></textarea>
+        <label class="checkbox"><input type="checkbox" id="addKeyFieldIsJson" name="isJson">Validate as JSON</label>
+      </span>
       <label class="control-label" for="newStringValue">Value</label>
       <textarea id="newStringValue" name="stringValue" class="modal-content-width" style="height: 200px;"></textarea>
-      <label class="checkbox"><input type="checkbox" id="addKeyIsJson" name="isJson">Validate as JSON</label>
+      <label class="checkbox"><input type="checkbox" id="addKeyValueIsJson" name="isJson">Validate as JSON</label>
+
       <input id="addKeyConnectionId" type="hidden" value=""/>
     </form>
   </div>
@@ -47,5 +58,6 @@
   </div>
 </div>
 <script>
-  setupJsonInputValidator('addKeyIsJson', 'newStringValue');
+  setupJsonInputValidator('addKeyValueIsJson', 'newStringValue');
+  setupJsonInputValidator('addKeyFieldIsJson', 'newFieldValue');
 </script>

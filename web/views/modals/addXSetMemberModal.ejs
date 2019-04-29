@@ -1,0 +1,33 @@
+<div id="addXSetMemberModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Add Entry</h3>
+  </div>
+  <div class="modal-body">
+    <form id="addXSetMemberForm" action="apiv2/xset/member/add" method="POST" class="form-vertical">
+      <input id="addXSetKey" name="key" type="hidden"/>
+
+      <label class="control-label" for="addXSetTimestamp">Timestamp (current browser time; put <strong>*</strong> to let Redis auto-generate)</label>
+      <input id="addXSetTimestamp" name="timestamp" type="text"/>
+
+      <label class="control-label" for="addXSetField">Field</label>
+      <textarea id="addXSetField" name="field" class="modal-content-width" style="height: 50px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="addXSetFieldIsJson" name="isJson">Validate as JSON</label>
+
+      <label class="control-label" for="addXSetValue">Value</label>
+      <textarea id="addXSetValue" name="value" class="modal-content-width" style="height: 150px;"></textarea>
+      <label class="checkbox"><input type="checkbox" id="addXSetValueIsJson" name="isJson">Validate as JSON</label>
+
+      <input id="addXSetConnectionId" name="connectionId" type="hidden"/>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <button id="saveXMemberButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#addXSetMemberForm').submit()">Save</button>
+  </div>
+</div>
+<script>
+  setupEditDataModals('addXSetMemberForm', 'saveXMemberButton');
+  setupJsonInputValidator('addXSetFieldIsJson', 'addXSetField');
+  setupJsonInputValidator('addXSetValueIsJson', 'addXSetValue');
+</script>

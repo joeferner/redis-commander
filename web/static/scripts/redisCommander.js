@@ -69,6 +69,7 @@ function loadTree () {
               case 'set': return 'images/treeSet.png';
               case 'list': return 'images/treeList.png';
               case 'zset': return 'images/treeZSet.png';
+              case 'stream': return 'images/treeStream.png';
               default: return null;
           }
         }
@@ -227,6 +228,9 @@ function loadKey (connectionId, key, index) {
       case 'zset':
         selectTreeNodeZSet(data);
         break;
+      case 'stream':
+        selectTreeNodeStream(data);
+        break;
       case 'none':
         selectTreeNodeBranch(data);
         break;
@@ -302,7 +306,8 @@ function setupAddKeyButton (connectionId) {
   newKeyModal.find('#newFieldName').val('');
   newKeyModal.find('#keyScore').val('');
   newKeyModal.find('#addKeyConnectionId').val(connectionId);
-  newKeyModal.find('#addKeyIsJson').prop('checked', false);
+  newKeyModal.find('#addKeyValueIsJson').prop('checked', false);
+  newKeyModal.find('#addKeyFieldIsJson').prop('checked', false);
   newKeyModal.find('#keyType').change(function () {
     var score = newKeyModal.find('#scoreWrap');
     if ($(this).val() === 'zset') {
@@ -315,6 +320,15 @@ function setupAddKeyButton (connectionId) {
       field.show();
     } else {
       field.hide();
+    }
+    var fieldValue = newKeyModal.find('#fieldValueWrap');
+    var timestamp = newKeyModal.find('#timestampWrap');
+    if ($(this).val() === 'stream') {
+      fieldValue.show();
+      timestamp.show();
+    } else {
+      fieldValue.hide();
+      timestamp.hide();
     }
   });
 }
@@ -426,6 +440,12 @@ function selectTreeNodeZSet (data) {
   }
 }
 
+function selectTreeNodeStream (data) {
+  renderEjs('templates/editStream.ejs', data, $('#body'), function() {
+    console.log('rendered stream template');
+  });
+}
+
 function getKeyTree () {
   return $.jstree.reference('#keyTree');
 }
@@ -520,7 +540,7 @@ function encodeString (connectionId, key) {
 }
 
 function deleteBranch (connectionId, branchPrefix) {
-  var node = getKeyTree().get_node(connectionId)
+  var node = getKeyTree().get_node(connectionId);
   var query = (branchPrefix.endsWith(foldingCharacter) ? branchPrefix : branchPrefix + foldingCharacter) + '*';
   var result = confirm('Are you sure you want to delete "' + query + '" from "' + node.text + '"? This will delete all children as well!');
   if (result) {
@@ -588,6 +608,15 @@ function editZSetMember (connectionId, key, score, value) {
   enableJsonValidationCheck(value, '#zSetValueIsJson');
 }
 
+function addXSetMember (connectionId, key) {
+  $('#addXSetKey').val(key);
+  $('#addXSetTimestamp').val(Date.now()+'-0');
+  $('#addXSetField').val("");
+  $('#addXSetValue').val("");
+  $('#addXSetConnectionId').val(connectionId);
+  $('#addXSetMemberModal').modal('show');
+}
+
 function addHashField (connectionId, key) {
     $('#addHashKey').val(key);
     $('#addHashFieldName').val("");
@@ -645,6 +674,27 @@ function removeHashField () {
   $('#hashFieldValue').val('REDISCOMMANDERTOMBSTONE');
   $('#editHashFieldForm').submit();
 }
+
+function removeXSetElement (connectionId, key, timestamp) {
+  $.ajax({
+    url: 'apiv2/xset/member',
+    method: 'DELETE',
+    data: {
+      connectionId: connectionId,
+      key: key,
+      timestamp: timestamp
+    }
+  }).done(function(data, status) {
+    console.log('entry at timestamp ' + timestamp + ' deleted');
+    refreshTree();
+    getKeyTree().select_node(0);
+  })
+  .fail(function(err) {
+    console.log('delete stream entry error', arguments);
+    alert("Could not delete stream member at timestamp " + timestamp + ': ' + err.statusText);
+  });
+}
+
 
 var commandLineScrollTop;
 var cliOpen = false;
