@@ -22,7 +22,7 @@
     "port": 8081,
     "urlPrefix": "",
     "trustProxy": false,
-    "httpBodyMaxSize": "100kb",
+    "clientMaxBodySize": "100kb",
     "httpAuth": {
       "username": "",
       "password": "",
