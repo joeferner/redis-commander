@@ -191,6 +191,10 @@ fi
 if [[ ! -z "$SENTINEL_NAME" ]]; then
     set -- "$@" "--sentinel-name $SENTINEL_NAME"
 fi
+
+if [[ ! -z "$SENTINEL_PASSWORD" ]]; then
+    set -- "$@" "--sentinel-password $SENTINEL_PASSWORD"
+fi
 # all other env vars are evaluated by node-config module ...
 
 

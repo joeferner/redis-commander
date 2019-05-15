@@ -54,6 +54,10 @@ let args = optimist
     string: true,
     describe: 'The sentinel group name to use.'
   })
+  .options('sentinel-password', {
+    string: true,
+    describe: 'The sentinel password to use.'
+  })
   .options('redis-tls', {
     boolean: true,
     describe: 'Use TLS for connection to redis server or sentinel.',
@@ -364,7 +368,7 @@ function startAllConnections() {
       else {
         newDefault.host = args['redis-host'] || "localhost";
         newDefault.port = args['redis-port'] || "6379";
-        newDefault.sentinel_name = args['sentinel-name'];
+        newDefault.sentinelName = args['sentinel-name'];
         if (args['sentinels']) {
           newDefault.sentinels = myUtils.parseRedisSentinel('--sentinels', args['sentinels']);
         }

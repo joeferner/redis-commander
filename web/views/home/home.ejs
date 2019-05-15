@@ -81,8 +81,23 @@
         <input type="text" name="sentinels" id="sentinels" value="localhost:26379" class="span6" required>
         <div>Add comma-separated list of sentinels with "host-1:port,host-2 ..."</div>
         <br>
+        <label class="radio inline">
+          <input type="radio" name="sentinelPWType" value="none" checked>
+          No password
+        </label>
+        <label class="radio inline">
+          <input type="radio" name="sentinelPWType" value="redis">
+          Same as Redis server
+        </label>
+        <label class="radio inline">
+          <input type="radio" name="sentinelPWType" value="sentinel">
+          Explicit Sentinel password
+        </label>
+        <label for="sentinelPassword" class="muted">Password for Sentinels</label>
+        <input type="password" name="sentinelPassword" id="sentinelPassword" value="" class="span6" disabled>
+        <hr style="margin-right: 24px">
       </div>
-      <label for="password">Password</label>
+      <label for="password">Redis Server Password</label>
       <input type="password" name="password" id="password" value="" class="span6">
       <label for="dbIndex">Database Index</label>
       <input type="number" name="dbIndex" id="dbIndex" value="0" required>
@@ -173,7 +188,7 @@
           addServerError(err.statusText);
         })
         .always(function() {
-          $('#add ServerBtn').prop("disabled", false).text("Connect...");
+          $('#addServerBtn').prop("disabled", false).text("Connect...");
         })
       });
 

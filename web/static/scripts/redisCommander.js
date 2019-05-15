@@ -298,6 +298,16 @@ function setupAddServerForm() {
       serverModal.find('#addServerGroupSentinel').show();
     }
   });
+  serverModal.find('input:radio[name=sentinelPWType]').change(function() {
+    if ($(this).val() === 'sentinel') {
+      serverModal.find('#sentinelPassword').prop('disabled', false)
+        .prev('label').removeClass('muted');
+    }
+    else {
+      serverModal.find('#sentinelPassword').prop('disabled', true)
+        .prev('label').addClass('muted');
+    }
+  })
 }
 
 function setupAddKeyButton (connectionId) {

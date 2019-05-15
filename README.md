@@ -40,6 +40,7 @@ Options:
   --sentinel-host                      The host to find redis sentinel on.      [string]
   --sentinels                          Comma separated list of sentinels with host:port. [string]  [default: mymaster]
   --sentinel-name                      The redis sentinel group name to use.    [string]  [default: mymaster]
+  --sentinel-password                  The password for sentinel instance.      [string]  [default: mymaster]
   --http-auth-username, --http-u       The http authorisation username.         [string]
   --http-auth-password, --http-p       The http authorisation password.         [string]
   --http-auth-password-hash, --http-h  The http authorisation password hash.    [string]
@@ -142,6 +143,7 @@ SENTINEL_PORT
 SENTINEL_HOST
 SENTINELS
 SENTINEL_NAME
+SENTINEL_PASSWORD
 K8S_SIGTERM
 ```
 
