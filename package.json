@@ -34,7 +34,7 @@
     "express": "4.16.4",
     "express-partials": "0.3.0",
     "inflection": "1.2.7",
-    "ioredis": "4.9.0",
+    "ioredis": "4.9.5",
     "jsonwebtoken": "8.5.0",
     "jstree": "3.3.7",
     "node-redis-dump": "0.2.1",
