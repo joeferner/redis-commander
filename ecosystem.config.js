@@ -16,6 +16,9 @@ module.exports = {
   apps: [{
     name: 'Redis Commander',
     script: 'bin/redis-commander.js',
-    args: args
+    args: args,
+    env: {
+      NODE_ENV: "production",
+    },
   }]
 };

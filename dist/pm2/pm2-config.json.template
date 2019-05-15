@@ -1,0 +1,20 @@
+{
+  "apps" : [{
+    "name"   : "redis-commander",
+    "script" : "./bin/redis-commander.js",
+    "cwd" : "add_installation_directory_here",
+    "max_memory_restart" : "100M",
+    "combine_logs" : true,
+    "min_uptime" : 5000,
+    "restart_delay" : 1000,
+    "watch" : false,
+    "ignore_watch" : ["dist", "bin", "docker", "k8s"],
+    "pid_file" : "./redis-commander.pidfile",
+    "env" : {
+      "NODE_ENV" : "production",
+      "NODE_APP_INSTANCE" : "",
+    },
+    "args" : [
+    ]
+  }]
+}
