@@ -1018,15 +1018,14 @@ function loadConfig (callback) {
       if (data['sidebarWidth']) {
         $('#sideBar').width(data['sidebarWidth']);
       }
-      if (data['cliOpen'] == "true") {
-        $('#commandLineOutput').slideDown(0, function () {
-          if (data['cliHeight']) {
-            $('#commandLineOutput').height(data['cliHeight']);
-          }
-        });
+      if (data['cliHeight']) {
+        $('#commandLineOutput').height(data['cliHeight']);
+      }
+      if (data['cliOpen'] == true) {
+        $('#commandLineOutput').slideDown(0, function () {});
         cliOpen = true;
       }
-      if (data['locked'] == "true") {
+      if (data['locked'] == true) {
         $('#lockCommandButton').removeClass('disabled');
       } else {
         $('#lockCommandButton').addClass('disabled');

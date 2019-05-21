@@ -4,14 +4,14 @@
   "ui": {
     "sidebarWidth": 250,
     "locked": false,
-    "cliHeight": 50,
+    "cliHeight": 320,
     "cliOpen": false,
     "foldingChar": ":"
   },
   "redis": {
     "readOnly": false,
-    "flushOnImport": true,
-    "useScan": false,
+    "flushOnImport": false,
+    "useScan": true,
     "scanCount": 100,
     "rootPattern": "*",
     "connectionName": "redis-commander",
