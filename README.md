@@ -100,6 +100,9 @@ To check the final configuration created from files, env-vars set and command li
 start redis commander with additional param "--test". All invalid configuration keys will be listed
 in the output. The config test does not check if hostnames or ip addresses can be resolved.
 
+More informations can be found in the documentation at [docs/configuration.md](docs/configuration.md) 
+and [docs/connections.md](docs/connections.md).
+
 ## Environment Variables
 
 These environment variables can be used starting Redis Commander as normal
