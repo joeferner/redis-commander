@@ -144,7 +144,7 @@ let args = optimist
   .options('nosave', {
     alias: 'ns',
     boolean: true,
-    describe: 'Do not save new connections to config.',
+    describe: 'Do not save new connections to config file.',
     default: config.get('noSave'),
   })
   .options('no-log-data', {

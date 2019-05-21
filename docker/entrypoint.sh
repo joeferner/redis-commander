@@ -195,6 +195,28 @@ fi
 if [[ ! -z "$SENTINEL_PASSWORD" ]]; then
     set -- "$@" "--sentinel-password $SENTINEL_PASSWORD"
 fi
+
+if [[ ! -z "$REPLACE_CONFIG_ENV" ]]; then
+    # special case for more complex docker setup with multiple connections
+    # to unix sockets, sentinels and normal redis server not configurable
+    # via REDIS_HOSTS...
+    # search all config files (except custom-environment-variables.json) and do inplace
+    # replacement of a string to the value of the env var, e.g.
+    # set $REPLACE_CONFIG_ENV=REDIS_PASS_1 and env REDIS_PASS_1=mypass
+    # now search config files for string "REDIS_PASS_1" and write there "mypass" instead
+
+    env_vars_replace="$(echo ${REPLACE_CONFIG_ENV} | sed "s/,/ /g")"
+    echo "Going to replace this env vars inside config files: $env_vars_replace"
+
+    for env_var in ${env_vars_replace}; do
+        for json_conf in config/*.json; do
+            if [ $json_conf != "config/custom-environment-variables.json" ]; then
+                sed -i 's/"'$env_var'"/"'$(eval echo \$$env_var)'"/g' $json_conf
+            fi
+        done
+    done
+fi
+
 # all other env vars are evaluated by node-config module ...
 
 
