@@ -26,7 +26,6 @@ writeDefaultConfigBeginning() {
     # =============== generate beginning of redis-commander config =============== #
     cat > ${CONFIG_FILE} <<EOF
     {
-    "connections": [
 EOF
     # ============= end generate beginning of redis-commander config ============= #
 }
@@ -35,7 +34,6 @@ EOF
 writeDefaultConfigEnd() {
     # ================== generate end of redis-commander config ================== #
     cat >> ${CONFIG_FILE} <<EOF
-      ]
     }
 EOF
     # ================ end generate end of redis-commander config ================ #
@@ -52,6 +50,14 @@ parseRedisHosts() {
 
     # get hosts count
     num_redis_hosts="$(echo ${redis_hosts_split} | wc -w)"
+
+    echo "Parsing $num_redis_hosts REDIS_HOSTS into custom redis-commander config '${CONFIG_FILE}'."
+
+    if [ $num_redis_hosts -gt 0 ]; then
+        cat >> ${CONFIG_FILE} <<EOF
+    "connections": [
+EOF
+    fi
 
     # =================== loop on redis hosts and generate config ================ #
     # redis_host form should be
@@ -120,6 +126,11 @@ EOF
 
     done
     # ================ end loop on redis hosts and generate config =============== #
+    if [ $num_redis_hosts -gt 0 ]; then
+        cat >> ${CONFIG_FILE} <<EOF
+    ]
+EOF
+    fi
 
     writeDefaultConfigEnd
 }
