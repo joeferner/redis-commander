@@ -4,6 +4,7 @@
 
 let optimist = require('optimist');
 let Redis = require('ioredis');
+var isEqual = require('lodash.isequal');
 let myUtils = require('../lib/util');
 
 // fix the cwd to project base dir for browserify and config loading
@@ -341,66 +342,86 @@ function startAllConnections() {
     });
   }
 
-  // first default connections from config object
-  // second connection from cli params (redis-host, redis-port, ...)
+  // first connection from cli params (redis-host, redis-port, ...)
+  // second default connections from config object (to allow override of pw changed and so on)
+  let db = parseInt(args['redis-db']);
+  if (isNaN(db)) {
+    db = 0;
+  }
+
+  let client;
+  if (args['sentinel-host'] || args['sentinels'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
+    let newDefault = {
+      "label": config.get('redis.defaultLabel'),
+      "dbIndex": db,
+      "password": args['redis-password'] || '',
+      "connectionName": config.get('redis.connectionName')
+    };
+
+    if (args['redis-socket']) {
+      newDefault.path = args['redis-socket'];
+    }
+    else {
+      newDefault.host = args['redis-host'] || "localhost";
+      newDefault.port = args['redis-port'] || 6379;
+      newDefault.port = parseInt(newDefault.port);
+      if (args['sentinel-name']) {
+        newDefault.sentinelName = args['sentinel-name'];
+      }
+      if (args['sentinels']) {
+        newDefault.sentinels = myUtils.parseRedisSentinel('--sentinels', args['sentinels']);
+      }
+      else if (args['sentinel-host']) {
+        newDefault.sentinels = myUtils.parseRedisSentinel( '--sentinel-host or --sentinel-port',
+          args['sentinel-host'] + ':' + args['sentinel-port']);
+      }
+    }
+
+    if (args['redis-tls']) {
+      newDefault.tls = {};
+    }
+    client = myUtils.createRedisClient(newDefault);
+    redisConnections.push(client);
+    setUpConnection(client, db);
+
+    // now check if this one is already part of default connections
+    // update it if needed
+    let configChanged = false;
+    let oldDefault = myUtils.findConnection(config.connections, newDefault);
+    if (!oldDefault) {
+      config.connections.push(newDefault);
+      configChanged = true;
+    }
+    else {
+      // remove connectionId from newDefaults to allow comparison, otherwise non-equal every time
+      delete newDefault.connectionId;
+      if (!isEqual(oldDefault, newDefault)) {
+        myUtils.replaceConnection(config.connections, oldDefault, newDefault);
+        configChanged = true;
+      }
+    }
+
+    if (configChanged && !config.get('noSave')) {
+      myUtils.saveConnections(config,function (err) {
+        if (err) {
+          console.log("Problem saving connection config.");
+          console.error(err);
+        }
+      });
+    }
+  }
+  else if (config.connections.length === 0) {
+    // fallback to localhost if nothing else configured
+    client = myUtils.createRedisClient({label: config.get('redis.defaultLabel')});
+    redisConnections.push(client);
+    setUpConnection(client, db);
+  }
+
+  // now start all default connections (if not same as one given via command line)...
   startDefaultConnections(config.connections, function (err) {
     if (err) {
       console.log(err);
       process.exit();
-    }
-    let db = parseInt(args['redis-db']);
-    if (isNaN(db)) {
-        db = 0;
-    }
-
-    let client;
-    if (args['sentinel-host'] || args['sentinels'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
-      let newDefault = {
-        "label": config.get('redis.defaultLabel'),
-        "dbIndex": db,
-        "password": args['redis-password'] || '',
-        "connectionName": config.get('redis.connectionName')
-      };
-
-      if (args['redis-socket']) {
-        newDefault.path = args['redis-socket'];
-      }
-      else {
-        newDefault.host = args['redis-host'] || "localhost";
-        newDefault.port = args['redis-port'] || "6379";
-        newDefault.sentinelName = args['sentinel-name'];
-        if (args['sentinels']) {
-          newDefault.sentinels = myUtils.parseRedisSentinel('--sentinels', args['sentinels']);
-        }
-        else if (args['sentinel-host']) {
-          newDefault.sentinels = myUtils.parseRedisSentinel( '--sentinel-host or --sentinel-port',
-            args['sentinel-host'] + ':' + args['sentinel-port']);
-        }
-      }
-
-      if (args['redis-tls']) {
-        newDefault.tls = {};
-      }
-
-      if (!myUtils.containsConnection(config.connections, newDefault)) {
-        client = myUtils.createRedisClient(newDefault);
-        redisConnections.push(client);
-        config.connections.push(newDefault);
-        if (!config.get('noSave')) {
-          myUtils.saveConnections(config,function (err) {
-            if (err) {
-              console.log("Problem saving connection config.");
-              console.error(err);
-            }
-          });
-        }
-        setUpConnection(client, db);
-      }
-    } else if (config.connections.length === 0) {
-      // fallback to localhost if nothing else configured
-      client = myUtils.createRedisClient({label: config.get('redis.defaultLabel')});
-      redisConnections.push(client);
-      setUpConnection(client, db);
     }
 
     return startWebApp();

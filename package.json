@@ -37,6 +37,7 @@
     "ioredis": "4.9.5",
     "jsonwebtoken": "8.5.1",
     "jstree": "3.3.8",
+    "lodash.isequal": "4.5.0",
     "node-redis-dump": "0.2.1",
     "opener": "1.5.1",
     "optimist": "0.6.1",
