@@ -501,7 +501,7 @@ function startWebApp () {
   let appInstance = app(redisConnections);
 
   appInstance.listen(config.get('server.port'), config.get('server.address'), function() {
-    console.log("listening on ", config.get('server.address'), ":", config.get('server.port'));
+    console.log("listening on", "http://" + config.get('server.address') + ":" + config.get('server.port'));
     if (urlPrefix) {
       console.log(`using url prefix ${urlPrefix}/`);
     }
