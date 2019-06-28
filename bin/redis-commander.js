@@ -484,7 +484,11 @@ function connectToDB (redisConnection, db) {
       process.exit();
     }
     let opt = redisConnection.options;
-    console.log('Redis Connection ' + (opt.path ? opt.path : opt.host + ':' + opt.port) +
+    let hostPort = opt.path ? opt.path : opt.host + ':' + opt.port;
+    if (opt.type === 'sentinel') {
+      hostPort = `sentinel ${opt.sentinels[0].host}:${opt.sentinels[0].port}:${opt.name}`;
+    }
+    console.log('Redis Connection ' + hostPort +
       (opt.tls ? ' with TLS' : '') + ' using Redis DB #' + opt.db);
   });
 }
