@@ -454,20 +454,20 @@ function startDefaultConnections (connections, callback) {
 }
 
 function setUpConnection (redisConnection, db) {
-  redisConnection.on("error", function (err) {
-    console.error("setUpConnection Redis error", err.stack);
+  redisConnection.on('error', function (err) {
+    console.error(`setUpConnection (${redisConnection.options.connectionId}) Redis error`, err.stack);
   });
-  redisConnection.on("end", function () {
-    console.log("Connection closed. Attempting to Reconnect...");
+  redisConnection.on('end', function () {
+    console.log(`connection (${redisConnection.options.connectionId}) closed. Attempting to Reconnect...`);
   });
-  redisConnection.once("connect", connectToDB.bind(this, redisConnection, db));
+  redisConnection.once('connect', connectToDB.bind(this, redisConnection, db));
 }
 
 
 function connectToDB (redisConnection, db) {
   redisConnection.call('command', function(errCmd, cmdList) {
     if (errCmd || !Array.isArray(cmdList)) {
-      console.log('redis command "command" not supported, cannot build dynamic command list');
+      console.log(`redis command "command" not supported, cannot build dynamic command list for (${redisConnection.options.connectionId}`);
       return;
     }
     // console.debug('Got list of ' + cmdList.length + ' commands from server ' + redisConnection.options.host + ':' +
@@ -501,9 +501,19 @@ function startWebApp () {
   let appInstance = app(redisConnections);
 
   appInstance.listen(config.get('server.port'), config.get('server.address'), function() {
-    console.log("listening on", "http://" + config.get('server.address') + ":" + config.get('server.port'));
-    if (urlPrefix) {
-      console.log(`using url prefix ${urlPrefix}/`);
+    console.log(`listening on ${config.get('server.address')}:${config.get('server.port')}`);
+
+    // default ip 0.0.0.0 and ipv6 equivalent cannot be opened with browser, need different one
+    // may search for first non-localhost address of server instead of 127.0.0.1...
+    let address = '127.0.0.1';
+    if (config.get('server.address') !== '0.0.0.0' && config.get('server.address') !== '::') {
+      address = config.get('server.address');
     }
+    let msg = `access with browser at http://${address}:${config.get('server.port')}`;
+    if (urlPrefix) {
+      console.log(`using url prefix ${urlPrefix}`);
+      msg += urlPrefix;
+    }
+    console.log(msg);
   });
 }
