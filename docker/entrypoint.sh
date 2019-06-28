@@ -222,7 +222,8 @@ if [[ ! -z "$REPLACE_CONFIG_ENV" ]]; then
     for env_var in ${env_vars_replace}; do
         for json_conf in config/*.json; do
             if [ $json_conf != "config/custom-environment-variables.json" ]; then
-                sed -i 's/"'$env_var'"/"'$(eval echo \$$env_var)'"/g' $json_conf
+                # need to replace &\/ from content of env_var var as they are special chars in sed
+                sed -i 's/"'$env_var'"/"'$(printenv $env_var | sed 's/\\/\\\\/g; s/&/\\&/g; s#/#\\/#g;')'"/g' $json_conf
             fi
         done
     done
@@ -230,6 +231,14 @@ fi
 
 # all other env vars are evaluated by node-config module ...
 
+#echo "DEBUG: cat all config files after creation / replacement"
+#for i in config/*.json; do
+#    if [ $i != "config/custom-environment-variables.json" ]; then
+#        echo .
+#        echo "###config file: $i"
+#        cat $i
+#    fi
+#done
 
 # install trap for SIGTERM to delay end of app a bit for kubernetes
 # otherwise container might get requests after exiting itself

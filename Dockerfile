@@ -18,7 +18,7 @@ COPY . .
 # for Openshift compatibility set project config dir itself group root and make it group writeable
 RUN  apk update \
   && apk upgrade \
-  && apk add --no-cache ca-certificates dumb-init \
+  && apk add --no-cache ca-certificates dumb-init sed\
   && apk add --no-cache --virtual .patch-dep patch \
   && update-ca-certificates \
   && adduser ${SERVICE_USER} -h ${HOME} -S \
