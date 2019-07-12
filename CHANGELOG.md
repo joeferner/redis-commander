@@ -1,6 +1,16 @@
 # Redis-Commander CHANGELOG
 
 ## next Version
+#### Bugfixes
+* fix display bug for keys starting with configured foldingchar, #355
+* fix bug where cli params do not overwrite other config params, #354
+* fix handling of some special chars inside env vars at docker startup script
+* disable MULTI command via redis cli to prevent crashes, #358
+ 
+#### Enhancements
+* dependencies updated to fix security problems
+* add valid url on startup to access redis commander via browser  
+* improve console log message for redis connection errors
 
 ## Version 0.6.5
 #### Bugfixes
