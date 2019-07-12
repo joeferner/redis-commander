@@ -357,12 +357,14 @@ input[type="checkbox"].checkbox-oneline {
 
 #selectServerDbList input[type="checkbox"] {
   margin-bottom: 7px;
+  margin-top: 5px;
 }
 
-#selectServerDbList input[type="text"] {
+#selectServerDbList input[type="text"],
+#selectServerDbList label {
   margin-bottom: 0;
 }
 
-#selectServerDbList label {
-  margin-bottom: 16px;
+#selectServerDbList table td {
+  vertical-align: middle;
 }

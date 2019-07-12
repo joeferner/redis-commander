@@ -1014,12 +1014,13 @@ function addServer () {
   $('#addServerForm').submit();
 }
 
-/** clear sensitive data (passwords) from add new server form modal
+/** clear sensitive data (passwords) from add new server form modal and list db modal
  */
 function clearAddServerForm() {
   var serverForm = $('#addServerForm');
   serverForm.find('#password').val('');
   serverForm.find('#sentinelPassword').val('');
+  $('#selectServerDbList').attr('data-connstring', null).empty();
 }
 
 /** extract json data from ad server form and show new modal to allow selection all dbs
@@ -1039,23 +1040,16 @@ function detectServerDB() {
     }
     else {
       serverForm.closest('.modal').modal('hide');
-      selectDbModal.find('#selectServerDbCon').text('Databases found at ' + data.server + ':');
-
-      var list = '';
-      if (data.dbs.used.length === 0) {
-        list = 'No databases found'
-      }
-      else {
-        list = data.dbs.used.map(function (dbItem) {
-          return '<label><input type="checkbox" value="' + dbItem.dbIndex + '"> <strong>DB ' + dbItem.dbIndex + '</strong></input> - ' +
-              'Display-Name: <input type="text" maxlength="20"> ('+ dbItem.keys + ')</label>';
-        }).join('');
-
-      }
-      selectDbModal.find('#selectServerDbList').empty()
-          .data({connString: serverForm.serialize()})
-          .append(list);
-      selectDbModal.modal('show');
+      var renderData = {
+        title: 'Databases found at Redis ' + data.server + ':',
+        infoMessage: (data.dbs.used.length === 0 ? 'No databases found' : ''),
+        dbs: data.dbs.used,
+        connString: serverForm.serialize()
+      };
+      renderEjs('templates/detectRedisDb.ejs', renderData, $('#selectServerDbContainer'), function() {
+        console.log('rendered all databases found inside redis db template');
+        selectDbModal.modal('show');
+      });
     }
   }).fail(function (jqXHR) {
     alert('Error fetching list of used databases from this host.');
@@ -1070,14 +1064,14 @@ function detectServerDB() {
  function selectNewServerDbs() {
   var addServerForm = $('#addServerForm');
   var list = $('#selectServerDbModal').find('#selectServerDbList');
-  var connectionString = list.data('connString');
+  var connectionString = list.data('connstring');
   var selected = list.find('input:checked');
 
   Promise.all(selected.map(function(item) {
     new Promise(function(resolve, reject) {
       var params = deparam(connectionString);
       params.dbIndex = selected[item].value;
-      params.label = $(selected[item]).siblings('input').first().val();
+      params.label = $(selected[item]).closest('tr').find('input[type=text]').val();
       $.ajax({
         type: 'POST',
         url: addServerForm[0].action,
