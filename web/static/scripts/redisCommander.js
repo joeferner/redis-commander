@@ -288,6 +288,41 @@ function setupJsonInputValidator(idJsonCheckbox, idInput) {
 
 function setupAddServerForm() {
   var serverModal = $('#addServerModal');
+
+  // register add server form as ajax form to send bearer token too
+  $('#addServerForm').off('submit').on('submit', function (event) {
+    console.log('try connection to new redis server');
+    event.preventDefault();
+    $('#addServerBtn').prop("disabled", true).html("<i class='icon-refresh'></i> Saving");
+    var form = $(event.target);
+    $.post(form.attr('action'), form.serialize())
+        .done(function () {
+          if (arguments[0] && arguments[0].ok) {
+            console.log('Connect successful');
+            setTimeout(function() {
+              $(window).off('beforeunload', 'clearStorage');
+              location.reload();
+            }, 500);
+          }
+          else {
+            addServerError(arguments[0] ? arguments[0].message : 'Server error processing request');
+          }
+        })
+        .fail(function (err) {
+          console.log('connect error: ', arguments);
+          addServerError(err.statusText);
+        })
+        .always(function() {
+          $('#addServerBtn').prop("disabled", false).text("Connect...");
+        })
+  });
+
+  function addServerError(errMsg) {
+    alert("Could not connect to redis server '" + errMsg + "'");
+    serverModal.modal('hide');
+  }
+
+  // prepare all input elements
   serverModal.find('#addServerGroupSentinel').hide();
   serverModal.find('#serverType').change(function () {
     if ($(this).val() === 'redis') {
@@ -979,6 +1014,84 @@ function addServer () {
   $('#addServerForm').submit();
 }
 
+/** clear sensitive data (passwords) from add new server form modal and list db modal
+ */
+function clearAddServerForm() {
+  var serverForm = $('#addServerForm');
+  serverForm.find('#password').val('');
+  serverForm.find('#sentinelPassword').val('');
+  $('#selectServerDbList').attr('data-connstring', null).empty();
+}
+
+/** extract json data from ad server form and show new modal to allow selection all dbs
+ *  found at this redis server.
+ *  Only fields for server type, host, port, path and passwords are used. Label and database are ignored.
+ */
+function detectServerDB() {
+  var serverForm = $('#addServerForm');
+  $.ajax({
+    type: 'POST',
+    url: 'login/detectDB',
+    data: serverForm.serialize()
+  }).done(function(data) {
+    var selectDbModal = $('#selectServerDbModal');
+    if (!data.ok) {
+      alert('Cannot query databases used: \n' + data.message);
+    }
+    else {
+      serverForm.closest('.modal').modal('hide');
+      var renderData = {
+        title: 'Databases found at Redis ' + data.server + ':',
+        infoMessage: (data.dbs.used.length === 0 ? 'No databases found' : ''),
+        dbs: data.dbs.used,
+        connString: serverForm.serialize()
+      };
+      renderEjs('templates/detectRedisDb.ejs', renderData, $('#selectServerDbContainer'), function() {
+        console.log('rendered all databases found inside redis db template');
+        selectDbModal.modal('show');
+      });
+    }
+  }).fail(function (jqXHR) {
+    alert('Error fetching list of used databases from this host.');
+    clearAddServerForm();
+    serverForm.parent('.modal').modal('hide');
+  });
+}
+
+/** check list of selectServerDbModal and add all selected databases with their display name
+ *  do ajax post call for every selected to "/login" and reload at the end to refresh entire UI
+ */
+ function selectNewServerDbs() {
+  var addServerForm = $('#addServerForm');
+  var list = $('#selectServerDbModal').find('#selectServerDbList');
+  var connectionString = list.data('connstring');
+  var selected = list.find('input:checked');
+
+  Promise.all(selected.map(function(item) {
+    new Promise(function(resolve, reject) {
+      var params = deparam(connectionString);
+      params.dbIndex = selected[item].value;
+      params.label = $(selected[item]).closest('tr').find('input[type=text]').val();
+      $.ajax({
+        type: 'POST',
+        url: addServerForm[0].action,
+        data: $.param(params)
+      }).done(function (data) {
+        resolve(selected[item].value);
+      }).fail(function (err) {
+        reject(selected[item].value);
+      });
+    });
+  })).then(function(values) {
+    console.log('All database connections requested. Reload now to display then...');
+    clearAddServerForm();
+    setTimeout(function() {
+      $(window).off('beforeunload', 'clearStorage');
+      location.reload();
+    }, 200);
+  });
+}
+
 function loadDefaultServer (host, port) {
   console.log("host" + host);
   console.log("port" + port);
@@ -1237,6 +1350,24 @@ $(function() {
   });
 });
 
+
+function deparam(query) {
+  var pairs, i, keyValuePair, key, value, map = {};
+  // remove leading question mark if its there
+  if (query.slice(0, 1) === '?') {
+    query = query.slice(1);
+  }
+  if (query !== '') {
+    pairs = query.split('&');
+    for (i = 0; i < pairs.length; i += 1) {
+      keyValuePair = pairs[i].split('=');
+      key = decodeURIComponent(keyValuePair[0]);
+      value = (keyValuePair.length > 1) ? decodeURIComponent(keyValuePair[1]) : undefined;
+      map[key] = value;
+    }
+  }
+  return map;
+}
 
 /// IE11 polyfills
 if (!String.prototype.endsWith) {

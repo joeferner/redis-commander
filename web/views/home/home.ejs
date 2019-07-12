@@ -106,9 +106,24 @@
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a type="button" onclick="detectServerDB()" class="btn" id="detectServerBtn">Find Used DB</a>
     <a type="button" onclick="addServer()" class="btn btn-primary" id="addServerBtn">Connect...</a>
   </div>
 </div>
+
+<div id="selectServerDbModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Select databases to connect</h3>
+  </div>
+  <div class="modal-body" id="selectServerDbContainer">
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal" onclick="clearAddServerForm()">Close</a>
+    <a type="button" onclick="selectNewServerDbs()" class="btn btn-primary" id="selectServerDbBtn">Connect...</a>
+  </div>
+</div>
+
 <!-- /COMMANDS MODAL -->
 
 <script type="text/javascript">
@@ -163,39 +178,6 @@
         console.error("Signin network error", err);
         setTimeout(refreshToken, 5e3);
       })
-
-      // register add server form as ajax form to send bearer token too
-      $('#addServerForm').off('submit').on('submit', function (event) {
-        console.log('try connection to new redis server');
-        event.preventDefault();
-        $('#addServerBtn').prop("disabled", true).html("<i class='icon-refresh'></i> Saving");
-        var form = $(event.target);
-        $.post(form.attr('action'), form.serialize())
-        .done(function () {
-          if (arguments[0] && arguments[0].ok) {
-            console.log('Connect successful');
-            setTimeout(function() {
-              $(window).off('beforeunload', 'clearStorage');
-              location.reload();
-            }, 500);
-          }
-          else {
-            addServerError(arguments[0] ? arguments[0].message : 'Server error processing request');
-          }
-        })
-        .fail(function (err) {
-          console.log('connect error: ', arguments);
-          addServerError(err.statusText);
-        })
-        .always(function() {
-          $('#addServerBtn').prop("disabled", false).text("Connect...");
-        })
-      });
-
-      function addServerError(errMsg) {
-          alert("Could not connect to redis server '" + errMsg + "'");
-          $('#addServerModal').modal('hide');
-      }
     }
 
     refreshToken();

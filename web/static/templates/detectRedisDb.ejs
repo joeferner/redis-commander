@@ -1,0 +1,24 @@
+<h5 id="selectServerDbCon"><%= title %></h5>
+<%if (infoMessage) { %>
+<div><%= infoMessage %></div>
+<% } %>
+<form action="#" id="selectServerDbList" data-connstring="<%= connString %>">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>DB #</th>
+        <th>Display-Name</th>
+        <th>Usage Information</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% dbs.forEach(function(item) { %>
+      <tr>
+          <td><label><input type="checkbox" value="<%= item.dbIndex %>"> <strong>DB <%= item.dbIndex %></strong></input></label></td>
+          <td><input type="text" maxlength="20"></td>
+          <td><%= item.keys %></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</form>

@@ -346,3 +346,25 @@ input[type="checkbox"].checkbox-oneline {
   top: -3px;
   vertical-align: bottom;
 }
+
+#selectServerDbModal {
+  width: 650px;
+}
+
+#selectServerDbList {
+  margin-top: 16px;
+}
+
+#selectServerDbList input[type="checkbox"] {
+  margin-bottom: 7px;
+  margin-top: 5px;
+}
+
+#selectServerDbList input[type="text"],
+#selectServerDbList label {
+  margin-bottom: 0;
+}
+
+#selectServerDbList table td {
+  vertical-align: middle;
+}
