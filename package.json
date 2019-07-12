@@ -22,19 +22,19 @@
   ],
   "main": "lib/app.js",
   "dependencies": {
-    "async": "2.6.2",
+    "async": "3.1.0",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "browserify-middleware": "8.1.1",
     "clipboard": "2.0.4",
     "cmdparser": "0.0.3",
-    "config": "3.1.0",
+    "config": "3.2.0",
     "dateformat": "3.0.3",
-    "ejs": "2.6.1",
-    "express": "4.17.0",
+    "ejs": "2.6.2",
+    "express": "4.17.1",
     "express-partials": "0.3.0",
     "inflection": "1.2.7",
-    "ioredis": "4.9.5",
+    "ioredis": "4.11.1",
     "jsonwebtoken": "8.5.1",
     "jstree": "3.3.8",
     "lodash.isequal": "4.5.0",
@@ -42,8 +42,7 @@
     "opener": "1.5.1",
     "optimist": "0.6.1",
     "readline-browserify": "0.0.4",
-    "sf": "0.2.0",
-    "snyk": "^1.192.4"
+    "sf": "0.2.0"
   },
   "optionalDependencies": {
     "bcrypt": "~3.0.0"
@@ -57,8 +56,7 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "snyk-protect": "snyk protect"
   },
   "snyk": true
 }
