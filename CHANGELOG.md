@@ -11,7 +11,8 @@
 * dependencies updated to fix security problems
 * add valid url on startup to access redis commander via browser  
 * improve console log message for redis connection errors
-
+* add dialog for auto-detection of used redis databases, #121
+ 
 ## Version 0.6.5
 #### Bugfixes
 * fix display of keys having multiple consecutive folding chars, #342
