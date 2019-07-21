@@ -49,12 +49,12 @@ function loadTree () {
               url: dataUrl,
               dataType: 'json'
           }).done(function(nodeData) {
-            if (Array.isArray(nodeData)) {
-              nodeData.forEach(function(elem) {
+            if (Array.isArray(nodeData.keysTree)) {
+              nodeData.keysTree.forEach(function(elem) {
                  if (elem.rel) elem.icon = getIconForType(elem.rel);
               });
             }
-            cb(nodeData)
+            cb(nodeData.keysTree)
           }).fail(function(error) {
             console.log('Error fetching data for node ' + node.id + ': ' + JSON.stringify(error));
             cb('Error fetching data');
@@ -161,8 +161,8 @@ function treeNodeSelected (event, data) {
       if (status !== 'success') {
         return alert("Could not load server info");
       }
-      data = JSON.parse(data);
-      data.some(function (instance) {
+      if (typeof data === 'string') data = JSON.parse(data);
+      data.serverInfo.some(function (instance) {
         if (instance.connectionId === connectionId) {
           if (!instance.disabled) {
             renderEjs('templates/serverInfo.ejs', instance, $('#body'), setupAddKeyButton);
@@ -209,7 +209,7 @@ function loadKey (connectionId, key, index) {
       return alert("Could not load key data");
     }
 
-    data = JSON.parse(data);
+    if (typeof data === 'string') data = JSON.parse(data);
     data.connectionId = connectionId;
     console.log("rendering type " + data.type);
     switch (data.type) {
@@ -816,21 +816,17 @@ function loadCommandLine () {
         }
 
         try {
-          data = JSON.parse(data);
+          if (typeof data === 'string') data = JSON.parse(data);
         } catch (ex) {
           rl.write(data);
           return;
         }
-        if (data instanceof Array) {
+        if (data.hasOwnProperty('output')) data = data.output;
+        if (Array.isArray(data)) {
           for (var i = 0; i < data.length; i++) {
-            rl.write((i + 1) + ") " + data[i]);
+            rl.write((i + 1) + ") " + JSON.stringify(data[i]));
           }
         } else {
-          try {
-            data = JSON.parse(data);
-          } catch (ex) {
-            // do nothing
-          }
           rl.write(JSON.stringify(data, null, '  '));
         }
       });
@@ -969,7 +965,7 @@ function initCmdParser() {
         if (status !== 'success') {
           return callback(new Error("Could not get keys"));
         }
-        data = JSON.parse(data)
+        if (typeof data === 'string') data = JSON.parse(data)
         .filter(function (item) {
           return item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
         });

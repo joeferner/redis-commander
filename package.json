@@ -57,6 +57,8 @@
   },
   "preferGlobal": true,
   "scripts": {
+    "postinstall2": "node -e 'console.log(\"\\n==> INFO: Errors with module \\\"bcrypt\\\" can be ignored\\n\\n\")'",
+    "postinstall": "echo '==> INFO: Errors with module \"bcrypt\" can be ignored'",
     "snyk-protect": "snyk protect"
   },
   "snyk": true
