@@ -965,8 +965,8 @@ function initCmdParser() {
         if (status !== 'success') {
           return callback(new Error("Could not get keys"));
         }
-        if (typeof data === 'string') data = JSON.parse(data)
-        .filter(function (item) {
+        if (typeof data === 'string') data = JSON.parse(data);
+        data.filter(function (item) {
           return item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
         });
         return callback(null, data);
