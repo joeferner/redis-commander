@@ -49,12 +49,12 @@ function loadTree () {
               url: dataUrl,
               dataType: 'json'
           }).done(function(nodeData) {
-            if (Array.isArray(nodeData)) {
-              nodeData.forEach(function(elem) {
+            if (Array.isArray(nodeData.data)) {
+              nodeData.data.forEach(function(elem) {
                  if (elem.rel) elem.icon = getIconForType(elem.rel);
               });
             }
-            cb(nodeData)
+            cb(nodeData.data)
           }).fail(function(error) {
             console.log('Error fetching data for node ' + node.id + ': ' + JSON.stringify(error));
             cb('Error fetching data');
@@ -157,12 +157,12 @@ function treeNodeSelected (event, data) {
   var connectionId;
   if (data.node.parent === '#') {
     connectionId = data.node.id;
-    $.get('apiv2/server/' + connectionId + '/info', function (data, status) {
+    $.get('apiv2/server/' + connectionId + '/info', function (infoData, status) {
       if (status !== 'success') {
         return alert("Could not load server info");
       }
-      data = JSON.parse(data);
-      data.some(function (instance) {
+      if (typeof infoData === 'string') infoData = JSON.parse(infoData);
+      infoData.data.some(function (instance) {
         if (instance.connectionId === connectionId) {
           if (!instance.disabled) {
             renderEjs('templates/serverInfo.ejs', instance, $('#body'), setupAddKeyButton);
@@ -204,38 +204,38 @@ function loadKey (connectionId, key, index) {
   } else {
     $.get('apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key), processData);
   }
-  function processData (data, status) {
+  function processData (keyData, status) {
     if (status !== 'success') {
       return alert("Could not load key data");
     }
 
-    data = JSON.parse(data);
-    data.connectionId = connectionId;
-    console.log("rendering type " + data.type);
-    switch (data.type) {
+    if (typeof keyData === 'string') keyData = JSON.parse(keyData);
+    keyData.connectionId = connectionId;
+    console.log("rendering type " + keyData.type);
+    switch (keyData.type) {
       case 'string':
-        selectTreeNodeString(data);
+        selectTreeNodeString(keyData);
         break;
       case 'hash':
-        selectTreeNodeHash(data);
+        selectTreeNodeHash(keyData);
         break;
       case 'set':
-        selectTreeNodeSet(data);
+        selectTreeNodeSet(keyData);
         break;
       case 'list':
-        selectTreeNodeList(data);
+        selectTreeNodeList(keyData);
         break;
       case 'zset':
-        selectTreeNodeZSet(data);
+        selectTreeNodeZSet(keyData);
         break;
       case 'stream':
-        selectTreeNodeStream(data);
+        selectTreeNodeStream(keyData);
         break;
       case 'none':
-        selectTreeNodeBranch(data);
+        selectTreeNodeBranch(keyData);
         break;
       default:
-        var html = JSON.stringify(data);
+        var html = JSON.stringify(keyData);
         $('#body').html(html);
         resizeApp();
         break;
@@ -808,7 +808,7 @@ function loadCommandLine () {
       refreshTree();
       rl.write("OK");
     } else {
-      $.post('apiv2/exec/' + encodeURIComponent($('#selectedConnection').val()), { cmd: line }, function (data, status) {
+      $.post('apiv2/exec/' + encodeURIComponent($('#selectedConnection').val()), { cmd: line }, function (execData, status) {
         rl.prompt();
 
         if (status !== 'success') {
@@ -816,22 +816,18 @@ function loadCommandLine () {
         }
 
         try {
-          data = JSON.parse(data);
+          if (typeof execData === 'string') execData = JSON.parse(execData);
         } catch (ex) {
-          rl.write(data);
+          rl.write(execData);
           return;
         }
-        if (data instanceof Array) {
-          for (var i = 0; i < data.length; i++) {
-            rl.write((i + 1) + ") " + data[i]);
+        if (execData.hasOwnProperty('data')) execData = execData.data;
+        if (Array.isArray(execData)) {
+          for (var i = 0; i < execData.length; i++) {
+            rl.write((i + 1) + ") " + JSON.stringify(execData[i]));
           }
         } else {
-          try {
-            data = JSON.parse(data);
-          } catch (ex) {
-            // do nothing
-          }
-          rl.write(JSON.stringify(data, null, '  '));
+          rl.write(JSON.stringify(execData, null, '  '));
         }
       });
       refreshTree();
@@ -965,22 +961,32 @@ function initCmdParser() {
   let parserOpts = {
     key: function (partial, callback) {
       var redisConnection = $('#selectedConnection').val();
-      $.get('apiv2/keys/' + encodeURIComponent(redisConnection) + "/" + partial + '*?limit=20', function (data, status) {
+      $.get('apiv2/keys/' + encodeURIComponent(redisConnection) + "/" + partial + '*?limit=20', function (keyData, status) {
         if (status !== 'success') {
           return callback(new Error("Could not get keys"));
         }
-        data = JSON.parse(data)
-        .filter(function (item) {
-          return item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
-        });
-        return callback(null, data);
+        var retData = null;
+        if (typeof keyData === 'string') retData = JSON.parse(keyData);
+        else {
+          if (keyData.hasOwnProperty('data')) keyData = keyData.data;
+
+          if (Array.isArray(keyData)) {
+            retData = keyData.filter(function(item) {
+              return item.toLowerCase().indexOf(partial.toLowerCase()) === 0;
+            });
+          }
+          else {
+            retData = keyData;
+          }
+        }
+        return callback(null, retData);
       });
     }
   };
 
   $.get('apiv2/redisCommands')
   .done(function(cmds) {
-    cmdparser = new CmdParser(cmds.list, parserOpts);
+    cmdparser = new CmdParser(cmds.data, parserOpts);
   })
   .fail(function(error) {
     console.log('failed to load list of supported redis commands, cannot init CmdParser: ' + JSON.stringify(error));

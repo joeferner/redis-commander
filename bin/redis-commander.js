@@ -319,7 +319,8 @@ function startAllConnections() {
           if (err) {
             if (typeof cb === 'function') cb(err);
             else {
-              console.log('ERROR in redefined "keys" function to use "scan" instead without callback: ' + JSON.stringify(err));
+              console.log('ERROR in redefined "keys" function to use "scan" instead without callback: ' +
+                  (err.message ? err.message : JSON.stringify(err)));
             }
           }
           else {
