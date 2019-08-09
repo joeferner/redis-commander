@@ -1,6 +1,8 @@
 # Redis-Commander CHANGELOG
 
 ## next Version
+
+## Version 0.6.6
 #### Bugfixes
 * fix display bug for keys starting with configured foldingchar, #355
 * fix bug where cli params do not overwrite other config params, #354
