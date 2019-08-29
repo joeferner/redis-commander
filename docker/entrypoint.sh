@@ -152,7 +152,22 @@ if [ -f $HTTP_PASSWORD_FILE ]; then
     HTTP_PASSWORD=$(cat $HTTP_PASSWORD_FILE)
     # this env var is evaluated by node-config module, not set as cli param
     # to not show it in process listing / write to docker logs ...
-    export HTTP_PASSWORD="$HTTP_PASSWORD"
+    export HTTP_PASSWORD
+fi
+
+# load REDIS and SENTINEL passwords from a file too
+REDIS_PASSWORD_FILE=${REDIS_PASSWORD_FILE:-/}
+SENTINEL_PASSWORD_FILE=${SENTINEL_PASSWORD_FILE:-/}
+
+if [ -f $REDIS_PASSWORD_FILE ]; then
+    REDIS_PASSWORD=$(cat $REDIS_PASSWORD_FILE)
+    # evaluated below and added to cli params
+    export REDIS_PASSWORD
+fi
+if [ -f $SENTINEL_PASSWORD_FILE ]; then
+    SENTINEL_PASSWORD=$(cat $SENTINEL_PASSWORD_FILE)
+    # evaluated below and added to cli params
+    export SENTINEL_PASSWORD
 fi
 
 # add other commands as environment variables

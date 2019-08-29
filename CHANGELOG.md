@@ -1,6 +1,8 @@
 # Redis-Commander CHANGELOG
 
 ## next Version
+#### Enhancements
+* add new docker env vars to load passwords from file (REDIS_PASSWORD_FILE, SENTINEL_PASSWORD_FILE), #364
 
 ## Version 0.6.6
 #### Bugfixes
