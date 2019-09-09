@@ -57,6 +57,7 @@
   },
   "preferGlobal": true,
   "scripts": {
+    "healthcheck": "./bin/healthcheck.js",
     "postinstall": "echo '==> INFO: Errors with module \"bcrypt\" can be ignored'",
     "snyk-protect": "snyk protect"
   },
