@@ -4,6 +4,7 @@
 #### Enhancements
 * add new docker env vars to load passwords from file (REDIS_PASSWORD_FILE, SENTINEL_PASSWORD_FILE), #364
 * add docker image HEALTHCHECK command
+* add basic support to display redis string values as hex values, refs #140
 
 ## Version 0.6.6
 #### Bugfixes

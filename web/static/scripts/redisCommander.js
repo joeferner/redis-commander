@@ -70,6 +70,7 @@ function loadTree () {
               case 'list': return 'images/treeList.png';
               case 'zset': return 'images/treeZSet.png';
               case 'stream': return 'images/treeStream.png';
+              case 'binary': return 'images/treeBinary.png';
               default: return null;
           }
         }
@@ -230,6 +231,9 @@ function loadKey (connectionId, key, index) {
         break;
       case 'stream':
         selectTreeNodeStream(keyData);
+        break;
+      case 'binary':
+        selectTreeNodeBinary(keyData);
         break;
       case 'none':
         selectTreeNodeBranch(keyData);
@@ -450,6 +454,30 @@ function selectTreeNodeString (data) {
         });
       });
     }
+  });
+}
+
+function selectTreeNodeBinary (data) {
+  // switch image from 'string' to 'binary', do not know this before really querying the value...
+  var tree = getKeyTree();
+  tree.set_icon(tree.get_selected(true)[0], 'images/treeBinary.png');
+
+  // only working for smaller data sets, no big binaries by now (everything load into browser)...
+  // calc number of 8bit-columns based on current "#body".width, static widths are taken from css classes
+  // TODO handle window resize
+  var idBody = $('#body');
+  data.offset = 0;
+  data.columns = Math.floor( (idBody.width() - 70 - 2*20) / 34 / 8 ) * 8;
+  data.value = BinaryView.base64DecToArr(data.value);
+  data.positions = [];
+  for (var i = 0; i < Math.ceil(data.value.length / data.columns); i += 1) {
+    data.positions.push( BinaryView.toHex(data.offset + i * data.columns, 8) );
+  }
+
+  renderEjs('templates/editBinary.ejs', data, idBody, function() {
+    console.log('edit binary template rendered');
+    idBody.find('.binaryView-hex').width(22 * data.columns);
+    idBody.find('.binaryView-char').width(12 * data.columns);
   });
 }
 

@@ -1,0 +1,32 @@
+<div id="itemActionsBar">
+  <% if (!redisReadOnly) { %>
+  <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
+  <% } %>
+</div>
+<div id="itemData">
+  <label>Key: <b><%= key %></b></label>
+  <label>TTL: <b><%= ttl %></b></label>
+  <label>Type: <b>String (Binary)</b></label>
+  <!-- read only for now, no binary data editing -->
+  <div class="binaryView">
+    <div class="binaryView-offset">
+    <% positions.forEach(function(pos) { %>
+      <b><%= pos %></b>
+    <% }) %>
+    </div>
+    <div class="binaryView-hex">
+      <% value.forEach(function(item) { %>
+      <span onclick="BinaryView.selectItem(this, '.binaryView-char')"><%= BinaryView.toHex(item, 2) %></span>
+      <% }) %>
+    </div>
+    <div class="binaryView-char">
+        <% value.forEach(function(item) { %>
+      <span onclick="BinaryView.selectItem(this, '.binaryView-hex')"><%= BinaryView.toChar(item) %></span>
+      <% }) %>
+    </div>
+  </div>
+  </span>
+</div>
+
+<script>
+</script>

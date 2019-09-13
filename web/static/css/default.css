@@ -368,3 +368,43 @@ input[type="checkbox"].checkbox-oneline {
 #selectServerDbList table td {
   vertical-align: middle;
 }
+
+.binaryView {
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 16px;
+  text-align: center;
+}
+.binaryView span {
+  cursor: pointer;
+  float: left;
+  height: 20px;
+  margin-left: 2px;
+}
+.binaryView span:hover {
+  background: lightgray;
+}
+.binaryView span.current {
+  background: #beebff;
+}
+.binaryView-offset {
+  float: left;
+  text-align: left;
+  width: 70px;
+}
+.binaryView-hex {
+  float: left;
+  margin-left: 20px;
+  width: 315px;
+}
+.binaryView-hex span {
+  width: 20px;
+}
+.binaryView-char {
+  float: left;
+  margin-left: 20px;
+  width: 165px;
+}
+.binaryView-char span {
+  width: 10px;
+}
