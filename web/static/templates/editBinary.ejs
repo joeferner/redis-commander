@@ -10,19 +10,23 @@
   <!-- read only for now, no binary data editing -->
   <div class="binaryView">
     <div class="binaryView-offset">
-    <% positions.forEach(function(pos) { %>
-      <b><%= pos %></b>
-    <% }) %>
+    <% for (var pos in positions) { %>
+      <b><%= positions[pos] %></b>
+    <% } %>
     </div>
     <div class="binaryView-hex">
-      <% value.forEach(function(item) { %>
-      <span onclick="BinaryView.selectItem(this, '.binaryView-char')"><%= BinaryView.toHex(item, 2) %></span>
-      <% }) %>
+      <% for (var itemHex in value) {
+           if (value.hasOwnProperty(itemHex)) { %>
+      <span onclick="BinaryView.selectItem(this, '.binaryView-char')"><%= BinaryView.toHex(value[itemHex], 2) %></span>
+      <%   }
+         } %>
     </div>
     <div class="binaryView-char">
-        <% value.forEach(function(item) { %>
-      <span onclick="BinaryView.selectItem(this, '.binaryView-hex')"><%= BinaryView.toChar(item) %></span>
-      <% }) %>
+      <% for (var itemChar in value) {
+           if (value.hasOwnProperty(itemChar)) { %>
+      <span onclick="BinaryView.selectItem(this, '.binaryView-hex')"><%= BinaryView.toChar(value[itemChar]) %></span>
+      <%   }
+         } %>
     </div>
   </div>
   </span>
