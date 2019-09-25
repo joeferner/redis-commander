@@ -290,6 +290,13 @@ function setupJsonInputValidator(idJsonCheckbox, idInput) {
   })
 }
 
+function registerModalFocus(idModal, idInput) {
+  var modal = $('#' + idModal);
+  modal.on('shown', function () {
+    modal.find('#' + idInput).focus()
+  });
+}
+
 function setupAddServerForm() {
   var serverModal = $('#addServerModal');
 
@@ -346,7 +353,8 @@ function setupAddServerForm() {
       serverModal.find('#sentinelPassword').prop('disabled', true)
         .prev('label').addClass('muted');
     }
-  })
+  });
+  serverModal.find('#label').focus();
 }
 
 function setupAddKeyButton (connectionId) {
