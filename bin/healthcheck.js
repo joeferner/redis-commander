@@ -12,8 +12,9 @@ const http = require('http');
 let port = (config.has('server.port') ? config.get('server.port') : null) || '127.0.0.1';
 let host = (config.has('server.address') ? config.get('server.address') : null);
 if (!host || host === '0.0.0.0' || host === '::') host =  '127.0.0.1';
+let urlPrefix = (config.has('server.urlPrefix') ? config.get('server.urlPrefix') : null) ||'';
 
-http.get(`http://${host}:${port}/healthcheck`, (resp) => {
+http.get(`http://${host}:${port}${urlPrefix}/healthcheck`, (resp) => {
   let data = '';
 
   resp.on('data', (chunk) => {
