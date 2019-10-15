@@ -71,6 +71,7 @@ function loadTree () {
               case 'zset': return 'images/treeZSet.png';
               case 'stream': return 'images/treeStream.png';
               case 'binary': return 'images/treeBinary.png';
+              case 'ReJSON-RL': return 'images/treeSet.png';
               default: return null;
           }
         }
@@ -234,6 +235,9 @@ function loadKey (connectionId, key, index) {
         break;
       case 'binary':
         selectTreeNodeBinary(keyData);
+        break;
+      case 'ReJSON-RL':
+        selectTreeNodeReJSON(keyData);
         break;
       case 'none':
         selectTreeNodeBranch(keyData);
@@ -524,6 +528,12 @@ function selectTreeNodeZSet (data) {
 function selectTreeNodeStream (data) {
   renderEjs('templates/editStream.ejs', data, $('#body'), function() {
     console.log('rendered stream template');
+  });
+}
+
+function selectTreeNodeReJSON(data) {
+  renderEjs('templates/viewReJSON.ejs', data, $('#body'), function() {
+    console.log('rendered ReJSON template')
   });
 }
 

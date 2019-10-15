@@ -1,0 +1,33 @@
+<div id="itemActionsBar">
+    <button
+        id="copyTextButton"
+        class="btn"
+        data-clipboard-target="#stringValue"
+    >
+        Copy JSON
+    </button>
+</div>
+<div id="itemData">
+    <label>Key: <b><%= key %></b></label>
+    <label>Type: <b><% type %></b></label>
+    <form
+        id="editStringForm"
+        action="apiv1/key/<%= connectionId %>/<%= key %>"
+        method="POST"
+        class="form-vertical"
+    >
+        <div id="jqtree_string_div" style="display: none;">loading ...</div>
+        <span id="stringValueBox">
+        <textarea
+            id="stringValue"
+            name="stringValue"
+            style="width: 600px; height: 300px;"
+        ><%= JSON.stringify(JSON.parse(value), null, 2) %></textarea>
+        <br>
+        </span>
+        <br>
+    </form>
+</div>
+<script>
+    new ClipboardJS('#copyTextButton');
+</script>

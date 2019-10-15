@@ -15,7 +15,7 @@ Or run Redis Commander as Docker image `rediscommander/redis-commander` (instruc
 
 # Features
 
-Web-UI to display and edit data within multiple different Redis servers. 
+Web-UI to display and edit data within multiple different Redis servers.
 
 It has support for the following data types to view, add, update and delete data:
 * Strings
@@ -23,6 +23,7 @@ It has support for the following data types to view, add, update and delete data
 * Sets
 * Sorted Set
 * Streams (Basic support based on HFXBus project from https://github.com/exocet-engineering/hfx-bus, only view/add/delete data)
+* ReJSON documents (Basic support, only for viewing values of ReJSON type keys)
 
 # Usage
 
@@ -62,12 +63,12 @@ Options:
   --test, -t                           test final configuration (file, env-vars, command line)
 ```
 
-The connection can be established either via direct connection to redis server or indirect 
+The connection can be established either via direct connection to redis server or indirect
 via a sentinel instance.
 
 ## Configuration
 
-Redis Commander can be configured by configuration files, environment variables or using command line 
+Redis Commander can be configured by configuration files, environment variables or using command line
 parameters. The different types of config values overwrite each other, only the last (most important)
 value is used.
 
@@ -76,7 +77,7 @@ For configuration files the `node-config` module (https://github.com/lorenwest/n
 The order of precedence for all configuration values (from least to most important) is:
 
 - Configuration files
- 
+
   `default.json` - this file contains all default values and SHOULD NOT be changed
 
   `local.json` - optional file, all local overwrites for values inside default.json should be placed here as well
@@ -84,23 +85,23 @@ The order of precedence for all configuration values (from least to most importa
 
   `local-<NODE_ENV>.json` - Do not add anything else than connections to this file! Redis Commander will overwrite this whenever a
   connection is added or removed via user interface. Inside docker container this file is used to store
-  all connections parsed from REDIS_HOSTS env var. 
+  all connections parsed from REDIS_HOSTS env var.
   This file overwrites all connections defined inside `local.json`
-  
+
   There are some more possible files available to use - please check the node-config Wiki
-  for an complete list of all possible file names (https://github.com/lorenwest/node-config/wiki/Configuration-Files) 
+  for an complete list of all possible file names (https://github.com/lorenwest/node-config/wiki/Configuration-Files)
 
 - Environment variables - the full list of env vars possible (except the docker specific ones)
-  can be get from the file `config/custom-environment-variables.json` together with their mapping 
+  can be get from the file `config/custom-environment-variables.json` together with their mapping
   to the respective configuration key.
 
 - Command line parameters - Overwrites everything
 
-To check the final configuration created from files, env-vars set and command line param overwrites 
+To check the final configuration created from files, env-vars set and command line param overwrites
 start redis commander with additional param "--test". All invalid configuration keys will be listed
 in the output. The config test does not check if hostnames or ip addresses can be resolved.
 
-More informations can be found in the documentation at [docs/configuration.md](docs/configuration.md) 
+More informations can be found in the documentation at [docs/configuration.md](docs/configuration.md)
 and [docs/connections.md](docs/connections.md).
 
 ## Environment Variables
@@ -164,7 +165,7 @@ After running the container, `redis-commander` will be available at [localhost:8
 ### Valid host strings
 
 the `REDIS_HOSTS` environment variable is a comma separated list of host definitions,
-where each host should follow one of these templates: 
+where each host should follow one of these templates:
 
 `hostname`
 
@@ -179,7 +180,7 @@ where each host should follow one of these templates:
 Connection strings defined with `REDIS_HOSTS` variable do not support TLS connections.
 If remote redis server needs TLS write all connections into a config file instead
 of using `REDIS_HOSTS`.
- 
+
 ### With docker-compose
 
 ```yml
