@@ -71,7 +71,7 @@ function loadTree () {
               case 'zset': return 'images/treeZSet.png';
               case 'stream': return 'images/treeStream.png';
               case 'binary': return 'images/treeBinary.png';
-              case 'ReJSON-RL': return 'images/treeSet.png';
+              case 'ReJSON-RL': return 'images/treeJson.png';
               default: return null;
           }
         }
