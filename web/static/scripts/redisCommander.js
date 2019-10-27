@@ -1196,6 +1196,7 @@ function loadConfig (callback) {
         $('#lockCommandButton').addClass('disabled');
       }
       configLoaded = true;
+      resizeApp();
       if (callback) {
         callback();
       }
@@ -1210,8 +1211,8 @@ function resizeApp () {
   var barWidth = keyTree.outerWidth(true);
   var newBodyWidth = $(window).width() - barWidth - parseInt(body.css('margin-left'), 10);
   sideBar.css('width', barWidth);
-  body.css({'width': newBodyWidth, 'left': barWidth, 'height': sideBar.css('height')});
   keyTree.height($(window).height() - keyTree.offset().top - $('#commandLineContainer').outerHeight(true));
+  body.css({'width': newBodyWidth, 'left': barWidth, 'height': sideBar.css('height')});
   $('#itemData').css('margin-top', $('#itemActionsBar').outerHeight(false));
   configChange();
 }

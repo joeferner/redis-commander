@@ -347,6 +347,14 @@ input[type="checkbox"].checkbox-oneline {
   vertical-align: bottom;
 }
 
+.small-label.form-horizontal .control-label {
+  width: 100px
+}
+
+.small-label.form-horizontal .controls {
+  margin-left: 120px;
+}
+
 #selectServerDbModal {
   width: 650px;
 }

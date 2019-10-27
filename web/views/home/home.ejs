@@ -196,11 +196,7 @@
       initCmdParser();
       loadTree();
       loadConfig(function () {
-        loadCommandLine();
         setupResizeEvents();
-        setupCommandLock();
-        setupCLIKeyEvents();
-        setupAddServerForm();
         $('html').css('overflow-y', 'hidden');
         $('#pageIndex').on('keydown', function (e) {
           if (e.keyCode === 13) {
@@ -213,6 +209,10 @@
           show: false
         });
       });
+      loadCommandLine();
+      setupCommandLock();
+      setupCLIKeyEvents();
+      setupAddServerForm();
     })
     .fail(function(err) {
       console.error("Failed to fetch connections", err);

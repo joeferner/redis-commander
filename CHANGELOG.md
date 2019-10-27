@@ -3,6 +3,7 @@
 ## next Version
 #### Bugfixes
 * do not display content of passwords read from env var or file on docker startup, #372
+* fix display errors on early display of import/export page
 
 #### Enhancements
 * add new docker env vars to load passwords from file (REDIS_PASSWORD_FILE, SENTINEL_PASSWORD_FILE), #364
