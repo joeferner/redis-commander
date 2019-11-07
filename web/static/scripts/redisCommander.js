@@ -18,7 +18,7 @@ function loadTree () {
 
         if (data.connections) {
           data.connections.every(function (instance) {
-            // build root objects for jsontree
+            // build root objects for jstree view on left side
             var treeObj = {
               id: instance.conId,
               text: instance.label + " (" + instance.options.host + ":" + instance.options.port + ":" + instance.options.db + ")",
@@ -31,9 +31,9 @@ function loadTree () {
             return true;
          });
         }
-        return onJSONDataComplete();
+        return onJSTreeDataComplete();
 
-        function getJsonTreeData(node, cb) {
+        function getJsTreeData(node, cb) {
           if (node.id === '#') return cb(json_dataData);
 
           var dataUrl;
@@ -76,10 +76,10 @@ function loadTree () {
           }
         }
 
-        function onJSONDataComplete () {
+        function onJSTreeDataComplete () {
           $('#keyTree').jstree({
               core: {
-                  data: getJsonTreeData,
+                  data: getJsTreeData,
                   multiple : false,
                   check_callback : true,
                   //themes: {
