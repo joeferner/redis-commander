@@ -424,22 +424,18 @@ function selectTreeNodeString (data) {
   renderEjs('templates/editString.ejs', data, $('#body'), function() {
     var isJsonParsed = false;
     try {
-      JSON.parse(data.value);
+      var jsonObject = JSON.parse(data.value);
       isJsonParsed = true;
+      $('#jqtree_string_div').jsonViewer(jsonObject, {withQuotes: true, withLinks: false});
     } catch (ex) {
       $('#isJson').prop('checked', false);
+      $('#jqtree_string_div').text('Text is no valid JSON: ' + ex.message);
     }
 
     $('#stringValue').val(data.value);
     // a this is json now assume it shall be json if it is object or array, but not for numbers
     if (isJsonParsed && data.value.match(/^\s*[{\[]/)) {
       $('#isJson').click();
-    }
-
-    try {
-      $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
-    } catch (err) {
-      $('#jqtree_string_div').text('Text is no valid JSON: ' + err.message);
     }
 
     if (!redisReadOnly) {
