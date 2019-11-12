@@ -2,7 +2,9 @@
   "noSave": "NOSAVE",
   "noLogData": "NO_LOG_DATA",
   "ui": {
-    "foldingChar": "FOLDING_CHAR"
+    "foldingChar": "FOLDING_CHAR",
+    "jsonViewAsDefault": "VIEW_JSON_DEFAULT"
+
   },
   "redis": {
     "readOnly": "READ_ONLY",

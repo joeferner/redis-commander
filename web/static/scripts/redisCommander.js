@@ -427,6 +427,7 @@ function selectTreeNodeString (data) {
       var jsonObject = JSON.parse(data.value);
       isJsonParsed = true;
       $('#jqtree_string_div').jsonViewer(jsonObject, {withQuotes: true, withLinks: false});
+      if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewString) > 0) onModeJsonButtonClick()
     } catch (ex) {
       $('#isJson').prop('checked', false);
       $('#jqtree_string_div').text('Text is no valid JSON: ' + ex.message);
@@ -492,6 +493,7 @@ function selectTreeNodeBinary (data) {
 function selectTreeNodeHash (data) {
   renderEjs('templates/editHash.ejs', data, $('#body'), function() {
     console.log('edit hash template rendered');
+    if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewHash) > 0) onModeJsonButtonClick()
   });
 }
 
@@ -989,12 +991,18 @@ function renderEjs(filename, data, element, callback) {
     });
 }
 
-var configTimer;
-var prevSidebarWidth;
-var prevLocked;
-var prevCliHeight;
-var prevCliOpen;
-var configLoaded = false;
+var uiConfig = {
+  jsonViewAsDefault: 0,
+  const: {
+    jsonViewString: 1 << 0,
+    jsonViewList: 1 << 1,
+    jsonViewHash: 1 << 2,
+    jsonViewSet: 1 << 3,
+    jsonViewZSet: 1 << 4,
+    jsonViewStream: 1 << 5,
+    jsonViewReJson: 1 << 6
+  }
+};
 
 
 function initCmdParser() {
@@ -1164,7 +1172,21 @@ function loadConfig (callback) {
       } else {
         $('#lockCommandButton').addClass('disabled');
       }
-      configLoaded = true;
+      if (data['jsonViewAsDefault']) {
+        data['jsonViewAsDefault'].split(',').forEach(function(item) {
+          switch (item) {
+            case 'all':
+              uiConfig.jsonViewAsDefault = 255;
+              break;
+            case 'string':
+              uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewString;
+              break;
+            case 'hash':
+              uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewHash;
+              break;
+          }
+        });
+      }
       resizeApp();
       if (callback) {
         callback();
