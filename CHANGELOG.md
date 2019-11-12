@@ -10,6 +10,7 @@
 * add docker image HEALTHCHECK command
 * add basic support to display redis string values as hex values, refs #140
 * add basic support to display ReJSON type data, #371
+* add config value and env var to disable display of strings as hexadecimal binary data, refs #376
 
 ## Version 0.6.6
 #### Bugfixes

@@ -6,7 +6,8 @@
     "locked": false,
     "cliHeight": 320,
     "cliOpen": false,
-    "foldingChar": ":"
+    "foldingChar": ":",
+    "binaryAsHex": true
   },
   "redis": {
     "readOnly": false,

@@ -36,6 +36,7 @@ interface of Redis Commander.
 | ui.cliHeight | number | 320 | start height in pixel of the command line at the bottom (if opened) |
 | ui.cliOpen | boolean | false | start with maximized cli height on "true", with minimized one on "false" |
 | ui.foldingChar | string | ':' | character to use for creation of a virtual hierachical tree of all keys. e.g key 'top/sub/mykey' is divided into a folder 'top' containing the folder 'sub' with the key 'mykey' inside it. |
+| ui.binaryAsHex | boolean | true | do not display binary data as string but in hexadecimal view |
 
 ### 3. General Redis connection parameter
 
