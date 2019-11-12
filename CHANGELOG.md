@@ -10,8 +10,8 @@
 * add docker image HEALTHCHECK command
 * add basic support to display redis string values as hex values, refs #140
 * add basic support to display ReJSON type data, #371
-* switch library to display json objects from "" to "jquery.json-viewer", refs #375
-* add config value and env var to display valid json data as default as formatted json tree object, refs #375  
+* switch library to display json objects from "json-tree" to "jquery.json-viewer", refs #375
+* add config value and env var to display valid json data as default as formatted json tree object (VIEW_JSON_DEFAULT), refs #375  
 
 ## Version 0.6.6
 #### Bugfixes
