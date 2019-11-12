@@ -1174,7 +1174,7 @@ function loadConfig (callback) {
       }
       if (data['jsonViewAsDefault']) {
         data['jsonViewAsDefault'].split(',').forEach(function(item) {
-          switch (item) {
+          switch (item.trim()) {
             case 'all':
               uiConfig.jsonViewAsDefault = 255;
               break;
