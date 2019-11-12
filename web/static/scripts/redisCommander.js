@@ -791,7 +791,6 @@ function hideCommandLineOutput () {
   if (output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
     output.slideUp(function () {
       resizeApp();
-      configChange();
     });
     cliOpen = false;
     commandLineScrollTop = output.scrollTop() + 20;
@@ -805,7 +804,6 @@ function showCommandLineOutput () {
     output.slideDown(function () {
       output.scrollTop(commandLineScrollTop);
       resizeApp();
-      configChange();
     });
     cliOpen = true;
     $('#commandLineBorder').addClass('show-vertical-scroll');
@@ -1148,31 +1146,6 @@ function loadDefaultServer (host, port) {
   $('#addServerForm').submit();
 }
 
-function configChange () {
-  if (!configLoaded) {
-    var sidebarWidth = $('#sideBar').width();
-    var locked = !$('#lockCommandButton').hasClass('disabled');
-    var cliHeight = $('#commandLineContainer').height();
-
-    if (typeof(prevSidebarWidth) !== 'undefined' &&
-      (sidebarWidth != prevSidebarWidth || locked != prevLocked ||
-       cliHeight != prevCliHeight || cliOpen != prevCliOpen)) {
-      clearTimeout(configTimer);
-      configTimer = setTimeout(saveConfig, 2000);
-    }
-    prevSidebarWidth = sidebarWidth;
-    prevLocked = locked;
-    prevCliHeight = cliHeight;
-    prevCliOpen = cliOpen;
-  } else {
-    configLoaded = false;
-  }
-}
-
-function saveConfig () {
-  // deprecated - not used anymore
-}
-
 function loadConfig (callback) {
   $.get('config', function (data) {
     if (data) {
@@ -1210,7 +1183,6 @@ function resizeApp () {
   keyTree.height($(window).height() - keyTree.offset().top - $('#commandLineContainer').outerHeight(true));
   body.css({'width': newBodyWidth, 'left': barWidth, 'height': sideBar.css('height')});
   $('#itemData').css('margin-top', $('#itemActionsBar').outerHeight(false));
-  configChange();
 }
 
 function setupResizeEvents () {
@@ -1254,7 +1226,6 @@ function setupResizeEvents () {
 function setupCommandLock () {
   $('#lockCommandButton').click(function () {
     $(this).toggleClass('disabled');
-    configChange();
   });
 }
 
