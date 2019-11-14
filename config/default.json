@@ -7,6 +7,7 @@
     "cliHeight": 320,
     "cliOpen": false,
     "foldingChar": ":",
+    "jsonViewAsDefault": "none",
     "binaryAsHex": true
   },
   "redis": {

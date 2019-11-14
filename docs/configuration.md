@@ -36,6 +36,7 @@ interface of Redis Commander.
 | ui.cliHeight | number | 320 | start height in pixel of the command line at the bottom (if opened) |
 | ui.cliOpen | boolean | false | start with maximized cli height on "true", with minimized one on "false" |
 | ui.foldingChar | string | ':' | character to use for creation of a virtual hierachical tree of all keys. e.g key 'top/sub/mykey' is divided into a folder 'top' containing the folder 'sub' with the key 'mykey' inside it. |
+| ui.jsonViewAsDefault | string list | 'none' | comma separated list of data types where valid json data should be displayed as JSON tree object instead of plain string. Default '' or 'none' displays no data as string, 'all' displays all data-types supported as JSON objects, other possible values 'string' and 'hash' (everything else not supported right now).<br>Example: "string,hash" only display these two types as JSON if possible per default 
 | ui.binaryAsHex | boolean | true | do not display binary data as string but in hexadecimal view |
 
 ### 3. General Redis connection parameter

@@ -5,8 +5,8 @@
   </button>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <% } %>
-  <button id="vieModeStringButton" class="btn" style="display:none;" onclick="onModeStringButtonClick()">View mode string</button>
-  <button id="vieModeTreeButton" class="btn" onclick="onModeTreeButtonClick()">View mode tree</button>
+  <button id="viewModeStringButton" class="btn" style="display:none;" onclick="onModeStringButtonClick()">View mode string</button>
+  <button id="viewModeJsonButton" class="btn" onclick="onModeJsonButtonClick()">View mode tree</button>
 </div>
 <div id="itemData">
   <label>Key: <b><%= key %></b></label>
@@ -25,8 +25,8 @@
           <td><%= field %></td>
         <% console.log(field);%>
         <% console.log(data[field]);%>
-          <td id="plain_<%= field %>"><%= data[field] %></td>
-          <td id="jqtree_<%= field %>" style="display:none;">loading ...</td>
+          <td id="plain_<%= field %>" class="text-renderer"><%= data[field] %></td>
+          <td id="jqtree_<%= field %>" class="json-renderer" style="display:none;">loading ...</td>
         </tr>
       <% } %>
     </tbody>
@@ -46,37 +46,40 @@
       });
     }
 
-    createJSONTree();
+    createJSONViews();
   });
 
-  function createJSONTree(){
-    var jqtreeCollection = $('td[id^="jqtree_"]');
+  function createJSONViews(){
+    var jqtreeCollection = $('td[class="json-renderer"]');
     for(var i=0; i<jqtreeCollection.length; i++){
       var current = $(jqtreeCollection[i]);
       var plain = current.prev().html();
-
-      try{
-        current.html(JSONTree.create(JSON.parse(plain)));
-      }catch(e){
-        current.html(plain);
+      try {
+        // display either as string if no valid json or as foldable json object otherwise, ignore exception
+        current.jsonViewer(JSON.parse(plain), {withQuotes: true, withLinks: false});
+      }
+      catch(ex) {
+        // add json-viewer class manually to get same color/fonts
+        // calling jsonViewer() method instead gives quoted string like "blah\" blub" if it contains special chars
+        current.empty().append($('<span class="json-string">').text(plain));
       }
     }
   }
 
   function onModeStringButtonClick() {
-      $('td[id^="plain_"]').css('display','inline-block');
-      $('td[id^="jqtree_"]').css('display','none');
+      $('td.text-renderer').css('display','inline-block');
+      $('td.json-renderer').css('display','none');
 
-      $('#vieModeTreeButton').css('display','inline');
-      $('#vieModeStringButton').css('display','none');
+      $('#viewModeJsonButton').css('display','inline');
+      $('#viewModeStringButton').css('display','none');
   }
 
-  function onModeTreeButtonClick() {
-      $('td[id^="plain_"]').css('display','none');
-      $('td[id^="jqtree_"]').css('display','inline-block');
+  function onModeJsonButtonClick() {
+      $('td.text-renderer').css('display','none');
+      $('td.json-renderer').css('display','inline-block');
 
-      $('#vieModeTreeButton').css('display','none');
-      $('#vieModeStringButton').css('display','inline');
+      $('#viewModeJsonButton').css('display','none');
+      $('#viewModeStringButton').css('display','inline');
   }
 
 </script>

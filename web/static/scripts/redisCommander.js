@@ -18,7 +18,7 @@ function loadTree () {
 
         if (data.connections) {
           data.connections.every(function (instance) {
-            // build root objects for jsontree
+            // build root objects for jstree view on left side
             var treeObj = {
               id: instance.conId,
               text: instance.label + " (" + instance.options.host + ":" + instance.options.port + ":" + instance.options.db + ")",
@@ -31,9 +31,9 @@ function loadTree () {
             return true;
          });
         }
-        return onJSONDataComplete();
+        return onJSTreeDataComplete();
 
-        function getJsonTreeData(node, cb) {
+        function getJsTreeData(node, cb) {
           if (node.id === '#') return cb(json_dataData);
 
           var dataUrl;
@@ -76,10 +76,10 @@ function loadTree () {
           }
         }
 
-        function onJSONDataComplete () {
+        function onJSTreeDataComplete () {
           $('#keyTree').jstree({
               core: {
-                  data: getJsonTreeData,
+                  data: getJsTreeData,
                   multiple : false,
                   check_callback : true,
                   //themes: {
@@ -424,22 +424,19 @@ function selectTreeNodeString (data) {
   renderEjs('templates/editString.ejs', data, $('#body'), function() {
     var isJsonParsed = false;
     try {
-      JSON.parse(data.value);
+      var jsonObject = JSON.parse(data.value);
       isJsonParsed = true;
+      $('#jqtree_string_div').jsonViewer(jsonObject, {withQuotes: true, withLinks: false});
+      if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewString) > 0) onModeJsonButtonClick()
     } catch (ex) {
       $('#isJson').prop('checked', false);
+      $('#jqtree_string_div').text('Text is no valid JSON: ' + ex.message);
     }
 
     $('#stringValue').val(data.value);
     // a this is json now assume it shall be json if it is object or array, but not for numbers
     if (isJsonParsed && data.value.match(/^\s*[{\[]/)) {
       $('#isJson').click();
-    }
-
-    try {
-      $('#jqtree_string_div').html(JSONTree.create(JSON.parse(data.value)));
-    } catch (err) {
-      $('#jqtree_string_div').text('Text is no valid JSON: ' + err.message);
     }
 
     if (!redisReadOnly) {
@@ -496,6 +493,7 @@ function selectTreeNodeBinary (data) {
 function selectTreeNodeHash (data) {
   renderEjs('templates/editHash.ejs', data, $('#body'), function() {
     console.log('edit hash template rendered');
+    if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewHash) > 0) onModeJsonButtonClick()
   });
 }
 
@@ -795,7 +793,6 @@ function hideCommandLineOutput () {
   if (output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
     output.slideUp(function () {
       resizeApp();
-      configChange();
     });
     cliOpen = false;
     commandLineScrollTop = output.scrollTop() + 20;
@@ -809,7 +806,6 @@ function showCommandLineOutput () {
     output.slideDown(function () {
       output.scrollTop(commandLineScrollTop);
       resizeApp();
-      configChange();
     });
     cliOpen = true;
     $('#commandLineBorder').addClass('show-vertical-scroll');
@@ -995,12 +991,18 @@ function renderEjs(filename, data, element, callback) {
     });
 }
 
-var configTimer;
-var prevSidebarWidth;
-var prevLocked;
-var prevCliHeight;
-var prevCliOpen;
-var configLoaded = false;
+var uiConfig = {
+  jsonViewAsDefault: 0,
+  const: {
+    jsonViewString: 1 << 0,
+    jsonViewList: 1 << 1,
+    jsonViewHash: 1 << 2,
+    jsonViewSet: 1 << 3,
+    jsonViewZSet: 1 << 4,
+    jsonViewStream: 1 << 5,
+    jsonViewReJson: 1 << 6
+  }
+};
 
 
 function initCmdParser() {
@@ -1152,31 +1154,6 @@ function loadDefaultServer (host, port) {
   $('#addServerForm').submit();
 }
 
-function configChange () {
-  if (!configLoaded) {
-    var sidebarWidth = $('#sideBar').width();
-    var locked = !$('#lockCommandButton').hasClass('disabled');
-    var cliHeight = $('#commandLineContainer').height();
-
-    if (typeof(prevSidebarWidth) !== 'undefined' &&
-      (sidebarWidth != prevSidebarWidth || locked != prevLocked ||
-       cliHeight != prevCliHeight || cliOpen != prevCliOpen)) {
-      clearTimeout(configTimer);
-      configTimer = setTimeout(saveConfig, 2000);
-    }
-    prevSidebarWidth = sidebarWidth;
-    prevLocked = locked;
-    prevCliHeight = cliHeight;
-    prevCliOpen = cliOpen;
-  } else {
-    configLoaded = false;
-  }
-}
-
-function saveConfig () {
-  // deprecated - not used anymore
-}
-
 function loadConfig (callback) {
   $.get('config', function (data) {
     if (data) {
@@ -1195,7 +1172,21 @@ function loadConfig (callback) {
       } else {
         $('#lockCommandButton').addClass('disabled');
       }
-      configLoaded = true;
+      if (data['jsonViewAsDefault']) {
+        data['jsonViewAsDefault'].split(',').forEach(function(item) {
+          switch (item.trim()) {
+            case 'all':
+              uiConfig.jsonViewAsDefault = 255;
+              break;
+            case 'string':
+              uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewString;
+              break;
+            case 'hash':
+              uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewHash;
+              break;
+          }
+        });
+      }
       resizeApp();
       if (callback) {
         callback();
@@ -1214,7 +1205,6 @@ function resizeApp () {
   keyTree.height($(window).height() - keyTree.offset().top - $('#commandLineContainer').outerHeight(true));
   body.css({'width': newBodyWidth, 'left': barWidth, 'height': sideBar.css('height')});
   $('#itemData').css('margin-top', $('#itemActionsBar').outerHeight(false));
-  configChange();
 }
 
 function setupResizeEvents () {
@@ -1258,7 +1248,6 @@ function setupResizeEvents () {
 function setupCommandLock () {
   $('#lockCommandButton').click(function () {
     $(this).toggleClass('disabled');
-    configChange();
   });
 }
 

@@ -3,6 +3,7 @@
   "noLogData": "NO_LOG_DATA",
   "ui": {
     "foldingChar": "FOLDING_CHAR",
+    "jsonViewAsDefault": "VIEW_JSON_DEFAULT",
     "binaryAsHex": "BINARY_AS_HEX"
   },
   "redis": {
