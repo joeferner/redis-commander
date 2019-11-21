@@ -296,9 +296,104 @@ if (startServer) {
 
 
 // ==============================================
-// end main programm / special cli param handling
+// end main program / special cli param handling
 // functions below...
 
+
+/** function to check command line arguments given if the contain vaid informations for an redis connection
+ *  Some params like port and db are check if they are valid values (if set), otherwise the entire program will exit
+ *  with an error message.
+ *
+ * @param {Array} args list of params as given on command line
+ * @return {null|object} returns "null" if no usable connection data are found, an object to feed into redis client
+ *   otherwise to create a new connection.
+ */
+function createConnectionObjectFromArgs(args) {
+  // check if ports and dbIndex given are valid, must be done here as redis connection params from cli are not added
+  // to config object and tested later together with everything else from config
+  let checkPortInvalid = function(portString, paramName) {
+    if (portString) {
+      if (Number.isNaN(portString) || !Number.isInteger(Number(portString))) {
+        console.error(`value given vor "${paramName}" is invalid - must be an integer number`);
+        return true;
+      }
+      else if (Number(portString) < 1 || Number(portString) > 65535) {
+        console.error(`value given vor "${paramName}" is invalid - must be an integer number between 1 and 65535`);
+        return true
+      }
+    }
+    return false;
+  };
+  let checkDbIndexInvalid = function(dbString, paramName) {
+    if (dbString) {
+      if (Number.isNaN(dbString) || !Number.isInteger(Number(dbString))) {
+        console.error(`value given vor "${paramName}" is invalid - must be an integer number`);
+        return true;
+      }
+      else if (Number(dbString) < 0) {
+        console.error(`value given vor "${paramName}" is invalid - must be an positiv integer number`);
+        return true
+      }
+    }
+    return false;
+  };
+  // sometimes redis_port is automatically set to something like 'tcp://10.2.3.4:6379'
+  // parse this and update args accordingly
+  if (typeof args['redis-port'] === 'string' && args['redis-port'].startsWith('tcp://')) {
+    console.log('Found long tcp port descriptor with hostname in redis-port param, parse this as host and port value');
+    let parts = args['redis-port'].split(':');
+    args['redis-port'] = parts[2];
+    args['redis-host'] = parts[1].substring(2);
+  }
+  // now some validity checks - exits on failure with error message
+  if (checkPortInvalid(args['redis-port'], 'redis-port') ||
+      checkPortInvalid(args['sentinel-port'], 'sentinel-port') ||
+      checkDbIndexInvalid(args['redis-db'], 'redis-db')) {
+    process.exit(1)
+  }
+
+  // now create connection object if enough params are set
+  let connObj = null;
+  if (args['sentinel-host'] || args['sentinels'] || args['redis-host'] || args['redis-port'] || args['redis-socket']
+    || args['redis-password'] || args['redis-db']) {
+
+    let db = parseInt(args['redis-db']);
+    connObj = {
+      label: config.get('redis.defaultLabel'),
+      dbIndex: Number.isNaN(db) ? 0 : db,
+      password: args['redis-password'] || '',
+      connectionName: config.get('redis.connectionName')
+    };
+
+    if (args['redis-socket']) {
+      connObj.path = args['redis-socket'];
+    }
+    else {
+      connObj.host = args['redis-host'] || 'localhost';
+      connObj.port = args['redis-port'] || 6379;
+      connObj.port = parseInt(connObj.port);
+      if (args['sentinel-name']) {
+        connObj.sentinelName = args['sentinel-name'];
+      }
+      if (args['sentinels']) {
+        connObj.sentinels = myUtils.parseRedisSentinel('--sentinels', args['sentinels']);
+      }
+      else if (args['sentinel-host']) {
+        connObj.sentinels = myUtils.parseRedisSentinel('--sentinel-host or --sentinel-port',
+          args['sentinel-host'] + ':' + args['sentinel-port']);
+      }
+    }
+
+    if (args['redis-tls']) {
+      connObj.tls = {};
+    }
+  }
+  return connObj;
+}
+
+
+/** function to start all confugred connections from config and command line
+ */
 function startAllConnections() {
   try {
     myUtils.validateConfig();
@@ -345,45 +440,12 @@ function startAllConnections() {
 
   // first connection from cli params (redis-host, redis-port, ...)
   // second default connections from config object (to allow override of pw changed and so on)
-  let db = parseInt(args['redis-db']);
-  if (isNaN(db)) {
-    db = 0;
-  }
-
   let client;
-  if (args['sentinel-host'] || args['sentinels'] || args['redis-host'] || args['redis-port'] || args['redis-socket'] || args['redis-password']) {
-    let newDefault = {
-      "label": config.get('redis.defaultLabel'),
-      "dbIndex": db,
-      "password": args['redis-password'] || '',
-      "connectionName": config.get('redis.connectionName')
-    };
-
-    if (args['redis-socket']) {
-      newDefault.path = args['redis-socket'];
-    }
-    else {
-      newDefault.host = args['redis-host'] || "localhost";
-      newDefault.port = args['redis-port'] || 6379;
-      newDefault.port = parseInt(newDefault.port);
-      if (args['sentinel-name']) {
-        newDefault.sentinelName = args['sentinel-name'];
-      }
-      if (args['sentinels']) {
-        newDefault.sentinels = myUtils.parseRedisSentinel('--sentinels', args['sentinels']);
-      }
-      else if (args['sentinel-host']) {
-        newDefault.sentinels = myUtils.parseRedisSentinel( '--sentinel-host or --sentinel-port',
-          args['sentinel-host'] + ':' + args['sentinel-port']);
-      }
-    }
-
-    if (args['redis-tls']) {
-      newDefault.tls = {};
-    }
+  let newDefault = createConnectionObjectFromArgs(args);
+  if (newDefault) {
     client = myUtils.createRedisClient(newDefault);
     redisConnections.push(client);
-    setUpConnection(client, db);
+    setUpConnection(client, newDefault.dbIndex);
 
     // now check if this one is already part of default connections
     // update it if needed
@@ -415,7 +477,7 @@ function startAllConnections() {
     // fallback to localhost if nothing else configured
     client = myUtils.createRedisClient({label: config.get('redis.defaultLabel')});
     redisConnections.push(client);
-    setUpConnection(client, db);
+    setUpConnection(client, 0);
   }
 
   // now start all default connections (if not same as one given via command line)...
