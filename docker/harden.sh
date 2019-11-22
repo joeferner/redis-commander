@@ -61,8 +61,10 @@ sysdirs="
 "
 
 # Remove apk configs.
+# do not remove files below /lib/apk - db folder needed by many security scanners
+# to check for outdated packages
 if [ "$REMOVE_APK" != "0" ]; then
-    find $sysdirs -xdev -regex '.*apk.*' -exec rm -fr {} +
+    find $sysdirs -xdev -regex '.*apk.*' \! -regex '/lib/apk.*' -exec rm -fr {} +
 fi
 
 # Remove crufty...

@@ -4,7 +4,7 @@
 #### Bugfixes
 * do not display content of passwords read from env var or file on docker startup, #372
 * fix display errors on early display of import/export page
-* dependency updates for security fixes (elliptic)
+* dependency updates for security fixes (elliptic) and change runtime umask to 027
 
 #### Enhancements
 * add new docker env vars to load passwords from file (REDIS_PASSWORD_FILE, SENTINEL_PASSWORD_FILE), #364
@@ -14,7 +14,8 @@
 * switch library to display json objects from "json-tree" to "jquery.json-viewer", refs #375
 * add config value and env var to display valid json data as default as formatted json tree object (VIEW_JSON_DEFAULT), refs #375  
 * add config value and env var to disable display of strings as hexadecimal binary data, refs #376
-* add some basic validation to redis connection params given via command line, refs #377
+* add basic validation to redis connection params given via command line and config files, refs #377
+* allow docker image security scanner to work even if apk related files are removed
 
 ## Version 0.6.6
 #### Bugfixes

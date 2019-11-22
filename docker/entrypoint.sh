@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# switch to more secure file umask before everything else...
+umask 0027
+
 # autowrite config file containing node_env to let config module automatically pick this up.
 # this file is evaluated nearly at the end of all files possible:
 # see https://github.com/lorenwest/node-config/wiki/Configuration-Files
@@ -254,17 +257,21 @@ if [[ ! -z "$REPLACE_CONFIG_ENV" ]]; then
         done
     done
 fi
-
 # all other env vars are evaluated by node-config module ...
 
-#echo "DEBUG: cat all config files after creation / replacement"
-#for i in config/*.json; do
+# syntax check of all config files to help detecting invalid ones early
+for i in config/*.json; do
+    cat ${i} | jq empty
+    if [[ $? -ne 0 ]]; then
+        echo "ERROR: config file ${i} has invalid json syntax"
+        exit 1
+    fi
 #    if [ $i != "config/custom-environment-variables.json" ]; then
 #        echo .
 #        echo "###config file: $i"
 #        cat $i
 #    fi
-#done
+done
 
 # install trap for SIGTERM to delay end of app a bit for kubernetes
 # otherwise container might get requests after exiting itself
@@ -274,7 +281,7 @@ exitTrap() {
     kill -TERM $NODE_PID
 }
 
-if [ "$K8S_SIGTERM" = "1" ]; then
+if [[ "$K8S_SIGTERM" = "1" ]]; then
     trap exitTrap TERM INT
     echo "node ./bin/redis-commander "$(safe_print_args $@)" for k8s"
     setsid /usr/local/bin/node ./bin/redis-commander $@ &
