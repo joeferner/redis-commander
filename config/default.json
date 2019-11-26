@@ -17,7 +17,8 @@
     "scanCount": 100,
     "rootPattern": "*",
     "connectionName": "redis-commander",
-    "defaultLabel": "local"
+    "defaultLabel": "local",
+    "defaultSentinelGroup": "mymaster"
   },
   "server": {
     "address": "0.0.0.0",

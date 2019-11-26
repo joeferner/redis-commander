@@ -6,7 +6,7 @@ stored inside the top-level `connections` list.
 
 ## Storing Connection informations
 
-The default set of connrections to start redis commander with
+The default set of connections to start redis commander with
 can be defined inside the `local.json` file (for example).
 Whenever a connection is added via Web-UI or command line 
 a new file `local-<node_env>.json` is created to store the
@@ -63,7 +63,7 @@ For guidance just as at one of the cluster support tickets.
 | port | number | 6379 | port number where redis server listens (standalone mode) |
 | password | string | '' | optional password of the redis server itself (socket, standalone, sentinel or cluster mode) |
 | sentinels | string or list | '' | string: comma separated list of sentinels with "host:port" (sentinel mode) |
-| sentinelName | string | 'mymaster' | name of redis database group to connect to via sentinel (sentinel mode) |
+| sentinelName | string | 'mymaster' | name of redis database group to connect to via sentinel. The default name of 'mymaster' can be change via global redis configuration value 'redis.defaultSentinelGroup' (sentinel mode) |
 | sentinelPassword | string |  | password to connect to sentinels itself. This is not the password of the redis server (sentinel mode) |
 | db | number | 0 | Number of database, starting with 0, max allowed db number is configured server-side (default 15) |
 | connectionName | string | '' | use special connection name at this redis client to identify it with redis "CLIENT LIST" command. If not set default connection name from config param `redis.connectionName` is used |

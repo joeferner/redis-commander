@@ -372,15 +372,14 @@ function createConnectionObjectFromArgs(args) {
       connObj.host = args['redis-host'] || 'localhost';
       connObj.port = args['redis-port'] || 6379;
       connObj.port = parseInt(connObj.port);
-      if (args['sentinel-name']) {
-        connObj.sentinelName = args['sentinel-name'];
-      }
       if (args['sentinels']) {
         connObj.sentinels = myUtils.parseRedisSentinel('--sentinels', args['sentinels']);
+        connObj.sentinelName = args['sentinel-name'] || config.get('redis.defaultSentinelGroup');
       }
       else if (args['sentinel-host']) {
         connObj.sentinels = myUtils.parseRedisSentinel('--sentinel-host or --sentinel-port',
           args['sentinel-host'] + ':' + args['sentinel-port']);
+        connObj.sentinelName = args['sentinel-name'] || config.get('redis.defaultSentinelGroup');
       }
     }
 
