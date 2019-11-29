@@ -1382,13 +1382,21 @@ $(function() {
     });
   }
 
+  /**
+   * Refresh all nodes in tree, do not change open/close state
+   */
+  $('#refreshNodes').on('click', function () {
+    refreshTree();
+  });
 
   /**
-   * Refresh and expand all nodes in tree
+   * Refresh and expand all nodes in tree, need to wait a bit after refresh, otherwise ignored
    */
   $('#expandAllNodes').on('click', function () {
-    refreshTree();
-    $('#keyTree').jstree('open_all');
+    getKeyTree().refresh(false, true);
+    setTimeout(function() {
+      getKeyTree().open_all(getKeyTree().get_node('#'));
+    }, 300);
   });
 });
 

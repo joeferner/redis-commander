@@ -416,3 +416,7 @@ input[type="checkbox"].checkbox-oneline {
 .binaryView-char span {
   width: 10px;
 }
+
+.icon-empty {
+  min-width: 14px;
+}

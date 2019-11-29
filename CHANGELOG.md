@@ -6,6 +6,7 @@
 * fix display errors on early display of import/export page
 * dependency updates for security fixes (elliptic) and change runtime umask to 027
 * fix problem with sentinel connections without explict group name given, #381
+* fix problem not showing all nodes after refresh (menu entry), #382
 
 #### Enhancements
 * add new docker env vars to load passwords from file (REDIS_PASSWORD_FILE, SENTINEL_PASSWORD_FILE), #364
