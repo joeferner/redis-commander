@@ -1,0 +1,30 @@
+<div id="renameKeyModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Rename Key</h3>
+  </div>
+  <div class="modal-body">
+    <form id="renameKeyForm" action="apiv2/key/" method="PATCH" class="form-vertical">
+      <div class="control-group">
+        <label class="control-label">Current Key</label>
+        <div><label><b id="currentKeyNameDisplay"></b></label></div>
+        <input id="currentKeyName" type="hidden" value=""/>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="renamedKeyName">New Key</label>
+        <div class="controls">
+          <input id="renamedKeyName" type="text" value="" class="modal-content-width"/>
+        </div>
+      </div>
+      <input id="renameKeyConnectionId" type="hidden" value=""/>
+      <label class="checkbox"><input type="checkbox" id="forceRenameKey" name="forceRenameKey">Overwrite if new key name already exists</label>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <button id="renameKeyButton" type="button" class="btn btn-primary" onclick="renameExistingKey()">Save</button>
+  </div>
+</div>
+<script>
+  registerModalFocus('renameKeyModal', 'renamedKeyName');
+</script>

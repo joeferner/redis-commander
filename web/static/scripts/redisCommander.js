@@ -89,42 +89,52 @@ function loadTree () {
               contextmenu: {
                   items: function (node) {
                       var menu = {
+                          "renameKey": {
+                            icon: './images/icon-edit.png',
+                            label: "Rename Key",
+                            action: renameKey
+                          },
                           "addKey": {
-                              icon: './images/icon-plus.png',
-                              label: "Add Key",
-                              action: addKey
+                            icon: './images/icon-plus.png',
+                            label: "Add Key",
+                            action: addKey
                           },
                           "refresh": {
-                              icon: './images/icon-refresh.png',
-                              label: "Refresh",
-                              action: function (obj) {
-                                  jQuery.jstree.reference("#keyTree").refresh(obj);
-                              }
+                            icon: './images/icon-refresh.png',
+                            label: "Refresh",
+                            action: function (obj) {
+                                jQuery.jstree.reference("#keyTree").refresh(obj);
+                            }
                           },
                           "remKey": {
-                              icon: './images/icon-trash.png',
-                              label: 'Remove Key',
-                              action: deleteKey
+                            icon: './images/icon-trash.png',
+                            label: 'Remove Key',
+                            action: deleteKey
                           },
                           "remConnection": {
-                              icon: './images/icon-trash.png',
-                              label: 'Disconnect',
-                              action: removeServer
+                            icon: './images/icon-trash.png',
+                            label: 'Disconnect',
+                            action: removeServer
                           }
                       };
                       var rel = node.original.rel;
-                      if (typeof rel !== 'undefined' && rel !== 'root') {
-                          delete menu['addKey'];
+                      if (typeof rel === 'undefined' ) {    // folder
+                        delete menu['renameKey'];
+                      }
+                      if (typeof rel !== 'undefined' && rel !== 'root') {  // some redis key
+                        delete menu['addKey'];
                       }
                       if (rel !== 'root') {
-                          delete menu['remConnection'];
+                        delete menu['remConnection'];
                       }
-                      if (rel === 'root') {
-                          delete menu['remKey'];
+                      if (rel === 'root') {     // root connection object (first level in tree-view)
+                        delete menu['renameKey'];
+                        delete menu['remKey'];
                       }
                       if (redisReadOnly) {
-                          delete menu['addKey'];
-                          delete menu['remKey'];
+                        delete menu['renameKey'];
+                        delete menu['addKey'];
+                        delete menu['remKey'];
                       }
                       return menu;
                   }
@@ -420,6 +430,43 @@ function addNewKey() {
   });
 }
 
+
+function renameExistingKey() {
+  var modal = $('#renameKeyModal');
+  var oldKey = modal.find('#currentKeyName').val();
+  var newKey = modal.find('#renamedKeyName').val();
+  var connectionId = modal.find('#renameKeyConnectionId').val();
+  var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent(oldKey);
+  console.log('renaming ' + oldKey + ' to new key ' + newKey);
+  modal.find('#renameKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
+
+  $.ajax({
+    url: action,
+    method: 'PATCH',
+    data: {rename: newKey, force: modal.find('#forceRenameKey').value}
+  }).done(function() {
+    console.log('renamed old key ' + newKey + ' at ' + connectionId);
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log('rename error for key ' + oldKey + ': ' + textStatus);
+    alert("Could not rename '" + errorThrown + "' (HTTP " + jqXHR.status + ")");
+  }).always(function(data, textStatus) {
+    // close modal for most return values incl. success
+    // but stay open if error message returned (key exists without overwrite)
+    if (textStatus === 'success' && data.error && data.error.code === 'ERR_KEY_EXISTS') {
+      modal.find('#renamedKeyName').after('<label class="error">' + data.error.title + '</label>')
+    }
+    else {
+      setTimeout(function() {
+        modal.find('#renameKeyButton').removeAttr("disabled").html("Save");
+        modal.find('.error').remove();
+        refreshTree();
+        modal.modal('hide');
+      }, 500);
+    }
+  });
+}
+
+
 function selectTreeNodeString (data) {
   renderEjs('templates/editString.ejs', data, $('#body'), function() {
     var isJsonParsed = false;
@@ -556,6 +603,21 @@ function addKey (connectionId, key) {
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
   setupAddKeyButton(connectionId);
+}
+
+function renameKey (connectionId, key) {
+  if (typeof(connectionId) === 'object') {
+    // context menu click
+    var node = getKeyTree().get_node(connectionId.reference[0]);
+    key = getFullKeyPath(node);
+    connectionId = getRootConnection(node);
+  }
+  $('#currentKeyName').val(key);
+  $('#currentKeyNameDisplay').text(key);
+  $('#renamedKeyName').val(key);
+  $('renameKeyConnectionId').val(connectionId);
+  $('#forceRenameKey').prop('checked', false);
+  $('#renameKeyModal').modal('show');
 }
 
 function deleteKey (connectionId, key) {
