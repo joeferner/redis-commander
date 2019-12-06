@@ -3,7 +3,7 @@
 This file describes all parameters settable at the
 configuration files inside the `config` folder.
 
-Redis Commander uses the node "config" module (https://github.com/lorenwest/config) 
+Redis Commander uses the node "config" module (https://github.com/lorenwest/node-config) 
 More information about possible file formats and config file names
 as well as there evaluation order can be found in the wiki of the node-config
 project.
