@@ -72,10 +72,19 @@ body {
 #itemData {
   overflow-x: auto;
   margin-top: 62px;
+  margin-right: 12px;
 }
 
 #itemData .btn-mini [class^="icon-"], #itemData .btn-mini [class*=" icon-"] {
   margin-top: 1px;
+}
+
+#itemData tbody td {
+  border-top: 0;
+}
+
+#itemData tbody tr {
+  border-top: 1px solid #dddddd;
 }
 
 #body {

@@ -5,8 +5,8 @@
   </button>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <% } %>
-  <button id="viewModeStringButton" class="btn" style="display:none;" onclick="onModeStringButtonClick()">View mode string</button>
-  <button id="viewModeJsonButton" class="btn" onclick="onModeJsonButtonClick()">View mode tree</button>
+  <button id="viewModeStringButton" class="btn" style="display:none;" onclick="dataUIFuncs.onModeStringButtonClick()">View mode string</button>
+  <button id="viewModeJsonButton" class="btn" onclick="dataUIFuncs.onModeJsonButtonClick()">View mode tree</button>
 </div>
 <div id="itemData">
   <label>Key: <b><%= key %></b></label>
@@ -41,45 +41,10 @@
         var row = event.currentTarget;
         var field = row.children[0].innerHTML.toString();
         var value = row.children[1].innerHTML.toString();
-
         editHashField(connectionId, key, field, value);
       });
     }
 
-    createJSONViews();
+    dataUIFuncs.createJSONViews('td[class="json-renderer"]');
   });
-
-  function createJSONViews(){
-    var jqtreeCollection = $('td[class="json-renderer"]');
-    for(var i=0; i<jqtreeCollection.length; i++){
-      var current = $(jqtreeCollection[i]);
-      var plain = current.prev().html();
-      try {
-        // display either as string if no valid json or as foldable json object otherwise, ignore exception
-        current.jsonViewer(JSON.parse(plain), {withQuotes: true, withLinks: false});
-      }
-      catch(ex) {
-        // add json-viewer class manually to get same color/fonts
-        // calling jsonViewer() method instead gives quoted string like "blah\" blub" if it contains special chars
-        current.empty().append($('<span class="json-string">').text(plain));
-      }
-    }
-  }
-
-  function onModeStringButtonClick() {
-      $('td.text-renderer').css('display','inline-block');
-      $('td.json-renderer').css('display','none');
-
-      $('#viewModeJsonButton').css('display','inline');
-      $('#viewModeStringButton').css('display','none');
-  }
-
-  function onModeJsonButtonClick() {
-      $('td.text-renderer').css('display','none');
-      $('td.json-renderer').css('display','inline-block');
-
-      $('#viewModeJsonButton').css('display','none');
-      $('#viewModeStringButton').css('display','inline');
-  }
-
 </script>

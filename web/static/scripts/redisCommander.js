@@ -427,7 +427,7 @@ function selectTreeNodeString (data) {
       var jsonObject = JSON.parse(data.value);
       isJsonParsed = true;
       $('#jqtree_string_div').jsonViewer(jsonObject, {withQuotes: true, withLinks: false});
-      if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewString) > 0) onModeJsonButtonClick()
+      if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewString) > 0) dataUIFuncs.onModeJsonButtonClick('#editStringForm')
     } catch (ex) {
       $('#isJson').prop('checked', false);
       $('#jqtree_string_div').text('Text is no valid JSON: ' + ex.message);
@@ -493,13 +493,14 @@ function selectTreeNodeBinary (data) {
 function selectTreeNodeHash (data) {
   renderEjs('templates/editHash.ejs', data, $('#body'), function() {
     console.log('edit hash template rendered');
-    if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewHash) > 0) onModeJsonButtonClick()
+    if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewHash) > 0) dataUIFuncs.onModeJsonButtonClick()
   });
 }
 
 function selectTreeNodeSet (data) {
   renderEjs('templates/editSet.ejs', data, $('#body'), function() {
     console.debug('edit set template rendered');
+    if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewSet) > 0) dataUIFuncs.onModeJsonButtonClick()
   });
 }
 
@@ -507,6 +508,7 @@ function selectTreeNodeList (data) {
   if (data.items.length > 0) {
     renderEjs('templates/editList.ejs', data, $('#body'), function() {
       console.log('edit list template rendered');
+      if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewList) > 0) dataUIFuncs.onModeJsonButtonClick()
     });
   } else {
     alert('Index out of bounds');
@@ -517,6 +519,7 @@ function selectTreeNodeZSet (data) {
   if (data.items.length > 0) {
     renderEjs('templates/editZSet.ejs', data, $('#body'), function() {
       console.log('rendered zset template');
+      if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewZSet) > 0) dataUIFuncs.onModeJsonButtonClick()
     });
   } else {
     alert('Index out of bounds');
@@ -784,98 +787,149 @@ function removeXSetElement (connectionId, key, timestamp) {
   });
 }
 
+var redisCli = {
+  commandLineScrollTop: 0,
+  cliOpen: false,
 
-var commandLineScrollTop;
-var cliOpen = false;
+  hideCommandLineOutput: function hideCommandLineOutput() {
+    var output = $('#commandLineOutput');
+    if (output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
+      output.slideUp(function() {
+        resizeApp();
+      });
+      redisCli.cliOpen = false;
+      redisCli.commandLineScrollTop = output.scrollTop() + 20;
+      $('#commandLineBorder').removeClass('show-vertical-scroll');
+    }
+  },
 
-function hideCommandLineOutput () {
-  var output = $('#commandLineOutput');
-  if (output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
-    output.slideUp(function () {
-      resizeApp();
+  showCommandLineOutput: function showCommandLineOutput() {
+    var output = $('#commandLineOutput');
+    if (!output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
+      output.slideDown(function() {
+        output.scrollTop(redisCli.commandLineScrollTop);
+        resizeApp();
+      });
+      redisCli.cliOpen = true;
+      $('#commandLineBorder').addClass('show-vertical-scroll');
+    }
+  },
+
+  loadCommandLine: function loadCommandLine() {
+    $('#commandLine').click(function() {
+      redisCli.showCommandLineOutput();
     });
-    cliOpen = false;
-    commandLineScrollTop = output.scrollTop() + 20;
-    $('#commandLineBorder').removeClass('show-vertical-scroll');
-  }
-}
-
-function showCommandLineOutput () {
-  var output = $('#commandLineOutput');
-  if (!output.is(':visible') && $('#lockCommandButton').hasClass('disabled')) {
-    output.slideDown(function () {
-      output.scrollTop(commandLineScrollTop);
-      resizeApp();
+    $('#app-container').click(function() {
+      redisCli.hideCommandLineOutput();
     });
-    cliOpen = true;
-    $('#commandLineBorder').addClass('show-vertical-scroll');
-  }
-}
 
-function loadCommandLine () {
-  $('#commandLine').click(function () {
-    showCommandLineOutput();
-  });
-  $('#app-container').click(function () {
-    hideCommandLineOutput();
-  });
-
-  var readline = require("readline-browserify");
-  var output = document.getElementById('commandLineOutput');
-  var rl = readline.createInterface({
-    elementId: 'commandLine',
-    write: function (data) {
+    var readline = require("readline-browserify");
+    var output = document.getElementById('commandLineOutput');
+    var rl = readline.createInterface({
+      elementId: 'commandLine',
+      write: function(data) {
+        if (output.innerHTML.length > 0) {
+          output.innerHTML += "<br>";
+        }
+        output.innerHTML += escapeHtml(data);
+        output.scrollTop = output.scrollHeight;
+      },
+      completer: function(linePartial, callback) {
+        cmdparser.completer(linePartial, callback);
+      }
+    });
+    rl.setPrompt('redis> ');
+    rl.prompt();
+    rl.on('line', function(line) {
       if (output.innerHTML.length > 0) {
         output.innerHTML += "<br>";
       }
-      output.innerHTML += escapeHtml(data);
-      output.scrollTop = output.scrollHeight;
-    },
-    completer: function (linePartial, callback) {
-      cmdparser.completer(linePartial, callback);
-    }
-  });
-  rl.setPrompt('redis> ');
-  rl.prompt();
-  rl.on('line', function (line) {
-    if (output.innerHTML.length > 0) {
-      output.innerHTML += "<br>";
-    }
-    output.innerHTML += "<span class='commandLineCommand'>" + escapeHtml(line) + "</span>";
+      output.innerHTML += "<span class='commandLineCommand'>" + escapeHtml(line) + "</span>";
 
-    line = line.trim();
+      line = line.trim();
 
-    if (line.toLowerCase() === 'refresh') {
-      rl.prompt();
-      refreshTree();
-      rl.write("OK");
-    } else {
-      $.post('apiv2/exec/' + encodeURIComponent($('#selectedConnection').val()), { cmd: line }, function (execData, status) {
+      if (line.toLowerCase() === 'refresh') {
         rl.prompt();
+        refreshTree();
+        rl.write("OK");
+      }
+      else {
+        $.post('apiv2/exec/' + encodeURIComponent($('#selectedConnection').val()), {cmd: line}, function(execData, status) {
+          rl.prompt();
 
-        if (status !== 'success') {
-          return alert("Could not delete branch");
-        }
-
-        try {
-          if (typeof execData === 'string') execData = JSON.parse(execData);
-        } catch (ex) {
-          rl.write(execData);
-          return;
-        }
-        if (execData.hasOwnProperty('data')) execData = execData.data;
-        if (Array.isArray(execData)) {
-          for (var i = 0; i < execData.length; i++) {
-            rl.write((i + 1) + ") " + JSON.stringify(execData[i]));
+          if (status !== 'success') {
+            return alert("Could not delete branch");
           }
-        } else {
-          rl.write(JSON.stringify(execData, null, '  '));
-        }
-      });
-      refreshTree();
+
+          try {
+            if (typeof execData === 'string') execData = JSON.parse(execData);
+          }
+          catch(ex) {
+            rl.write(execData);
+            return;
+          }
+          if (execData.hasOwnProperty('data')) execData = execData.data;
+          if (Array.isArray(execData)) {
+            for (var i = 0; i < execData.length; i++) {
+              rl.write((i + 1) + ") " + JSON.stringify(execData[i]));
+            }
+          }
+          else {
+            rl.write(JSON.stringify(execData, null, '  '));
+          }
+        });
+        refreshTree();
+      }
+    });
+  },
+
+  setupCLIKeyEvents: function setupCLIKeyEvents() {
+    var ctrl_down = false;
+    var isMac = navigator.appVersion.indexOf("Mac") !== -1;
+    var cli = $('#_readline_cliForm input');
+    cli.on('keydown', function (e) {
+      var key = e.which;
+      //ctrl
+      if (key === 17 && isMac) {
+        ctrl_down = true;
+      }
+
+      //c
+      if (key === 67 && ctrl_down) {
+        redisCli.clearCLI();
+        e.preventDefault();
+      }
+
+      //esc
+      if (key === 27) {
+        redisCli.clearCLI();
+        e.preventDefault();
+      }
+    });
+    cli.on('keyup', function (e) {
+      var key = e.which;
+      //ctrl
+      if (key === 17 && isMac) {
+        ctrl_down = false;
+      }
+    });
+  },
+
+  clearCLI: function clearCLI () {
+    var cli = $('#_readline_cliForm input');
+    if (cli.val() == '') {
+      redisCli.hideCommandLineOutput();
+    } else {
+      cli.val('');
     }
-  });
-}
+  },
+
+  setupCommandLock: function setupCommandLock() {
+    $('#lockCommandButton').click(function () {
+      $(this).toggleClass('disabled');
+    });
+  }
+};
 
 /** Remove all input validators attached to an form element (keyup handler)
  *  as well as visual decorations applied
@@ -958,6 +1012,66 @@ function setValidationClasses(element, success) {
     $(element).removeClass(remove).addClass(add);
   }
 }
+
+var dataUIFuncs = {
+  /** function to toggle between display of raw strings and json object view.
+   *
+   *  This function shows all raw text elements (class 'text-renderer') and
+   *  hides json elements (class json-renderer), updating toggle buttons accordingly
+   *
+   *  @param {string} parentSelector jquery selector with some parent element of the elements with raw text and json
+   *  objects to show/hide
+   */
+  onModeStringButtonClick: function onModeStringButtonClick(parentSelector) {
+    var parent = $(parentSelector || '#itemData');
+    parent.find('.text-renderer').css('display', 'inline-block');
+    parent.find('.json-renderer').css('display', 'none');
+
+    $('#viewModeJsonButton').css('display', 'inline');
+    $('#viewModeStringButton').css('display', 'none');
+  },
+
+  /** function to toggle between display of raw strings and json object view.
+   *
+   *  This function shows all json elements (class 'json-renderer') and
+   *  hides text elements (class text-renderer), updating toggle buttons accordingly
+   *
+   *  @param {string} parentSelector jquery selector with some parent element of the elements with raw text and json
+   *  objects to show/hide
+   */
+  onModeJsonButtonClick: function onModeJsonButtonClick(parentSelector) {
+    var parent = $(parentSelector || '#itemData');
+    parent.find('.text-renderer').css('display', 'none');
+    parent.find('.json-renderer').css('display', 'inline-block');
+
+    $('#viewModeJsonButton').css('display', 'none');
+    $('#viewModeStringButton').css('display', 'inline');
+  },
+
+  /** this function generates the json object tree view for all elements containing
+   *  the given selector. The raw text to convert to json is taken from the previous element in
+   *  the dom tree - e.g. on table column where row X-1 is the text to convert to json and row X
+   *  is the selected element to add json object too
+   *
+   *  @param {string} jsonSelector jquery selector to find all elements where json views should be added
+   */
+  createJSONViews: function createJSONViews(jsonSelector){
+    var jqtreeCollection = $(jsonSelector);
+    for(var i=0; i<jqtreeCollection.length; i++){
+      var current = $(jqtreeCollection[i]);
+      var plain = current.prev().html();
+      try {
+        // display either as string if no valid json or as foldable json object otherwise, ignore exception
+        current.jsonViewer(JSON.parse(plain), {withQuotes: true, withLinks: false});
+      }
+      catch(ex) {
+        // add json-viewer class manually to get same color/fonts
+        // calling jsonViewer() method instead gives quoted string like "blah\" blub" if it contains special chars
+        current.empty().append($('<span class="json-string">').text(plain));
+      }
+    }
+  }
+};
 
 function escapeHtml (str) {
   return str
@@ -1165,7 +1279,7 @@ function loadConfig (callback) {
       }
       if (data['cliOpen'] == true) {
         $('#commandLineOutput').slideDown(0, function () {});
-        cliOpen = true;
+        redisCli.cliOpen = true;
       }
       if (data['locked'] == true) {
         $('#lockCommandButton').removeClass('disabled');
@@ -1181,8 +1295,23 @@ function loadConfig (callback) {
             case 'string':
               uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewString;
               break;
+            case 'list':
+              uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewList;
+              break;
             case 'hash':
               uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewHash;
+              break;
+            case 'set':
+              uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewSet;
+              break;
+            case 'zset':
+              uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewZSet;
+              break;
+            case 'stream':
+              uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewStream;
+              break;
+            case 'rejson':
+              uiConfig.jsonViewAsDefault = uiConfig.jsonViewAsDefault | uiConfig.const.jsonViewReJson;
               break;
           }
         });
@@ -1243,53 +1372,6 @@ function setupResizeEvents () {
       resizeApp();
     }
   });
-}
-
-function setupCommandLock () {
-  $('#lockCommandButton').click(function () {
-    $(this).toggleClass('disabled');
-  });
-}
-
-function setupCLIKeyEvents () {
-  var ctrl_down = false;
-  var isMac = navigator.appVersion.indexOf("Mac") !== -1;
-  var cli = $('#_readline_cliForm input');
-  cli.on('keydown', function (e) {
-    var key = e.which;
-    //ctrl
-    if (key === 17 && isMac) {
-      ctrl_down = true;
-    }
-
-    //c
-    if (key === 67 && ctrl_down) {
-      clearCLI();
-      e.preventDefault();
-    }
-
-    //esc
-    if (key === 27) {
-      clearCLI();
-      e.preventDefault();
-    }
-  });
-  cli.on('keyup', function (e) {
-    var key = e.which;
-    //ctrl
-    if (key === 17 && isMac) {
-      ctrl_down = false;
-    }
-  });
-
-  function clearCLI () {
-    var cli = $('#_readline_cliForm input');
-    if (cli.val() == '') {
-      hideCommandLineOutput();
-    } else {
-      cli.val('');
-    }
-  }
 }
 
 function toggleRedisModal() {
@@ -1390,7 +1472,7 @@ $(function() {
   });
 
   /**
-   * Refresh and expand all nodes in tree, need to wait a bit after refresh, otherwise ignored
+   * Refresh and expand all nodes in tree, need to wait a bit after refresh, otherwise open is ignored
    */
   $('#expandAllNodes').on('click', function () {
     getKeyTree().refresh(false, true);

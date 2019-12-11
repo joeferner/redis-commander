@@ -15,9 +15,10 @@
 * add basic support to display ReJSON type data, #371
 * switch library to display json objects from "json-tree" to "jquery.json-viewer", #375
 * add config value and env var to display valid json data as default as formatted json tree object (VIEW_JSON_DEFAULT), #375  
-* add config value and env var to disable display of strings as hexadecimal binary data, #376
+* add config value and env var to disable display of strings as hexadecimal binary data (BINARY_AS_HEX), #376
 * add basic validation to redis connection params given via command line and config files, #377
 * allow docker image security scanner to work even if apk related files are removed
+* add json formatted view to List, Set and SortedSet elements too
 
 ## Version 0.6.6
 #### Bugfixes

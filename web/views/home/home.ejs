@@ -210,9 +210,9 @@
           show: false
         });
       });
-      loadCommandLine();
-      setupCommandLock();
-      setupCLIKeyEvents();
+      redisCli.loadCommandLine();
+      redisCli.setupCommandLock();
+      redisCli.setupCLIKeyEvents();
       setupAddServerForm();
     })
     .fail(function(err) {

@@ -5,6 +5,8 @@
   </button>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <% } %>
+  <button id="viewModeStringButton" class="btn" style="display:none;" onclick="dataUIFuncs.onModeStringButtonClick()">View mode string</button>
+  <button id="viewModeJsonButton" class="btn" onclick="dataUIFuncs.onModeJsonButtonClick()">View mode tree</button>
   <div id="pageNav" class="input-append input-prepend">
     <button type="button" class="btn" onclick="loadKey('<%= connectionId %>','<%= key %>','0')"
     <% if(beginning){%>disabled="disabled" <%}%> ><i class="icon-fast-backward"></i>
@@ -40,7 +42,8 @@
     <% items.forEach(function(item) { %>
     <tr>
       <td><%= item.number %></td>
-      <td><%= item.value %></td>
+      <td id="plain_<%= item.number %>" class="text-renderer"><%= item.value %></td>
+      <td id="jqtree_<%= item.number %>" class="json-renderer" style="display:none;">loading ...</td>
     </tr>
     <% }) %>
     </tbody>
@@ -58,5 +61,7 @@
         editListValue(connectionId, key, index, value);
       });
     }
+
+    dataUIFuncs.createJSONViews('td[class="json-renderer"]');
   });
 </script>

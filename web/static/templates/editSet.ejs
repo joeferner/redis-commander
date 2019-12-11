@@ -5,6 +5,8 @@
   </button>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <% } %>
+  <button id="viewModeStringButton" class="btn" style="display:none;" onclick="dataUIFuncs.onModeStringButtonClick()">View mode string</button>
+  <button id="viewModeJsonButton" class="btn" onclick="dataUIFuncs.onModeJsonButtonClick()">View mode tree</button>
 </div>
 <div id="itemData">
   <label>Key: <b><%= key %></b></label>
@@ -15,9 +17,10 @@
       <tr><th>Member</th></tr>
     </thead>
     <tbody>
-      <% members.forEach(function(member) { %>
+      <% members.forEach(function(member, idx) { %>
         <tr>
-          <td><%= member %></td>
+          <td id="plain_<%= idx %>" class="text-renderer"><%= member %></td>
+          <td id="jqtree_<%= idx %>" class="json-renderer" style="display:none;">loading ...</td>
         </tr>
       <% }) %>
     </tbody>
@@ -34,5 +37,7 @@
         editSetMember(connectionId, key, member);
       });
     }
+
+    dataUIFuncs.createJSONViews('td[class="json-renderer"]');
   });
 </script>

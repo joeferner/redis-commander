@@ -3,7 +3,7 @@
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <% } %>
   <button id="base64Button" class="btn btn-primary" onclick="decodeKey('<%= connectionId %>','<%= key %>')">Decode <small>base64</small></button>
-  <button id="viewModeEditButton" class="btn" style="display: none;" onclick="onModeEditButtonClick()">View mode edit</button>
+  <button id="viewModeStringButton" class="btn" style="display: none;" onclick="onModeStringButtonClick()">View mode edit</button>
   <button id="viewModeJsonButton" class="btn" onclick="onModeJsonButtonClick()">View mode tree</button>
   <button id="copyTextButton" class="btn" data-clipboard-target="#stringValue">Copy Text</button>
 </div>
@@ -12,8 +12,8 @@
   <label>TTL: <b><%= ttl %></b></label>
   <label>Type: <b>String</b></label>
   <form id="editStringForm" action="apiv1/key/<%= connectionId %>/<%= key %>" method="POST" class="form-vertical">
-    <div id="jqtree_string_div" style="display: none;">loading ...</div>
-    <span id="stringValueBox">
+    <div id="jqtree_string_div" class="json-renderer" style="display: none;">loading ...</div>
+    <span id="stringValueBox" class="text-renderer">
       <textarea id="stringValue" name="stringValue" style="width: 600px; height: 300px;"></textarea>
       <br>
       <label class="checkbox"><input type="checkbox" id="isJson" name="isJson">Validate as JSON</label>
@@ -27,21 +27,15 @@
 <script>
   new ClipboardJS('#copyTextButton');
 
-  function onModeEditButtonClick() {
-      $('#stringValueBox').css('display','inline');
-      $('#jqtree_string_div').css('display','none');
-      $('#viewModeEditButton').css('display','none');
-      $('#viewModeJsonButton').css('display','inline')
-      $('#copyTextButton').css('display','inline')
+  function onModeStringButtonClick() {
+    dataUIFuncs.onModeStringButtonClick('#editStringForm')
+    $('#copyTextButton').css('display','inline')
   }
 
   function onModeJsonButtonClick() {
-      $('#stringValueBox').css('display','none');
-      $('#jqtree_string_div').css('display','inline-block');
-      $('#viewModeEditButton').css('display','inline');
-      $('#viewModeJsonButton').css('display','none')
-      // selection api from copy text does not work with hidden elements
-      $('#copyTextButton').css('display','none');
+    dataUIFuncs.onModeJsonButtonClick('#editStringForm')
+    // selection api from copy text does not work with hidden elements
+    $('#copyTextButton').css('display','none');
   }
 
   $('#isJson').on('change', function(element) {
