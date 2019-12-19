@@ -1,6 +1,6 @@
 # Redis-Commander CHANGELOG
 
-## next Version
+## Version 0.6.7
 #### Bugfixes
 * do not display content of passwords read from env var or file on docker startup, #372
 * fix display errors on early display of import/export page
