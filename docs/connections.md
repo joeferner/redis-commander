@@ -4,17 +4,17 @@ This file describes all parameters available to configure
 connections to redis servers. All connection objects are
 stored inside the top-level `connections` list.
 
-## Storing Connection informations
+## Storing Connection information
 
 The default set of connections to start redis commander with
 can be defined inside the `local.json` file (for example).
-Whenever a connection is added via Web-UI or command line 
+Whenever a connection is added via Web-UI or command line
 a new file `local-<node_env>.json` is created to store the
 new list of all connections currently used. This is done to
 persist new configuration data over app restarts. To reset the
-list to your "original" start, just delete  
+list to your "original" start, just delete
 
-Attention - list object are not merged between all config files.
+Attention - list objects are not merged between all config files.
 The latest definition of the list is used. E.G. a redefinition
 of the `connections` list object inside the `local-<node_env>.json`
 overwrites all connections defined inside `<node-env>.json` or
@@ -22,7 +22,7 @@ overwrites all connections defined inside `<node-env>.json` or
 
 ### Connect via Unix-Socket
 
-Only the "path" parameter is needed with the path to the unix socket to use. 
+Only the "path" parameter is needed with the path to the unix socket to use.
 Parameter "host", "port" and all "sentinel*" should not be set.
 
 TODO config examples
@@ -30,11 +30,11 @@ TODO config examples
 ### Connect to normal standalone redis server
 
 "host" and "port" are needed.
-Do not set "path" or one of the "sentinel*" parameter as they have precedence 
+Do not set "path" or one of the "sentinel*" parameter as they have precedence
 over "host" and "port"!
 
 TODO config examples
- 
+
 ### Connect to redis server via redis sentinel
 
 Parameter "sentinels" contains a list of one or more Redis sentinels
