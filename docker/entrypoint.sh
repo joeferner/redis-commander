@@ -3,7 +3,7 @@
 # switch to more secure file umask before everything else...
 umask 0027
 
-# autowrite config file containing node_env to let config module automatically pick this up.
+# auto write config file containing node_env to let config module automatically pick this up.
 # this file is evaluated nearly at the end of all files possible:
 # see https://github.com/lorenwest/node-config/wiki/Configuration-Files
 # this file only contains the connections to load, nothing else
@@ -13,11 +13,11 @@ CONFIG_FILE=${HOME}/config/local-${NODE_ENV}.json
 # set default instance for node config ("docker") but allow overwriting via docker env vars
 NODE_APP_INSTANCE=${NODE_APP_INSTANCE:-docker}
 
-# when running in kubernetes we need to wait a bit before exiting on SIGTERM
+# when running in Kubernetes we need to wait a bit before exiting on SIGTERM
 # https://github.com/kubernetes/contrib/issues/1140#issuecomment-290836405
 K8S_SIGTERM=${K8S_SIGTERM:-0}
 
-# seconds to wait befor sending sigterm to app on exit
+# seconds to wait before sending sigterm to app on exit
 # only used if K8S_SIGTERM=1
 GRACE_PERIOD=6
 
@@ -240,7 +240,7 @@ if [[ ! -z "$REPLACE_CONFIG_ENV" ]]; then
     # special case for more complex docker setup with multiple connections
     # to unix sockets, sentinels and normal redis server not configurable
     # via REDIS_HOSTS...
-    # search all config files (except custom-environment-variables.json) and do inplace
+    # search all config files (except custom-environment-variables.json) and do in place
     # replacement of a string to the value of the env var, e.g.
     # set $REPLACE_CONFIG_ENV=REDIS_PASS_1 and env REDIS_PASS_1=mypass
     # now search config files for string "REDIS_PASS_1" and write there "mypass" instead
@@ -273,7 +273,7 @@ for i in config/*.json; do
 #    fi
 done
 
-# install trap for SIGTERM to delay end of app a bit for kubernetes
+# install trap for SIGTERM to delay end of app a bit for Kubernetes
 # otherwise container might get requests after exiting itself
 exitTrap() {
     echo "Got signal, wait a bit before exit"

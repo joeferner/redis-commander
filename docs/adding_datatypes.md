@@ -20,7 +20,7 @@ This guide assumes Redis returns a new unique type.
 4. modify file `web/static/scripts/redisCommander.js` the methods `loadKey()`, add another case to the `switch(keyData.type).
    The method called here should render the new template with given data.
 5. modify `lib/routes/apiv1.js` method `getKeyDetails()` and add handling of new
-   datatype to switch expression. The new getDetails method must fetch all data displayed 
+   datatype to switch expression. The new getDetails method must fetch all data displayed
    at the EJS template together with the TTL field.
    For unsupported commands in "ioredis" library the `redisConnection.call('COMMAND', arguments)`
    syntax should be used.
@@ -43,36 +43,36 @@ It does not allow modification of existing data.
 
 ### Delete data for this type
 
-Deleting data via right-click on tree or pressing "DEL" key is supported 
-out-of-the box via 
+Deleting data via right-click on tree or pressing "DEL" key is supported
+out-of-the box via
 
 1. Add delete button to the client-side EJS template that displays the data.
-   located under `web/static/templates`. This button should trigger the `deleteKey()`.  
-2. Make shure the client template only renders the button if not in read-only mode
+   located under `web/static/templates`. This button should trigger the `deleteKey()`.
+2. Make sure the client template only renders the button if not in read-only mode
    (template variable `redisReadOnly` is not true)
 3. To allow deletion via "delete" route add them to the "apiv1.js" file.
    This can be done together with the Modify data implementation.
 4. Update README and CHANGELOG to mention new support.
 
-### Modify existing data 
+### Modify existing data
 
 1. Decide if data for this type can be edited directly (like string) or should be displayed only and
    another modal dialog is needed to modify them., Update view template under
    `web/static/templates` accordingly.
-2. Make shure to allow modification of data only if not in read-only mode
+2. Make sure to allow modification of data only if not in read-only mode
    (template variable `redisReadOnly` is not true) - e.g. no "Save" button or loading edit modal
    when for read-only instances.
 3. (optional) Add new modal to edit data, add EJS template at `web/views/modals`.
-   Some more complex datatypes with "sub-data" (e.g. lists, sets, ...) use another modal ta add 
-   this new sub-data, e.g. add new data to a list and so on. These modals trigger 
-   their respective client-side javascript methods to check validity or post them 
-   to the correct server api. 
+   Some more complex datatypes with "sub-data" (e.g. lists, sets, ...) use another modal ta add
+   this new sub-data, e.g. add new data to a list and so on. These modals trigger
+   their respective client-side javascript methods to check validity or post them
+   to the correct server api.
 4. Add extra methods to populate modals with data (similiar to `addXSetMember()` `editXSetMember()` and
    `removeXSetMember()` in `web/static/scripts/redisCommander.js`).
 5. (optional) add delete button to the modify entry modal. This button can either trigger an
    explicit delete method server-side or (as most other do) set value to `tombstone` and send
-   form to the update/modify method non server (similiar to `removeXSetMember()` in 
-   `web/static/scripts/redisCommander.js`) 
-6. Include all new modals at the end of the file `web/views/layout.ejs` beneath the other modals.  
+   form to the update/modify method non server (similiar to `removeXSetMember()` in
+   `web/static/scripts/redisCommander.js`)
+6. Include all new modals at the end of the file `web/views/layout.ejs` beneath the other modals.
 7. Add new "post" routes to "apiv1.js" file for more explicit datatype support.
 8. Update README and CHANGELOG to mention new support.
