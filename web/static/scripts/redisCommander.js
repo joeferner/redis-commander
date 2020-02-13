@@ -1419,7 +1419,7 @@ $(function() {
    */
   $('#redisExportData').on('click', function () {
     $.ajax({
-      method: 'POST',
+      method: 'GET',
       url: 'tools/forms/export',
       success: function (res) {
         $('#body').html(res);
@@ -1455,7 +1455,7 @@ $(function() {
      */
     $('#redisImportData').on('click', function () {
       $.ajax({
-        method: 'POST',
+        method: 'GET',
         url: 'tools/forms/import',
         success: function (res) {
           $('#body').html(res);
