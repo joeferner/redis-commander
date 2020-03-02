@@ -181,7 +181,8 @@ where each host should follow one of these templates:
 
 Connection strings defined with `REDIS_HOSTS` variable do not support TLS connections.
 If remote redis server needs TLS write all connections into a config file instead
-of using `REDIS_HOSTS`.
+of using `REDIS_HOSTS` (see [docs/connections.md](docs/connections.md) at the end 
+within the more complex examples).
 
 ### With docker-compose
 
