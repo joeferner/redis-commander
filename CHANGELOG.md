@@ -1,5 +1,10 @@
 # Redis-Commander CHANGELOG
 
+## next Version
+#### Bugfixes
+* fix error on Windows on getting package installtion path, #388
+* fix wrong connection info data shown on import and export page (sentinel and sockets)
+ 
 ## Version 0.6.7
 #### Bugfixes
 * do not display content of passwords read from env var or file on docker startup, #372

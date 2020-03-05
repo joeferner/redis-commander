@@ -2,7 +2,7 @@ FROM node:8-alpine
 
 WORKDIR /redis-commander
 
-# optional build arg to let the hardening process revomve the apk too to not allow installation
+# optional build arg to let the hardening process remove the apk too to not allow installation
 # of packages anymore, default: do not remove "apk" to allow others to use this as a base image
 # for own images
 ARG REMOVE_APK=0

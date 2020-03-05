@@ -314,11 +314,11 @@ function createConnectionObjectFromArgs(args) {
   let checkPortInvalid = function(portString, paramName) {
     if (portString) {
       if (Number.isNaN(portString) || !Number.isInteger(Number(portString))) {
-        console.error(`value given vor "${paramName}" is invalid - must be an integer number`);
+        console.error(`value given for "${paramName}" is invalid - must be an integer number`);
         return true;
       }
       else if (Number(portString) < 1 || Number(portString) > 65535) {
-        console.error(`value given vor "${paramName}" is invalid - must be an integer number between 1 and 65535`);
+        console.error(`value given for "${paramName}" is invalid - must be an integer number between 1 and 65535`);
         return true
       }
     }
@@ -327,11 +327,11 @@ function createConnectionObjectFromArgs(args) {
   let checkDbIndexInvalid = function(dbString, paramName) {
     if (dbString) {
       if (Number.isNaN(dbString) || !Number.isInteger(Number(dbString))) {
-        console.error(`value given vor "${paramName}" is invalid - must be an integer number`);
+        console.error(`value given for "${paramName}" is invalid - must be an integer number`);
         return true;
       }
       else if (Number(dbString) < 0) {
-        console.error(`value given vor "${paramName}" is invalid - must be an positiv integer number`);
+        console.error(`value given for "${paramName}" is invalid - must be an positiv integer number`);
         return true
       }
     }
