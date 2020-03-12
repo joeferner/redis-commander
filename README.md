@@ -248,12 +248,17 @@ containers:
 - name: redis-commander
   image: rediscommander/redis-commander
   env:
-  - name: REDIS_HOSTS
+  - name: REDIS_HOST
     value: instance1:redis:6379
   ports:
   - name: redis-commander
     containerPort: 8081
 ```
+
+known issues with Kubernetes:
+
+* using REDIS_HOSTS instead of the correct REDIS_HOST will not work on a password protected redis db
+
 
 ## OpenShift V3
 
