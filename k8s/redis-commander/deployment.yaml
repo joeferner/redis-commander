@@ -17,7 +17,7 @@ spec:
       - name: redis-commander
         image: rediscommander/redis-commander
         env:
-        - name: REDIS_HOST
+        - name: REDIS_HOSTS
           value: "instance1:redis:6379"
         - name: K8S_SIGTERM
           value: "1"
