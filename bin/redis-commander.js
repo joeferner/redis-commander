@@ -2,7 +2,7 @@
 
 'use strict';
 
-let optimist = require('optimist');
+let yargs = require('yargs');
 let Redis = require('ioredis');
 var isEqual = require('lodash.isequal');
 let myUtils = require('../lib/util');
@@ -16,165 +16,165 @@ let config = require('config');
 
 let redisConnections = [];
 
-let args = optimist
+let args = yargs
   .alias('h', 'help')
   .alias('h', '?')
   .options('redis-port', {
-    string: true,
+    type: 'number',
     describe: 'The port to find redis on.'
   })
   .options('redis-host', {
-    string: true,
+    type: 'string',
     describe: 'The host to find redis on.'
   })
   .options('redis-socket', {
-    string: true,
+    type: 'string',
     describe: 'The unix-socket to find redis on.'
   })
   .options('redis-password', {
-    string: true,
+    type: 'string',
     describe: 'The redis password.'
   })
   .options('redis-db', {
-    string: true,
+    type: 'number',
     describe: 'The redis database.'
   })
   .options('sentinel-port', {
-    string: true,
+    type: 'number',
     describe: 'The port to find sentinel on.'
   })
   .options('sentinel-host', {
-    string: true,
+    type: 'string',
     describe: 'The host to find sentinel on.'
   })
   .options('sentinels', {
-    string: true,
+    type: 'string',
     describe: 'Comma separated list of sentinels with host:port.'
   })
   .options('sentinel-name', {
-    string: true,
+    type: 'string',
     describe: 'The sentinel group name to use.'
   })
   .options('sentinel-password', {
-    string: true,
+    type: 'string',
     describe: 'The sentinel password to use.'
   })
   .options('redis-tls', {
-    boolean: true,
+    type: 'boolean',
     describe: 'Use TLS for connection to redis server or sentinel.',
     default: false
   })
   .options('noload', {
     alias: 'nl',
-    boolean: true,
+    type: 'boolean',
     describe: 'Do not load connections from config.'
   })
   .options('clear-config', {
     alias: 'cc',
-    boolean: false,
+    type: 'boolean',
     describe: 'Clear configuration file.'
   })
   .options('migrate-config', {
-    boolean: false,
+    type: 'boolean',
     describe: 'Migrate old configuration file in $HOME to new style.'
   })
   .options('test', {
     alias: 't',
-    boolean: false,
+    type: 'boolean',
     describe: 'Test final configuration (file, env-vars, command line)'
   })
   .options('open', {
     // open local web-browser to connect to web ui on startup of server daemon too
-    boolean: true,
+    type: 'boolean',
     default: false,
     describe: 'Open web-browser with Redis-Commander.'
   })
 
   // following cli params have equivalent within config file as default
   .options('redis-label', {
-    string: true,
+    type: 'string',
     describe: 'The label to display for the connection.',
     default: config.get('redis.defaultLabel')
   })
   .options('read-only', {
-    booelan: true,
+    type: 'boolean',
     describe: 'Start app in read-only mode.',
     default: config.get('redis.readOnly')
   })
   .options('http-auth-username', {
     alias: "http-u",
-    string: true,
+    type: 'string',
     describe: 'The http authorisation username.',
     default: config.get('server.httpAuth.username')
   })
   .options('http-auth-password', {
     alias: "http-p",
-    string: true,
+    type: 'string',
     describe: 'The http authorisation password.',
     default: config.get('server.httpAuth.password')
   })
   .options('http-auth-password-hash', {
     alias: "http-h",
-    string: true,
+    type: 'string',
     describe: 'The http authorisation password hash.',
     default: config.get('server.httpAuth.passwordHash')
   })
   .options('address', {
     alias: 'a',
-    string: true,
+    type: 'string',
     describe: 'The address to run the server on.',
     default: config.get('server.address')
   })
   .options('port', {
     alias: 'p',
-    string: true,
+    type: 'number',
     describe: 'The port to run the server on.',
     default: config.get('server.port')
   })
   .options('url-prefix', {
     alias: 'u',
-    string: true,
+    type: 'string',
     describe: 'The url prefix to respond on.',
     default: config.get('server.urlPrefix'),
   })
   .options('trust-proxy', {
-    string: true,
+    type: 'boolean',
     describe: 'App is run behind proxy (enable Express "trust proxy")',
     default: config.get('server.trustProxy')
   })
   .options('nosave', {
     alias: 'ns',
-    boolean: true,
+    type: 'boolean',
     describe: 'Do not save new connections to config file.',
     default: config.get('noSave'),
   })
   .options('no-log-data', {
     // through no-  this is a negated param, if set args[log-data]=true
-    // internal handling of optimist is different to nosave (without "-")
-    boolean: true,
+    // internal handling of yargs is different to nosave (without "-")
+    type: 'boolean',
     describe: 'Do not log data values from redis store.',
     default: config.get('noLogData')
   })
   .options('folding-char', {
     alias: 'fc',
-    boolean: false,
+    type: 'string',
     describe: 'Character to fold keys at for tree view.',
     default: config.get('ui.foldingChar')
   })
   .options('root-pattern', {
     alias: 'rp',
-    boolean: false,
+    type: 'string',
     describe: 'Default root pattern for redis keys.',
     default: config.get('redis.rootPattern')
   })
   .options('use-scan', {
     alias: 'sc',
-    boolean: true,
+    type: 'boolean',
     describe: 'Use SCAN instead of KEYS.',
     default: config.get('redis.useScan')
   })
   .options('scan-count', {
-    boolean: false,
+    type: 'number',
     describe: 'The size of each separate scan.',
     default: config.get('redis.scanCount'),
 
@@ -186,12 +186,14 @@ let args = optimist
       case '*':
         throw new Error('Characters &, ? and * are invalid for param folding-char!');
     }
-    // special handling of no* by optimist module needed
-    if (value['save']) value['nosave'] = false;
+
+    // parser special handling of params starting with "no-"
+    // it adds new field without "no-" and set this to "false"
+    if (typeof value['log-data'] !== 'undefined') value['no-log-data'] = !value['log-data'];
 
     // now write back all values into config object to overwrite defaults with cli params
     config.noSave = value['nosave'];
-    config.noLogData = (value['log-data']===false);  // due to special negated param
+    config.noLogData = value['no-log-data'];
     config.ui.foldingChar = value['folding-char'];
     config.redis.useScan = value['use-scan'];
     config.redis.readOnly = value['read-only'];
@@ -205,11 +207,14 @@ let args = optimist
     config.server.httpAuth.username = value['http-auth-username'];
     config.server.httpAuth.password = value['http-auth-password'];
     config.server.httpAuth.passwordHash = value['http-auth-password-hash'];
+    return true;
   })
+  .usage('Usage: $0 [options]')
+  .wrap(yargs.terminalWidth())
   .argv;
 
 if (args.help) {
-  optimist.showHelp();
+  yargs.help();
   return process.exit(-1);
 }
 

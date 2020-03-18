@@ -2,8 +2,12 @@
 
 ## next Version
 #### Bugfixes
-* fix error on Windows on getting package installtion path, #388
+* fix error on Windows on getting package installation path, #388
 * fix wrong connection info data shown on import and export page (sentinel and sockets)
+
+#### Enhancements
+* update dependencies to fix vulnerabilities in mkdirp, acorn, minimist
+* change deprecated package "optimist" to "yargs" to fix prototype pollution in dependent minimist package
  
 ## Version 0.6.7
 #### Bugfixes
