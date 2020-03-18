@@ -255,6 +255,11 @@ containers:
     containerPort: 8081
 ```
 
+known issues with Kubernetes:
+
+* using REDIS_HOSTS works only with a password-less redis db. You must specify REDIS_HOST on a password protected redis db
+
+
 ## OpenShift V3
 
 To use the stock Node.js image builder do the following.
