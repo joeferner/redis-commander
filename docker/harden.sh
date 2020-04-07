@@ -28,15 +28,12 @@ rm -fr /etc/crontabs
 rm -fr /etc/periodic
 
 # Remove all but a handful of admin commands.
-if [ "$REMOVE_APK" = "0" ]; then
-    APK_CMD="-a ! -name apk"
-fi
 find /sbin /usr/sbin ! -type d \
   -a ! -name login_duo \
   -a ! -name setup-proxy \
   -a ! -name sshd \
   -a ! -name start.sh \
-  ${APK_CMD} \
+  -a ! -name apk \
   -delete
 
 # Remove world-writable permissions.
@@ -60,11 +57,14 @@ sysdirs="
   /usr
 "
 
-# Remove apk configs.
+# Remove apk configs and apk/node package managers.
 # do not remove files below /lib/apk - db folder needed by many security scanners
 # to check for outdated packages
 if [ "$REMOVE_APK" != "0" ]; then
+    # this not working using node: base image, only with alpine ones where these are extra packages
+    apk del npm yarn
     find $sysdirs -xdev -regex '.*apk.*' \! -regex '/lib/apk.*' -exec rm -fr {} +
+    find /sbin /usr/sbin -name apk -delete
 fi
 
 # Remove crufty...

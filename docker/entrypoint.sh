@@ -20,6 +20,7 @@ K8S_SIGTERM=${K8S_SIGTERM:-0}
 # seconds to wait before sending sigterm to app on exit
 # only used if K8S_SIGTERM=1
 GRACE_PERIOD=6
+NODE=$(which node)
 
 # this function checks all arguments given and outputs them. All parameter pairs where key is ending with "password"
 # are replaced with string "<set>" instead of real password (e.g. "--redis-password XYZ" => "--redis-password <set>")
@@ -284,13 +285,13 @@ exitTrap() {
 if [[ "$K8S_SIGTERM" = "1" ]]; then
     trap exitTrap TERM INT
     echo "node ./bin/redis-commander "$(safe_print_args $@)" for k8s"
-    setsid /usr/local/bin/node ./bin/redis-commander $@ &
+    setsid $NODE ./bin/redis-commander $@ &
     NODE_PID=$!
     wait $NODE_PID
     trap - TERM INT
     wait $NODE_PID
 else
     echo "node ./bin/redis-commander "$(safe_print_args $@)""
-    exec /usr/local/bin/node ./bin/redis-commander $@
+    exec $NODE ./bin/redis-commander $@
 fi
 
