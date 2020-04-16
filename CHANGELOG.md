@@ -1,14 +1,20 @@
 # Redis-Commander CHANGELOG
 
-## next Version
+## Version 0.7.0
 #### Bugfixes
 * fix error on Windows on getting package installation path, #388
 * fix wrong connection info data shown on import and export page (sentinel and sockets)
 
 #### Enhancements
-* update dependencies to fix vulnerabilities in mkdirp, acorn, minimist
+* update dependencies to fix vulnerabilities in multiple packages
 * change deprecated package "optimist" to "yargs" to fix prototype pollution in dependent minimist package
- 
+* add new route /sso to login with signed Json Web Token from external apps with a PSK
+
+#### Breaking Change
+* Base image changed from end-of-life Node-8 to pure Alpine 3.11, booth package managers (npm and yarn)
+  are available but installed as system package now under different path (`/usr/bin`).
+  This change is relevant only when this image is used as base image for other container.
+     
 ## Version 0.6.7
 #### Bugfixes
 * do not display content of passwords read from env var or file on docker startup, #372
