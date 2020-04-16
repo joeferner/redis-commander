@@ -26,5 +26,12 @@
       "password": "HTTP_PASSWORD",
       "passwordHash": "HTTP_PASSWORD_HASH"
     }
+  },
+  "sso": {
+    "enabled": "SSO_ENABLED",
+    "jwtSharedSecret": "SSO_JWT_SECRET",
+    "allowedIssuer": "SSO_ISSUER",
+    "audience": "SSO_AUDIENCE",
+    "subject": "SSO_SUBJECT"
   }
 }

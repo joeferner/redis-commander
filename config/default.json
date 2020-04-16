@@ -34,5 +34,12 @@
       "jwtSecret": ""
     }
   },
+  "sso": {
+    "enabled": false,
+    "jwtSharedSecret": "",
+    "allowedIssuer": "",
+    "audience": "",
+    "subject": ""
+  },
   "connections": []
 }
