@@ -1,5 +1,10 @@
 # Redis-Commander CHANGELOG
 
+## Next Version
+#### Enhancements
+* set user in Dockerfile as numeric value to allow Kubernetes to enforce non-root user
+* update Kubernetes examples with security settings for Redis Commander
+
 ## Version 0.7.0
 #### Bugfixes
 * fix error on Windows on getting package installation path, #388

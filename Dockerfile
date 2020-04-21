@@ -22,7 +22,7 @@ RUN  apk update \
   && apk add --no-cache --virtual .patch-dep patch \
   && update-ca-certificates \
   && echo -e "\n---- Create runtime user and fix file access rights ----------" \
-  && adduser ${SERVICE_USER} -h ${HOME} -G root -S \
+  && adduser ${SERVICE_USER} -h ${HOME} -G root -S -u 1000 \
   && chown -R root.root ${HOME} \
   && chown -R ${SERVICE_USER} ${HOME}/config \
   && chmod g+w ${HOME}/config \
@@ -37,7 +37,7 @@ RUN  apk update \
   && ${HOME}/docker/harden.sh \
   && rm -rf /tmp/* /root/.??* /root/cache /var/cache/apk/*
 
-USER ${SERVICE_USER}
+USER 1000
 
 HEALTHCHECK --interval=1m --timeout=2s CMD ["/redis-commander/bin/healthcheck.js"]
 
