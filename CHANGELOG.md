@@ -4,6 +4,7 @@
 #### Enhancements
 * set user in Dockerfile as numeric value to allow Kubernetes to enforce non-root user
 * update Kubernetes examples with security settings for Redis Commander
+* add config examples for starting Redis Commander with SystemD or PM2, #158
 
 ## Version 0.7.0
 #### Bugfixes
