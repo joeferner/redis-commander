@@ -1,0 +1,16 @@
+[Unit]
+Description=Redis commander
+Documentation=https://github.com/joeferner/redis-commander/
+After=network.target
+
+[Service]
+# add multiple "Environment" lines as needed, one for every env var to set
+Environment=NODE_ENV=production
+Environment=NODE_APP_INSTANCE=
+Type=simple
+User=_insert_unprivileged_username_here_
+ExecStart=/usr/bin/node /installation_path/bin/redis-commander.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
