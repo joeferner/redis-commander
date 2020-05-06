@@ -2,6 +2,7 @@
 
 var CmdParser = require('cmdparser');
 var cmdparser;
+var losslessJSON = require('lossless-json');
 
 function loadTree () {
   $.get('apiv2/connection', function (isConnected) {
@@ -424,8 +425,11 @@ function selectTreeNodeString (data) {
   renderEjs('templates/editString.ejs', data, $('#body'), function() {
     var isJsonParsed = false;
     try {
-      var jsonObject = JSON.parse(data.value);
-      isJsonParsed = true;
+      var jsonObject = data.value;
+      if (jsonObject.match(/^\s*[{\[]/)) {
+        jsonObject = losslessJSON.parse(data.value, losslessJsonReviver);
+        isJsonParsed = true;
+      }
       $('#jqtree_string_div').jsonViewer(jsonObject, {withQuotes: true, withLinks: false});
       if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewString) > 0) dataUIFuncs.onModeJsonButtonClick('#editStringForm')
     } catch (ex) {
@@ -736,6 +740,7 @@ function editHashField (connectionId, key, field, value) {
  */
 function enableJsonValidationCheck(value, isJsonCheckBox) {
   try {
+    // can use normal json.parse here as some bigint values changing are not relevant
     JSON.parse(value);
     // if this is valid json and is array or object assume we want validation active
     if (value.match(/^\s*[{\[]/)) {
@@ -1062,12 +1067,12 @@ var dataUIFuncs = {
       var plain = current.prev().html();
       try {
         // display either as string if no valid json or as foldable json object otherwise, ignore exception
-        current.jsonViewer(JSON.parse(plain), {withQuotes: true, withLinks: false});
+        current.jsonViewer(losslessJSON.parse(plain, losslessJsonReviver), {withQuotes: true, withLinks: false});
       }
       catch(ex) {
         // add json-viewer class manually to get same color/fonts
         // calling jsonViewer() method instead gives quoted string like "blah\" blub" if it contains special chars
-        current.empty().append($('<span class="json-string">').text(plain));
+        current.empty().append($('<span class="json-string">').text('"' + plain + '"'));
       }
     }
   }
@@ -1079,6 +1084,25 @@ function escapeHtml (str) {
     .replace(/>/g, '&gt;')
     .replace(/\n/g, '<br>')
     .replace(/\s/g, '&nbsp;');
+}
+
+/** helper function to parse json witch may contain big numbers - all numbers that can not be displayed
+ *  as a javascript number will be converted to a string. than the correct values can be display as formatted
+ *  json at least (needed for jquery.json-viewer)
+ */
+function losslessJsonReviver(key, value) {
+  if (value && value.isLosslessNumber) {
+    try {
+      return value.valueOf();   // smaller numbers can be converted to a js Number without loosing information
+    }
+    catch(e) {
+      // precision will be lost - does not fit into Number, therefore return string
+      return value.toString();
+    }
+  }
+  else {
+    return value;
+  }
 }
 
 /** Fetch the url give at filename from the server and render the content of this

@@ -1,6 +1,9 @@
 # Redis-Commander CHANGELOG
 
 ## Next Version
+#### Bugfixes
+* update handling of big numbers displayed as json formatted values. For big numbers wrong values may be shown, #400 
+
 #### Enhancements
 * set user in Dockerfile as numeric value to allow Kubernetes to enforce non-root user
 * update Kubernetes examples with security settings for Redis Commander
