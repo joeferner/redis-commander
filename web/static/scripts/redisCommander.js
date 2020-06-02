@@ -1358,6 +1358,8 @@ function resizeApp () {
   keyTree.height($(window).height() - keyTree.offset().top - $('#commandLineContainer').outerHeight(true));
   body.css({'width': newBodyWidth, 'left': barWidth, 'height': sideBar.css('height')});
   $('#itemData').css('margin-top', $('#itemActionsBar').outerHeight(false));
+  var cli = $('#_readline_cliForm');
+  cli.find('#_readline_input').width( cli.innerWidth() - cli.find('.prompt').outerWidth() -20 )
 }
 
 function setupResizeEvents () {
