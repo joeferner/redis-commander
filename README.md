@@ -37,6 +37,7 @@ Options:
   --redis-db                           The redis database.                         [string]
   --redis-label                        The label to display for the connection.    [string]
   --redis-tls                          Use TLS for connection to redis server or sentinel. [boolean] [default: false]
+  --redis-optional                     Set to true if no permanent auto-reconnect shall be done if server is down [boolean] [default: false]
   --sentinel-port                      The port to find redis sentinel on.         [string]
   --sentinel-host                      The host to find redis sentinel on.         [string]
   --sentinels                          Comma separated list of sentinels with host:port. [string]
@@ -145,6 +146,7 @@ REDIS_TLS
 REDIS_PASSWORD
 REDIS_DB
 REDIS_HOSTS
+REDIS_OPTIONAL
 SENTINEL_PORT
 SENTINEL_HOST
 SENTINELS

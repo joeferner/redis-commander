@@ -147,6 +147,7 @@ For guidance just as at one of the cluster support tickets.
 | connectionName | string | '' | use special connection name at this redis client to identify it with redis "CLIENT LIST" command. If not set default connection name from config param `redis.connectionName` is used |
 | tls | boolean or object | false | set to true to enable TLS secured connections to the redis server, for more specific configurations (allowed algorithms, server certificate checks and so on) this parameter can be an object directly use at Node tls sockets (https://github.com/luin/ioredis#tls-options) |
 | label | string | '' | display label to us to identify this connection within the Web-UI |
+| optional | boolean | false | set to true to not auto-reconnect on connection lost. Reconnect will be done if data are fetch from UI on user request |
 
 ## More complex configurations examples
 

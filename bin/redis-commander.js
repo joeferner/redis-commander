@@ -39,6 +39,11 @@ let args = yargs
     type: 'number',
     describe: 'The redis database.'
   })
+  .options('redis-optional', {
+    type: 'boolean',
+    describe: 'Set to true if no permanent auto-reconnect shall be done if server is down.',
+    default: false
+  })
   .options('sentinel-port', {
     type: 'number',
     describe: 'The port to find sentinel on.'
@@ -367,7 +372,8 @@ function createConnectionObjectFromArgs(args) {
       label: config.get('redis.defaultLabel'),
       dbIndex: Number.isNaN(db) ? 0 : db,
       password: args['redis-password'] || '',
-      connectionName: config.get('redis.connectionName')
+      connectionName: config.get('redis.connectionName'),
+      optional: args['redis-optional']
     };
 
     if (args['redis-socket']) {

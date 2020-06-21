@@ -217,6 +217,12 @@ if [[ ! -z "$REDIS_DB" ]]; then
     set -- "$@" "--redis-db $REDIS_DB"
 fi
 
+if [[ ! -z "$REDIS_OPTIONAL" ]]; then
+    if [[ "$REDIS_OPTIONAL" = "1" || "$REDIS_OPTIONAL" = "true" || "$REDIS_OPTIONAL" = "yes" || "$REDIS_OPTIONAL" = "on" ]]; then
+        set -- "$@" "--redis-optional"
+    fi
+fi
+
 if [[ ! -z "$SENTINEL_PORT" ]]; then
     set -- "$@" "--sentinel-port $SENTINEL_PORT"
 fi

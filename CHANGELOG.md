@@ -3,11 +3,13 @@
 ## Next Version
 #### Bugfixes
 * update handling of big numbers displayed as json formatted values. For big numbers wrong values may be shown, #400 
+* increase width of cli input to use full with available, #404 
 
 #### Enhancements
 * set user in Dockerfile as numeric value to allow Kubernetes to enforce non-root user
 * update Kubernetes examples with security settings for Redis Commander
 * add config examples for starting Redis Commander with SystemD or PM2, #158
+* allow flagging redis connection as optional, if true no permanant auto-reconnect is tried if server is down, reconnection done on request only, #230
 * update dependencies to fix vulnerabilities in yargs-parser package
 
 ## Version 0.7.0

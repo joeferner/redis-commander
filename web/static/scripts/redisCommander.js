@@ -58,6 +58,9 @@ function loadTree () {
             cb(nodeData.data)
           }).fail(function(error) {
             console.log('Error fetching data for node ' + node.id + ': ' + JSON.stringify(error));
+            if (error.responseJSON && error.responseJSON.connectionClosed) {
+              setRootConnectionNetworkError(true, node)
+            }
             cb('Error fetching data');
           });
         }
@@ -160,32 +163,62 @@ function treeNodeSelected (event, data) {
   var connectionId;
   if (data.node.parent === '#') {
     connectionId = data.node.id;
-    $.get('apiv2/server/' + connectionId + '/info', function (infoData, status) {
-      if (status !== 'success') {
-        return alert("Could not load server info");
-      }
-      if (typeof infoData === 'string') infoData = JSON.parse(infoData);
-      infoData.data.some(function (instance) {
-        if (instance.connectionId === connectionId) {
-          if (!instance.disabled) {
-            renderEjs('templates/serverInfo.ejs', instance, $('#body'), setupAddKeyButton);
+    $.get('apiv2/server/' + connectionId + '/info')
+        .done(function (infoData, status) {
+          if (status !== 'success') {
+            return alert("Could not load server info");
           }
-          else {
-            var html = '<div>ERROR: ' + (instance.error ? instance.error : 'Server not available - cannot query status informations.') + '</div>';
-            $('#body').html(html);
-            setupAddKeyButton();
+          if (typeof infoData === 'string') infoData = JSON.parse(infoData);
+          infoData.data.some(function (instance) {
+            if (instance.connectionId === connectionId) {
+              if (!instance.disabled) {
+                setRootConnectionNetworkError(false, data.node);
+                renderEjs('templates/serverInfo.ejs', instance, $('#body'), setupAddKeyButton);
+              }
+              else {
+                setRootConnectionNetworkError(true, data.node);
+                var html = '<h5>ERROR: ' + (instance.error ? instance.error : 'Server not available - cannot query status informations.') + '</h5>';
+                $('#body').html(html);
+                setupAddKeyButton();
+              }
+              return true;
+            }
+            return false;
+          });
+        })
+        .fail(function (error) {
+          if (error.responseJSON) {
+            if (error.responseJSON.message) {
+              $('#body').html('<h5>Got ERROR: ' + error.responseJSON + '</h5>');
+            }
+            else {
+              $('#body').html('<h5>Network ERROR calling server...</h5>');
+            }
+            if (error.responseJSON.connectionClosed) setRootConnectionNetworkError(true, data.node);
           }
-          return true;
-        }
-        return false;
-      });
-    });
+        });
   } else {
     connectionId = getRootConnection(data.node);
     var path = getFullKeyPath(data.node);
     return loadKey(connectionId, path);
   }
 }
+
+/** finds root entry with connection object of the node given and changes icon to show disconnect state
+ *
+ *  @param node JSTree node the error occured to get first sibling from tree root
+ */
+function setRootConnectionNetworkError (hasError, node) {
+  var tree = getKeyTree();
+  var root = getRootConnection(node);
+  var rootNode = tree.get_node(root);
+  if (hasError) tree.set_icon(rootNode, 'images/treeRootDisconnect.png');
+  else if (tree.get_icon(rootNode) === 'images/treeRootDisconnect.png') {
+    // only set icon if not already set to minimize redraws here...
+    tree.set_icon(rootNode, 'images/treeRoot.png');
+  }
+}
+
 
 function getFullKeyPath (node) {
   if (node.parent === '#') {
@@ -203,15 +236,21 @@ function getRootConnection (node) {
 
 function loadKey (connectionId, key, index) {
   if (index) {
-    $.get('apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "?index=" + index, processData);
+    $.get('apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "?index=" + index)
+        .done(processData)
+        .fail(errorHandler);
   } else {
-    $.get('apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key), processData);
+    $.get('apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key))
+        .done(processData)
+        .fail(errorHandler)
   }
+
   function processData (keyData, status) {
     if (status !== 'success') {
       return alert("Could not load key data");
     }
 
+    setRootConnectionNetworkError(false, getKeyTree().get_selected(true)[0]);
     if (typeof keyData === 'string') keyData = JSON.parse(keyData);
     keyData.connectionId = connectionId;
     console.log("rendering type " + keyData.type);
@@ -248,6 +287,18 @@ function loadKey (connectionId, key, index) {
         $('#body').html(html);
         resizeApp();
         break;
+    }
+  }
+
+  function errorHandler(error) {
+    if (error.responseJSON) {
+      if (error.responseJSON.message) {
+        $('#body').html('<h5>Got ERROR: ' + error.responseJSON.message + '</h5>');
+      }
+      else {
+        $('#body').html('<h5>Network ERROR calling server...</h5>');
+      }
+      if (error.responseJSON.connectionClosed) setRootConnectionNetworkError(true, getKeyTree().get_selected(true)[0]);
     }
   }
 }
