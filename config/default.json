@@ -26,6 +26,7 @@
     "urlPrefix": "",
     "trustProxy": false,
     "clientMaxBodySize": "100kb",
+    "maxHashFieldSize": 16384,
     "httpAuth": {
       "username": "",
       "password": "",

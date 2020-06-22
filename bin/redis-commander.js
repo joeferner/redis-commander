@@ -147,6 +147,11 @@ let args = yargs
     describe: 'App is run behind proxy (enable Express "trust proxy")',
     default: config.get('server.trustProxy')
   })
+  .options('max-hash-field-size', {
+    type: 'number',
+    describe: 'The max number of bytes for a hash field before you must click to view it',
+    default: config.get('server.maxHashFieldSize'),
+  })
   .options('nosave', {
     alias: 'ns',
     type: 'boolean',

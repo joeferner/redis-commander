@@ -61,6 +61,7 @@ interface of Redis Commander.
 | server.urlPrefix | string | '/' | path prefix to run Redis Commander at, can be used if run behind a reverse proxy with different path set (e.g. /rc) |
 | server.trustProxy | boolean or string | false | should be set to true if run behind a reverse proxy and 'X-Forwarded-For' headers shall be trusted to get real client ip for logging, this parameter maps directly to the Express "trust proxy" setting (https://expressjs.com/de/guide/behind-proxies.html)|
 | server.clientMaxBodySize | number or string | '100kb' | number in bytes or a string with size and SI-unit, this parameter maps to the "limit" options of body-parser (https://github.com/expressjs/body-parser#limit) |
+| server.maxHashFieldSize | number | 16384 | The max number of bytes for a hash field before you must click to view it
 | server.auth | object |  | see section 4.1 Authentication  |
 
 #### 4.1 Authentication configuration for HTTP server
