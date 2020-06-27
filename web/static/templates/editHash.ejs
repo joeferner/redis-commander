@@ -21,14 +21,24 @@
     </thead>
     <tbody>
     <% for(var field in data) { %>
-      <tr>
-          <td><%= field %></td>
+      <tr
+        <% if (data[field] === null) { %>
+          data-deferred-field="<%= field %>"
+        <% } %>
+        >
+        <td><%= field %></td>
         <% console.log(field);%>
         <% console.log(data[field]);%>
-          <td id="plain_<%= field %>" class="text-renderer"><%= data[field] %></td>
-          <td id="jqtree_<%= field %>" class="json-renderer" style="display:none;">loading ...</td>
-        </tr>
-      <% } %>
+        <td id="plain_<%= field %>" class="text-renderer">
+          <% if (data[field] !== null) { %>
+            <%= data[field] %>
+          <% } else { %>
+            <a data-deferred-field="<%= field %>">This is a large field. Click here to view.</a>
+          <% } %>
+        </td>
+        <td id="jqtree_<%= field %>" class="json-renderer" style="display:none;">loading ...</td>
+      </tr>
+    <% } %>
     </tbody>
   </table>
 </div>
@@ -39,11 +49,22 @@
         var connectionId = "<%= connectionId %>";
         var key = "<%= key %>";
         var row = event.currentTarget;
+        if ('deferredField' in row.dataset) {
+          console.log('Deferred fields are not editable')
+          return;
+        }
         var field = row.children[0].innerHTML.toString();
         var value = row.children[1].innerHTML.toString();
         editHashField(connectionId, key, field, value);
       });
     }
+
+    $('.table tbody tr a[data-deferred-field]').click(function (event) {
+      var connectionId = "<%= connectionId %>";
+      var key = "<%= key %>";
+      var field = event.target.dataset.deferredField;
+      showHashField(connectionId, key, field);
+    });
 
     dataUIFuncs.createJSONViews('td[class="json-renderer"]');
   });
