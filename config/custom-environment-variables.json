@@ -4,7 +4,8 @@
   "ui": {
     "foldingChar": "FOLDING_CHAR",
     "jsonViewAsDefault": "VIEW_JSON_DEFAULT",
-    "binaryAsHex": "BINARY_AS_HEX"
+    "binaryAsHex": "BINARY_AS_HEX",
+    "maxHashFieldSize": "MAX_HASH_FIELD_SIZE"
   },
   "redis": {
     "readOnly": "READ_ONLY",
@@ -21,7 +22,6 @@
     "urlPrefix": "URL_PREFIX",
     "trustProxy": "TRUST_PROXY",
     "clientMaxBodySize": "CLIENT_MAX_BODY_SIZE",
-    "maxHashFieldSize": "MAX_HASH_FIELD_SIZE",
     "httpAuth": {
       "username": "HTTP_USER",
       "password": "HTTP_PASSWORD",

@@ -8,7 +8,8 @@
     "cliOpen": false,
     "foldingChar": ":",
     "jsonViewAsDefault": "none",
-    "binaryAsHex": true
+    "binaryAsHex": true,
+    "maxHashFieldSize": 0
   },
   "redis": {
     "readOnly": false,
@@ -26,7 +27,6 @@
     "urlPrefix": "",
     "trustProxy": false,
     "clientMaxBodySize": "100kb",
-    "maxHashFieldSize": 16384,
     "httpAuth": {
       "username": "",
       "password": "",
