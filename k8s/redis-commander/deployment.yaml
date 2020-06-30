@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-commander
@@ -17,17 +17,21 @@ spec:
       - name: redis-commander
         image: rediscommander/redis-commander
         env:
+
         - name: REDIS_HOSTS
-          value: "instance1:redis:6379"
+          value: "instance1:redis-master:6379"
+        # - name: REDIS_PASSWORD
+        #   value: "SECRET"
         - name: K8S_SIGTERM
           value: "1"
+        
         ports:
         - name: redis-commander
           containerPort: 8081
-        #resources:
-        #  limits:
-        #    cpu: "500m"
-        #    memory: "512M"
+        resources:
+         limits:
+           cpu: "500m"
+           memory: "512M"
         securityContext:
           runAsNonRoot: true
           readOnlyRootFilesystem: false

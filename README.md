@@ -261,6 +261,17 @@ known issues with Kubernetes:
 
 * using REDIS_HOSTS works only with a password-less redis db. You must specify REDIS_HOST on a password protected redis db
 
+## Helm chart
+
+You can install the application on any Kubernetes cluster using Helm.
+
+```sh
+helm repo add tn-redis-commander https://raw.githubusercontent.com/kubernetes-tn/redis-commander/master/.helm-charts/
+
+helm -n myspace install redis-web-ui tn-redis-commander/redis-commander
+```
+
+More [Documentation](.helm-charts/README.md) about this Helm chart and its values.
 
 ## OpenShift V3
 

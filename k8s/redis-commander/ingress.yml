@@ -5,16 +5,10 @@ metadata:
   labels:
     app: redis-commander
   annotations:
-    # ssl + hsts config
-    #ingress.kubernetes.io/ssl-proxy-headers: "X-Forwarded-Proto:https"
-    #ingress.kubernetes.io/ssl-redirect: "true"
-    #ingress.kubernetes.io/force-hsts: "true"
-    #ingress.kubernetes.io/hsts-max-age: "315360000"
-    #ingress.kubernetes.io/hsts-preload: "true"
-    #ingress.kubernetes.io/hsts-include-subdomains: true
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
-    - host: redis.local
+    - host: redisui.docker.internal
       http:
         paths:
           - path: "/"
