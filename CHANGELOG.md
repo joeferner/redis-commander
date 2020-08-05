@@ -6,6 +6,7 @@
 * increase width of cli input to use full with available, #404 
 
 #### Enhancements
+* Adding maxHashFieldSize config to limit the size of hash fields, #409 (chrisregnier)
 * set user in Dockerfile as numeric value to allow Kubernetes to enforce non-root user
 * update Kubernetes examples with security settings for Redis Commander
 * add config examples for starting Redis Commander with SystemD or PM2, #158

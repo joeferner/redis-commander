@@ -147,6 +147,11 @@ let args = yargs
     describe: 'App is run behind proxy (enable Express "trust proxy")',
     default: config.get('server.trustProxy')
   })
+  .options('max-hash-field-size', {
+    type: 'number',
+    describe: 'The max number of bytes for a hash field before you must click to view it',
+    default: config.get('ui.maxHashFieldSize'),
+  })
   .options('nosave', {
     alias: 'ns',
     type: 'boolean',
@@ -200,6 +205,7 @@ let args = yargs
     config.noSave = value['nosave'];
     config.noLogData = value['no-log-data'];
     config.ui.foldingChar = value['folding-char'];
+    config.ui.maxHashFieldSize = value['max-hash-field-size'];
     config.redis.useScan = value['use-scan'];
     config.redis.readOnly = value['read-only'];
     config.redis.scanCount = value['scan-count'];
@@ -383,6 +389,7 @@ function createConnectionObjectFromArgs(args) {
       connObj.host = args['redis-host'] || 'localhost';
       connObj.port = args['redis-port'] || 6379;
       connObj.port = parseInt(connObj.port);
+      connObj.sentinelPassword = args['sentinel-password'] || '';
       if (args['sentinels']) {
         connObj.sentinels = myUtils.parseRedisSentinel('--sentinels', args['sentinels']);
         connObj.sentinelName = args['sentinel-name'] || config.get('redis.defaultSentinelGroup');

@@ -4,7 +4,8 @@
   "ui": {
     "foldingChar": "FOLDING_CHAR",
     "jsonViewAsDefault": "VIEW_JSON_DEFAULT",
-    "binaryAsHex": "BINARY_AS_HEX"
+    "binaryAsHex": "BINARY_AS_HEX",
+    "maxHashFieldSize": "MAX_HASH_FIELD_SIZE"
   },
   "redis": {
     "readOnly": "READ_ONLY",

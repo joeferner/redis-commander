@@ -782,6 +782,43 @@ function editHashField (connectionId, key, field, value) {
   enableJsonValidationCheck(value, '#hashFieldIsJson');
 }
 
+function showHashField (connectionId, key, field) {
+  $.get('apiv2/hash/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "?field=" + encodeURIComponent(field))
+      .done(processData)
+      .fail(errorHandler)
+
+  function processData (keyData, status) {
+    if (status !== 'success') {
+      return alert("Could not load key data");
+    }
+    if (typeof keyData === 'string') keyData = JSON.parse(keyData);
+    
+    var deferredRow = $('tr[data-deferred-field="' + field + '"');
+    if (deferredRow) {
+      // inject the data into the view
+      deferredRow.find('td.text-renderer').text(keyData.data);
+
+      // regenerate the json view
+      dataUIFuncs.createJSONViews(deferredRow.find('td.json-renderer'));
+
+      // remove the deferred attribute so the value is editable
+      deferredRow.removeAttr('data-deferred-field');
+    }
+  }
+
+  function errorHandler(error) {
+    if (error.responseJSON) {
+      if (error.responseJSON.message) {
+        $('#body').html('<h5>Got ERROR: ' + error.responseJSON.message + '</h5>');
+      }
+      else {
+        $('#body').html('<h5>Network ERROR calling server...</h5>');
+      }
+      if (error.responseJSON.connectionClosed) setRootConnectionNetworkError(true, getKeyTree().get_selected(true)[0]);
+    }
+  }
+}
+
 /** check if given string value is valid json and, if so enable validation
  *  for given field if this is an json object or array. Do not automatically
  *  enable validation on numbers or quted strings. May be coincidence that this is json...
