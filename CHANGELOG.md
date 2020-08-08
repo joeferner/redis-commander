@@ -12,6 +12,7 @@
 * update Kubernetes examples with security settings for Redis Commander
 * add config examples for starting Redis Commander with SystemD or PM2, #158
 * allow flagging redis connection as optional, if true no permanant auto-reconnect is tried if server is down, reconnection done on request only, #230
+* add basic helm chart for k8s installation, based on PR by @aabdennour, #412
 * update dependencies to fix vulnerabilities in yargs, yargs-parser and elliptic package
 
 ## Version 0.7.0

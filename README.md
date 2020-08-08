@@ -262,6 +262,18 @@ known issues with Kubernetes:
 * using REDIS_HOSTS works only with a password-less redis db. You must specify REDIS_HOST on a password protected redis db
 
 
+## Helm chart
+
+You can install the application on any Kubernetes cluster using Helm.
+There is no helm repo available currently, therefor local checkout of helm sources inside 
+this repo is needed:
+
+```sh
+helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander
+```
+
+More [Documentation](k8s/helm-chart/README.md) about this Helm chart and its values.
+
 ## OpenShift V3
 
 To use the stock Node.js image builder do the following.
