@@ -42,7 +42,7 @@
     "lodash.isequal": "4.5.0",
     "lossless-json": "1.0.4",
     "node-redis-dump": "0.2.1",
-    "opener": "1.5.1",
+    "opener": "1.5.2",
     "readline-browserify": "0.0.4",
     "sf": "0.2.0",
     "yargs": "15.4.1"
