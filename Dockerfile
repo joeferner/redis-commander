@@ -1,9 +1,9 @@
-FROM node:8-alpine
+FROM alpine:3.11
 
 WORKDIR /redis-commander
 
-# optional build arg to let the hardening process revomve the apk too to not allow installation
-# of packages anymore, default: do not remove "apk" to allow others to use this as a base image
+# optional build arg to let the hardening process remove all package manager (apk, npm, yarn) too to not allow
+# installation of packages anymore, default: do not remove "apk" to allow others to use this as a base image
 # for own images
 ARG REMOVE_APK=0
 
@@ -18,11 +18,11 @@ COPY . .
 # for Openshift compatibility set project config dir itself group root and make it group writeable
 RUN  apk update \
   && apk upgrade \
-  && apk add --no-cache ca-certificates dumb-init sed jq \
+  && apk add --no-cache ca-certificates dumb-init sed jq nodejs npm yarn \
   && apk add --no-cache --virtual .patch-dep patch \
   && update-ca-certificates \
   && echo -e "\n---- Create runtime user and fix file access rights ----------" \
-  && adduser ${SERVICE_USER} -h ${HOME} -G root -S \
+  && adduser ${SERVICE_USER} -h ${HOME} -G root -S -u 1000 \
   && chown -R root.root ${HOME} \
   && chown -R ${SERVICE_USER} ${HOME}/config \
   && chmod g+w ${HOME}/config \
@@ -34,10 +34,10 @@ RUN  apk update \
   && patch -p0 < docker/redis-dump.diff \
   && echo -e "\n---- Cleanup and hardening -----------------------------------" \
   && apk del .patch-dep \
-  && rm -rf /tmp/* /root/.??* /root/cache /var/cache/apk/* \
-  && ${HOME}/docker/harden.sh
+  && ${HOME}/docker/harden.sh \
+  && rm -rf /tmp/* /root/.??* /root/cache /var/cache/apk/*
 
-USER ${SERVICE_USER}
+USER 1000
 
 HEALTHCHECK --interval=1m --timeout=2s CMD ["/redis-commander/bin/healthcheck.js"]
 

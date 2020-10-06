@@ -4,7 +4,8 @@
   "ui": {
     "foldingChar": "FOLDING_CHAR",
     "jsonViewAsDefault": "VIEW_JSON_DEFAULT",
-    "binaryAsHex": "BINARY_AS_HEX"
+    "binaryAsHex": "BINARY_AS_HEX",
+    "maxHashFieldSize": "MAX_HASH_FIELD_SIZE"
   },
   "redis": {
     "readOnly": "READ_ONLY",
@@ -26,5 +27,12 @@
       "password": "HTTP_PASSWORD",
       "passwordHash": "HTTP_PASSWORD_HASH"
     }
+  },
+  "sso": {
+    "enabled": "SSO_ENABLED",
+    "jwtSharedSecret": "SSO_JWT_SECRET",
+    "allowedIssuer": "SSO_ISSUER",
+    "audience": "SSO_AUDIENCE",
+    "subject": "SSO_SUBJECT"
   }
 }

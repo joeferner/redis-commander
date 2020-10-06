@@ -3,7 +3,7 @@
 # switch to more secure file umask before everything else...
 umask 0027
 
-# autowrite config file containing node_env to let config module automatically pick this up.
+# auto write config file containing node_env to let config module automatically pick this up.
 # this file is evaluated nearly at the end of all files possible:
 # see https://github.com/lorenwest/node-config/wiki/Configuration-Files
 # this file only contains the connections to load, nothing else
@@ -13,13 +13,14 @@ CONFIG_FILE=${HOME}/config/local-${NODE_ENV}.json
 # set default instance for node config ("docker") but allow overwriting via docker env vars
 NODE_APP_INSTANCE=${NODE_APP_INSTANCE:-docker}
 
-# when running in kubernetes we need to wait a bit before exiting on SIGTERM
+# when running in Kubernetes we need to wait a bit before exiting on SIGTERM
 # https://github.com/kubernetes/contrib/issues/1140#issuecomment-290836405
 K8S_SIGTERM=${K8S_SIGTERM:-0}
 
-# seconds to wait befor sending sigterm to app on exit
+# seconds to wait before sending sigterm to app on exit
 # only used if K8S_SIGTERM=1
 GRACE_PERIOD=6
+NODE=$(which node)
 
 # this function checks all arguments given and outputs them. All parameter pairs where key is ending with "password"
 # are replaced with string "<set>" instead of real password (e.g. "--redis-password XYZ" => "--redis-password <set>")
@@ -216,6 +217,12 @@ if [[ ! -z "$REDIS_DB" ]]; then
     set -- "$@" "--redis-db $REDIS_DB"
 fi
 
+if [[ ! -z "$REDIS_OPTIONAL" ]]; then
+    if [[ "$REDIS_OPTIONAL" = "1" || "$REDIS_OPTIONAL" = "true" || "$REDIS_OPTIONAL" = "yes" || "$REDIS_OPTIONAL" = "on" ]]; then
+        set -- "$@" "--redis-optional"
+    fi
+fi
+
 if [[ ! -z "$SENTINEL_PORT" ]]; then
     set -- "$@" "--sentinel-port $SENTINEL_PORT"
 fi
@@ -240,7 +247,7 @@ if [[ ! -z "$REPLACE_CONFIG_ENV" ]]; then
     # special case for more complex docker setup with multiple connections
     # to unix sockets, sentinels and normal redis server not configurable
     # via REDIS_HOSTS...
-    # search all config files (except custom-environment-variables.json) and do inplace
+    # search all config files (except custom-environment-variables.json) and do in place
     # replacement of a string to the value of the env var, e.g.
     # set $REPLACE_CONFIG_ENV=REDIS_PASS_1 and env REDIS_PASS_1=mypass
     # now search config files for string "REDIS_PASS_1" and write there "mypass" instead
@@ -273,7 +280,7 @@ for i in config/*.json; do
 #    fi
 done
 
-# install trap for SIGTERM to delay end of app a bit for kubernetes
+# install trap for SIGTERM to delay end of app a bit for Kubernetes
 # otherwise container might get requests after exiting itself
 exitTrap() {
     echo "Got signal, wait a bit before exit"
@@ -284,13 +291,13 @@ exitTrap() {
 if [[ "$K8S_SIGTERM" = "1" ]]; then
     trap exitTrap TERM INT
     echo "node ./bin/redis-commander "$(safe_print_args $@)" for k8s"
-    setsid /usr/local/bin/node ./bin/redis-commander $@ &
+    setsid $NODE ./bin/redis-commander $@ &
     NODE_PID=$!
     wait $NODE_PID
     trap - TERM INT
     wait $NODE_PID
 else
     echo "node ./bin/redis-commander "$(safe_print_args $@)""
-    exec /usr/local/bin/node ./bin/redis-commander $@
+    exec $NODE ./bin/redis-commander $@
 fi
 

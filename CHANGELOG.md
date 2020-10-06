@@ -1,11 +1,43 @@
 # Redis-Commander CHANGELOG
 
-## next Version
+## Next Version
+#### Bugfixes
+* update handling of big numbers displayed as json formatted values. For big numbers wrong values may be shown, #400 
+* increase width of cli input to use full with available, #404 
+* fix problem not setting sentinel password from command line, #416
+
+#### Enhancements
+* Adding maxHashFieldSize config to limit the size of hash fields, #409 (chrisregnier)
+* set user in Dockerfile as numeric value to allow Kubernetes to enforce non-root user
+* update Kubernetes examples with security settings for Redis Commander
+* add config examples for starting Redis Commander with SystemD or PM2, #158
+* allow flagging redis connection as optional, if true no permanant auto-reconnect is tried if server is down, reconnection done on request only, #230
+* add basic helm chart for k8s installation, based on PR by @aabdennour, #412
+* allow partial export of redis data
+* update dependencies to fix vulnerabilities in multiple packages
+
+## Version 0.7.0
+#### Bugfixes
+* fix error on Windows on getting package installation path, #388
+* fix wrong connection info data shown on import and export page (sentinel and sockets)
+
+#### Enhancements
+* update dependencies to fix vulnerabilities in multiple packages
+* change deprecated package "optimist" to "yargs" to fix prototype pollution in dependent minimist package
+* add new route /sso to login with signed Json Web Token from external apps with a PSK
+
+#### Breaking Change
+* Base image changed from end-of-life Node-8 to pure Alpine 3.11, booth package managers (npm and yarn)
+  are available but installed as system package now under different path (`/usr/bin`).
+  This change is relevant only when this image is used as base image for other container.
+     
+## Version 0.6.7
 #### Bugfixes
 * do not display content of passwords read from env var or file on docker startup, #372
 * fix display errors on early display of import/export page
 * dependency updates for security fixes (elliptic) and change runtime umask to 027
 * fix problem with sentinel connections without explict group name given, #381
+* fix problem not showing all nodes after refresh (menu entry), #382
 
 #### Enhancements
 * add new docker env vars to load passwords from file (REDIS_PASSWORD_FILE, SENTINEL_PASSWORD_FILE), #364
@@ -14,9 +46,10 @@
 * add basic support to display ReJSON type data, #371
 * switch library to display json objects from "json-tree" to "jquery.json-viewer", #375
 * add config value and env var to display valid json data as default as formatted json tree object (VIEW_JSON_DEFAULT), #375  
-* add config value and env var to disable display of strings as hexadecimal binary data, #376
+* add config value and env var to disable display of strings as hexadecimal binary data (BINARY_AS_HEX), #376
 * add basic validation to redis connection params given via command line and config files, #377
 * allow docker image security scanner to work even if apk related files are removed
+* add json formatted view to List, Set and SortedSet elements too
 
 ## Version 0.6.6
 #### Bugfixes

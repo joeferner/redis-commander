@@ -8,7 +8,7 @@
     "Stefan Seide <account-github@seide.st"
   ],
   "name": "redis-commander",
-  "version": "0.6.6",
+  "version": "0.7.1-rc3",
   "description": "Redis web-based management tool written in node.js",
   "license": "MIT",
   "repository": {
@@ -23,28 +23,29 @@
   ],
   "main": "lib/app.js",
   "dependencies": {
-    "async": "3.1.0",
+    "async": "3.2.0",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "browserify-middleware": "8.1.1",
-    "clipboard": "2.0.4",
+    "clipboard": "2.0.6",
     "cmdparser": "0.0.3",
-    "config": "3.2.0",
+    "config": "3.3.1",
     "dateformat": "3.0.3",
-    "ejs": "2.6.2",
+    "ejs": "2.7.4",
     "express": "4.17.1",
     "express-partials": "0.3.0",
-    "inflection": "1.2.7",
-    "ioredis": "4.13.1",
+    "inflection": "1.12.0",
+    "ioredis": "4.17.3",
     "jquery.json-viewer": "1.4.0",
     "jsonwebtoken": "8.5.1",
-    "jstree": "3.3.8",
+    "jstree": "3.3.10",
     "lodash.isequal": "4.5.0",
+    "lossless-json": "1.0.4",
     "node-redis-dump": "0.2.1",
-    "opener": "1.5.1",
-    "optimist": "0.6.1",
+    "opener": "1.5.2",
     "readline-browserify": "0.0.4",
-    "sf": "0.2.0"
+    "sf": "0.2.0",
+    "yargs": "15.4.1"
   },
   "optionalDependencies": {
     "bcrypt": "~3.0.0"

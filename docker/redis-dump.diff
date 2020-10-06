@@ -1,18 +1,27 @@
 --- node_modules/node-redis-dump/lib/node-redis-dump.js	2013-09-27 16:35:07.000000000 +0200
 +++ node_modules_save/node-redis-dump/lib/node-redis-dump.js	2018-09-14 12:34:20.183714444 +0200
+@@ -246,7 +246,7 @@
+ 		 * @param callback
+ 		 */
+ 		function(callback) {
+-			this.getClient().keys('*', callback);
++			this.getClient().keys(this.getExportParams().keyPrefix + '*' || '*', callback);
+ 		}.bind(this),
+
+ 		/**
 @@ -357,7 +357,7 @@
  		 * Import.
  		 */
  		function(callback) {
 -			var items = params.data.split(new RegExp('(SET|RPUSH|LPUSH|SADD|ZADD|HSET) ', 'g'));
 +			var items = params.data.split(new RegExp('(SET|LSET|RPUSH|RPUSHX|LPUSH|LPUSHX|SADD|ZADD|HSET|LTRIM) ', 'g'));
- 
+
  			/**
  			 * Recursive add.
 @@ -377,8 +377,10 @@
  						return;
  					}
- 
+
 -					if (status || status === 'OK') {
 -						report.inserted += _.isNumber(status) ? status : 1;
 +					// LPUSH / RPUSH return length of list after insert as status code,therefor cannot just add status
@@ -25,7 +34,7 @@
 @@ -387,37 +389,59 @@
  					AddRecursive();
  				};
- 
+
 -				var args = items.pop(),
 -					command = items.pop(),
 -					callArgs = [];
@@ -103,15 +112,15 @@
 +				catch (errCmd) {
 +					callback('FAIL parse command of known type: ' + command);
  				}
- 
+
  				callArgs.push(Callback);
 -				this.getClient()[ command ].apply(this.getClient(), callArgs);
 +				this.getClient()[ command.toLowerCase() ].apply(this.getClient(), callArgs);
  			}.bind(this);
- 
+
  			AddRecursive();
 @@ -429,4 +453,4 @@
- 
+
  		params.callback(err, report);
  	});
 -};

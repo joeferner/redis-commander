@@ -3,7 +3,7 @@
 This file describes all parameters settable at the
 configuration files inside the `config` folder.
 
-Redis Commander uses the node "config" module (https://github.com/lorenwest/config) 
+Redis Commander uses the node "config" module (https://github.com/lorenwest/node-config)
 More information about possible file formats and config file names
 as well as there evaluation order can be found in the wiki of the node-config
 project.
@@ -14,7 +14,7 @@ project.
 
 All top-level configuration data are
 
-| Name | Type | Default | Description | 
+| Name | Type | Default | Description |
 |---|---|---|---|
 | noSave | boolean | false | do not persist changes in active connection list  |
 | noLogData | boolean | false | do not log values of redis keys to console |
@@ -27,7 +27,7 @@ All top-level configuration data are
 ### 2. User interface parameter
 
 The `ui` object contains configuration values regarding the web user
-interface of Redis Commander. 
+interface of Redis Commander.
 
 | Name | Type | Default | Description |
 |---|---|---|---|
@@ -35,9 +35,10 @@ interface of Redis Commander.
 | ui.locked | boolean | false | if "true" do not change height of command line, otherwise increase height if cli is active |
 | ui.cliHeight | number | 320 | start height in pixel of the command line at the bottom (if opened) |
 | ui.cliOpen | boolean | false | start with maximized cli height on "true", with minimized one on "false" |
-| ui.foldingChar | string | ':' | character to use for creation of a virtual hierachical tree of all keys. e.g key 'top/sub/mykey' is divided into a folder 'top' containing the folder 'sub' with the key 'mykey' inside it. |
-| ui.jsonViewAsDefault | string list | 'none' | comma separated list of data types where valid json data should be displayed as JSON tree object instead of plain string. Default '' or 'none' displays no data as string, 'all' displays all data-types supported as JSON objects, other possible values 'string' and 'hash' (everything else not supported right now).<br>Example: "string,hash" only display these two types as JSON if possible per default 
+| ui.foldingChar | string | ':' | character to use for creation of a virtual hierarchical tree of all keys. e.g key 'top/sub/mykey' is divided into a folder 'top' containing the folder 'sub' with the key 'mykey' inside it. |
+| ui.jsonViewAsDefault | string list | 'none' | comma separated list of data types where valid json data should be displayed as JSON tree object instead of plain string. Default '' or 'none' displays no data as string, 'all' displays all data-types supported as JSON objects.<br>Example: "string,hash" only displays these two types as JSON if possible per default<br>Values supported: '', 'none', 'all', 'string', 'list', 'set', 'zset', 'hash'
 | ui.binaryAsHex | boolean | true | do not display binary data as string but in hexadecimal view |
+| ui.maxHashFieldSize | number | 0 | The max number of bytes for a hash field before you must click to view it. Defaults to 0, which is disabled
 
 ### 3. General Redis connection parameter
 
@@ -47,7 +48,7 @@ interface of Redis Commander.
 | redis.flushOnImport | boolean | false | flag to either check "flush" checkbox (true) on import page or uncheck (false) it. If "true" the entire database is flushed before bulk importing the data. |
 | redis.useScan | boolean | true | use redis "SCAN" command instead of "KEYS" to enumerate all keys inside db for display |
 | redis.scanCount | number | 100 | number of keys read when using SCAN cursor instead of KEYS (useScan must be true) |
-| redis.rootPattern | string | '*' | filter pattern to use at start, can be used to exlude some date inside redis db |
+| redis.rootPattern | string | '*' | filter pattern to use at start, can be used to exclude some date inside redis db |
 | redis.connectionName | string | 'redis-commander' | connection name to set at redis client for easier identification of clients at redis server (command "client list") |
 | redis.defaultLabel | string | 'local' | default label to display for a connection if no label is specified (e.g. for connection from env vars or command line) |
 | redis.defaultSentinelGroup | string | 'mymaster' | default redis database group if using sentinels to connect and no special database group via connection param 'sentinelGroup' is given. |
@@ -59,7 +60,7 @@ interface of Redis Commander.
 | server.address | string | '0.0.0.0' | ip address of interface to bind http server to, use 0.0.0.0 to bind to all interfaces |
 | server.port | number | 8081 | port to listen on for HTTP server |
 | server.urlPrefix | string | '/' | path prefix to run Redis Commander at, can be used if run behind a reverse proxy with different path set (e.g. /rc) |
-| server.trustProxy | boolean or string | false | should be set to true if run behind a reverse proxy and 'X-Forwarded-For' headers shall be trused to get real client ip for logging, this parameter maps directly to the Express "trust proxy" setting (https://expressjs.com/de/guide/behind-proxies.html)|
+| server.trustProxy | boolean or string | false | should be set to true if run behind a reverse proxy and 'X-Forwarded-For' headers shall be trusted to get real client ip for logging, this parameter maps directly to the Express "trust proxy" setting (https://expressjs.com/de/guide/behind-proxies.html)|
 | server.clientMaxBodySize | number or string | '100kb' | number in bytes or a string with size and SI-unit, this parameter maps to the "limit" options of body-parser (https://github.com/expressjs/body-parser#limit) |
 | server.auth | object |  | see section 4.1 Authentication  |
 
@@ -68,7 +69,7 @@ interface of Redis Commander.
 To enable HTTP authentication inside Redis Commander set a username
 and either a password (clear text) or a passwordHash.
 
-If username is empty Redis Commander does not use any authnetication leaving
+If username is empty Redis Commander does not use any authentication leaving
 all your redis keys accessible to anyone. This mode may be used
 if a HTTP reverse proxy in front of Redis commander performs
 the user authentication.
@@ -88,16 +89,16 @@ to via app port (e.g. 8081) unauthenticated!
 
 ### 5. Redis Connections
 
-All Connections use be redis commander are defined as 
+All Connections use be redis commander are defined as
 entries of the "connections" list. The possible
-values for a connection are described in the [connections.md]() 
+values for a connection are described in the [connections.md]()
 file.
 
 ## Environment Variables
 
 All possible environment variables with their mapping
 to configuration data are defined inside the file
-[custom-environment-variables.json](../config/custom-environment-variables.json). 
+[custom-environment-variables.json](../config/custom-environment-variables.json).
 This file can be extended if there is any need to define
 more environment variables for custom config data like
 connection configs.

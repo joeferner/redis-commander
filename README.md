@@ -37,6 +37,7 @@ Options:
   --redis-db                           The redis database.                         [string]
   --redis-label                        The label to display for the connection.    [string]
   --redis-tls                          Use TLS for connection to redis server or sentinel. [boolean] [default: false]
+  --redis-optional                     Set to true if no permanent auto-reconnect shall be done if server is down [boolean] [default: false]
   --sentinel-port                      The port to find redis sentinel on.         [string]
   --sentinel-host                      The host to find redis sentinel on.         [string]
   --sentinels                          Comma separated list of sentinels with host:port. [string]
@@ -145,6 +146,7 @@ REDIS_TLS
 REDIS_PASSWORD
 REDIS_DB
 REDIS_HOSTS
+REDIS_OPTIONAL
 SENTINEL_PORT
 SENTINEL_HOST
 SENTINELS
@@ -181,7 +183,8 @@ where each host should follow one of these templates:
 
 Connection strings defined with `REDIS_HOSTS` variable do not support TLS connections.
 If remote redis server needs TLS write all connections into a config file instead
-of using `REDIS_HOSTS`.
+of using `REDIS_HOSTS` (see [docs/connections.md](docs/connections.md) at the end 
+within the more complex examples).
 
 ### With docker-compose
 
@@ -253,6 +256,23 @@ containers:
   - name: redis-commander
     containerPort: 8081
 ```
+
+known issues with Kubernetes:
+
+* using REDIS_HOSTS works only with a password-less redis db. You must specify REDIS_HOST on a password protected redis db
+
+
+## Helm chart
+
+You can install the application on any Kubernetes cluster using Helm.
+There is no helm repo available currently, therefor local checkout of helm sources inside 
+this repo is needed:
+
+```sh
+helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander
+```
+
+More [Documentation](k8s/helm-chart/README.md) about this Helm chart and its values.
 
 ## OpenShift V3
 

@@ -5,8 +5,8 @@
   </button>
   <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
   <% } %>
-  <button id="viewModeStringButton" class="btn" style="display:none;" onclick="onModeStringButtonClick()">View mode string</button>
-  <button id="viewModeJsonButton" class="btn" onclick="onModeJsonButtonClick()">View mode tree</button>
+  <button id="viewModeStringButton" class="btn" style="display:none;" onclick="dataUIFuncs.onModeStringButtonClick()">View mode string</button>
+  <button id="viewModeJsonButton" class="btn" onclick="dataUIFuncs.onModeJsonButtonClick()">View mode tree</button>
 </div>
 <div id="itemData">
   <label>Key: <b><%= key %></b></label>
@@ -21,14 +21,24 @@
     </thead>
     <tbody>
     <% for(var field in data) { %>
-      <tr>
-          <td><%= field %></td>
+      <tr
+        <% if (data[field] === null) { %>
+          data-deferred-field="<%= field %>"
+        <% } %>
+        >
+        <td><%= field %></td>
         <% console.log(field);%>
         <% console.log(data[field]);%>
-          <td id="plain_<%= field %>" class="text-renderer"><%= data[field] %></td>
-          <td id="jqtree_<%= field %>" class="json-renderer" style="display:none;">loading ...</td>
-        </tr>
-      <% } %>
+        <td id="plain_<%= field %>" class="text-renderer">
+          <% if (data[field] !== null) { %>
+            <%= data[field] %>
+          <% } else { %>
+            <a data-deferred-field="<%= field %>">This is a large field. Click here to view.</a>
+          <% } %>
+        </td>
+        <td id="jqtree_<%= field %>" class="json-renderer" style="display:none;">loading ...</td>
+      </tr>
+    <% } %>
     </tbody>
   </table>
 </div>
@@ -39,47 +49,23 @@
         var connectionId = "<%= connectionId %>";
         var key = "<%= key %>";
         var row = event.currentTarget;
+        if ('deferredField' in row.dataset) {
+          console.log('Deferred fields are not editable')
+          return;
+        }
         var field = row.children[0].innerHTML.toString();
         var value = row.children[1].innerHTML.toString();
-
         editHashField(connectionId, key, field, value);
       });
     }
 
-    createJSONViews();
+    $('.table tbody tr a[data-deferred-field]').click(function (event) {
+      var connectionId = "<%= connectionId %>";
+      var key = "<%= key %>";
+      var field = event.target.dataset.deferredField;
+      showHashField(connectionId, key, field);
+    });
+
+    dataUIFuncs.createJSONViews('td[class="json-renderer"]');
   });
-
-  function createJSONViews(){
-    var jqtreeCollection = $('td[class="json-renderer"]');
-    for(var i=0; i<jqtreeCollection.length; i++){
-      var current = $(jqtreeCollection[i]);
-      var plain = current.prev().html();
-      try {
-        // display either as string if no valid json or as foldable json object otherwise, ignore exception
-        current.jsonViewer(JSON.parse(plain), {withQuotes: true, withLinks: false});
-      }
-      catch(ex) {
-        // add json-viewer class manually to get same color/fonts
-        // calling jsonViewer() method instead gives quoted string like "blah\" blub" if it contains special chars
-        current.empty().append($('<span class="json-string">').text(plain));
-      }
-    }
-  }
-
-  function onModeStringButtonClick() {
-      $('td.text-renderer').css('display','inline-block');
-      $('td.json-renderer').css('display','none');
-
-      $('#viewModeJsonButton').css('display','inline');
-      $('#viewModeStringButton').css('display','none');
-  }
-
-  function onModeJsonButtonClick() {
-      $('td.text-renderer').css('display','none');
-      $('td.json-renderer').css('display','inline-block');
-
-      $('#viewModeJsonButton').css('display','none');
-      $('#viewModeStringButton').css('display','inline');
-  }
-
 </script>

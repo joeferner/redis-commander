@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redis Commander: <%= title %></title>
+  <script type="text/javascript">
+    <% if (typeof bearerToken === 'string') { %>sessionStorage.setItem('redisCommanderBearerToken', '<%= bearerToken %>');<% } %>
+    <% if (typeof queryToken === 'string') { %>sessionStorage.setItem('redisCommanderQueryToken', '<%= queryToken %>');<% } %>
+    location.href = '<%= redirectUrl %>';
+  </script>
+</head>
+<body></body>
+</html>

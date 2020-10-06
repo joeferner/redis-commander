@@ -8,7 +8,8 @@
     "cliOpen": false,
     "foldingChar": ":",
     "jsonViewAsDefault": "none",
-    "binaryAsHex": true
+    "binaryAsHex": true,
+    "maxHashFieldSize": 0
   },
   "redis": {
     "readOnly": false,
@@ -33,6 +34,13 @@
       "comment": "to enable http auth set username and either password or passwordHash",
       "jwtSecret": ""
     }
+  },
+  "sso": {
+    "enabled": false,
+    "jwtSharedSecret": "",
+    "allowedIssuer": "",
+    "audience": "",
+    "subject": ""
   },
   "connections": []
 }
