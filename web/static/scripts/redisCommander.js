@@ -499,8 +499,8 @@ function renameExistingKey() {
 
   $.ajax({
     url: action,
-    method: 'PATCH',
-    data: {rename: newKey, force: modal.find('#forceRenameKey').value}
+    method: 'POST',
+    data: {key: newKey, force: modal.find('#forceRenameKey').is(':checked'), action: 'patch'}
   }).done(function() {
     console.log('renamed old key ' + newKey + ' at ' + connectionId);
   }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -510,16 +510,16 @@ function renameExistingKey() {
     // close modal for most return values incl. success
     // but stay open if error message returned (key exists without overwrite)
     if (textStatus === 'success' && data.error && data.error.code === 'ERR_KEY_EXISTS') {
-      modal.find('#renamedKeyName').after('<label class="error">' + data.error.title + '</label>')
+      modal.find('#renamedKeyName').after('<span class="text-error">' + data.error.title + '</span>')
+        .closest('.control-group').addClass('error');
     }
     else {
       setTimeout(function() {
-        modal.find('#renameKeyButton').removeAttr("disabled").html("Save");
-        modal.find('.error').remove();
         refreshTree();
         modal.modal('hide');
       }, 500);
     }
+    modal.find('#renameKeyButton').removeAttr("disabled").html("Save");
   });
 }
 
@@ -675,12 +675,15 @@ function renameKey (connectionId, key) {
     key = getFullKeyPath(node);
     connectionId = getRootConnection(node);
   }
-  $('#currentKeyName').val(key);
-  $('#currentKeyNameDisplay').text(key);
-  $('#renamedKeyName').val(key);
-  $('renameKeyConnectionId').val(connectionId);
-  $('#forceRenameKey').prop('checked', false);
-  $('#renameKeyModal').modal('show');
+  var modal = $('#renameKeyModal');
+  modal.find('#currentKeyName').val(key);
+  modal.find('#currentKeyNameDisplay').text(key);
+  modal.find('#renamedKeyName').val(key);
+  modal.find('#renameKeyConnectionId').val(connectionId);
+  modal.find('#forceRenameKey').prop('checked', false);
+  modal.find('.text-error').remove();
+  modal.find('#renamedKeyName').closest('.control-group').removeClass('error');
+  modal.modal('show');
 }
 
 function exportKey (connectionId, key) {
