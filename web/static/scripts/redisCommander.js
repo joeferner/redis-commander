@@ -105,6 +105,11 @@ function loadTree () {
                                   jQuery.jstree.reference("#keyTree").refresh(obj);
                               }
                           },
+                          "export": {
+                              icon: './images/icon-download.png',
+                              label: 'Export Keys',
+                              action: exportKey
+                          },
                           "remKey": {
                               icon: './images/icon-trash.png',
                               label: 'Remove Key',
@@ -616,6 +621,26 @@ function addKey (connectionId, key) {
   setupAddKeyButton(connectionId);
 }
 
+function exportKey (connectionId, key) {
+  var node = null;
+  if (typeof (connectionId) === 'object') {
+    // context menu click
+    node = getKeyTree().get_node(connectionId.reference[0]);
+    key = getFullKeyPath(node);
+    connectionId = getRootConnection(node);
+  }
+  $.ajax({
+    method: 'GET',
+    url: 'tools/forms/export',
+    success: function (res) {
+      var body = $('#body')
+      body.html(res);
+      body.find('#connectionExportField option[value="' + connectionId + '"]').attr('selected', true);
+      body.find('#exportKeyPrefix').val(key);
+    }
+  });
+}
+
 function deleteKey (connectionId, key) {
   var node = null;
   if (typeof(connectionId) === 'object') {
@@ -792,7 +817,7 @@ function showHashField (connectionId, key, field) {
       return alert("Could not load key data");
     }
     if (typeof keyData === 'string') keyData = JSON.parse(keyData);
-    
+
     var deferredRow = $('tr[data-deferred-field="' + field + '"');
     if (deferredRow) {
       // inject the data into the view

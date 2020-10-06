@@ -2,9 +2,9 @@
 <h2>Import</h2>
 <form class="form-horizontal small-label" id="redisImportForm">
   <div class="control-group">
-    <label class="control-label" for="connectionExportField">Connection</label>
+    <label class="control-label" for="connectionImportField">Connection</label>
     <div class="controls">
-      <select name="connection" class="redisDumpSelect">
+      <select id="connectionImportField" name="connection" class="redisDumpSelect">
         <% connections.forEach(function(connection, index) {%>
         <% if (index == 0) { %>
         <option value="<%=connection.conId %>"><%=connection.label%> (<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>)</option>

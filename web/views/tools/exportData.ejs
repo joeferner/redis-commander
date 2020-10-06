@@ -1,10 +1,10 @@
 <div>
 <h2>Export</h2>
-<form class="form-horizontal small-label" id="redisExportForm">
+<form class="form-horizontal medium-label" id="redisExportForm">
   <div class="control-group">
     <label class="control-label" for="connectionExportField">Connection</label>
     <div class="controls">
-      <select name="connection" class="redisDumpSelect">
+      <select id="connectionExportField" name="connection" class="redisDumpSelect">
         <% connections.forEach(function(connection, index) {%>
         <% if (index == 0) { %>
         <option value="<%=connection.conId %>"><%=connection.label%> (<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>)</option>
@@ -12,6 +12,12 @@
         <option value="<%=connection.conId %>"><%=connection.label%> (<%=connection.options.host%>:<%=connection.options.port%>:<%=connection.options.db %>)</option>
         <% }}); %>
       </select>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="exportKeyPrefix">Key Prefix to Export</label>
+    <div class="controls">
+      <input id="exportKeyPrefix" name="keyPrefix" type="text" style="width:95%"/>
     </div>
   </div>
   <div class="control-group">
