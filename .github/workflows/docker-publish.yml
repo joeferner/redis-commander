@@ -37,8 +37,9 @@ jobs:
           password: "${{ secrets.DOCKER_PASSWORD }}"
         
       - name: build and push
-        uses: docker/build-push-action@v1.1.1
+        uses: docker/build-push-action@v2
         with:
+          context: .
           platforms: linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/386,linux/amd64
           push: true
           tag: milkyjoe93/redis-commander:latest
