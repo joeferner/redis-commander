@@ -11,7 +11,7 @@ function loadTree () {
       $('#keyTree').on('loaded.jstree', function () {
         var tree = getKeyTree();
         if (tree) {
-          var root = tree.get_container().children("ul:eq(0)").children("li");
+          var root = tree.get_container().children('ul:eq(0)').children('li');
           tree.open_node(root, null, true);
         }
       });
@@ -23,11 +23,11 @@ function loadTree () {
             // build root objects for jstree view on left side
             var treeObj = {
               id: instance.conId,
-              text: instance.label + " (" + instance.options.host + ":" + instance.options.port + ":" + instance.options.db + ")",
+              text: instance.label + ' (' + instance.options.host + ':' + instance.options.port + ':' + instance.options.db + ')',
               state: {opened: false},
               icon: getIconForType('root'),
               children: true,
-              rel: "root"
+              rel: 'root'
             };
             json_dataData.push(treeObj);
             return true;
@@ -94,34 +94,34 @@ function loadTree () {
               contextmenu: {
                   items: function (node) {
                       var menu = {
-                          "renameKey": {
+                          'renameKey': {
                             icon: './images/icon-edit.png',
-                            label: "Rename Key",
+                            label: 'Rename Key',
                             action: renameKey
                           },
-                          "addKey": {
+                          'addKey': {
                             icon: './images/icon-plus.png',
-                            label: "Add Key",
+                            label: 'Add Key',
                             action: addKey
                           },
-                          "refresh": {
+                          'refresh': {
                             icon: './images/icon-refresh.png',
-                            label: "Refresh",
+                            label: 'Refresh',
                             action: function (obj) {
-                                jQuery.jstree.reference("#keyTree").refresh(obj);
+                                jQuery.jstree.reference('#keyTree').refresh(obj);
                             }
                           },
-                          "export": {
+                          'export': {
                             icon: './images/icon-download.png',
                             label: 'Export Keys',
                             action: exportKey
                           },
-                          "remKey": {
+                          'remKey': {
                             icon: './images/icon-trash.png',
                             label: 'Remove Key',
                             action: deleteKey
                           },
-                          "remConnection": {
+                          'remConnection': {
                             icon: './images/icon-trash.png',
                             label: 'Disconnect',
                             action: removeServer
@@ -149,10 +149,10 @@ function loadTree () {
                       return menu;
                   }
               },
-              plugins: [ "themes", "contextmenu" ]
+              plugins: [ 'themes', 'contextmenu' ]
           })
           .on('select_node.jstree', treeNodeSelected)
-          .delegate("a", "click", function (event, data) {
+          .delegate('a', 'click', function (event, data2) {
             event.preventDefault();
           })
           .on('keyup', function (e) {
@@ -182,7 +182,7 @@ function treeNodeSelected (event, data) {
     $.get('apiv2/server/' + connectionId + '/info')
         .done(function (infoData, status) {
           if (status !== 'success') {
-            return alert("Could not load server info");
+            return alert('Could not load server info');
           }
           if (typeof infoData === 'string') infoData = JSON.parse(infoData);
           infoData.data.some(function (instance) {
@@ -252,24 +252,24 @@ function getRootConnection (node) {
 
 function loadKey (connectionId, key, index) {
   if (index) {
-    $.get('apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "?index=" + index)
+    $.get('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?index=' + index)
         .done(processData)
         .fail(errorHandler);
   } else {
-    $.get('apiv2/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key))
+    $.get('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key))
         .done(processData)
         .fail(errorHandler)
   }
 
   function processData (keyData, status) {
     if (status !== 'success') {
-      return alert("Could not load key data");
+      return alert('Could not load key data');
     }
 
     setRootConnectionNetworkError(false, getKeyTree().get_selected(true)[0]);
     if (typeof keyData === 'string') keyData = JSON.parse(keyData);
     keyData.connectionId = connectionId;
-    console.log("rendering type " + keyData.type);
+    console.log('rendering type ' + keyData.type);
     switch (keyData.type) {
       case 'string':
         selectTreeNodeString(keyData);
@@ -337,7 +337,7 @@ function setupEditDataModals(idForm, idSaveBtn) {
     })
     .fail(function (err) {
       console.log('save error', arguments);
-      alert("Could not save '" + err.statusText + "'");
+      alert('Could not save "' + err.statusText + '"');
     })
     .always(function () {
       setTimeout(function () {
@@ -376,7 +376,7 @@ function setupAddServerForm() {
   $('#addServerForm').off('submit').on('submit', function (event) {
     console.log('try connection to new redis server');
     event.preventDefault();
-    $('#addServerBtn').prop("disabled", true).html("<i class='icon-refresh'></i> Saving");
+    $('#addServerBtn').prop('disabled', true).html('<i class="icon-refresh"></i> Saving');
     var form = $(event.target);
     $.post(form.attr('action'), form.serialize())
         .done(function () {
@@ -396,12 +396,12 @@ function setupAddServerForm() {
           addServerError(err.statusText);
         })
         .always(function() {
-          $('#addServerBtn').prop("disabled", false).text("Connect...");
+          $('#addServerBtn').prop('disabled', false).text('Connect...');
         })
   });
 
   function addServerError(errMsg) {
-    alert("Could not connect to redis server '" + errMsg + "'");
+    alert('Could not connect to redis server "' + errMsg + '"');
     serverModal.modal('hide');
   }
 
@@ -466,9 +466,9 @@ function addNewKey() {
   var newKeyModal = $('#addKeyModal');
   var newKey = newKeyModal.find('#keyValue').val();
   var connectionId = newKeyModal.find('#addKeyConnectionId').val();
-  var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent(newKey);
+  var action = 'apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(newKey);
   console.log('saving new key ' + newKey);
-  newKeyModal.find('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
+  newKeyModal.find('#saveKeyButton').attr('disabled', 'disabled').html('<i class="icon-refresh"></i> Saving');
 
   $.ajax({
     url: action,
@@ -478,10 +478,10 @@ function addNewKey() {
     console.log('saved new key ' + newKey + ' at ' + connectionId);
   }).fail(function(jqXHR, textStatus, errorThrown) {
     console.log('save error for key ' + newKey + ': ' + textStatus);
-    alert("Could not save '" + errorThrown.statusText + "'");
+    alert('Could not save "' + errorThrown.statusText + '"');
   }).always(function() {
     setTimeout(function () {
-      newKeyModal.find('#saveKeyButton').removeAttr("disabled").html("Save");
+      newKeyModal.find('#saveKeyButton').removeAttr('disabled').html('Save');
       refreshTree();
       newKeyModal.modal('hide');
     }, 500);
@@ -494,9 +494,9 @@ function renameExistingKey() {
   var oldKey = modal.find('#currentKeyName').val();
   var newKey = modal.find('#renamedKeyName').val();
   var connectionId = modal.find('#renameKeyConnectionId').val();
-  var action = "apiv2/key/" + encodeURIComponent(connectionId) + "/" + encodeURIComponent(oldKey);
+  var action = 'apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(oldKey);
   console.log('renaming ' + oldKey + ' to new key ' + newKey);
-  modal.find('#renameKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
+  modal.find('#renameKeyButton').attr('disabled', 'disabled').html('<i class="icon-refresh"></i> Saving');
 
   $.ajax({
     url: action,
@@ -506,7 +506,7 @@ function renameExistingKey() {
     console.log('renamed old key ' + newKey + ' at ' + connectionId);
   }).fail(function(jqXHR, textStatus, errorThrown) {
     console.log('rename error for key ' + oldKey + ': ' + textStatus);
-    alert("Could not rename '" + errorThrown + "' (HTTP " + jqXHR.status + ")");
+    alert('Could not rename "' + errorThrown + '" (HTTP ' + jqXHR.status + ')');
   }).always(function(data, textStatus) {
     // close modal for most return values incl. success
     // but stay open if error message returned (key exists without overwrite)
@@ -520,7 +520,7 @@ function renameExistingKey() {
         modal.modal('hide');
       }, 500);
     }
-    modal.find('#renameKeyButton').removeAttr("disabled").html("Save");
+    modal.find('#renameKeyButton').removeAttr('disabled').html('Save');
   });
 }
 
@@ -552,21 +552,21 @@ function selectTreeNodeString (data) {
         console.log('saving');
         event.preventDefault();
         var editForm = $(event.target);
-        $('#saveKeyButton').attr("disabled", "disabled").html("<i class='icon-refresh'></i> Saving");
+        $('#saveKeyButton').attr('disabled', 'disabled').html('<i class="icon-refresh"></i> Saving');
 
         $.post(editForm.attr('action'), editForm.serialize()
-        ).done(function(data, status) {
+        ).done(function(data2, status) {
           console.log('saved', arguments);
           refreshTree();
           getKeyTree().select_node(0);
         })
         .fail(function(err) {
           console.log('save error', arguments);
-          alert("Could not save '" + err.statusText + "'");
+          alert('Could not save "' + err.statusText + '"');
         })
         .always(function() {
           setTimeout(function() {
-            $('#saveKeyButton').removeAttr("disabled").html("Save");
+            $('#saveKeyButton').removeAttr('disabled').html('Save');
           }, 500);
         });
       });
@@ -727,7 +727,7 @@ function deleteKey (connectionId, key) {
   if (result) {
     $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
       if (status !== 'success') {
-        return alert("Could not delete key");
+        return alert('Could not delete key');
       }
 
       refreshTree();
@@ -747,7 +747,7 @@ function decodeKey (connectionId, key) {
 
   $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=decode', function (data, status) {
     if (status !== 'success') {
-      return alert("Could not decode key");
+      return alert('Could not decode key');
     }
 
     $('#base64Button').html('Encode <small>base64</small>')
@@ -762,7 +762,7 @@ function decodeKey (connectionId, key) {
 function encodeString (connectionId, key) {
   $.post('apiv2/encodeString/' + encodeURIComponent($('#stringValue').val()), function (data, status) {
     if (status !== 'success') {
-      return alert("Could not encode key");
+      return alert('Could not encode key');
     }
 
     // needed to debounce
@@ -782,9 +782,9 @@ function deleteBranch (connectionId, branchPrefix) {
   var query = (branchPrefix.endsWith(foldingCharacter) ? branchPrefix : branchPrefix + foldingCharacter) + '*';
   var result = confirm('Are you sure you want to delete "' + query + '" from "' + node.text + '"? This will delete all children as well!');
   if (result) {
-    $.post('apiv2/keys/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(query) + '?action=delete', function (data, status) {
+    $.post('apiv2/keys/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(query) + '?action=delete', function (data, status) {
       if (status !== 'success') {
-        return alert("Could not delete branch");
+        return alert('Could not delete branch');
       }
 
       refreshTree();
@@ -795,7 +795,7 @@ function deleteBranch (connectionId, branchPrefix) {
 }
 function addListValue (connectionId, key) {
   $('#key').val(key);
-  $('#addListValue').val("");
+  $('#addListValue').val('');
   $('#addListConnectionId').val(connectionId);
   $('#addListValueModal').modal('show');
 }
@@ -812,7 +812,7 @@ function editListValue (connectionId, key, index, value) {
 
 function addSetMember (connectionId, key) {
   $('#addSetKey').val(key);
-  $('#addSetMemberName').val("");
+  $('#addSetMemberName').val('');
   $('#addSetConnectionId').val(connectionId);
   $('#addSetMemberModal').modal('show');
 }
@@ -829,8 +829,8 @@ function editSetMember (connectionId, key, member) {
 
 function addZSetMember (connectionId, key) {
     $('#addZSetKey').val(key);
-    $('#addZSetScore').val("");
-    $('#addZSetMemberName').val("");
+    $('#addZSetScore').val('');
+    $('#addZSetMemberName').val('');
     $('#addZSetConnectionId').val(connectionId);
     $('#addZSetMemberModal').modal('show');
 }
@@ -849,16 +849,16 @@ function editZSetMember (connectionId, key, score, value) {
 function addXSetMember (connectionId, key) {
   $('#addXSetKey').val(key);
   $('#addXSetTimestamp').val(Date.now()+'-0');
-  $('#addXSetField').val("");
-  $('#addXSetValue').val("");
+  $('#addXSetField').val('');
+  $('#addXSetValue').val('');
   $('#addXSetConnectionId').val(connectionId);
   $('#addXSetMemberModal').modal('show');
 }
 
 function addHashField (connectionId, key) {
     $('#addHashKey').val(key);
-    $('#addHashFieldName').val("");
-    $('#addHashFieldValue').val("");
+    $('#addHashFieldName').val('');
+    $('#addHashFieldValue').val('');
     $('#addHashConnectionId').val(connectionId);
     $('#addHashFieldModal').modal('show');
 }
@@ -874,13 +874,13 @@ function editHashField (connectionId, key, field, value) {
 }
 
 function showHashField (connectionId, key, field) {
-  $.get('apiv2/hash/key/' + encodeURIComponent(connectionId) + "/" + encodeURIComponent(key) + "?field=" + encodeURIComponent(field))
+  $.get('apiv2/hash/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?field=' + encodeURIComponent(field))
       .done(processData)
       .fail(errorHandler)
 
   function processData (keyData, status) {
     if (status !== 'success') {
-      return alert("Could not load key data");
+      return alert('Could not load key data');
     }
     if (typeof keyData === 'string') keyData = JSON.parse(keyData);
 
@@ -967,7 +967,7 @@ function removeXSetElement (connectionId, key, timestamp) {
   })
   .fail(function(err) {
     console.log('delete stream entry error', arguments);
-    alert("Could not delete stream member at timestamp " + timestamp + ': ' + err.statusText);
+    alert('Could not delete stream member at timestamp ' + timestamp + ': ' + err.statusText);
   });
 }
 
@@ -1007,13 +1007,13 @@ var redisCli = {
       redisCli.hideCommandLineOutput();
     });
 
-    var readline = require("readline-browserify");
+    var readline = require('readline-browserify');
     var output = document.getElementById('commandLineOutput');
     var rl = readline.createInterface({
       elementId: 'commandLine',
       write: function(data) {
         if (output.innerHTML.length > 0) {
-          output.innerHTML += "<br>";
+          output.innerHTML += '<br>';
         }
         output.innerHTML += escapeHtml(data);
         output.scrollTop = output.scrollHeight;
@@ -1026,23 +1026,23 @@ var redisCli = {
     rl.prompt();
     rl.on('line', function(line) {
       if (output.innerHTML.length > 0) {
-        output.innerHTML += "<br>";
+        output.innerHTML += '<br>';
       }
-      output.innerHTML += "<span class='commandLineCommand'>" + escapeHtml(line) + "</span>";
+      output.innerHTML += '<span class="commandLineCommand">' + escapeHtml(line) + '</span>';
 
       line = line.trim();
 
       if (line.toLowerCase() === 'refresh') {
         rl.prompt();
         refreshTree();
-        rl.write("OK");
+        rl.write('OK');
       }
       else {
         $.post('apiv2/exec/' + encodeURIComponent($('#selectedConnection').val()), {cmd: line}, function(execData, status) {
           rl.prompt();
 
           if (status !== 'success') {
-            return alert("Could not delete branch");
+            return alert('Could not delete branch');
           }
 
           try {
@@ -1055,7 +1055,7 @@ var redisCli = {
           if (execData.hasOwnProperty('data')) execData = execData.data;
           if (Array.isArray(execData)) {
             for (var i = 0; i < execData.length; i++) {
-              rl.write((i + 1) + ") " + JSON.stringify(execData[i]));
+              rl.write((i + 1) + ') ' + JSON.stringify(execData[i]));
             }
           }
           else {
@@ -1069,7 +1069,7 @@ var redisCli = {
 
   setupCLIKeyEvents: function setupCLIKeyEvents() {
     var ctrl_down = false;
-    var isMac = navigator.appVersion.indexOf("Mac") !== -1;
+    var isMac = navigator.appVersion.indexOf('Mac') !== -1;
     var cli = $('#_readline_cliForm input');
     cli.on('keydown', function (e) {
       var key = e.which;
@@ -1162,7 +1162,7 @@ function addInputValidator(inputId, format, currentState) {
     setValidationClasses(input.get(0), currentState);
   }
   else {
-    input.trigger( "keyup" );
+    input.trigger('keyup');
   }
 }
 
@@ -1326,9 +1326,9 @@ function initCmdParser() {
   let parserOpts = {
     key: function (partial, callback) {
       var redisConnection = $('#selectedConnection').val();
-      $.get('apiv2/keys/' + encodeURIComponent(redisConnection) + "/" + partial + '*?limit=20', function (keyData, status) {
+      $.get('apiv2/keys/' + encodeURIComponent(redisConnection) + '/' + partial + '*?limit=20', function (keyData, status) {
         if (status !== 'success') {
-          return callback(new Error("Could not get keys"));
+          return callback(new Error('Could not get keys'));
         }
         var retData = null;
         if (typeof keyData === 'string') retData = JSON.parse(keyData);
@@ -1373,7 +1373,7 @@ function removeServer (connectionId) {
   if (result) {
     $.post('logout/' + encodeURIComponent(connectionId), function (err, status) {
       if (status !== 'success') {
-        return alert("Could not remove instance");
+        return alert('Could not remove instance');
       }
       $(window).off('beforeunload', 'clearStorage');
       location.reload();
@@ -1464,8 +1464,8 @@ function detectServerDB() {
 }
 
 function loadDefaultServer (host, port) {
-  console.log("host" + host);
-  console.log("port" + port);
+  console.log('host ' + host);
+  console.log('port ' + port);
   $('#hostname').val(host);
   $('#port').val(port);
   $('#addServerForm').submit();
@@ -1543,7 +1543,7 @@ function resizeApp () {
 
 function setupResizeEvents () {
   var sidebarResizing = false;
-  var sidebarFrame = $("#sideBar").width();
+  var sidebarFrame = $('#sideBar').width();
   var commandResizing = false;
   var commandFrame = $('#commandLineOutput').height();
 
@@ -1552,28 +1552,28 @@ function setupResizeEvents () {
 
   $(document).mouseup(function (event) {
     sidebarResizing = false;
-    sidebarFrame = $("#sideBar").width();
+    sidebarFrame = $('#sideBar').width();
     commandResizing = false;
     commandFrame = $('#commandLineOutput').height();
     $('body').removeClass('select-disabled');
   });
 
-  $("#sidebarResize").mousedown(function (event) {
+  $('#sidebarResize').mousedown(function (event) {
     sidebarResizing = event.pageX;
     $('body').addClass('select-disabled');
   });
 
-  $("#commandLineBorder").mousedown(function (event) {
+  $('#commandLineBorder').mousedown(function (event) {
     commandResizing = event.pageY;
     $('body').addClass('select-disabled');
   });
 
   $(document).mousemove(function (event) {
     if (sidebarResizing) {
-      $("#sideBar").width(sidebarFrame - (sidebarResizing - event.pageX));
+      $('#sideBar').width(sidebarFrame - (sidebarResizing - event.pageX));
     } else if (commandResizing &&
       $('#commandLineOutput').is(':visible')) {
-      $("#commandLineOutput").height(commandFrame + (commandResizing - event.pageY));
+      $('#commandLineOutput').height(commandFrame + (commandResizing - event.pageY));
       resizeApp();
     }
   });
@@ -1599,14 +1599,14 @@ $(function() {
   function refreshQueryToken() {
     $.post('signin', {}, function (data, status) {
       if ((status !== 'success') || !data || !data.ok) {
-        console.error("Cannot refresh query token");
+        console.error('Cannot refresh query token');
         return;
       }
       sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
       sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
     })
     .fail(function(err) {
-      console.error("Failed to refresh query token", err);
+      console.error('Failed to refresh query token', err);
     });
   }
 
@@ -1614,7 +1614,7 @@ $(function() {
    * Export redis data.
    */
   $('#app-container').on('submit', '#redisExportForm', function () {
-    window.open("tools/export?" + $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken')), '_blank');
+    window.open('tools/export?' + $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken')), '_blank');
     refreshQueryToken();
     return false;
   });
