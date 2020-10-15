@@ -3,6 +3,7 @@
 var CmdParser = require('cmdparser');
 var cmdparser;
 var losslessJSON = require('lossless-json');
+var simpleObjRE = /^\s*[{\[]/;
 
 function loadTree () {
   $.get('apiv2/connection', function (isConnected) {
@@ -529,7 +530,7 @@ function selectTreeNodeString (data) {
     var isJsonParsed = false;
     try {
       var jsonObject = data.value;
-      if (jsonObject.match(/^\s*[{\[]/)) {
+      if (jsonObject.match(simpleObjRE)) {
         jsonObject = losslessJSON.parse(data.value, losslessJsonReviver);
         isJsonParsed = true;
       }
@@ -542,7 +543,7 @@ function selectTreeNodeString (data) {
 
     $('#stringValue').val(data.value);
     // a this is json now assume it shall be json if it is object or array, but not for numbers
-    if (isJsonParsed && data.value.match(/^\s*[{\[]/)) {
+    if (isJsonParsed && data.value.match(simpleObjRE)) {
       $('#isJson').click();
     }
 
@@ -921,7 +922,7 @@ function enableJsonValidationCheck(value, isJsonCheckBox) {
     // can use normal json.parse here as some bigint values changing are not relevant
     JSON.parse(value);
     // if this is valid json and is array or object assume we want validation active
-    if (value.match(/^\s*[{\[]/)) {
+    if (value.match(simpleObjRE)) {
       $(isJsonCheckBox).click();
     }
   }

@@ -253,8 +253,8 @@ if(args['clear-config']) {
     if (err) {
       console.log('Failed to delete existing local.json config file.');
     }
-    myUtils.deleteConfig('connections', function(err) {
-      if (err) {
+    myUtils.deleteConfig('connections', function(err2) {
+      if (err2) {
         console.log('Failed to delete existing local-<hostname>.json config file.');
       }
 
@@ -320,11 +320,11 @@ if (startServer) {
  *  Some params like port and db are check if they are valid values (if set), otherwise the entire program will exit
  *  with an error message.
  *
- * @param {Array} args list of params as given on command line
+ * @param {Array} argList list of params as given on command line
  * @return {null|object} returns "null" if no usable connection data are found, an object to feed into redis client
  *   otherwise to create a new connection.
  */
-function createConnectionObjectFromArgs(args) {
+function createConnectionObjectFromArgs(argList) {
   // check if ports and dbIndex given are valid, must be done here as redis connection params from cli are not added
   // to config object and tested later together with everything else from config
   let checkPortInvalid = function(portString, paramName) {
@@ -355,53 +355,53 @@ function createConnectionObjectFromArgs(args) {
   };
   // sometimes redis_port is automatically set to something like 'tcp://10.2.3.4:6379'
   // parse this and update args accordingly
-  if (typeof args['redis-port'] === 'string' && args['redis-port'].startsWith('tcp://')) {
+  if (typeof argList['redis-port'] === 'string' && argList['redis-port'].startsWith('tcp://')) {
     console.log('Found long tcp port descriptor with hostname in redis-port param, parse this as host and port value');
-    let parts = args['redis-port'].split(':');
-    args['redis-port'] = parts[2];
-    args['redis-host'] = parts[1].substring(2);
+    let parts = argList['redis-port'].split(':');
+    argList['redis-port'] = parts[2];
+    argList['redis-host'] = parts[1].substring(2);
   }
   // now some validity checks - exits on failure with error message
-  if (checkPortInvalid(args['redis-port'], 'redis-port') ||
-      checkPortInvalid(args['sentinel-port'], 'sentinel-port') ||
-      checkDbIndexInvalid(args['redis-db'], 'redis-db')) {
+  if (checkPortInvalid(argList['redis-port'], 'redis-port') ||
+      checkPortInvalid(argList['sentinel-port'], 'sentinel-port') ||
+      checkDbIndexInvalid(argList['redis-db'], 'redis-db')) {
     process.exit(1)
   }
 
   // now create connection object if enough params are set
   let connObj = null;
-  if (args['sentinel-host'] || args['sentinels'] || args['redis-host'] || args['redis-port'] || args['redis-socket']
-    || args['redis-password'] || args['redis-db']) {
+  if (argList['sentinel-host'] || argList['sentinels'] || argList['redis-host'] || argList['redis-port'] || argList['redis-socket']
+    || argList['redis-password'] || argList['redis-db']) {
 
-    let db = parseInt(args['redis-db']);
+    let db = parseInt(argList['redis-db']);
     connObj = {
       label: config.get('redis.defaultLabel'),
       dbIndex: Number.isNaN(db) ? 0 : db,
-      password: args['redis-password'] || '',
+      password: argList['redis-password'] || '',
       connectionName: config.get('redis.connectionName'),
-      optional: args['redis-optional']
+      optional: argList['redis-optional']
     };
 
-    if (args['redis-socket']) {
-      connObj.path = args['redis-socket'];
+    if (argList['redis-socket']) {
+      connObj.path = argList['redis-socket'];
     }
     else {
-      connObj.host = args['redis-host'] || 'localhost';
-      connObj.port = args['redis-port'] || 6379;
+      connObj.host = argList['redis-host'] || 'localhost';
+      connObj.port = argList['redis-port'] || 6379;
       connObj.port = parseInt(connObj.port);
-      connObj.sentinelPassword = args['sentinel-password'] || '';
-      if (args['sentinels']) {
-        connObj.sentinels = myUtils.parseRedisSentinel('--sentinels', args['sentinels']);
-        connObj.sentinelName = args['sentinel-name'] || config.get('redis.defaultSentinelGroup');
+      connObj.sentinelPassword = argList['sentinel-password'] || '';
+      if (argList['sentinels']) {
+        connObj.sentinels = myUtils.parseRedisSentinel('--sentinels', argList['sentinels']);
+        connObj.sentinelName = argList['sentinel-name'] || config.get('redis.defaultSentinelGroup');
       }
-      else if (args['sentinel-host']) {
+      else if (argList['sentinel-host']) {
         connObj.sentinels = myUtils.parseRedisSentinel('--sentinel-host or --sentinel-port',
-          args['sentinel-host'] + ':' + args['sentinel-port']);
-        connObj.sentinelName = args['sentinel-name'] || config.get('redis.defaultSentinelGroup');
+          argList['sentinel-host'] + ':' + argList['sentinel-port']);
+        connObj.sentinelName = argList['sentinel-name'] || config.get('redis.defaultSentinelGroup');
       }
     }
 
-    if (args['redis-tls']) {
+    if (argList['redis-tls']) {
       connObj.tls = {};
     }
   }
