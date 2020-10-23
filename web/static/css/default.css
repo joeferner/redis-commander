@@ -17,7 +17,7 @@ body {
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333333), to(#222222));
   background-image: -webkit-linear-gradient(top, #333333, #222222);
   background-image: -o-linear-gradient(top, #333333, #222222);
-  background-image: linear-gradient(top, #333333, #222222);
+  background-image: linear-gradient(to top, #333333, #222222);
   background-repeat: repeat-x;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -135,7 +135,7 @@ body {
   color: #888;
   font-size: 12px;
   padding-left: 15px;
-  font-family: Menlo, "monospace","Courier New";
+  font-family: Menlo, "Courier New", monospace;
 }
 
 #commandLineContainer .btn {
@@ -146,7 +146,7 @@ body {
   color: #888;
   font-size: 12px;
   padding-left: 15px;
-  font-family: Menlo, "monospace","Courier New";
+  font-family: Menlo, "Courier New", monospace;
 }
 
 #commandLineOutput {
@@ -154,7 +154,7 @@ body {
   font-size: 12px;
   display: none;
   padding-left: 15px;
-  font-family: Menlo, "monospace","Courier New";
+  font-family: Menlo, "Courier New", monospace;
   overflow: scroll;
 }
 
@@ -164,7 +164,7 @@ body {
   color: #333;
   font-weight: bold;
   font-size: 12px;
-  font-family: Menlo, "monospace","Courier New";
+  font-family: Menlo, "Courier New", monospace;
 }
 
 .autocompletePopup {
