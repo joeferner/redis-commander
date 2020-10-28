@@ -6,6 +6,8 @@ replicaCount: 1
 image:
   repository: rediscommander/redis-commander
   pullPolicy: Always
+  # enable AppArmor per default when available on k8s host, change to "unconfined" to disable
+  apparmorProfile: runtime/default
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 

@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "redis-commander.fullname" . }}
+  annotations:
+    container.apparmor.security.beta.kubernetes.io/redis-commander: {{ .Values.image.apparmorProfile }}
   labels:
     {{- include "redis-commander.labels" . | nindent 4 }}
 spec:
