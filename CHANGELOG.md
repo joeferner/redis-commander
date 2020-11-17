@@ -5,6 +5,8 @@
 * update handling of big numbers displayed as json formatted values. For big numbers wrong values may be shown, #400 
 * increase width of cli input to use full with available, #404 
 * fix problem not setting sentinel password from command line, #416
+* fix missing quotes for keys with backslash, #421
+* fix possible bug comparing sentinel connections
 
 #### Enhancements
 * Adding maxHashFieldSize config to limit the size of hash fields, #409 (chrisregnier)

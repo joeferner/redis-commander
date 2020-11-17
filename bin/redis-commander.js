@@ -392,12 +392,12 @@ function createConnectionObjectFromArgs(argList) {
       connObj.sentinelPassword = argList['sentinel-password'] || '';
       if (argList['sentinels']) {
         connObj.sentinels = myUtils.parseRedisSentinel('--sentinels', argList['sentinels']);
-        connObj.sentinelName = argList['sentinel-name'] || config.get('redis.defaultSentinelGroup');
+        connObj.sentinelName = myUtils.getRedisSentinelGroupName(argList['sentinel-name']);
       }
       else if (argList['sentinel-host']) {
         connObj.sentinels = myUtils.parseRedisSentinel('--sentinel-host or --sentinel-port',
           argList['sentinel-host'] + ':' + argList['sentinel-port']);
-        connObj.sentinelName = argList['sentinel-name'] || config.get('redis.defaultSentinelGroup');
+        connObj.sentinelName = myUtils.getRedisSentinelGroupName(argList['sentinel-name']);
       }
     }
 

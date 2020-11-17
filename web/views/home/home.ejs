@@ -77,7 +77,7 @@
       </div>
       <div id="addServerGroupSentinel">
         <label for="sentinelName">Sentinel Group Name</label>
-        <input type="text" name="sentinelName" id="sentinelName" value="mymaster" class="span6" required>
+        <input type="text" name="sentinelName" id="sentinelName" value="<%= sentinelDefaultGroupName %>" class="span6" required>
         <label for="sentinels">List of sentinels</label>
         <input type="text" name="sentinels" id="sentinels" value="localhost:26379" class="span6" required>
         <div>Add comma-separated list of sentinels with "host-1:port,host-2 ..."</div>

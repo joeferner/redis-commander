@@ -51,7 +51,7 @@ interface of Redis Commander.
 | redis.rootPattern | string | '*' | filter pattern to use at start, can be used to exclude some date inside redis db |
 | redis.connectionName | string | 'redis-commander' | connection name to set at redis client for easier identification of clients at redis server (command "client list") |
 | redis.defaultLabel | string | 'local' | default label to display for a connection if no label is specified (e.g. for connection from env vars or command line) |
-| redis.defaultSentinelGroup | string | 'mymaster' | default redis database group if using sentinels to connect and no special database group via connection param 'sentinelGroup' is given. |
+| redis.defaultSentinelGroup | string | 'mymaster' | default redis database group if using sentinels to connect and no special database group via connection param 'sentinelName' is given. |
 
 ### 4. Express HTTP Server parameter
 
