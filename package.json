@@ -45,7 +45,7 @@
     "opener": "1.5.2",
     "readline-browserify": "0.0.4",
     "sf": "0.2.0",
-    "yargs": "15.4.1"
+    "yargs": "16.0.0"
   },
   "optionalDependencies": {
     "bcrypt": "~5.0.0"
