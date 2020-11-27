@@ -2,6 +2,8 @@
 
 Redis web management tool written in node.js
 
+![GUI image](./docs/GUI_EXAMPLE.png)
+
 # Install and Run
 
 ```bash
