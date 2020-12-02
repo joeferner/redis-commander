@@ -29,7 +29,7 @@
         <td><%= field %></td>
         <% console.log(field);%>
         <% console.log(data[field]);%>
-        <td id="plain_<%= field %>" class="text-renderer">
+        <td id="plain_<%= field %>" class="text-renderer" data-value="<%= data[field]%>">
           <% if (data[field] !== null) { %>
             <%= data[field] %>
           <% } else { %>
@@ -54,7 +54,7 @@
           return;
         }
         var field = row.children[0].innerHTML.toString();
-        var value = row.children[1].innerHTML.toString();
+        var value = row.children[1].dataset.value;
         editHashField(connectionId, key, field, value);
       });
     }
