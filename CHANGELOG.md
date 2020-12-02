@@ -8,6 +8,7 @@
 * fix missing quotes for keys with backslash, #421
 * fix possible bug comparing sentinel connections
 * block "monitor" at cli to not block redis connections, #424
+* fix bug showing additional white spaces in edit hash popup, #426
 
 #### Enhancements
 * Adding maxHashFieldSize config to limit the size of hash fields, #409 (chrisregnier)
