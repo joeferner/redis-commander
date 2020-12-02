@@ -29,13 +29,11 @@
         <td><%= field %></td>
         <% console.log(field);%>
         <% console.log(data[field]);%>
-        <td id="plain_<%= field %>" class="text-renderer">
-          <% if (data[field] !== null) { %>
-            <%= data[field] %>
-          <% } else { %>
+        <td id="plain_<%= field %>" class="text-renderer"><%_ if (data[field] !== null) { _%>
+<%= data[field] -%>
+          <%_ } else { _%>
             <a data-deferred-field="<%= field %>">This is a large field. Click here to view.</a>
-          <% } %>
-        </td>
+        <%_ } _%></td>
         <td id="jqtree_<%= field %>" class="json-renderer" style="display:none;">loading ...</td>
       </tr>
     <% } %>
