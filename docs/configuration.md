@@ -59,7 +59,7 @@ interface of Redis Commander.
 |---|---|---|---|
 | server.address | string | '0.0.0.0' | ip address of interface to bind http server to, use 0.0.0.0 to bind to all interfaces |
 | server.port | number | 8081 | port to listen on for HTTP server |
-| server.urlPrefix | string | '/' | path prefix to run Redis Commander at, can be used if run behind a reverse proxy with different path set (e.g. /rc) |
+| server.urlPrefix | string | '' | path prefix to run Redis Commander at, can be used if run behind a reverse proxy with different path set (e.g. /rc), if set must start with '/' |
 | server.trustProxy | boolean or string | false | should be set to true if run behind a reverse proxy and 'X-Forwarded-For' headers shall be trusted to get real client ip for logging, this parameter maps directly to the Express "trust proxy" setting (https://expressjs.com/de/guide/behind-proxies.html)|
 | server.clientMaxBodySize | number or string | '100kb' | number in bytes or a string with size and SI-unit, this parameter maps to the "limit" options of body-parser (https://github.com/expressjs/body-parser#limit) |
 | server.auth | object |  | see section 4.1 Authentication  |

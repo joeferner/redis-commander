@@ -9,6 +9,8 @@
 * fix possible bug comparing sentinel connections
 * block "monitor" at cli to not block redis connections, #424
 * fix bug showing additional white spaces in edit hash popup, #426
+* fix bug wih config validation for boolean values
+* validate urlPrefix config param given for correct use of slashes (start+trailing), #419
 
 #### Enhancements
 * Adding maxHashFieldSize config to limit the size of hash fields, #409 (chrisregnier)

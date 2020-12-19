@@ -3,16 +3,27 @@
 'use strict';
 
 // fix the cwd to project base dir for browserify and config loading
-let path = require('path');
+const path = require('path');
 process.chdir( path.join(__dirname, '..') );
 
 const config = require('config');
 const http = require('http');
+const util = require('./../lib/util');
 
-let port = (config.has('server.port') ? config.get('server.port') : null) || '127.0.0.1';
-let host = (config.has('server.address') ? config.get('server.address') : null);
+// will fail if config is invalid - than redis commander itself cannot run too, therefore healthcheck would fail also
+// needed to fix potential problems with port/urlPrefix and so on
+try {
+  util.validateConfig();
+}
+catch(e) {
+  console.error(e.message);
+  process.exit(1);
+}
+
+let host = config.get('server.address');
 if (!host || host === '0.0.0.0' || host === '::') host =  '127.0.0.1';
-let urlPrefix = (config.has('server.urlPrefix') ? config.get('server.urlPrefix') : null) ||'';
+let port = config.get('server.port');
+let urlPrefix = config.get('server.urlPrefix');
 
 http.get(`http://${host}:${port}${urlPrefix}/healthcheck`, (resp) => {
   let data = '';
@@ -25,7 +36,7 @@ http.get(`http://${host}:${port}${urlPrefix}/healthcheck`, (resp) => {
   resp.on('end', () => {
     if (data.trim() === 'ok') process.exit(0);
     else {
-      console.log('got unexprected response from server: ' + data);
+      console.log('got unexpected response from server: ' + data);
       process.exit(1);
     }
   });

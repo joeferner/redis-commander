@@ -576,10 +576,6 @@ function connectToDB (redisConnection, db) {
 
 function startWebApp () {
   let urlPrefix = config.get('server.urlPrefix');
-  if (urlPrefix && !urlPrefix.startsWith('/')) {
-    console.log("url-prefix must begin with leading '/'");
-    process.exit();
-  }
   console.log("No Save: " + config.get('noSave'));
   let app = require('../lib/app');
   let appInstance = app(redisConnections);
