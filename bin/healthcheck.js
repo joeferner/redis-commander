@@ -6,6 +6,7 @@
 const path = require('path');
 process.chdir( path.join(__dirname, '..') );
 
+process.env.ALLOW_CONFIG_MUTATIONS = true;
 const config = require('config');
 const http = require('http');
 const util = require('./../lib/util');

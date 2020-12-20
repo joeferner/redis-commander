@@ -3,9 +3,9 @@
 ## Next Version
 #### Bugfixes
 * update handling of big numbers displayed as json formatted values. For big numbers wrong values may be shown, #400 
-* increase width of cli input to use full with available, #404 
+* increase width of cli input to use full width available, #404 
 * fix problem not setting sentinel password from command line, #416
-* fix missing quotes for keys with backslash, #421
+* fix missing quotes for keys with a backslash, #421
 * fix possible bug comparing sentinel connections
 * block "monitor" at cli to not block redis connections, #424
 * fix bug showing additional white spaces in edit hash popup, #426
