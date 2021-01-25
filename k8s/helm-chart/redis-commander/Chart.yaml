@@ -1,3 +1,4 @@
+---
 apiVersion: v2
 name: redis-commander
 description: A Helm chart for redis-commander

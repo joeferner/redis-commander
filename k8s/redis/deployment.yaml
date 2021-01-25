@@ -1,4 +1,5 @@
-apiVersion: extensions/v1beta1
+---
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
@@ -14,9 +15,9 @@ spec:
         tier: backend
     spec:
       containers:
-      - name: redis
-        image: redis
-        imagePullPolicy: IfNotPresent
-        ports:
         - name: redis
-          containerPort: 6379
+          image: redis
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: redis
+              containerPort: 6379

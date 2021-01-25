@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,32 +21,31 @@ spec:
         tier: backend
     spec:
       containers:
-      - name: redis-commander
-        image: rediscommander/redis-commander
-        imagePullPolicy: Always
-        env:
-        - name: REDIS_HOSTS
-          value: "instance1:redis:6379"
-        - name: K8S_SIGTERM
-          value: "1"
-        ports:
         - name: redis-commander
-          containerPort: 8081
-        livenessProbe:
-          httpGet:
-            path: /favicon.png
-            port: 8081
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-        #resources:
-        #  limits:
-        #    cpu: "500m"
-        #    memory: "512M"
-        securityContext:
-          runAsNonRoot: true
-          readOnlyRootFilesystem: false
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - ALL
-
+          image: rediscommander/redis-commander
+          imagePullPolicy: Always
+          env:
+            - name: REDIS_HOSTS
+              value: "instance1:redis:6379"
+            - name: K8S_SIGTERM
+              value: "1"
+          ports:
+            - name: redis-commander
+              containerPort: 8081
+          livenessProbe:
+            httpGet:
+              path: /favicon.png
+              port: 8081
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+          # resources:
+          #   limits:
+          #     cpu: "500m"
+          #     memory: "512M"
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: false
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL

@@ -1,3 +1,4 @@
+---
 version: '3'
 services:
   redis:
@@ -12,6 +13,6 @@ services:
     build: .
     restart: always
     environment:
-    - REDIS_HOSTS=local:redis:6379
+      - REDIS_HOSTS=local:redis:6379
     ports:
-    - "8081:8081"
+      - "8081:8081"
