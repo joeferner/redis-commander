@@ -2,6 +2,10 @@
 
 ## Next Version
 #### Bugfixes
+#### Enhancements
+
+## Version 0.7.1
+#### Bugfixes
 * update handling of big numbers displayed as json formatted values. For big numbers wrong values may be shown, #400 
 * increase width of cli input to use full width available, #404 
 * fix problem not setting sentinel password from command line, #416
