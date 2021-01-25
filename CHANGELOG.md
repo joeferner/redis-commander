@@ -22,6 +22,7 @@
 * allow partial export of redis data
 * add function to rename existing keys, #378
 * update dependencies to fix vulnerabilities in multiple packages
+* better handle special chars and spaces inside env vars given to docker container
 
 ## Version 0.7.0
 #### Bugfixes

@@ -6,7 +6,7 @@ set -e
 # https://github.com/ellerbrock/docker-collection/tree/master/dockerfiles/alpine-harden
 
 # Be informative after successful login.
-echo -e "\n\nApp container image built on $(date)." > /etc/motd
+printf "\n\nApp container image built on %s." "$(date)" > /etc/motd
 
 # Improve strength of diffie-hellman-group-exchange-sha256 (Custom DH with SHA2).
 # See https://stribika.github.io/2015/01/04/secure-secure-shell.html
@@ -16,7 +16,7 @@ echo -e "\n\nApp container image built on $(date)." > /etc/motd
 #
 # This file is provided by the openssh package on Fedora.
 moduli=/etc/ssh/moduli
-if [[ -f ${moduli} ]]; then
+if [ -f ${moduli} ]; then
   cp ${moduli} ${moduli}.orig
   awk '$5 >= 2000' ${moduli}.orig > ${moduli}
   rm -f ${moduli}.orig
@@ -47,7 +47,7 @@ sed -i -r "/^(${SERVICE_USER}|root|sshd)/!d" /etc/group
 sed -i -r "/^(${SERVICE_USER}|root|sshd)/!d" /etc/passwd
 
 # Remove interactive login shell for everybody but user.
-sed -i -r '/^'${SERVICE_USER}':/! s#^(.*):[^:]*$#\1:/sbin/nologin#' /etc/passwd
+sed -i -r "/^${SERVICE_USER}:/! s#^(.*):[^:]*\$#\1:/sbin/nologin#" /etc/passwd
 
 sysdirs="
   /bin
