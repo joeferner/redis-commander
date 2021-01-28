@@ -38,6 +38,7 @@
   "sso": {
     "enabled": false,
     "jwtSharedSecret": "",
+    "jwtAlgorithms": ["HS256", "HS384", "HS512"],
     "allowedIssuer": "",
     "audience": "",
     "subject": ""

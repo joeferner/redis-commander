@@ -3,7 +3,8 @@
 ## Next Version
 #### Bugfixes
 #### Enhancements
-
+* check for jwt token algorithms used to reject "none" algorithm 
+ 
 ## Version 0.7.1
 #### Bugfixes
 * update handling of big numbers displayed as json formatted values. For big numbers wrong values may be shown, #400 

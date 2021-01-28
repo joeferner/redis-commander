@@ -320,7 +320,7 @@ if (startServer) {
  *  Some params like port and db are check if they are valid values (if set), otherwise the entire program will exit
  *  with an error message.
  *
- * @param {Array} argList list of params as given on command line
+ * @param {object} argList object of params as given on command line as parsed by yargs
  * @return {null|object} returns "null" if no usable connection data are found, an object to feed into redis client
  *   otherwise to create a new connection.
  */
