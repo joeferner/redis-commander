@@ -29,7 +29,7 @@
 <script type="text/javascript">
   $(document).ready(function () {
     if (!redisReadOnly) {
-      $('.table tbody tr').dblclick(function(event) {
+      $('.table tbody tr').on('dblclick', function(event) {
         var row = event.currentTarget;
         var member = row.children[0].innerHTML.toString();
         var key = "<%= key %>";

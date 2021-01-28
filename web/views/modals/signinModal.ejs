@@ -22,7 +22,7 @@
 <script type="text/javascript">
 $(function() {
   $('#signinModal').on('shown', function(event) {
-    $(event.target).find('#signinUsername').focus();
+    $(event.target).find('#signinUsername').trigger('focus');
   });
 
   $('#signinForm').on('submit', function(event) {
@@ -34,17 +34,17 @@ $(function() {
     }).done(function (data, status) {
       signinForm.trigger('reset');
       if ((status !== 'success') || !data || !data.ok) {
-        signinForm.find('#signinUsername').focus();
+        signinForm.find('#signinUsername').trigger('focus');
         return alert("Sign-In Failed");
       }
       sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
       sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
-      $(window).unbind('beforeunload');
+      $(window).off('beforeunload');
       location.reload();
     }).fail(function(err) {
       signinForm.trigger('reset');
       console.error("Failed", err);
-      signinForm.find('#signinUsername').focus();
+      signinForm.find('#signinUsername').trigger('focus');
       return alert("Failed to send request");
     })
   });

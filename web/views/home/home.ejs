@@ -201,7 +201,7 @@
         $('html').css('overflow-y', 'hidden');
         $('#pageIndex').on('keydown', function (e) {
           if (e.keyCode === 13) {
-            $('#gotoIndexButton').click();
+            $('#gotoIndexButton').trigger('click');
           }
         });
         $('#redisCommandsModal').modal({

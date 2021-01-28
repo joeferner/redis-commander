@@ -20,7 +20,7 @@
     </span>
     <br>
     <% if (!redisReadOnly) { %>
-    <button id="saveKeyButton" type="button" class="btn" onclick="$('#editStringForm').submit()">Save</button>
+    <button id="saveKeyButton" type="button" class="btn" onclick="$('#editStringForm').trigger('submit')">Save</button>
     <% } %>
   </form>
 </div>

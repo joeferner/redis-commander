@@ -18,7 +18,7 @@
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal">Close</button>
     <button id="removeHashFieldButton" class="btn btn-danger" data-loading-text="<i class='icon-refresh'></i> Removing..." onclick="removeHashField()">Remove Field</button>
-    <button id="editHashFieldButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editHashFieldForm').submit()">Save</button>
+    <button id="editHashFieldButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editHashFieldForm').trigger('submit')">Save</button>
   </div>
 </div>
 <script>

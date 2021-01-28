@@ -52,7 +52,7 @@
 <script type="text/javascript">
   $(document).ready(function () {
     if (!redisReadOnly) {
-      $('.table tbody tr').dblclick(function(event) {
+      $('.table tbody tr').on('dblclick', function(event) {
         var row = event.currentTarget;
         var index = row.children[0].innerHTML.toString();
         var value = row.children[1].innerHTML.toString();

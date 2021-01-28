@@ -17,7 +17,7 @@
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal">Close</button>
     <button id="removeSetMemberButton" class="btn btn-danger" data-loading-text="<i class='icon-refresh'></i> Removing..." onclick="removeSetElement()">Remove Member</button>
-    <button id="editSetMemberButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editSetMemberForm').submit()">Save</button>
+    <button id="editSetMemberButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editSetMemberForm').trigger('submit')">Save</button>
   </div>
 </div>
 <script>

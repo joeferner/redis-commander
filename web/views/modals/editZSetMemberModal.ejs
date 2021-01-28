@@ -19,7 +19,7 @@
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal">Close</button>
     <button id="removeZSetValueButton" class="btn btn-danger" data-loading-text="<i class='icon-refresh'></i> Removing..." onclick="removeZSetElement()">Remove Element</button>
-    <button id="editZSetValueButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editZSetMemberForm').submit()">Save</button>
+    <button id="editZSetValueButton" class="btn btn-primary" data-loading-text="<i class='icon-refresh'></i> Saving..." onclick="$('#editZSetMemberForm').trigger('submit')">Save</button>
   </div>
 </div>
 <script>

@@ -43,7 +43,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
     if (!redisReadOnly) {
-      $('.table tbody tr').dblclick(function(event) {
+      $('.table tbody tr').on('dblclick', function(event) {
         var connectionId = "<%= connectionId %>";
         var key = "<%= key %>";
         var row = event.currentTarget;
@@ -57,7 +57,7 @@
       });
     }
 
-    $('.table tbody tr a[data-deferred-field]').click(function (event) {
+    $('.table tbody tr a[data-deferred-field]').on('click', function (event) {
       var connectionId = "<%= connectionId %>";
       var key = "<%= key %>";
       var field = event.target.dataset.deferredField;

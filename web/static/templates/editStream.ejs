@@ -49,7 +49,7 @@
   <script type="text/javascript">
     $(document).ready(function () {
       if (!redisReadOnly) {
-        $('#itemData tbody button.btn-remove').click(function(event) {
+        $('#itemData tbody button.btn-remove').on('click', function(event) {
           var row = $(event.currentTarget).closest('tr');
           var timestamp = row.children(':eq(1)').text();
           var key = '<%= key %>';

@@ -365,7 +365,7 @@ function setupJsonInputValidator(idJsonCheckbox, idInput) {
 function registerModalFocus(idModal, idInput) {
   var modal = $('#' + idModal);
   modal.on('shown', function () {
-    modal.find('#' + idInput).focus()
+    modal.find('#' + idInput).trigger('focus')
   });
 }
 
@@ -407,7 +407,7 @@ function setupAddServerForm() {
 
   // prepare all input elements
   serverModal.find('#addServerGroupSentinel').hide();
-  serverModal.find('#serverType').change(function () {
+  serverModal.find('#serverType').on('change', function () {
     if ($(this).val() === 'redis') {
       serverModal.find('#addServerGroupRedis').show();
       serverModal.find('#addServerGroupSentinel').hide();
@@ -416,7 +416,7 @@ function setupAddServerForm() {
       serverModal.find('#addServerGroupSentinel').show();
     }
   });
-  serverModal.find('input:radio[name=sentinelPWType]').change(function() {
+  serverModal.find('input:radio[name=sentinelPWType]').on('change', function() {
     if ($(this).val() === 'sentinel') {
       serverModal.find('#sentinelPassword').prop('disabled', false)
         .prev('label').removeClass('muted');
@@ -426,7 +426,7 @@ function setupAddServerForm() {
         .prev('label').addClass('muted');
     }
   });
-  serverModal.find('#label').focus();
+  serverModal.find('#label').trigger('focus');
 }
 
 function setupAddKeyButton (connectionId) {
@@ -437,7 +437,7 @@ function setupAddKeyButton (connectionId) {
   newKeyModal.find('#addKeyConnectionId').val(connectionId);
   newKeyModal.find('#addKeyValueIsJson').prop('checked', false);
   newKeyModal.find('#addKeyFieldIsJson').prop('checked', false);
-  newKeyModal.find('#keyType').change(function () {
+  newKeyModal.find('#keyType').on('change', function () {
     var score = newKeyModal.find('#scoreWrap');
     if ($(this).val() === 'zset') {
       score.show();
@@ -481,7 +481,7 @@ function addNewKey() {
     alert('Could not save "' + errorThrown.statusText + '"');
   }).always(function() {
     setTimeout(function () {
-      newKeyModal.find('#saveKeyButton').removeAttr('disabled').html('Save');
+      newKeyModal.find('#saveKeyButton').prop('disabled', false).html('Save');
       refreshTree();
       newKeyModal.modal('hide');
     }, 500);
@@ -520,7 +520,7 @@ function renameExistingKey() {
         modal.modal('hide');
       }, 500);
     }
-    modal.find('#renameKeyButton').removeAttr('disabled').html('Save');
+    modal.find('#renameKeyButton').prop('disabled', false).html('Save');
   });
 }
 
@@ -544,7 +544,7 @@ function selectTreeNodeString (data) {
     $('#stringValue').val(data.value);
     // a this is json now assume it shall be json if it is object or array, but not for numbers
     if (isJsonParsed && data.value.match(simpleObjRE)) {
-      $('#isJson').click();
+      $('#isJson').trigger('click');
     }
 
     if (!redisReadOnly) {
@@ -566,7 +566,7 @@ function selectTreeNodeString (data) {
         })
         .always(function() {
           setTimeout(function() {
-            $('#saveKeyButton').removeAttr('disabled').html('Save');
+            $('#saveKeyButton').prop('disabled', false).html('Save');
           }, 500);
         });
       });
@@ -923,7 +923,7 @@ function enableJsonValidationCheck(value, isJsonCheckBox) {
     JSON.parse(value);
     // if this is valid json and is array or object assume we want validation active
     if (value.match(simpleObjRE)) {
-      $(isJsonCheckBox).click();
+      $(isJsonCheckBox).trigger('click');
     }
   }
   catch (ex) {
@@ -933,22 +933,22 @@ function enableJsonValidationCheck(value, isJsonCheckBox) {
 
 function removeListElement () {
   $('#listValue').val('REDISCOMMANDERTOMBSTONE');
-  $('#editListValueForm').submit();
+  $('#editListValueForm').trigger('submit');
 }
 
 function removeSetElement () {
   $('#setMember').val('REDISCOMMANDERTOMBSTONE');
-  $('#editSetMemberForm').submit();
+  $('#editSetMemberForm').trigger('submit');
 }
 
 function removeZSetElement () {
   $('#zSetValue').val('REDISCOMMANDERTOMBSTONE');
-  $('#editZSetMemberForm').submit();
+  $('#editZSetMemberForm').trigger('submit');
 }
 
 function removeHashField () {
   $('#hashFieldValue').val('REDISCOMMANDERTOMBSTONE');
-  $('#editHashFieldForm').submit();
+  $('#editHashFieldForm').trigger('submit');
 }
 
 function removeXSetElement (connectionId, key, timestamp) {
@@ -1000,10 +1000,10 @@ var redisCli = {
   },
 
   loadCommandLine: function loadCommandLine() {
-    $('#commandLine').click(function() {
+    $('#commandLine').on('click', function() {
       redisCli.showCommandLineOutput();
     });
-    $('#app-container').click(function() {
+    $('#app-container').on('click', function() {
       redisCli.hideCommandLineOutput();
     });
 
@@ -1109,7 +1109,7 @@ var redisCli = {
   },
 
   setupCommandLock: function setupCommandLock() {
-    $('#lockCommandButton').click(function () {
+    $('#lockCommandButton').on('click', function () {
       $(this).toggleClass('disabled');
     });
   }
@@ -1382,7 +1382,7 @@ function removeServer (connectionId) {
 }
 
 function addServer () {
-  $('#addServerForm').submit();
+  $('#addServerForm').trigger('submit');
 }
 
 /** clear sensitive data (passwords) from add new server form modal and list db modal
@@ -1468,7 +1468,7 @@ function loadDefaultServer (host, port) {
   console.log('port ' + port);
   $('#hostname').val(host);
   $('#port').val(port);
-  $('#addServerForm').submit();
+  $('#addServerForm').trigger('submit');
 }
 
 function loadConfig (callback) {
@@ -1533,9 +1533,9 @@ function resizeApp () {
   var sideBar =  $('#sideBar');
   var barWidth = keyTree.outerWidth(true);
   var newBodyWidth = $(window).width() - barWidth - parseInt(body.css('margin-left'), 10);
-  sideBar.css('width', barWidth);
+  sideBar.css('width', barWidth + "px");
   keyTree.height($(window).height() - keyTree.offset().top - $('#commandLineContainer').outerHeight(true));
-  body.css({'width': newBodyWidth, 'left': barWidth, 'height': sideBar.css('height')});
+  body.css({'width': newBodyWidth + "px", 'left': barWidth + "px", 'height': sideBar.css('height')});
   $('#itemData').css('margin-top', $('#itemActionsBar').outerHeight(false));
   var cli = $('#_readline_cliForm');
   cli.find('#_readline_input').width( cli.innerWidth() - cli.find('.prompt').outerWidth() -20 )
@@ -1550,7 +1550,7 @@ function setupResizeEvents () {
   $('#keyTree').on('resize', resizeApp);
   $(window).on('resize', resizeApp);
 
-  $(document).mouseup(function (event) {
+  $(document).on('mouseup', function (event) {
     sidebarResizing = false;
     sidebarFrame = $('#sideBar').width();
     commandResizing = false;
@@ -1558,17 +1558,17 @@ function setupResizeEvents () {
     $('body').removeClass('select-disabled');
   });
 
-  $('#sidebarResize').mousedown(function (event) {
+  $('#sidebarResize').on('mousedown', function (event) {
     sidebarResizing = event.pageX;
     $('body').addClass('select-disabled');
   });
 
-  $('#commandLineBorder').mousedown(function (event) {
+  $('#commandLineBorder').on('mousedown', function (event) {
     commandResizing = event.pageY;
     $('body').addClass('select-disabled');
   });
 
-  $(document).mousemove(function (event) {
+  $(document).on('mousemove', function (event) {
     if (sidebarResizing) {
       $('#sideBar').width(sidebarFrame - (sidebarResizing - event.pageX));
     } else if (commandResizing &&
