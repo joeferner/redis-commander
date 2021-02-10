@@ -4,6 +4,7 @@
 #### Bugfixes
 #### Enhancements
 * check for jwt token algorithms used to reject "none" algorithm 
+* update dependencies to fix vulnerabilities in elliptic
  
 ## Version 0.7.1
 #### Bugfixes
