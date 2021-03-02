@@ -193,7 +193,7 @@ function treeNodeSelected (event, data) {
               }
               else {
                 setRootConnectionNetworkError(true, data.node);
-                var html = '<h5>ERROR: ' + (instance.error ? instance.error : 'Server not available - cannot query status informations.') + '</h5>';
+                var html = '<h5>ERROR: ' + (instance.error ? instance.error : 'Server not available - cannot query status information.') + '</h5>';
                 $('#body').html(html);
                 setupAddKeyButton();
               }
@@ -222,7 +222,8 @@ function treeNodeSelected (event, data) {
 
 /** finds root entry with connection object of the node given and changes icon to show disconnect state
  *
- *  @param node JSTree node the error occured to get first sibling from tree root
+ *  @param hasError flag to indicate a connection problem on a tree node
+ *  @param node JSTree node the error occurred to get first sibling from tree root
  */
 function setRootConnectionNetworkError (hasError, node) {
   var tree = getKeyTree();
@@ -912,7 +913,7 @@ function showHashField (connectionId, key, field) {
 
 /** check if given string value is valid json and, if so enable validation
  *  for given field if this is an json object or array. Do not automatically
- *  enable validation on numbers or quted strings. May be coincidence that this is json...
+ *  enable validation on numbers or quoted strings. May be coincidence that this is json...
  *
  *  @param {string} value string to check if valid json
  *  @param {string} isJsonCheckBox id string of checkbox element to activate validation
@@ -1220,8 +1221,8 @@ var dataUIFuncs = {
    *  This function shows all json elements (class 'json-renderer') and
    *  hides text elements (class text-renderer), updating toggle buttons accordingly
    *
-   *  @param {string} parentSelector jquery selector with some parent element of the elements with raw text and json
-   *  objects to show/hide
+   *  @param {string} [parentSelector] jquery selector with some parent element of the elements with raw text and json
+   *  objects to show/hide, its using '#itemdata' as default if not set
    */
   onModeJsonButtonClick: function onModeJsonButtonClick(parentSelector) {
     var parent = $(parentSelector || '#itemData');
@@ -1240,12 +1241,11 @@ var dataUIFuncs = {
    *  @param {string} jsonSelector jquery selector to find all elements where json views should be added
    */
   createJSONViews: function createJSONViews(jsonSelector){
-    var jqtreeCollection = $(jsonSelector);
-    for(var i=0; i<jqtreeCollection.length; i++){
-      var current = $(jqtreeCollection[i]);
+    $(jsonSelector).each(function() {
+      var current = $(this);
       var plain = current.prev().html();
       try {
-        // display either as string if no valid json or as foldable json object otherwise, ignore exception
+        // display either as string if no valid json or as json object otherwise, ignore exception
         current.jsonViewer(losslessJSON.parse(plain, losslessJsonReviver), {withQuotes: true, withLinks: false});
       }
       catch(ex) {
@@ -1253,7 +1253,7 @@ var dataUIFuncs = {
         // calling jsonViewer() method instead gives quoted string like "blah\" blub" if it contains special chars
         current.empty().append($('<span class="json-string">').text('"' + plain + '"'));
       }
-    }
+    });
   }
 };
 
@@ -1330,7 +1330,7 @@ function initCmdParser() {
         if (status !== 'success') {
           return callback(new Error('Could not get keys'));
         }
-        var retData = null;
+        var retData;
         if (typeof keyData === 'string') retData = JSON.parse(keyData);
         else {
           if (keyData.hasOwnProperty('data')) keyData = keyData.data;
@@ -1360,7 +1360,7 @@ function initCmdParser() {
 }
 
 function removeServer (connectionId) {
-  var node = null;
+  var node;
   if (typeof(connectionId) === 'object') {
       // context menu click
       node = getKeyTree().get_node(connectionId.reference[0]);
@@ -1637,7 +1637,7 @@ $(function() {
    */
   if (!redisReadOnly) {
     $('#app-container').on('submit', '#redisImportForm', function() {
-      $('#body').html('<h2>Import</h2>Importing in progress. Prease wait...');
+      $('#body').html('<h2>Import</h2>Importing in progress. Please wait...');
 
       $.ajax({
         method: 'POST',
