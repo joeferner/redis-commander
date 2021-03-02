@@ -171,12 +171,22 @@ fi
 
 # load HTTP password from a file (e.g. a Docker secret mounted in the container)
 HTTP_PASSWORD_FILE=${HTTP_PASSWORD_FILE:-/}
-
 if [ -f "$HTTP_PASSWORD_FILE" ]; then
+    echo "setting http auth from file"
     HTTP_PASSWORD=$(cat "$HTTP_PASSWORD_FILE")
     # this env var is evaluated by node-config module, not set as cli param
     # to not show it in process listing / write to docker logs ...
     export HTTP_PASSWORD
+fi
+
+# load HTTP password as bcrypt hash from a file (e.g. a Docker secret mounted in the container)
+HTTP_PASSWORD_HASH_FILE=${HTTP_PASSWORD_HASH_FILE:-/}
+if [ -f "$HTTP_PASSWORD_HASH_FILE" ]; then
+    echo "setting hashed http auth from file"
+    HTTP_PASSWORD_HASH=$(cat "$HTTP_PASSWORD_HASH_FILE")
+    # this env var is evaluated by node-config module, not set as cli param
+    # to not show it in process listing / write to docker logs ...
+    export HTTP_PASSWORD_HASH
 fi
 
 # load REDIS and SENTINEL passwords from a file too

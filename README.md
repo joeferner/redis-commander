@@ -155,6 +155,7 @@ SENTINELS
 SENTINEL_NAME
 SENTINEL_PASSWORD
 HTTP_PASSWORD_FILE
+HTTP_PASSWORD_HASH_FILE
 REDIS_PASSWORD_FILE
 SENTINEL_PASSWORD_FILE
 K8S_SIGTERM
@@ -296,6 +297,24 @@ To use the stock Node.js image builder do the following.
    ```bash
    oc delete all --selector appl=redis-commander-dev1
    ```
+
+## Helper Scripts
+### Generate BCrypted password hash
+
+Redis commander allows setting either a plain text password for http authentication or an already bcrypted 
+password hash.
+To generate a hashed password the script `bin/bcrypt-password.js` can be used. The parameter "-p" to set password should be given. 
+
+Usage example:
+```shell script
+$ bcrypt-password.js -p myplainpass
+$2b$10BQPbC8dlxeEqB/nXOkyjr.tlafGZ28J3ug8sWIMRoeq5LSVOXpl3W
+```
+
+This generated hash can be set inside the config file as "server.httpAuth.passwordHash", as env var "HTTP_PASSWORD_HASH"
+or on the command line as `--http-auth-password-hash`.
+Running inside docker image a file containing this password hash can be set via env var 
+`HTTP_PASSWORD_HASH_FILE`
 
 ## Build images based on this one
 
