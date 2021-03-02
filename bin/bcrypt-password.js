@@ -25,10 +25,10 @@ const yargs = require('yargs');
 let bcrypt;
 try {
   bcrypt = require('bcrypt');
-  console.debug('using native bcrypt implementation');
+  // console.debug('using native bcrypt implementation');
 } catch (e) {
   bcrypt = require('bcryptjs');
-  console.debug('using javascript bcryptjs implementation');
+  // console.debug('using javascript bcryptjs implementation');
 }
 
 let args = yargs
