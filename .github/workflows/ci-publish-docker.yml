@@ -23,7 +23,8 @@ jobs:
 
       - name: Get latest tag
         id: tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
+        run: |
+          echo '::set-output name=latest::git describe --tags $(git rev-list --tags --max-count=1)'
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v1.0.1
@@ -45,5 +46,5 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ env.DOCKER_REGISTRY }}/${{env.DOCKER_REGISTRY_ORG}}/${{ env.DOCKER_REGISTRY_IMAGE_NAME }}:${{steps.tag.outputs.tag}},
+            ${{ env.DOCKER_REGISTRY }}/${{env.DOCKER_REGISTRY_ORG}}/${{ env.DOCKER_REGISTRY_IMAGE_NAME }}:${{steps.tag.outputs.latest}},
             ${{ env.DOCKER_REGISTRY }}/${{env.DOCKER_REGISTRY_ORG}}/${{ env.DOCKER_REGISTRY_IMAGE_NAME }}:latest
