@@ -1,10 +1,13 @@
 name: Build and publish Docker image
 
 on:
-  create:
-    tags:
-      - 'v*'
-    branches: [master, thomastvedt/add-docker-versioning]
+  push:
+    branches: [thomastvedt/add-docker-versioning]
+
+#  create:
+#    tags:
+#      - 'v*'
+#    branches: [master, thomastvedt/add-docker-versioning]
 
 env:
   DOCKER_FILE: 'Dockerfile'
