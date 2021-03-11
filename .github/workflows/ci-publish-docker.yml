@@ -2,7 +2,7 @@ name: Build and publish Docker image
 
 on:
   push:
-    branches: [thomastvedt/add-docker-versioning]
+    branches: [master]
 
 #  create:
 #    tags:
