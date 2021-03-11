@@ -2,7 +2,7 @@ name: Build and publish Docker image
 
 on:
   push:
-    branches: master
+    branches: [master, thomastvedt/add-docker-versioning]
 
 env:
   DOCKER_FILE: 'Dockerfile'
