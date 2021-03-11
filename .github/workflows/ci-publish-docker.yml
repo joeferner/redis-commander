@@ -4,10 +4,11 @@ on:
   push:
     branches: [master]
 
+#on:
 #  create:
 #    tags:
 #      - 'v*'
-#    branches: [master, thomastvedt/add-docker-versioning]
+#    branches: [master]
 
 env:
   DOCKER_FILE: 'Dockerfile'
@@ -57,7 +58,6 @@ jobs:
         with:
           context: .
           push: true
-#          load: true
           tags: |
             ${{env.DOCKER_REGISTRY_ORG}}/${{ env.DOCKER_REGISTRY_IMAGE_NAME }}:${{steps.tag.outputs.latest}},
             ${{env.DOCKER_REGISTRY_ORG}}/${{ env.DOCKER_REGISTRY_IMAGE_NAME }}:latest
