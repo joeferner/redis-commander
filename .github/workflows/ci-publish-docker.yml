@@ -13,7 +13,7 @@ env:
   DOCKER_FILE: 'Dockerfile'
   DOCKER_REGISTRY_ORG: 'thomastvedt'
   DOCKER_REGISTRY_IMAGE_NAME: 'redis-commander'
-  DOCKER_REGISTRY: 'hub.docker.com'
+  DOCKER_REGISTRY: 'https://registry.hub.docker.com'
   DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
