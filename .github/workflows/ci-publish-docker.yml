@@ -25,11 +25,11 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
-        run: git fetch --prune --unshallow
 
       - name: Get latest tag
         id: tag
         run: |
+          git fetch --prune --unshallow
           git describe --tags $(git rev-list --tags --max-count=1)
           echo '::set-output name=latest::' + git describe --tags $(git rev-list --tags --max-count=1)
 
