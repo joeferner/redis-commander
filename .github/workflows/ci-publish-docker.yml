@@ -30,8 +30,7 @@ jobs:
         id: tag
         run: |
           git fetch --prune --unshallow
-          git describe --tags $(git rev-list --tags --max-count=1)
-          echo '::set-output name=latest::' + git describe --tags $(git rev-list --tags --max-count=1)
+          echo '::set-output name=latest::'$(git describe --tags $(git rev-list --tags --max-count=1))
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v1.0.1
