@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.12
 
 WORKDIR /redis-commander
 
@@ -22,19 +22,19 @@ RUN  apk update \
   && apk add --no-cache --virtual .patch-dep patch \
   && update-ca-certificates \
   && echo -e "\n---- Create runtime user and fix file access rights ----------" \
-  && adduser ${SERVICE_USER} -h ${HOME} -G root -S -u 1000 \
-  && chown -R root.root ${HOME} \
-  && chown -R ${SERVICE_USER} ${HOME}/config \
-  && chmod g+w ${HOME}/config \
-  && chmod ug+r,o-rwx ${HOME}/config/*.json \
+  && adduser "${SERVICE_USER}" -h "${HOME}" -G root -S -u 1000 \
+  && chown -R root.root "${HOME}" \
+  && chown -R "${SERVICE_USER}" "${HOME}/config" \
+  && chmod g+w "${HOME}/config" \
+  && chmod ug+r,o-rwx "${HOME}"/config/*.json \
   && echo -e "\n---- Check config file syntax --------------------------------" \
-  && for i in ${HOME}/config/*.json; do echo "checking config file $i"; cat $i | jq empty; ret=$?; if [ $ret -ne 0 ]; then exit $ret; fi; done \
+  && for i in "${HOME}"/config/*.json; do echo "checking config file $i"; cat "$i" | jq empty; ret=$?; if [ $ret -ne 0 ]; then exit $ret; fi; done \
   && echo -e "\n---- Installing app ------------------------------------------" \
   && npm install --production -s \
   && patch -p0 < docker/redis-dump.diff \
   && echo -e "\n---- Cleanup and hardening -----------------------------------" \
   && apk del .patch-dep \
-  && ${HOME}/docker/harden.sh \
+  && "${HOME}/docker/harden.sh" \
   && rm -rf /tmp/* /root/.??* /root/cache /var/cache/apk/*
 
 USER 1000
