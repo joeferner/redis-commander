@@ -23,6 +23,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.3
+        
+      - name: Github Tag
+        id: tag
+        # You may pin to the exact commit or the version.
+        # uses: anothrNick/github-tag-action@18284c78f6ac68868d5341f57c4f971fb5b7605c
+        uses: mathieudutour/github-tag-action@v5.3
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+        
+      - name: Echo tag
+        run: echo ${{steps.tag.outputs.new_tag}}
       
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -36,8 +47,9 @@ jobs:
       - name: Docker login
         uses: docker/login-action@v1.4.1
         with: 
-          username: "${{ secrets.DOCKER_USERNAME }}"
-          password: "${{ secrets.DOCKER_PASSWORD }}"
+          registry: "${{secrets.DOCKER_REGISTRY}}"
+          username: "${{secrets.DOCKER_USERNAME}}"
+          password: "${{secrets.DOCKER_PASSWORD}}"
         
       - name: Docker build and push
         uses: docker/build-push-action@v2
@@ -45,8 +57,10 @@ jobs:
           context: .
           platforms: linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/386,linux/amd64
           push: true
-          tags: "${{ secrets.DOCKER_REPO }}/redis-commander:latest"
+          tags: |
+            "${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_REPO}}/redis-commander:latest"
+            "${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_REPO}}/redis-commander:${{steps.tag.outputs.new_tag}}"
       
       - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+        run: echo ${{steps.docker_build.outputs.digest}}
         
