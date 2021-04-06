@@ -4,8 +4,9 @@
 #### Bugfixes
 #### Enhancements
 * check for jwt token algorithms used to reject "none" algorithm 
-* update dependencies to fix vulnerabilities in elliptic
+* update dependencies to fix vulnerabilities in elliptic and some other
 * add helper script to generated bcrypt password hash and allow setting http auth password hash from file inside docker, #434
+* update base image to alpine:3.12
 
 ## Version 0.7.1
 #### Bugfixes
