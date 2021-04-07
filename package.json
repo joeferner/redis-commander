@@ -27,7 +27,7 @@
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "browserify-middleware": "8.1.1",
-    "clipboard": "2.0.7",
+    "clipboard": "2.0.8",
     "cmdparser": "0.0.3",
     "config": "3.3.6",
     "dateformat": "3.0.3",
