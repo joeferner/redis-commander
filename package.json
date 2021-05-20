@@ -26,7 +26,6 @@
     "async": "3.2.0",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
-    "browserify-middleware": "8.1.1",
     "clipboard": "2.0.8",
     "cmdparser": "0.0.3",
     "config": "3.3.6",
@@ -44,12 +43,15 @@
     "node-redis-dump": "0.2.1",
     "opener": "1.5.2",
     "readline-browserify": "0.0.4",
-    "yargs": "15.4.1"
+    "yargs": "17.0.1"
   },
   "optionalDependencies": {
     "bcrypt": "~5.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "uglify-js": "^3.13.7"
+  },
   "engines": {
     "node": ">=8.0"
   },
@@ -58,6 +60,7 @@
   },
   "preferGlobal": true,
   "scripts": {
+    "build": "browserify -r readline-browserify -r cmdparser -r lossless-json | uglifyjs -cm -o web/static/scripts/browserify.js",
     "healthcheck": "./bin/healthcheck.js",
     "postinstall": "echo '==> INFO: Errors with module \"bcrypt\" can be ignored'",
     "snyk-protect": "snyk protect"
