@@ -27,9 +27,11 @@
     "urlPrefix": "",
     "trustProxy": false,
     "clientMaxBodySize": "100kb",
+    "useFloJwt": true,
+    "floJwtPublicKey": "",
     "httpAuth": {
-      "username": "",
-      "password": "",
+      "username": "123",
+      "password": "123",
       "passwordHash": "",
       "comment": "to enable http auth set username and either password or passwordHash",
       "jwtSecret": ""

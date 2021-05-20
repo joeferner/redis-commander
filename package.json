@@ -24,6 +24,7 @@
   "main": "lib/app.js",
   "dependencies": {
     "async": "3.2.0",
+    "axios": "^0.21.1",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "browserify-middleware": "8.1.1",
@@ -49,7 +50,6 @@
   "optionalDependencies": {
     "bcrypt": "~5.0.0"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=8.0"
   },

@@ -22,6 +22,7 @@
     "urlPrefix": "URL_PREFIX",
     "trustProxy": "TRUST_PROXY",
     "clientMaxBodySize": "CLIENT_MAX_BODY_SIZE",
+    "floJwtPublicKey": "FLO_JWT_PUBLIC_KEY",
     "httpAuth": {
       "username": "HTTP_USER",
       "password": "HTTP_PASSWORD",

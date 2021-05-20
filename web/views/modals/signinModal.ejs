@@ -3,9 +3,10 @@
     <h3>Sign In</h3>
   </div>
   <form id="signinForm" class="form-vertical">
+      <div class="alert alert-danger">Use your FLO Login</div>
   <div class="modal-body">
       <div class="form-group">
-        <label for="signinUsername">Username:</label>
+        <label for="signinUsername">Email:</label>
         <input type="text" class="form-control" id="signinUsername" autofocus/>
       </div>
       <div class="form-group">
@@ -37,15 +38,21 @@ $(function() {
         signinForm.find('#signinUsername').trigger('focus');
         return alert("Sign-In Failed");
       }
-      sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
-      sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
+      // sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
+      // sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
+      sessionStorage.setItem('jwtToken', data.jwtToken)
+      sessionStorage.setItem('refreshToken', data.refreshToken)
       $(window).off('beforeunload');
       location.reload();
     }).fail(function(err) {
+      if (err.status === 403) {
+        window.location.href = 'https://flosports.tv'
+        return
+      }
       signinForm.trigger('reset');
       console.error("Failed", err);
       signinForm.find('#signinUsername').trigger('focus');
-      return alert("Failed to send request");
+      return alert('Failed to send request');
     })
   });
 })

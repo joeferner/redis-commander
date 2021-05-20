@@ -144,21 +144,37 @@
     });
     $.ajaxSetup({
       beforeSend: function(jqXHR) {
-        var redisCommanderBearerToken = sessionStorage.getItem('redisCommanderBearerToken');
-        if (!httpAuthDisabled && redisCommanderBearerToken) {
-          jqXHR.setRequestHeader('Authorization', 'Bearer ' + redisCommanderBearerToken);
+        var jwtToken = sessionStorage.getItem('jwtToken');
+        if (!httpAuthDisabled && jwtToken) {
+          console.log(jwtToken)
+          jqXHR.setRequestHeader('Authorization', 'Bearer ' + jwtToken);
         }
       }
     });
     function refreshToken() {
-      $.post('signin', {}, function (data, status) {
-        if (status !== 'success') {
-          console.error("refresh token connection problem");
-          return;
+      axios.post('refreshToken', {
+        refreshToken: sessionStorage.getItem('refreshToken')
+      }).then(resp => {
+        console.log('refresh token pass')
+        var oldToken = sessionStorage.getItem('jwtToken');
+        sessionStorage.setItem('jwtToken', data.jwtToken);
+        sessionStorage.setItem('refreshToken', data.refreshToken);
+        if (!oldToken) {
+          $(window).off('beforeunload', 'clearStorage');
+          location.reload();
         }
-        if (!data || !data.ok) {
-          sessionStorage.removeItem('redisCommanderBearerToken');
-          sessionStorage.removeItem('redisCommanderQueryToken');
+        setTimeout(refreshToken, 20e3);
+      }).catch(err => {
+        console.log('refresh token fail')
+        const statusCode = err.response.status
+
+        if (statusCode === 403) {
+          window.location.href = 'https://flosports.tv'
+          return
+        }
+        if (statusCode === 401) {
+          sessionStorage.removeItem('refreshToken');
+          sessionStorage.removeItem('jwtToken');
           $('#signinModal').modal({
             backdrop: 'static',
             keyboard: false,
@@ -166,23 +182,13 @@
           });
           return;
         }
-        var oldToken = sessionStorage.getItem('redisCommanderBearerToken');
-        sessionStorage.setItem('redisCommanderBearerToken', data.bearerToken);
-        sessionStorage.setItem('redisCommanderQueryToken', data.queryToken);
-        if (!oldToken) {
-          $(window).off('beforeunload', 'clearStorage');
-          location.reload();
-        }
+
         setTimeout(refreshToken, 20e3);
-      })
-      .fail(function(err) {
-        console.error("Signin network error", err);
-        setTimeout(refreshToken, 5e3);
       })
     }
 
     refreshToken();
-    if (!sessionStorage.getItem('redisCommanderBearerToken')) {
+    if (!sessionStorage.getItem('jwtToken')) {
       return;
     }
     $.get('connections', function(data, status) {

@@ -11,17 +11,19 @@ ENV SERVICE_USER=redis
 ENV HOME=/redis-commander
 ENV NODE_ENV=production
 
+RUN apk update \
+  && apk upgrade \
+  && apk add --no-cache ca-certificates dumb-init sed jq nodejs npm yarn \
+  && apk add --no-cache --virtual .patch-dep patch \
+  && update-ca-certificates \
+  && npm i -g pnpm
+
 # only single copy command for most parts as other files are ignored via .dockerignore
 # to create less layers
 COPY . .
 
 # for Openshift compatibility set project config dir itself group root and make it group writeable
-RUN  apk update \
-  && apk upgrade \
-  && apk add --no-cache ca-certificates dumb-init sed jq nodejs npm yarn \
-  && apk add --no-cache --virtual .patch-dep patch \
-  && update-ca-certificates \
-  && echo -e "\n---- Create runtime user and fix file access rights ----------" \
+RUN echo -e "\n---- Create runtime user and fix file access rights ----------" \
   && adduser "${SERVICE_USER}" -h "${HOME}" -G root -S -u 1000 \
   && chown -R root.root "${HOME}" \
   && chown -R "${SERVICE_USER}" "${HOME}/config" \
@@ -30,11 +32,11 @@ RUN  apk update \
   && echo -e "\n---- Check config file syntax --------------------------------" \
   && for i in "${HOME}"/config/*.json; do echo "checking config file $i"; cat "$i" | jq empty; ret=$?; if [ $ret -ne 0 ]; then exit $ret; fi; done \
   && echo -e "\n---- Installing app ------------------------------------------" \
-  && npm install --production -s \
+  && pnpm install --frozen-lockfile -P \
   && patch -p0 < docker/redis-dump.diff \
   && echo -e "\n---- Cleanup and hardening -----------------------------------" \
   && apk del .patch-dep \
-  && "${HOME}/docker/harden.sh" \
+  && /bin/sh "${HOME}/docker/harden.sh" \
   && rm -rf /tmp/* /root/.??* /root/cache /var/cache/apk/*
 
 USER 1000
@@ -42,7 +44,7 @@ USER 1000
 HEALTHCHECK --interval=1m --timeout=2s CMD ["/redis-commander/bin/healthcheck.js"]
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["/redis-commander/docker/entrypoint.sh"]
+CMD ["/bin/sh", "/redis-commander/docker/entrypoint.sh"]
 
 EXPOSE 8081
 

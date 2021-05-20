@@ -1596,6 +1596,31 @@ function toggleRedisModal() {
 }
 
 $(function() {
+  function refreshToken() {
+    axios.post('refreshToken', {
+      refreshToken: sessionStorage.getItem('refreshToken')
+    }).then(resp => {
+      sessionStorage.setItem('jwtToken', data.jwtToken);
+      sessionStorage.setItem('refreshToken', data.refreshToken);
+    }).catch(err => {
+      const statusCode = err.response.status
+
+      if (statusCode === 403) {
+        window.location.href = 'https://flosports.tv'
+        return
+      }
+      if (statusCode === 401) {
+        sessionStorage.removeItem('refreshToken');
+        sessionStorage.removeItem('jwtToken');
+        $('#signinModal').modal({
+          backdrop: 'static',
+          keyboard: false,
+          show: true
+        });
+        return;
+      }
+    })
+  }
   function refreshQueryToken() {
     $.post('signin', {}, function (data, status) {
       if ((status !== 'success') || !data || !data.ok) {
@@ -1614,8 +1639,9 @@ $(function() {
    * Export redis data.
    */
   $('#app-container').on('submit', '#redisExportForm', function () {
-    window.open('tools/export?' + $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken')), '_blank');
-    refreshQueryToken();
+    window.open('tools/export?' + $(this).serialize() + '&jwtToken=' + encodeURIComponent(sessionStorage.getItem('jwtToken')), '_blank');
+    // refreshQueryToken();
+    refreshToken()
     return false;
   });
 
@@ -1642,7 +1668,7 @@ $(function() {
       $.ajax({
         method: 'POST',
         url: 'tools/import',
-        data: $(this).serialize() + '&redisCommanderQueryToken=' + encodeURIComponent(sessionStorage.getItem('redisCommanderQueryToken') || ''),
+        data: $(this).serialize() + '&jwtToken=' + encodeURIComponent(sessionStorage.getItem('jwtToken') || ''),
         dataType: 'json',
         success: function(res) {
           $('#body').html('<h2>Import</h2>' +
@@ -1651,7 +1677,8 @@ $(function() {
             '<span class="label label-' + (res.errors ? 'important' : 'success') + '">' + (res.errors ? 'Errors' : 'Success') + '</span>');
         }
       });
-      refreshQueryToken();
+      // refreshQueryToken();
+      refreshToken();
       return false;
     });
 
