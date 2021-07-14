@@ -7,6 +7,7 @@
 * update dependencies to fix vulnerabilities in elliptic and some other
 * add helper script to generated bcrypt password hash and allow setting http auth password hash from file inside docker, #434
 * update base image to alpine:3.12
+* switch from node-redis-dump to node-redis-dump2 and remove now obsolete docker build patch
 
 ## Version 0.7.1
 #### Bugfixes
