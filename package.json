@@ -8,7 +8,7 @@
     "Stefan Seide <account-github@seide.st"
   ],
   "name": "redis-commander",
-  "version": "0.7.2-rc2",
+  "version": "0.7.1",
   "description": "Redis web-based management tool written in node.js",
   "license": "MIT",
   "repository": {
@@ -26,15 +26,16 @@
     "async": "3.2.0",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
-    "clipboard": "2.0.8",
+    "browserify-middleware": "8.1.1",
+    "clipboard": "2.0.6",
     "cmdparser": "0.0.3",
-    "config": "3.3.6",
+    "config": "3.3.3",
     "dateformat": "3.0.3",
     "ejs": "2.7.4",
     "express": "4.17.1",
     "express-partials": "0.3.0",
     "inflection": "1.12.0",
-    "ioredis": "4.27.2",
+    "ioredis": "4.19.4",
     "jquery.json-viewer": "1.4.0",
     "jsonwebtoken": "8.5.1",
     "jstree": "3.3.11",
@@ -43,15 +44,12 @@
     "node-redis-dump": "0.2.1",
     "opener": "1.5.2",
     "readline-browserify": "0.0.4",
-    "yargs": "^17.0.1"
+    "yargs": "15.4.1"
   },
   "optionalDependencies": {
     "bcrypt": "~5.0.0"
   },
-  "devDependencies": {
-    "browserify": "^17.0.0",
-    "uglify-js": "^3.13.7"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">=8.0"
   },
@@ -60,7 +58,6 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "build": "browserify -r readline-browserify -r cmdparser -r lossless-json | uglifyjs -cm -o web/static/scripts/browserify.js",
     "healthcheck": "./bin/healthcheck.js",
     "postinstall": "echo '==> INFO: Errors with module \"bcrypt\" can be ignored'",
     "snyk-protect": "snyk protect"
