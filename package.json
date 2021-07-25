@@ -43,7 +43,7 @@
     "node-redis-dump": "0.2.1",
     "opener": "1.5.2",
     "readline-browserify": "0.0.4",
-    "yargs": "17.0.1"
+    "yargs": "^17.0.1"
   },
   "optionalDependencies": {
     "bcrypt": "~5.0.0"

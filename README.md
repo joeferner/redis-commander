@@ -154,8 +154,6 @@ SENTINEL_HOST
 SENTINELS
 SENTINEL_NAME
 SENTINEL_PASSWORD
-HTTP_PASSWORD_FILE
-HTTP_PASSWORD_HASH_FILE
 REDIS_PASSWORD_FILE
 SENTINEL_PASSWORD_FILE
 K8S_SIGTERM
@@ -307,7 +305,7 @@ To generate a hashed password the script `bin/bcrypt-password.js` can be used. T
 
 Usage example:
 ```shell script
-$ bcrypt-password.js -p myplainpass
+$ node bcrypt-password.js -p myplainpass
 $2b$10BQPbC8dlxeEqB/nXOkyjr.tlafGZ28J3ug8sWIMRoeq5LSVOXpl3W
 ```
 
