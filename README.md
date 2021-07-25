@@ -305,6 +305,8 @@ To generate a hashed password the script `bin/bcrypt-password.js` can be used. T
 
 Usage example:
 ```shell script
+$ git clone https://github.com/joeferner/redis-commander.git
+$ cd redis-commander/bin
 $ node bcrypt-password.js -p myplainpass
 $2b$10BQPbC8dlxeEqB/nXOkyjr.tlafGZ28J3ug8sWIMRoeq5LSVOXpl3W
 ```
