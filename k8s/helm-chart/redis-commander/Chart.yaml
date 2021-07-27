@@ -23,3 +23,7 @@ keywords:
 home: https://joeferner.github.io/redis-commander
 sources:
   - https://github.com/joeferner/redis-commander
+
+maintainers:
+  - name: Joe Ferner
+  - name: Stefan Seide
