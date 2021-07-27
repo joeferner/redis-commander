@@ -1,0 +1,101 @@
+name: Lint and Test Charts
+
+# code and jobs are mostly taken from https://jamiemagee.co.uk/blog/how-to-host-your-helm-chart-repository-on-github/
+# and adapted for newer version of the test tools
+#
+# - ct - Helm project created Chart Testing, AKA ct, as a comprehensive linting tool for Helm charts
+# - Helm-docs - not strictly a linting tool, but it makes sure that your documentation stays up-to-date with the current
+#   state of your chart
+# - Kubeval - It validates the output from Helm against schemas generated from the Kubernetes OpenAPI specification
+#
+# not used by now:
+# - Kubernetes in Docker (KIND) - use Chart Testing again to install your Helm charts on a Kubernetes cluster running in
+#   the GitHub Actions runner using Kubernetes in Docker (KIND)
+
+on:
+  pull_request:
+    paths:
+      - 'k8s/helm-chart/**'
+  push:
+    branches-ignore:
+      - 'master'
+      - 'gh-pages'
+    paths:
+      - 'k8s/helm-chart/**'
+
+jobs:
+  lint-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run chart-testing (lint)
+        uses: helm/chart-testing-action@master
+        run: "ct lint --config .github/ct.yaml --chart-dirs k8/helm-chart"
+
+  lint-docs:
+    runs-on: ubuntu-latest
+    needs: lint-chart
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Run helm-docs
+        run: .github/helm-docs.sh
+
+  kubeval-chart:
+    runs-on: ubuntu-latest
+    needs:
+      - lint-chart
+      - lint-docs
+    strategy:
+      matrix:
+        k8s:
+          - v1.11.10  # for openshift 3.11
+          - v1.16.15
+          - v1.17.14
+          - v1.18.20
+          - v1.19.13
+          - v1.20.9
+          - v1.21.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Run kubeval
+        env:
+          KUBERNETES_VERSION: ${{ matrix.k8s }}
+        run: .github/kubeval.sh
+
+#  install-chart:
+#    name: install chart on KIND
+#    runs-on: ubuntu-latest
+#    needs:
+#      - lint-chart
+#      - lint-docs
+#      - kubeval-chart
+#    strategy:
+#      matrix:
+#        # not all k8s version are supported - check https://hub.docker.com/r/kindest/node/tags?page=1&ordering=last_updated
+#        k8s:
+#          - v1.11.10  # k8s 1.11 for openshift
+#          - v1.16.15
+#          - v1.17.17
+#          - v1.18.19
+#          - v1.19.12
+#          - v1.20.7
+#          - v1.21.2
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#      - name: Create kind ${{ matrix.k8s }} cluster
+#        uses: helm/kind-action@master
+#        with:
+#          node_image: kindest/node:${{ matrix.k8s }}
+#      - name: Run chart-testing (install)
+#        uses: helm/chart-testing-action@master
+#        with:
+#          command: install
+#          config: .github/ct.yaml

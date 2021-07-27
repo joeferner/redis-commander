@@ -2,43 +2,50 @@
 # Default values for redis-commander.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+# All values should be commented with "# -- text..." to allow auto-generation of the documentation
 
+# -- Number of replicas to create for deployment, should be 1
 replicaCount: 1
 image:
+  # -- Docker image to deploy
   repository: rediscommander/redis-commander
+  # -- Deployment pull policy, either "Always" or "IfNotPresent"
   pullPolicy: Always
-  # enable AppArmor per default when available on k8s host, change to "unconfined" to disable
+  # -- Enable AppArmor per default when available on k8s host, change to "unconfined" to disable
   apparmorProfile: runtime/default
-  # Overrides the image tag whose default is the chart appVersion.
+  # -- Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+# -- Optional image pull secrets for private docker registries
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 redis:
-  # Specifies a single Redis host
-  #host: "redis-master"
+  # -- Specifies a single Redis host
+  host: "redis-master"
 
-  # Specifies redis password
-  #password: "Something"
-
-  # Specifies multiple redis endpoints <label:host:port>,...
-  #hosts: "local:localhost:6379,myredis:10.10.20.30"
-
-httpAuth:
-  # Specify http basic username and password to protect access to redis commander web ui
-  username: ""
+  # -- Specifies redis password
   password: ""
 
-# extra env vars for the main container redis-commander
+  # -- Alternative: Specifies multiple redis endpoints <label:host:port>,... instead of one in "redis.host"
+  # Example: "local:localhost:6379,myredis:10.10.20.30"
+  hosts: ""
+
+httpAuth:
+  # -- Specify http basic username and password to protect access to redis commander web ui
+  username: ""
+  # -- Specify http basic password for the web ui
+  password: ""
+
+# -- Extra env vars for the main container redis-commander in array structure ([{name: ... , value: ...}, {name: ... , value: ...}]).
 env: []
 
 serviceAccount:
-  # Specifies whether a service account should be created
+  # -- Specifies whether a service account should be created
   create: true
-  # Annotations to add to the service account
+  # -- Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
+  # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
@@ -47,6 +54,11 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
+# -- Configuration of the linux security context for the docker image. This restricts the
+# rights of the running docker image as far as possible.
+#
+# "readOnlyRootFilesystem" must be set to false to auto-generate a config file with multiple redis hosts or
+# sentinel hosts
 securityContext:
   runAsNonRoot: true
   readOnlyRootFilesystem: false
@@ -56,27 +68,35 @@ securityContext:
       - ALL
 
 service:
+  # -- Type of k8s service to export
   type: ClusterIP
+  # -- External port where service is available
   port: 80
 
 ingress:
+  # -- Enable Ingress for the service
   enabled: false
+  # -- Add additional annotations for the ingess spec
+  # Example:
+  #   'kubernetes.io/ingress.class: nginx' or 'kubernetes.io/tls-acme: "true"'
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
+    # -- Host name to use for the ingress definition
     - host: chart-example.local
+      # -- Optional list of paths within the given host for path-based routing
       paths: []
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
 
+# -- We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -84,10 +104,11 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+# -- Autoscaling configuration for k8s deployment
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 1
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 

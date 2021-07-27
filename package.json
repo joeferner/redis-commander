@@ -63,7 +63,8 @@
     "build": "browserify -r readline-browserify -r cmdparser -r lossless-json | uglifyjs -cm -o web/static/scripts/browserify.js",
     "healthcheck": "./bin/healthcheck.js",
     "postinstall": "echo '==> INFO: Errors with module \"bcrypt\" can be ignored'",
-    "snyk-protect": "snyk protect"
+    "snyk-protect": "snyk protect",
+    "helm-doc": "cd k8s && cd helm-chart && helm-docs"
   },
   "snyk": true
 }
