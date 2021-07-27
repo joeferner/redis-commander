@@ -44,7 +44,7 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.1.0
       - name: Run chart-testing (lint)
-        run: "ct lint --config .github/ct.yaml --chart-dirs k8/helm-chart"
+        run: "ct lint --config .github/ct.yml --chart-dirs k8/helm-chart"
 
   lint-docs:
     runs-on: ubuntu-latest
