@@ -55,7 +55,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Run helm-docs
-        run: .github/helm-docs.sh
+        run: ".github/helm-docs.sh"
 
   kubeval-chart:
     runs-on: ubuntu-latest
@@ -84,7 +84,7 @@ jobs:
       - name: Run kubeval
         env:
           KUBERNETES_VERSION: ${{ matrix.k8s }}
-        run: .github/kubeval.sh
+        run: ".github/kubeval.sh"
 
 #  install-chart:
 #    name: install chart on KIND
