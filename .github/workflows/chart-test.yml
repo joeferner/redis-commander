@@ -25,6 +25,7 @@ on:
 
 env:
   HELM_VERSION: v3.6.3
+
 jobs:
   lint-chart:
     runs-on: ubuntu-latest
@@ -36,7 +37,7 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v1
         with:
-          version: ${{ HELM_VERSION }}
+          version: ${{ env.HELM_VERSION }}
       - uses: actions/setup-python@v2
         with:
           python-version: 3.7
@@ -79,7 +80,7 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v1
         with:
-          version: ${{ HELM_VERSION }}
+          version: ${{ env.HELM_VERSION }}
       - name: Run kubeval
         env:
           KUBERNETES_VERSION: ${{ matrix.k8s }}
