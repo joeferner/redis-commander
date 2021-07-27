@@ -20,9 +20,10 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 
 **Example**
 
+Another alternative is the usage of the helm repo hosted at the github pages site.
 ```sh
 # add repo
-helm repo add redis-commander https://raw.githubusercontent.com/joeferner/redis-commander/master/k8s/helm-chart/
+helm repo add redis-commander https://joeferner.github.io/redis-commander/
 
 # custom values
 cat > myvalues.yaml <<EOF
