@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-set -x
+
 CHART_DIRS="$(git diff --find-renames --name-only "$(git rev-parse --abbrev-ref HEAD)" remotes/origin/master | grep '[cC]hart.yaml' | sed -e 's#/[Cc]hart.yaml##g')"
 KUBEVAL_VERSION="0.16.1"
 # original schema repo from "instrumenta" not maintained anymore, use the one from "yannh" instead

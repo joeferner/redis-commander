@@ -66,8 +66,8 @@ jobs:
       matrix:
         k8s:
           - v1.11.10  # for openshift 3.11
-          - v1.16.15
-          - v1.17.14
+          #- v1.16.15
+          #- v1.17.14
           - v1.18.20
           - v1.19.13
           - v1.20.9
@@ -97,9 +97,9 @@ jobs:
 #      matrix:
 #        # not all k8s version are supported - check https://hub.docker.com/r/kindest/node/tags?page=1&ordering=last_updated
 #        k8s:
-#          - v1.11.10  # k8s 1.11 for openshift
-#          - v1.16.15
-#          - v1.17.17
+#          - v1.11.10  # for openshift 3.11
+#          #- v1.16.15
+#          #- v1.17.17
 #          - v1.18.19
 #          - v1.19.12
 #          - v1.20.7
