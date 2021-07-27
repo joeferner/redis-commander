@@ -17,3 +17,5 @@ version: 0.1.1
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: latest
+
+home: https://github.com/joeferner/redis-commander
