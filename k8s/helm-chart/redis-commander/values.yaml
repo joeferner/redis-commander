@@ -7,7 +7,7 @@
 # -- Number of replicas to create for deployment, should be 1
 replicaCount: 1
 image:
-  # -- Docker image to deploy
+  # -- Docker image for deployment
   repository: rediscommander/redis-commander
   # -- Deployment pull policy, either "Always" or "IfNotPresent"
   pullPolicy: Always
