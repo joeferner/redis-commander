@@ -18,4 +18,6 @@ version: 0.1.1
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: latest
 
-home: https://github.com/joeferner/redis-commander
+home: https://joeferner.github.io/redis-commander
+sources:
+  - https://github.com/joeferner/redis-commander
