@@ -10,6 +10,9 @@ on:
     paths:
       - 'k8s/helm-chart/**'
 
+env:
+  HELM_VERSION: v3.6.3
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -22,6 +25,10 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: ${{ env.HELM_VERSION }}
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.2.1
         with:
