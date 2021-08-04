@@ -1,37 +1,37 @@
-name: Release Charts
-
-# code and jobs are mostly taken from https://jamiemagee.co.uk/blog/how-to-host-your-helm-chart-repository-on-github/
-# and adapted for newer version of the test tools
-
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'k8s/helm-chart/**'
-
-env:
-  HELM_VERSION: v3.6.3
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      - name: Install Helm
-        uses: azure/setup-helm@v1
-        with:
-          version: ${{ env.HELM_VERSION }}
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.2.1
-        with:
-          charts_dir: 'k8s/helm-chart/**'
-        env:
-          CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+#name: Release Charts
+#
+## code and jobs are mostly taken from https://jamiemagee.co.uk/blog/how-to-host-your-helm-chart-repository-on-github/
+## and adapted for newer version of the test tools
+#
+#on:
+#  push:
+#    branches:
+#      - master
+#    paths:
+#      - 'k8s/helm-chart/**'
+#
+#env:
+#  HELM_VERSION: v3.6.3
+#
+#jobs:
+#  release:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#      - name: Configure Git
+#        run: |
+#          git config user.name "$GITHUB_ACTOR"
+#          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+#      - name: Install Helm
+#        uses: azure/setup-helm@v1
+#        with:
+#          version: ${{ env.HELM_VERSION }}
+#      - name: Run chart-releaser
+#        uses: helm/chart-releaser-action@v1.2.1
+#        with:
+#          charts_dir: 'k8s/helm-chart/**'
+#        env:
+#          CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
