@@ -34,7 +34,7 @@
     "express": "4.17.1",
     "express-partials": "0.3.0",
     "inflection": "1.13.1",
-    "ioredis": "4.27.7",
+    "ioredis": "4.27.8",
     "jquery.json-viewer": "1.4.0",
     "jsonwebtoken": "8.5.1",
     "jstree": "3.3.11",
