@@ -8,7 +8,7 @@
     "Stefan Seide <account-github@seide.st"
   ],
   "name": "redis-commander",
-  "version": "0.7.2",
+  "version": "0.7.3-rc1",
   "description": "Redis web-based management tool written in node.js",
   "license": "MIT",
   "repository": {
