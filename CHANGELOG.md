@@ -4,7 +4,7 @@
 #### Bugfixes
 #### Enhancements
 * update dependencies to fix vulnerabilities in async, tar
-
+* updated documentation regarding command line params and environment variables
 
 ## Version 0.7.2
 #### Bugfixes

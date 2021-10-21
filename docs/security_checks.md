@@ -22,6 +22,9 @@ This account has full rights on the database (as much as redis server allows).
 * config file: `server.httpAuth.username` and `server.httpAuth.password` or `server.httpAuth.passwordHash`
 Booth values must be given (username and either password or password hash)
 
+the passwords can be given as the content of files too for the docker container. Just set the env vars
+`HTTP_PASSWORD_FILE` or `HTTP_PASSWORD_HASH_FILE` to the name of the files containing the passwords/hash.
+ 
 #### b) SSO login via JSON Web Token (JWT)
 Alternative authentication of different users can be transfered to other web apps 
 which generate a JSON web token (see RFC ) that is given when calling redis commander.
@@ -84,3 +87,7 @@ Current image is build to run as a unprivileged user and not as root.
 Do not set passwords (http auth, redis server, ...) as normal command line parameter (even if supported)
 but either use custom config files with correct file protection modes or set them
 as Kubernetes Secrets / Docker Secrets.
+
+An alternative is mounting files (with restrictive permissions on them) into the container which
+where the passwords is stored in. The name o f the files can be set via docker image environment variables
+`HTTP_PASSWORD_FILE`, `HTTP_PASSWORD_HASH_FILE`, `REDIS_PASSWORD_FILE` and `SENTINEL_PASSWORD_FILE`.

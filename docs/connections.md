@@ -130,24 +130,33 @@ parsed as list of sentinels to connect:
 ### Connect to redis server in cluster mode
 
 This connection mode is currently not support (PR welcome)
-For guidance just as at one of the cluster support tickets.
+For guidance just ask at one of the cluster support tickets.
 
 ## Connection Parameters
 
-| Name | Type | Default | Description |
-|---|---|---|---|
-| path | string | '' | path to the redis server socket, e.g. '/var/run/redis/redis.sock' |
-| host | string | localhost | hostname or ip address of redis server (standalone mode)|
-| port | number | 6379 | port number where redis server listens (standalone mode) |
-| password | string | '' | optional password of the redis server itself (socket, standalone, sentinel or cluster mode) |
-| sentinels | string or list | '' | string: comma separated list of sentinels with "host:port" (sentinel mode) |
-| sentinelName | string | 'mymaster' | name of redis database group to connect to via sentinel. The default name of 'mymaster' can be change via global redis configuration value 'redis.defaultSentinelGroup' (sentinel mode) |
-| sentinelPassword | string |  | password to connect to sentinels itself. This is not the password of the redis server (sentinel mode) |
-| db | number | 0 | Number of database, starting with 0, max allowed db number is configured server-side (default 15) |
-| connectionName | string | '' | use special connection name at this redis client to identify it with redis "CLIENT LIST" command. If not set default connection name from config param `redis.connectionName` is used |
-| tls | boolean or object | false | set to true to enable TLS secured connections to the redis server, for more specific configurations (allowed algorithms, server certificate checks and so on) this parameter can be an object directly use at Node tls sockets (https://github.com/luin/ioredis#tls-options) |
-| label | string | '' | display label to us to identify this connection within the Web-UI |
-| optional | boolean | false | set to true to not auto-reconnect on connection lost. Reconnect will be done if data are fetch from UI on user request |
+The FIRST connection can be configured from the command line or via environment variables as listed below.
+
+Configuring multiple connections euither use the `--redis-hosts` (plural) cli param, `REDIS_HOSTS` env var inside docker or (much better)
+configure them directly inside your own custom json config file.
+
+*THE `--redis-...` / `--sentinel-...` COMMAND LINE PARAMS AND THE RESPECTIVE ENVIRONMENT VARIABLES WORK FOR THE FIRST CONNECITON ONLY!*
+
+*The environment variables work for the docker image only, not for the stand-alone app!*
+
+| Name | Type | Default | Cli | Environment-Var (Docker only) | Description |
+|---|---|---|---|---|---|
+| path | string | '' | --redis-socket | REDIS_SOCKET | path to the redis server socket, e.g. '/var/run/redis/redis.sock' |
+| host | string | localhost | --redis-host | REDIS_HOST | hostname or ip address of redis server (standalone mode)|
+| port | number | 6379 | --redis-port | REDIS_PORT | port number where redis server listens (standalone mode) |
+| password | string | '' | --redis-password | REDIS_PASSWORD | optional password of the redis server itself (socket, standalone, sentinel or cluster mode) |
+| sentinels | string or list | '' | --sentinels | SENTINELS | string: comma separated list of sentinels with "host:port" (sentinel mode) or list of "host:port" strings |
+| sentinelName | string | 'mymaster' | --sentinel-name | SENTINEL_NAME | name of redis database group to connect to via sentinel. The default name of 'mymaster' can be change via global redis configuration value 'redis.defaultSentinelGroup' (sentinel mode) |
+| sentinelPassword | string |  | --sentinel-password | SENTINEL_PASSWORD | password to connect to sentinels itself. This is not the password of the redis server (sentinel mode) |
+| db | number | 0 | --redis-db | REDIS_DB | Number of database, starting with 0, max allowed db number is configured server-side (default 15) |
+| connectionName | string | '' | | | use special connection name at this redis client to identify it with redis "CLIENT LIST" command. If not set default connection name from config param `redis.connectionName` is used |
+| tls | boolean or object | false | --redis-tls | REDIS_TLS | set to true to enable TLS secured connections to the redis server, for more specific configurations (allowed algorithms, server certificate checks and so on) this parameter can be an object directly use at Node tls sockets (https://github.com/luin/ioredis#tls-options) |
+| label | string | '' | --redis-label | | display label to us to identify this connection within the Web-UI |
+| optional | boolean | false | --redis-optional | REDIS_OPTIONAL | set to true to not auto-reconnect on connection lost. Reconnect will be done if data are fetch from UI on user request |
 
 ## More complex configurations examples
 

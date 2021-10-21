@@ -67,7 +67,8 @@ Options:
 ```
 
 The connection can be established either via direct connection to redis server or indirect
-via a sentinel instance.
+via a sentinel instance. Most of this command line parameters map onto configuration params read from 
+the config file - see [docs/configuration.md](docs/configuration.md) and [docs/connections.md](docs/connections.md).
 
 ## Configuration
 
@@ -104,13 +105,14 @@ To check the final configuration created from files, env-vars set and command li
 start redis commander with additional param "--test". All invalid configuration keys will be listed
 in the output. The config test does not check if hostnames or ip addresses can be resolved.
 
-More informations can be found in the documentation at [docs/configuration.md](docs/configuration.md)
+More information can be found in the documentation at [docs/configuration.md](docs/configuration.md)
 and [docs/connections.md](docs/connections.md).
 
 ## Environment Variables
 
 These environment variables can be used starting Redis Commander as normal
-application or inside docker container (defined inside file `config/custom-environment-variables.json`):
+application or inside docker container (defined inside file `config/custom-environment-variables.json`)
+and at [docs/configuration.md](docs/configuration.md):
 
 ```
 HTTP_USER
@@ -160,8 +162,10 @@ SENTINEL_PASSWORD_FILE
 SENTINELS
 K8S_SIGTERM
 ```
+ A (partial) description for the mapping onto the cli params and into the config files can be found
+at the [docs/connections.md](docs/connections.md) file.
 
-The `K8S_SIGTERM` variable (default "0") can be set to "1" to work around kubernetes specificas
+The `K8S_SIGTERM` variable (default "0") can be set to "1" to work around kubernetes specifics
 to allow pod replacement with zero downtime. More information on how kubernetes handles termination of old pods and the
 setup of new ones can be found within the thread [https://github.com/kubernetes/contrib/issues/1140#issuecomment-290836405]
 
@@ -262,13 +266,14 @@ containers:
 
 known issues with Kubernetes:
 
-* using REDIS_HOSTS works only with a password-less redis db. You must specify REDIS_HOST on a password protected redis db
+* using REDIS_HOSTS works only with a password-less redis db. You must specify REDIS_HOST on a password
+  protected redis db
 
 
 ## Helm chart
 
 You can install the application on any Kubernetes cluster using Helm.
-There is no helm repo available currently, therefor local checkout of helm sources inside 
+There is no helm repo available currently, therefore local checkout of helm sources inside 
 this repo is needed:
 
 ```sh
