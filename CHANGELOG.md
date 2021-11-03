@@ -3,7 +3,7 @@
 ## Next Version
 #### Bugfixes
 #### Enhancements
-* update dependencies to fix vulnerabilities in async, tar
+* update dependencies to fix vulnerabilities in async, tar, yargs, async
 * updated documentation regarding command line params and environment variables
 
 ## Version 0.7.2

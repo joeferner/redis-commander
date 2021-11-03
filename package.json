@@ -8,7 +8,7 @@
     "Stefan Seide <account-github@seide.st"
   ],
   "name": "redis-commander",
-  "version": "0.7.3-rc1",
+  "version": "0.7.3-rc2",
   "description": "Redis web-based management tool written in node.js",
   "license": "MIT",
   "repository": {
@@ -23,7 +23,7 @@
   ],
   "main": "lib/app.js",
   "dependencies": {
-    "async": "3.2.1",
+    "async": "3.2.2",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "clipboard": "2.0.8",
@@ -34,7 +34,7 @@
     "express": "4.17.1",
     "express-partials": "0.3.0",
     "inflection": "1.13.1",
-    "ioredis": "4.27.8",
+    "ioredis": "4.28.0",
     "jquery.json-viewer": "1.4.0",
     "jsonwebtoken": "8.5.1",
     "jstree": "3.3.12",
@@ -43,7 +43,7 @@
     "node-redis-dump2": "0.4.0",
     "opener": "1.5.2",
     "readline-browserify": "0.0.4",
-    "yargs": "17.0.1"
+    "yargs": "17.2.1"
   },
   "optionalDependencies": {
     "bcrypt": "~5.0.0"
@@ -53,7 +53,7 @@
     "uglify-js": "^3.13.7"
   },
   "engines": {
-    "node": ">=8.0"
+    "node": ">=10.0"
   },
   "bin": {
     "redis-commander": "./bin/redis-commander.js"
