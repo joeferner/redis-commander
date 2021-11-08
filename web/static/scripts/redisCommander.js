@@ -251,13 +251,17 @@ function getRootConnection (node) {
   return node.parents[node.parents.length-2];
 }
 
+function encodeKey(key) {
+  return encodeURIComponent(window.btoa(key).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.'));
+}
+
 function loadKey (connectionId, key, index) {
   if (index) {
-    $.get('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?index=' + index)
+    $.get('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeKey(key) + '?index=' + index)
         .done(processData)
         .fail(errorHandler);
   } else {
-    $.get('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key))
+    $.get('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeKey(key))
         .done(processData)
         .fail(errorHandler)
   }
@@ -467,7 +471,7 @@ function addNewKey() {
   var newKeyModal = $('#addKeyModal');
   var newKey = newKeyModal.find('#keyValue').val();
   var connectionId = newKeyModal.find('#addKeyConnectionId').val();
-  var action = 'apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(newKey);
+  var action = 'apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeKey(newKey);
   console.log('saving new key ' + newKey);
   newKeyModal.find('#saveKeyButton').attr('disabled', 'disabled').html('<i class="icon-refresh"></i> Saving');
 
@@ -495,7 +499,7 @@ function renameExistingKey() {
   var oldKey = modal.find('#currentKeyName').val();
   var newKey = modal.find('#renamedKeyName').val();
   var connectionId = modal.find('#renameKeyConnectionId').val();
-  var action = 'apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(oldKey);
+  var action = 'apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeKey(oldKey);
   console.log('renaming ' + oldKey + ' to new key ' + newKey);
   modal.find('#renameKeyButton').attr('disabled', 'disabled').html('<i class="icon-refresh"></i> Saving');
 
@@ -726,7 +730,7 @@ function deleteKey (connectionId, key) {
   // delete this specific key only, no wildcard here
   var result = confirm('Are you sure you want to delete "' + key + '" from "' + node.text + '"?');
   if (result) {
-    $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=delete', function (data, status) {
+    $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeKey(key) + '?action=delete', function (data, status) {
       if (status !== 'success') {
         return alert('Could not delete key');
       }
@@ -746,7 +750,7 @@ function decodeKey (connectionId, key) {
       connectionId = getRootConnection(node);
   }
 
-  $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?action=decode', function (data, status) {
+  $.post('apiv2/key/' + encodeURIComponent(connectionId) + '/' + encodeKey(key) + '?action=decode', function (data, status) {
     if (status !== 'success') {
       return alert('Could not decode key');
     }
@@ -783,7 +787,7 @@ function deleteBranch (connectionId, branchPrefix) {
   var query = (branchPrefix.endsWith(foldingCharacter) ? branchPrefix : branchPrefix + foldingCharacter) + '*';
   var result = confirm('Are you sure you want to delete "' + query + '" from "' + node.text + '"? This will delete all children as well!');
   if (result) {
-    $.post('apiv2/keys/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(query) + '?action=delete', function (data, status) {
+    $.post('apiv2/keys/' + encodeURIComponent(connectionId) + '/' + encodeKey(query) + '?action=delete', function (data, status) {
       if (status !== 'success') {
         return alert('Could not delete branch');
       }
@@ -875,7 +879,7 @@ function editHashField (connectionId, key, field, value) {
 }
 
 function showHashField (connectionId, key, field) {
-  $.get('apiv2/hash/key/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(key) + '?field=' + encodeURIComponent(field))
+  $.get('apiv2/hash/key/' + encodeURIComponent(connectionId) + '/' + encodeKey(key) + '?field=' + encodeURIComponent(field))
       .done(processData)
       .fail(errorHandler)
 
