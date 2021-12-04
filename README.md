@@ -143,6 +143,7 @@ with Docker. The following additional environment variables are available too (d
 docker startup script):
 
 ```
+HTTP_USER
 HTTP_PASSWORD_FILE
 HTTP_PASSWORD_HASH_FILE
 REDIS_PORT
