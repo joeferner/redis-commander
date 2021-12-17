@@ -12,7 +12,11 @@ image:
   # -- Deployment pull policy, either "Always" or "IfNotPresent"
   pullPolicy: Always
   # -- Enable AppArmor per default when available on k8s host, change to "unconfined" to disable
+  # -- either AppArmor or SecComp may be enabled by the container runtime
   apparmorProfile: runtime/default
+  # -- Enable SecComp profile when used by cluster, change to "unconfined" to disable
+  # -- either AppArmor or SecComp may be enabled by the container runtime
+  seccompProfile: runtime/default
   # -- Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
@@ -42,7 +46,10 @@ env: []
 
 serviceAccount:
   # -- Specifies whether a service account should be created
-  create: true
+  # When no service account is created the account credentials of the default account are also not automatically
+  # mounted into the pod (automountServiceAccountToken: false), tokens only mounted when service account is used
+  # but Redis-Commander itself does not use the k8s api server token
+  create: false
   # -- Annotations to add to the service account
   annotations: {}
   # -- The name of the service account to use.
