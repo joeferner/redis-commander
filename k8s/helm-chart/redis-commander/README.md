@@ -2,7 +2,7 @@
 
 A Helm chart for redis-commander
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 **Install**
 
@@ -24,9 +24,10 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | fullnameOverride | string | `""` |  |
 | httpAuth.password | string | `""` | Specify http basic password for the web ui |
 | httpAuth.username | string | `""` | Specify http basic username and password to protect access to redis commander web ui |
-| image.apparmorProfile | string | `"runtime/default"` | Enable AppArmor per default when available on k8s host, change to "unconfined" to disable |
+| image.apparmorProfile | string | `"runtime/default"` | Enable AppArmor per default when available on k8s host, change to "unconfined" to disable -- either AppArmor or SecComp may be enabled by the container runtime |
 | image.pullPolicy | string | `"Always"` | Deployment pull policy, either "Always" or "IfNotPresent" |
 | image.repository | string | `"rediscommander/redis-commander"` | Docker image for deployment |
+| image.seccompProfile | string | `"runtime/default"` | Enable SecComp profile when used by cluster, change to "unconfined" to disable -- either AppArmor or SecComp may be enabled by the container runtime |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` | Optional image pull secrets for private docker registries |
 | ingress.annotations | object | `{}` | Add additional annotations for the ingess spec Example:   'kubernetes.io/ingress.class: nginx' or 'kubernetes.io/tls-acme: "true"' |
@@ -47,7 +48,7 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | service.port | int | `80` | External port where service is available |
 | service.type | string | `"ClusterIP"` | Type of k8s service to export |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
-| serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
+| serviceAccount.create | bool | `false` | Specifies whether a service account should be created When no service account is created the account credentials of the default account are also not automatically mounted into the pod (automountServiceAccountToken: false), tokens only mounted when service account is used but Redis-Commander itself does not use the k8s api server token |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | tolerations | list | `[]` |  |
 

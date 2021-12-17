@@ -45,5 +45,12 @@
       <input type="submit" class="btn btn-primary" value="Import">
     </div>
   </div>
+  <div class="control-group">
+    <div class="controls">
+    Redis DUMPs can be imported too when the binary data part is base64 encoded. This format can be created by the "Export"
+    function from the menu (DUMP-BASE64) or with custom export scripts like:<br><br>
+    <code>RESTORE &lt;key&gt; &lt;ttl|0&gt; &lt;base64 encoded binary data from DUMP&gt;</code>
+    </div>
+  </div>
 </form>
 </div>

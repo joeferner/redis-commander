@@ -5,6 +5,7 @@ metadata:
   name: {{ include "redis-commander.fullname" . }}
   annotations:
     container.apparmor.security.beta.kubernetes.io/redis-commander: {{ .Values.image.apparmorProfile }}
+    container.security.alpha.kubernetes.io/redis-commander: {{ .Values.image.seccompProfile }}
   labels:
     {{- include "redis-commander.labels" . | nindent 4 }}
 spec:
@@ -27,7 +28,11 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.serviceAccount.create }}
       serviceAccountName: {{ include "redis-commander.serviceAccountName" . }}
+      {{- else }}
+      automountServiceAccountToken: false
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
