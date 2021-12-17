@@ -4,11 +4,12 @@ kind: Deployment
 metadata:
   name: redis-commander
   annotations:
-    # Tell Kubernetes to apply the AppArmor profile "runtime/default".
+    # Tell Kubernetes to apply the AppArmor or SecComp profile "runtime/default". (whatever is used)
     # Note that this is ignored if the Kubernetes node is not running version 1.4 or greater.
     # and fails if AppArmor enabled but profile not found (may happens on borked k8s installs only)
-    # set to "unconfined" to disable AppArmor
+    # set to "unconfined" to disable AppArmor (first annotation) or SecComp (second annotation)
     container.apparmor.security.beta.kubernetes.io/redis-commander: runtime/default
+    container.security.alpha.kubernetes.io/redis-commander: runtime/default
 spec:
   replicas: 1
   selector:
@@ -20,6 +21,7 @@ spec:
         app: redis-commander
         tier: backend
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: redis-commander
           image: rediscommander/redis-commander
