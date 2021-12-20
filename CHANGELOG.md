@@ -3,12 +3,13 @@
 ## Next Version
 #### Bugfixes
 #### Enhancements
-* update dependencies to fix vulnerabilities in async, tar, yargs, async
+* update dependencies to fix vulnerabilities in async, tar, yargs, async, ejs
 * update documentation regarding command line params and environment variables
-* update kubernetes examples for seccomp/apparmore profile and not mounting service account token
+* update kubernetes examples for seccomp/apparmor profile and not mounting service account token
 * update helm chart for service accounts and account token mount
 * add new import/export function with redis DUMP command and base64 encoded content to work around problems with
   multi-line redis values or some special data types and binary values
+* update base image to Alpine 3.15 with NodeJS 16
 
 ## Version 0.7.2
 #### Bugfixes
