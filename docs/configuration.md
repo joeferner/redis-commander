@@ -11,7 +11,7 @@ project.
 ## Configuration data
 
 The entire system can be configured within the json configuration files located below the `config/` folder.
-Some parameters cen be set additionally via environment variable and/or command line parameter.
+Some parameters can be set additionally via environment variable and/or command line parameter.
 Whenever this is possible the name of the environment variable is listed too as well as a flag to
 show when it can be set as cli parameter (overwriting the config file as well as the environment variable)
 
