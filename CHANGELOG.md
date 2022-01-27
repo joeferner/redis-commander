@@ -3,7 +3,7 @@
 ## Next Version
 #### Bugfixes
 #### Enhancements
-* update dependencies to fix vulnerabilities in async, tar, yargs, async, ejs
+* update dependencies to fix vulnerabilities in async, tar, yargs, async, ejs, cached-path-relative
 * update documentation regarding command line params and environment variables
 * update kubernetes examples for seccomp/apparmor profile and not mounting service account token
 * update helm chart for service accounts and account token mount
