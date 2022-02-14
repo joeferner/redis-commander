@@ -1597,7 +1597,7 @@ function toggleRedisModal() {
 
 $(function() {
   function refreshQueryToken() {
-    $.post('signin', {}, function (data, status) {
+    $.post('sign-in', {}, function (data, status) {
       if ((status !== 'success') || !data || !data.ok) {
         console.error('Cannot refresh query token');
         return;

@@ -151,7 +151,7 @@
       }
     });
     function refreshToken() {
-      $.post('signin', {}, function (data, status) {
+      $.post('sign-in', {}, function (data, status) {
         if (status !== 'success') {
           console.error("refresh token connection problem");
           return;

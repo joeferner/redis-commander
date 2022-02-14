@@ -28,7 +28,7 @@ $(function() {
   $('#signinForm').on('submit', function(event) {
     event.preventDefault();
     var signinForm = $(event.target);
-    $.post('signin', {
+    $.post('sign-in', {
       "username": signinForm.find('#signinUsername').val(),
       "password": signinForm.find('#signinPassword').val()
     }).done(function (data, status) {
