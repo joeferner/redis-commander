@@ -36,18 +36,18 @@
 <%- body %>
 
 <% if (!redisReadOnly) { %>
-  <% include('modals/addListValueModal') %>
-  <% include('modals/addSetMemberModal') %>
-  <% include('modals/addZSetMemberModal') %>
-  <% include('modals/addXSetMemberModal') %>
-  <% include('modals/addHashFieldModal') %>
-  <% include('modals/editZSetMemberModal') %>
-  <% include('modals/editSetMemberModal') %>
-  <% include('modals/editListValueModal') %>
-  <% include('modals/addKeyModal') %>
-  <% include('modals/renameKeyModal') %>
-  <% include('modals/editHashFieldModal') %>
+  <%- include('modals/addListValueModal') %>
+  <%- include('modals/addSetMemberModal') %>
+  <%- include('modals/addZSetMemberModal') %>
+  <%- include('modals/addXSetMemberModal') %>
+  <%- include('modals/addHashFieldModal') %>
+  <%- include('modals/editZSetMemberModal') %>
+  <%- include('modals/editSetMemberModal') %>
+  <%- include('modals/editListValueModal') %>
+  <%- include('modals/addKeyModal') %>
+  <%- include('modals/renameKeyModal') %>
+  <%- include('modals/editHashFieldModal') %>
 <% } %>
-<% include('modals/signinModal') %>
+<%- include('modals/signinModal') %>
 </body>
 </html>

@@ -3,13 +3,25 @@
 ## Next Version
 #### Bugfixes
 #### Enhancements
+* update dependencies
+
+## Version 0.7.3
+#### Bugfixes
+#### Enhancements
+* minimum node version supported 12.x
+* update ejs from 2.7.4 to 3.1.6
+* update dependencies to fix vulnerabilities in async, tar, yargs, async, ejs, cached-path-relative
+* add new import/export function with redis DUMP command and base64 encoded content to work around problems with
+* update base image to Alpine 3.15 with NodeJS 16
+
+## Version 0.7.2
+#### Bugfixes
+#### Enhancements
 * update dependencies to fix vulnerabilities in async, tar, yargs, async, ejs, cached-path-relative
 * update documentation regarding command line params and environment variables
 * update kubernetes examples for seccomp/apparmor profile and not mounting service account token
 * update helm chart for service accounts and account token mount
-* add new import/export function with redis DUMP command and base64 encoded content to work around problems with
   multi-line redis values or some special data types and binary values
-* update base image to Alpine 3.15 with NodeJS 16
 
 ## Version 0.7.2
 #### Bugfixes

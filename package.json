@@ -8,7 +8,7 @@
     "Stefan Seide <account-github@seide.st"
   ],
   "name": "redis-commander",
-  "version": "0.7.3",
+  "version": "0.7.4-rc1",
   "description": "Redis web-based management tool written in node.js",
   "license": "MIT",
   "repository": {
@@ -53,7 +53,7 @@
     "uglify-js": "^3.14.3"
   },
   "engines": {
-    "node": ">=10.0"
+    "node": ">=12.0"
   },
   "bin": {
     "redis-commander": "./bin/redis-commander.js"
