@@ -283,8 +283,8 @@ fi
 
 # syntax check of all config files to help detecting invalid ones early
 for i in config/*.json; do
-    if ! jq empty < "${i}"; then
-        echo "ERROR: config file ${i} has invalid json syntax"
+    if ! jq empty "${i}"; then
+        echo "ERROR: config file ${i} has invalid json syntax" >> /dev/stderr
         exit 1
     fi
 done
