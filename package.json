@@ -26,7 +26,7 @@
     "async": "3.2.3",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.1",
-    "clipboard": "2.0.9",
+    "clipboard": "2.0.10",
     "cmdparser": "0.0.3",
     "config": "3.3.7",
     "dateformat": "3.0.3",
