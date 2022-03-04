@@ -15,6 +15,11 @@ Installation via `yarn` is currently not supported. Please use `npm` as package 
 
 Or run Redis Commander as Docker image `rediscommander/redis-commander` (instructions see below).
 
+Multi-Arch images built are available at `ghcr.io/joeferner/redis-commander:latest`.
+(https://github.com/joeferner/redis-commander/pkgs/container/redis-commander)
+
+Remark: new version are not published to Dockerhub right now.
+
 # Features
 
 Web-UI to display and edit data within multiple different Redis servers.
