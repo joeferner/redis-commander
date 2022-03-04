@@ -3,14 +3,25 @@ name: Docker publish
 
 on:
   push:
-    # Publish `master` as Docker `latest` image, version branches as respective version too
+    # Publish `master` as Docker `latest` image, version tags as respective version too
     branches:
       - master
       - main
     tags:
       - v[0-9]*
-    #paths-ignore:
-    #  - '.github/**'
+    paths-ignore:
+      - '.github/**'
+      - '.s2i/**'
+      - 'dist/**'
+      - 'docs/**'
+      - 'k8s/**'
+      - 'test/'
+      - '.*'
+      - 'docker-compose.yml'
+      - 'ecosystem.config.js'
+      - 'CHANGELOG.md'
+      - 'README.md'
+      - 'SECURITY.md'
 
 env:
   GITHUB_REG: ghcr.io
@@ -40,7 +51,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up QEMU for Buildx
         id: qemu
