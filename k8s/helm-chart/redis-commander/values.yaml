@@ -83,6 +83,15 @@ service:
 ingress:
   # -- Enable Ingress for the service
   enabled: false
+  # -- Use *Legacy*, deprecated Ingress versions.
+  # Ingress apiVersions prior to `networking.k8s.io/v1` are deprecated and
+  # removed in kubernetes 1.22.
+  # Set the `legacy` flag to *true* if you are using kubernetes older than 1.19 or 
+  # OpenShift v3 and require support for the older API versions.
+  legacy: false
+  # -- Set the pathType for the v1 Ingress resource.  This setting is ignored for `legacy` Ingress resources.
+  # Details on **Path Type** are available here; https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types
+  pathType: ImplementationSpecific
   # -- Add additional annotations for the ingess spec
   # Example:
   #   'kubernetes.io/ingress.class: nginx' or 'kubernetes.io/tls-acme: "true"'

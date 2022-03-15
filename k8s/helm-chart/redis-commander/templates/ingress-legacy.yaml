@@ -1,8 +1,12 @@
-{{- if and .Values.ingress.enabled (not .Values.ingress.legacy) -}}
+{{- if and .Values.ingress.enabled .Values.ingress.legacy -}}
 {{- $fullName := include "redis-commander.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
-{{- $pathType := .Values.ingress.pathType -}}
-apiVersion: networking.k8s.io/v1
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+---
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
@@ -30,12 +34,9 @@ spec:
         paths:
           {{- range .paths }}
           - path: {{ . }}
-            pathType: {{ $pathType }}
             backend:
-              service:
-                name: {{ $fullName }}
-                port:
-                  number: {{ $svcPort }}
+              serviceName: {{ $fullName }}
+              servicePort: {{ $svcPort }}
           {{- end }}
     {{- end }}
   {{- end }}
