@@ -3,7 +3,7 @@
 ## Next Version
 #### Bugfixes
 #### Enhancements
-* update dependencies
+* update dependencies to fix security vulnerabilities in minimist
 
 ## Version 0.7.3
 #### Bugfixes
