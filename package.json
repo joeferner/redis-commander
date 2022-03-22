@@ -33,7 +33,7 @@
     "ejs": "3.1.6",
     "express": "4.17.3",
     "express-partials": "0.3.0",
-    "inflection": "1.13.1",
+    "inflection": "1.13.2",
     "ioredis": "4.28.5",
     "jquery.json-viewer": "1.4.0",
     "jsonwebtoken": "8.5.1",
@@ -43,7 +43,7 @@
     "node-redis-dump2": "0.5.0",
     "opener": "1.5.2",
     "readline-browserify": "0.0.4",
-    "yargs": "17.3.0"
+    "yargs": "17.4.0"
   },
   "optionalDependencies": {
     "bcrypt": "~5.0.0"
