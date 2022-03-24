@@ -13,7 +13,7 @@ $ redis-commander
 
 Installation via `yarn` is currently not supported. Please use `npm` as package manager.
 
-Or run Redis Commander as Docker image `rediscommander/redis-commander` (instructions see below).
+Or run Redis Commander as Docker image `ghcr.io/joeferner/redis-commander` ~~rediscommander/redis-commander~~ (instructions see below).
 
 Multi-Arch images built are available at `ghcr.io/joeferner/redis-commander:latest`.
 (https://github.com/joeferner/redis-commander/pkgs/container/redis-commander)
@@ -212,7 +212,7 @@ services:
   redis-commander:
     container_name: redis-commander
     hostname: redis-commander
-    image: rediscommander/redis-commander:latest
+    image: ghcr.io/joeferner/redis-commander:latest
     restart: always
     environment:
     - REDIS_HOSTS=local:redis:6379
@@ -227,27 +227,24 @@ services:
 If you're running redis on `localhost:6379`, this is all you need to get started.
 
 ```bash
-docker run --rm --name redis-commander -d \
-  -p 8081:8081 \
-  rediscommander/redis-commander:latest
+docker run --rm --name redis-commander -d -p 8081:8081 \
+  ghcr.io/joeferner/redis-commander:latest
 ```
 
 #### Specify single host
 
 ```bash
-docker run --rm --name redis-commander -d \
+docker run --rm --name redis-commander -d -p 8081:8081 \
   --env REDIS_HOSTS=10.10.20.30 \
-  -p 8081:8081 \
-  rediscommander/redis-commander:latest
+  ghcr.io/joeferner/redis-commander:latest
 ```
 
 #### Specify multiple hosts with labels
 
 ```bash
-docker run --rm --name redis-commander -d \
+docker run --rm --name redis-commander -d -p 8081:8081 \
   --env REDIS_HOSTS=local:localhost:6379,myredis:10.10.20.30 \
-  -p 8081:8081 \
-  rediscommander/redis-commander:latest
+  rghcr.io/joeferner/redis-commander:latest
 ```
 
 ## Kubernetes
@@ -261,7 +258,7 @@ Alternatively, you can add a container to a deployment's spec like this:
 ```
 containers:
 - name: redis-commander
-  image: rediscommander/redis-commander
+  image: ghcr.io/joeferner/redis-commander
   env:
   - name: REDIS_HOSTS
     value: instance1:redis:6379
