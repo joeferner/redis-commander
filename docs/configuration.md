@@ -65,6 +65,7 @@ interface of Redis Commander.
 | server.address | string | '0.0.0.0' | --address | ADDRESS | ip address of interface to bind http server to, use 0.0.0.0 to bind to all interfaces |
 | server.port | number | 8081 | --port | PORT | port to listen on for HTTP server |
 | server.urlPrefix | string | '' | --url-prefix | URL_PREFIX | path prefix to run Redis Commander at, can be used if run behind a reverse proxy with different path set (e.g. /rc), if set must start with '/' |
+| server.signinPath | string | 'signin' | | SIGNIN_PATH | path added after urlPrefix as route to send login requests too. Some platforms (e.g. github codespaces) may require changing this path. |
 | server.trustProxy | boolean or string | false | --trust-proxy | TRUST_PROXY | should be set to true if run behind a reverse proxy and 'X-Forwarded-For' headers shall be trusted to get real client ip for logging, this parameter maps directly to the Express "trust proxy" setting (https://expressjs.com/de/guide/behind-proxies.html)|
 | server.clientMaxBodySize | number or string | '100kb' | | CLIENT_MAX_BODY_SIZE | number in bytes or a string with size and SI-unit, this parameter maps to the "limit" options of body-parser (https://github.com/expressjs/body-parser#limit) |
 | server.auth | object |  | | | see section 4.1 Authentication  |

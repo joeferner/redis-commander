@@ -4,6 +4,7 @@
 #### Bugfixes
 #### Enhancements
 * update dependencies to fix security vulnerabilities in minimist
+* make url path of signin route configurable (config file and env var), #467
 
 ## Version 0.7.3
 #### Bugfixes

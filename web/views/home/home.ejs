@@ -128,11 +128,12 @@
 <!-- /COMMANDS MODAL -->
 
 <script type="text/javascript">
-  var httpAuthDisabled = <%= httpAuthDisabled %>;
-  var foldingCharacter = '<%= foldingCharacter %>';
-  var redisReadOnly = <%= redisReadOnly %>;
+  const httpAuthDisabled = <%= httpAuthDisabled %>;
+  const foldingCharacter = '<%= foldingCharacter %>';
+  const redisReadOnly = <%= redisReadOnly %>;
+  const signinPath = '<%= signinPath %>';
 
-  var setConnection = function (connectionBtn) {
+  const setConnection = function (connectionBtn) {
     $('#selectedConnectionLabel').text('Current Instance: "' + connectionBtn.dataset.label +
             '" (' + connectionBtn.dataset.visibleid + ')');
     $('#selectedConnection').val(connectionBtn.value);
@@ -151,7 +152,7 @@
       }
     });
     function refreshToken() {
-      $.post('signin', {}, function (data, status) {
+      $.post(signinPath, {}, function (data, status) {
         if (status !== 'success') {
           console.error("refresh token connection problem");
           return;

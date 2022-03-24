@@ -20,6 +20,7 @@
     "address": "ADDRESS",
     "port": "PORT",
     "urlPrefix": "URL_PREFIX",
+    "signinPath": "SIGNIN_PATH",
     "trustProxy": "TRUST_PROXY",
     "clientMaxBodySize": "CLIENT_MAX_BODY_SIZE",
     "httpAuth": {
