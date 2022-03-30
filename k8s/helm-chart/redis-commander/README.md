@@ -4,7 +4,7 @@ A Helm chart for redis-commander
 
 ![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
-**Install**
+## Install
 
 Install using this repo after local git checkout itself with setting redis server host value
 to `redis`
@@ -54,9 +54,10 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | tolerations | list | `[]` |  |
 
-**Example**
+## Example
 
 Another alternative is the usage of the helm repo hosted at the github pages site.
+
 ```sh
 # add repo
 helm repo add redis-commander https://joeferner.github.io/redis-commander/
@@ -74,6 +75,9 @@ ingress:
   hosts:
     - host: redis-ui.example.com
       paths: ["/"]
+EOF
+
+# install helm chart with the custom values
 helm install \
   redis-web-ui \
   redis-commander/redis-commander \
