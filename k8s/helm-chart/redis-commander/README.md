@@ -24,10 +24,10 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | fullnameOverride | string | `""` |  |
 | httpAuth.password | string | `""` | Specify http basic password for the web ui |
 | httpAuth.username | string | `""` | Specify http basic username and password to protect access to redis commander web ui |
-| image.apparmorProfile | string | `"runtime/default"` | either AppArmor or SecComp may be enabled by the container runtime |
+| image.apparmorProfile | string | `"runtime/default"` | Enable AppArmor per default when available on k8s host, change to "unconfined" to disable either AppArmor or SecComp may be enabled by the container runtime |
 | image.pullPolicy | string | `"Always"` | Deployment pull policy, either "Always" or "IfNotPresent" |
 | image.repository | string | `"rediscommander/redis-commander"` | Docker image for deployment |
-| image.seccompProfile | string | `"runtime/default"` | either AppArmor or SecComp may be enabled by the container runtime |
+| image.seccompProfile | string | `"runtime/default"` | Enable SecComp profile when used by cluster, change to "unconfined" to disable either AppArmor or SecComp may be enabled by the container runtime |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` | Optional image pull secrets for private docker registries |
 | ingress.annotations | object | `{}` | Add additional annotations for the ingess spec Example:   'kubernetes.io/ingress.class: nginx' or 'kubernetes.io/tls-acme: "true"' |

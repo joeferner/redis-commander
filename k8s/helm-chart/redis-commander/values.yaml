@@ -12,10 +12,10 @@ image:
   # -- Deployment pull policy, either "Always" or "IfNotPresent"
   pullPolicy: Always
   # -- Enable AppArmor per default when available on k8s host, change to "unconfined" to disable
-  # -- either AppArmor or SecComp may be enabled by the container runtime
+  # either AppArmor or SecComp may be enabled by the container runtime
   apparmorProfile: runtime/default
   # -- Enable SecComp profile when used by cluster, change to "unconfined" to disable
-  # -- either AppArmor or SecComp may be enabled by the container runtime
+  # either AppArmor or SecComp may be enabled by the container runtime
   seccompProfile: runtime/default
   # -- Overrides the image tag whose default is the chart appVersion.
   tag: ""
