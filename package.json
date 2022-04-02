@@ -64,7 +64,7 @@
     "healthcheck": "./bin/healthcheck.js",
     "postinstall": "echo '==> INFO: Errors with module \"bcrypt\" can be ignored'",
     "snyk-protect": "snyk protect",
-    "helm-doc": "cd k8s && cd helm-chart && helm-docs"
+    "helm-doc": "helm-docs -c k8s/helm-chart"
   },
   "snyk": true
 }
