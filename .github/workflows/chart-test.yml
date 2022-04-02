@@ -24,14 +24,14 @@ on:
       - 'k8s/helm-chart/**'
 
 env:
-  HELM_VERSION: v3.6.3
+  HELM_VERSION: v3.8.1
 
 jobs:
   lint-chart:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Set up Helm
@@ -40,7 +40,7 @@ jobs:
           version: ${{ env.HELM_VERSION }}
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: 3.9
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.1.0
       - name: Run chart-testing (lint)
@@ -51,7 +51,7 @@ jobs:
     needs: lint-chart
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Run helm-docs
@@ -74,7 +74,7 @@ jobs:
           - v1.21.3
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Set up Helm
@@ -106,7 +106,7 @@ jobs:
 #          - v1.21.2
 #    steps:
 #      - name: Checkout
-#        uses: actions/checkout@v2
+#        uses: actions/checkout@v3
 #      - name: Create kind ${{ matrix.k8s }} cluster
 #        uses: helm/kind-action@master
 #        with:
