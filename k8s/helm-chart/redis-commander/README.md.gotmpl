@@ -1,9 +1,10 @@
 {{ template "chart.header" . }}
+
 {{ template "chart.description" . }}
 
 {{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
 
-**Install**
+## Install
 
 Install using this repo after local git checkout itself with setting redis server host value
 to `redis`
@@ -13,14 +14,14 @@ cd <git-repo>
 helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redis.host=redis
 ```
 
-
 {{ template "chart.requirementsSection" . }}
 
 {{ template "chart.valuesSection" . }}
 
-**Example**
+## Example
 
 Another alternative is the usage of the helm repo hosted at the github pages site.
+
 ```sh
 # add repo
 helm repo add redis-commander https://joeferner.github.io/redis-commander/
@@ -47,5 +48,10 @@ helm install \
   -f myvalues.yaml
 
 ```
+
+## Potentially Breaking Changes
+
+Chart version 0.20 switches to use the `networking.k8s.io/v1` apiVersion by default for Ingress resources.  This is a requirement for kubernetes 1.22 or later.
+If you are using a version of kubernetes older than 1.19 or using OpenShift v3 you will need to set the `ingress.legacy` option to `true` to enable support for the deprecated Ingress versions.
 
 {{ template "helm-docs.versionFooter" . }}
