@@ -8,14 +8,14 @@
 replicaCount: 1
 image:
   # -- Docker image for deployment
-  repository: rediscommander/redis-commander
+  repository: ghcr.io/joeferner/redis-commander
   # -- Deployment pull policy, either "Always" or "IfNotPresent"
   pullPolicy: Always
-  # -- Enable AppArmor per default when available on k8s host, change to "unconfined" to disable
-  # either AppArmor or SecComp may be enabled by the container runtime
+  # -- Enable AppArmor per default when available on k8s host, change to "unconfined" to disable.
+  # Either AppArmor or SecComp may be enabled by the container runtime
   apparmorProfile: runtime/default
-  # -- Enable SecComp profile when used by cluster, change to "unconfined" to disable
-  # either AppArmor or SecComp may be enabled by the container runtime
+  # -- Enable SecComp profile when used by cluster, change to "unconfined" to disable.
+  # Either AppArmor or SecComp may be enabled by the container runtime
   seccompProfile: runtime/default
   # -- Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -41,7 +41,7 @@ httpAuth:
   # -- Specify http basic password for the web ui
   password: ""
 
-# -- Extra env vars for the main container redis-commander in array structure ([{name: ... , value: ...}, {name: ... , value: ...}]).
+# -- Extra env vars for the main pod redis-commander in array structure ([{name: ... , value: ...}, {name: ... , value: ...}]).
 env: []
 
 serviceAccount:
@@ -86,7 +86,7 @@ ingress:
   # -- Use *Legacy*, deprecated Ingress versions.
   # Ingress apiVersions prior to `networking.k8s.io/v1` are deprecated and
   # removed in kubernetes 1.22.
-  # Set the `legacy` flag to *true* if you are using kubernetes older than 1.19 or 
+  # Set the `legacy` flag to *true* if you are using kubernetes older than 1.19 or
   # OpenShift v3 and require support for the older API versions.
   legacy: false
   # -- Set the pathType for the v1 Ingress resource.  This setting is ignored for `legacy` Ingress resources.
@@ -101,8 +101,9 @@ ingress:
   hosts:
     # -- Host name to use for the ingress definition
     - host: chart-example.local
-      # -- Optional list of paths within the given host for path-based routing
-      paths: []
+      # -- list of paths within the given host for path-based routing, otherwise the root path "/" will be used
+      paths:
+        - "/"
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

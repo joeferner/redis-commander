@@ -20,21 +20,21 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | autoscaling | object | `{"enabled":false,"maxReplicas":1,"minReplicas":1,"targetCPUUtilizationPercentage":80}` | Autoscaling configuration for k8s deployment |
-| env | list | `[]` | Extra env vars for the main container redis-commander in array structure ([{name: ... , value: ...}, {name: ... , value: ...}]). |
+| env | list | `[]` | Extra env vars for the main pod redis-commander in array structure ([{name: ... , value: ...}, {name: ... , value: ...}]). |
 | fullnameOverride | string | `""` |  |
 | httpAuth.password | string | `""` | Specify http basic password for the web ui |
 | httpAuth.username | string | `""` | Specify http basic username and password to protect access to redis commander web ui |
-| image.apparmorProfile | string | `"runtime/default"` | Enable AppArmor per default when available on k8s host, change to "unconfined" to disable either AppArmor or SecComp may be enabled by the container runtime |
+| image.apparmorProfile | string | `"runtime/default"` | Enable AppArmor per default when available on k8s host, change to "unconfined" to disable. Either AppArmor or SecComp may be enabled by the container runtime |
 | image.pullPolicy | string | `"Always"` | Deployment pull policy, either "Always" or "IfNotPresent" |
-| image.repository | string | `"rediscommander/redis-commander"` | Docker image for deployment |
-| image.seccompProfile | string | `"runtime/default"` | Enable SecComp profile when used by cluster, change to "unconfined" to disable either AppArmor or SecComp may be enabled by the container runtime |
+| image.repository | string | `"ghcr.io/joeferner/redis-commander"` | Docker image for deployment |
+| image.seccompProfile | string | `"runtime/default"` | Enable SecComp profile when used by cluster, change to "unconfined" to disable. Either AppArmor or SecComp may be enabled by the container runtime |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` | Optional image pull secrets for private docker registries |
 | ingress.annotations | object | `{}` | Add additional annotations for the ingess spec Example:   'kubernetes.io/ingress.class: nginx' or 'kubernetes.io/tls-acme: "true"' |
 | ingress.enabled | bool | `false` | Enable Ingress for the service |
-| ingress.hosts[0] | object | `{"host":"chart-example.local","paths":[]}` | Host name to use for the ingress definition |
-| ingress.hosts[0].paths | list | `[]` | Optional list of paths within the given host for path-based routing |
-| ingress.legacy | bool | `false` | Use *Legacy*, deprecated Ingress versions. Ingress apiVersions prior to `networking.k8s.io/v1` are deprecated and removed in kubernetes 1.22. Set the `legacy` flag to *true* if you are using kubernetes older than 1.19 or  OpenShift v3 and require support for the older API versions. |
+| ingress.hosts[0] | object | `{"host":"chart-example.local","paths":["/"]}` | Host name to use for the ingress definition |
+| ingress.hosts[0].paths | list | `["/"]` | list of paths within the given host for path-based routing, otherwise the root path "/" will be used |
+| ingress.legacy | bool | `false` | Use *Legacy*, deprecated Ingress versions. Ingress apiVersions prior to `networking.k8s.io/v1` are deprecated and removed in kubernetes 1.22. Set the `legacy` flag to *true* if you are using kubernetes older than 1.19 or OpenShift v3 and require support for the older API versions. |
 | ingress.pathType | string | `"ImplementationSpecific"` | Set the pathType for the v1 Ingress resource.  This setting is ignored for `legacy` Ingress resources. Details on **Path Type** are available here; https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types |
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` |  |
