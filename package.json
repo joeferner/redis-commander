@@ -30,7 +30,7 @@
     "cmdparser": "0.0.3",
     "config": "3.3.7",
     "dateformat": "3.0.3",
-    "ejs": "3.1.6",
+    "ejs": "3.1.7",
     "express": "4.17.3",
     "express-partials": "0.3.0",
     "inflection": "1.13.2",
