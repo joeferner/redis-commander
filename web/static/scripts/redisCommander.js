@@ -1275,8 +1275,9 @@ function losslessJsonReviver(key, value) {
       return value.valueOf();   // smaller numbers can be converted to a js Number without loosing information
     }
     catch(e) {
-      // precision will be lost - does not fit into Number, therefore return string
-      return value.toString();
+      // precision will be lost - does not fit into Number, therefore return BigInt
+      // json-viewer library needs support for bigint too
+      return BigInt(value.toString());
     }
   }
   else {

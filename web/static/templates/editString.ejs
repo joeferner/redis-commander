@@ -45,7 +45,7 @@
 
   $('#stringValue').on('blur', function(event) {
     try {
-      $('#jqtree_string_div').jsonViewer(JSON.parse(event.target.value), {withQuotes: true, withLinks: false});
+      $('#jqtree_string_div').jsonViewer(losslessJSON.parse(event.target.value, losslessJsonReviver), {withQuotes: true, withLinks: false});
     }
     catch(ex) {
       $('#jqtree_string_div').empty().text('Text is no valid JSON: ' + ex.message);
