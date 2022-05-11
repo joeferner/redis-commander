@@ -226,6 +226,10 @@ if [ -n "$REDIS_TLS" ] && parse_boolean "$REDIS_TLS"; then
     set -- "$@" "--redis-tls"
 fi
 
+if [ -n "$REDIS_USERNAME" ]; then
+    set -- "$@" "--redis-username" "$REDIS_USERNAME"
+fi
+
 if [ -n "$REDIS_PASSWORD" ]; then
     set -- "$@" "--redis-password" "$REDIS_PASSWORD"
 fi
@@ -252,6 +256,10 @@ fi
 
 if [ -n "$SENTINEL_NAME" ]; then
     set -- "$@" "--sentinel-name" "$SENTINEL_NAME"
+fi
+
+if [ -n "$SENTINEL_USERNAME" ]; then
+    set -- "$@" "--sentinel-username" "$SENTINEL_USERNAME"
 fi
 
 if [ -n "$SENTINEL_PASSWORD" ]; then

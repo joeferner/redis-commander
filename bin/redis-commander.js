@@ -31,6 +31,10 @@ let args = yargs
     type: 'string',
     describe: 'The unix-socket to find redis on.'
   })
+  .options('redis-username', {
+    type: 'string',
+    describe: 'The redis username.'
+  })
   .options('redis-password', {
     type: 'string',
     describe: 'The redis password.'
@@ -59,6 +63,10 @@ let args = yargs
   .options('sentinel-name', {
     type: 'string',
     describe: 'The sentinel group name to use.'
+  })
+  .options('sentinel-username', {
+    type: 'string',
+    describe: 'The sentinel username to use.'
   })
   .options('sentinel-password', {
     type: 'string',
@@ -371,12 +379,13 @@ function createConnectionObjectFromArgs(argList) {
   // now create connection object if enough params are set
   let connObj = null;
   if (argList['sentinel-host'] || argList['sentinels'] || argList['redis-host'] || argList['redis-port'] || argList['redis-socket']
-    || argList['redis-password'] || argList['redis-db']) {
+    || argList['redis-username'] || argList['redis-password'] || argList['redis-db']) {
 
     let db = parseInt(argList['redis-db']);
     connObj = {
       label: config.get('redis.defaultLabel'),
       dbIndex: Number.isNaN(db) ? 0 : db,
+      username: argList['redis-username'] || null,
       password: argList['redis-password'] || '',
       connectionName: config.get('redis.connectionName'),
       optional: argList['redis-optional']
@@ -389,6 +398,7 @@ function createConnectionObjectFromArgs(argList) {
       connObj.host = argList['redis-host'] || 'localhost';
       connObj.port = argList['redis-port'] || 6379;
       connObj.port = parseInt(connObj.port);
+      connObj.sentinelUsername = argList['sentinel-username'] || null;
       connObj.sentinelPassword = argList['sentinel-password'] || '';
       if (argList['sentinels']) {
         connObj.sentinels = myUtils.parseRedisSentinel('--sentinels', argList['sentinels']);
