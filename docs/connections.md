@@ -148,9 +148,11 @@ configure them directly inside your own custom json config file.
 | path | string | '' | --redis-socket | REDIS_SOCKET | path to the redis server socket, e.g. '/var/run/redis/redis.sock' |
 | host | string | localhost | --redis-host | REDIS_HOST | hostname or ip address of redis server (standalone mode)|
 | port | number | 6379 | --redis-port | REDIS_PORT | port number where redis server listens (standalone mode) |
+| username | string | '' | --redis-username | REDIS_USERNAME | optional username of the redis server itself (socket, standalone, sentinel or cluster mode - supported since Redis 6.0) |
 | password | string | '' | --redis-password | REDIS_PASSWORD | optional password of the redis server itself (socket, standalone, sentinel or cluster mode) |
 | sentinels | string or list | '' | --sentinels | SENTINELS | string: comma separated list of sentinels with "host:port" (sentinel mode) or list of "host:port" strings |
 | sentinelName | string | 'mymaster' | --sentinel-name | SENTINEL_NAME | name of redis database group to connect to via sentinel. The default name of 'mymaster' can be change via global redis configuration value 'redis.defaultSentinelGroup' (sentinel mode) |
+| sentinelUsername | string |  | --sentinel-username | SENTINEL_USERNAME | optional username to connect to sentinels itself. This is not the username of the redis server (sentinel mode - supported since Redis 6.0) |
 | sentinelPassword | string |  | --sentinel-password | SENTINEL_PASSWORD | password to connect to sentinels itself. This is not the password of the redis server (sentinel mode) |
 | db | number | 0 | --redis-db | REDIS_DB | Number of database, starting with 0, max allowed db number is configured server-side (default 15) |
 | connectionName | string | '' | | | use special connection name at this redis client to identify it with redis "CLIENT LIST" command. If not set default connection name from config param `redis.connectionName` is used |
