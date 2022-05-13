@@ -3,8 +3,15 @@
 ## Next Version
 #### Bugfixes
 #### Enhancements
-* update dependencies to fix security vulnerabilities in minimist
+
+## Version 0.8.0
+#### Bugfixes
+#### Enhancements
+* update dependencies to fix security vulnerabilities in minimist, json-viewer, async, config, clipboard
 * make url path of signin route configurable (config file and env var), #467
+* add redis username and sentinel username support, #476
+* update helm chart to allow setting redis username
+* fix json display of big numbers not fitting into javascript "number" type, #400
 
 ## Version 0.7.3
 #### Bugfixes
