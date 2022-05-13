@@ -28,6 +28,8 @@ redis:
   # -- Specifies a single Redis host
   host: "redis-master"
 
+  # -- Specifies redis username - supported since Redis 6.0 with ACL support.
+  username: ""
   # -- Specifies redis password
   password: ""
 
