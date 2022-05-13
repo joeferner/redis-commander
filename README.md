@@ -40,6 +40,7 @@ Options:
   --redis-port                         The port to find redis on.                  [string]
   --redis-host                         The host to find redis on.                  [string]
   --redis-socket                       The unix-socket to find redis on.           [string]
+  --redis-username                     The redis username.                         [string]
   --redis-password                     The redis password.                         [string]
   --redis-db                           The redis database.                         [string]
   --redis-label                        The label to display for the connection.    [string]
@@ -49,6 +50,7 @@ Options:
   --sentinel-host                      The host to find redis sentinel on.         [string]
   --sentinels                          Comma separated list of sentinels with host:port. [string]
   --sentinel-name                      The redis sentinel group name to use.       [string]  [default: mymaster]
+  --sentinel-username                  The username for sentinel instance.         [string]
   --sentinel-password                  The password for sentinel instance.         [string]
   --http-auth-username, --http-u       The http authorisation username.            [string]
   --http-auth-password, --http-p       The http authorisation password.            [string]
@@ -155,6 +157,7 @@ REDIS_PORT
 REDIS_HOST
 REDIS_SOCKET
 REDIS_TLS
+REDIS_USERNAME
 REDIS_PASSWORD
 REDIS_PASSWORD_FILE
 REDIS_DB
@@ -163,6 +166,7 @@ REDIS_OPTIONAL
 SENTINEL_PORT
 SENTINEL_HOST
 SENTINEL_NAME
+SENTINEL_USERNAME
 SENTINEL_PASSWORD
 SENTINEL_PASSWORD_FILE
 SENTINELS
