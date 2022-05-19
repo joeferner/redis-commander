@@ -294,7 +294,7 @@ function loadKey (connectionId, key, index) {
         selectTreeNodeBinary(keyData);
         break;
       case 'ReJSON-RL':
-        selectTreeNodeReJSON(keyData);
+        selectTreeNodeString(keyData);
         break;
       case 'none':
         selectTreeNodeBranch(keyData);

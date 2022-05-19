@@ -10,7 +10,7 @@
 <div id="itemData">
   <label>Key: <b><%= key %></b></label>
   <label>TTL: <b><%= ttl %></b></label>
-  <label>Type: <b>String</b></label>
+  <label>Type: <b><%= type %></b></label>
   <form id="editStringForm" action="apiv1/key/<%= connectionId %>/<%= key %>" method="POST" class="form-vertical">
     <div id="jqtree_string_div" class="json-renderer" style="display: none;">loading ...</div>
     <span id="stringValueBox" class="text-renderer">
