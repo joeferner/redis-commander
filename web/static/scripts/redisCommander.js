@@ -532,10 +532,10 @@ function selectTreeNodeString (data) {
     try {
       var jsonObject = data.value;
       if (jsonObject.match(simpleObjRE)) {
-        jsonObject = losslessJSON.parse(data.value, losslessJsonReviver);
+        jsonObject = losslessJSON.parse(data.value);
         isJsonParsed = true;
       }
-      $('#jqtree_string_div').jsonViewer(jsonObject, {withQuotes: true, withLinks: false});
+      $('#jqtree_string_div').jsonViewer(jsonObject, {withQuotes: true, withLinks: false, bigNumbers: true});
       if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewString) > 0) dataUIFuncs.onModeJsonButtonClick('#editStringForm')
     } catch (ex) {
       $('#isJson').prop('checked', false);
@@ -1246,7 +1246,7 @@ var dataUIFuncs = {
       var plain = current.prev().html();
       try {
         // display either as string if no valid json or as json object otherwise, ignore exception
-        current.jsonViewer(losslessJSON.parse(plain, losslessJsonReviver), {withQuotes: true, withLinks: false});
+        current.jsonViewer(losslessJSON.parse(plain), {withQuotes: true, withLinks: false, bigNumbers: true});
       }
       catch(ex) {
         // add json-viewer class manually to get same color/fonts
@@ -1263,26 +1263,6 @@ function escapeHtml (str) {
     .replace(/>/g, '&gt;')
     .replace(/\n/g, '<br>')
     .replace(/\s/g, '&nbsp;');
-}
-
-/** helper function to parse json witch may contain big numbers - all numbers that can not be displayed
- *  as a javascript number will be converted to a string. than the correct values can be display as formatted
- *  json at least (needed for jquery.json-viewer)
- */
-function losslessJsonReviver(key, value) {
-  if (value && value.isLosslessNumber) {
-    try {
-      return value.valueOf();   // smaller numbers can be converted to a js Number without loosing information
-    }
-    catch(e) {
-      // precision will be lost - does not fit into Number, therefore return BigInt
-      // json-viewer library needs support for bigint too
-      return BigInt(value.toString());
-    }
-  }
-  else {
-    return value;
-  }
 }
 
 /** Fetch the url give at filename from the server and render the content of this
