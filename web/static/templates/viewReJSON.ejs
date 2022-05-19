@@ -43,19 +43,20 @@
     </div>
 </div>
 <script>
-    $('#itemTree').toggle()
+    $('#itemTree').toggle();
 
-    jsonStr = $('#stringValue').val()
+    const jsonStr = $('#stringValue').val();
     try{
-        jsonObj = JSON.parse(jsonStr)
-        $('#jsontree').jsonViewer(jsonObj, {collapsed: true, withQuotes: false, withLinks: false});
+        const jsonObj = losslessJSON.parse(jsonStr);
+        $('#jsontree').jsonViewer(jsonObj, {collapsed: true, withQuotes: false, withLinks: false, bigNumbers: true});
     } catch(e) {
         $('#jsontree').val("There are parsing error in JSON string: "+e.message);
     }
 
     function showHideJSONTreeClick() {
-        console.log("click", $('#itemData:visible').length)
-        if($('#itemData:visible').length) {
+        const itemDataLength = $('#itemData:visible').length;
+        console.log("click", itemDataLength);
+        if (itemDataLength) {
             $('#itemData').toggle();
             $('#itemTree').toggle();
         } else {
