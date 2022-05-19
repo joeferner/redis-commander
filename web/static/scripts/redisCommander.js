@@ -270,6 +270,7 @@ function loadKey (connectionId, key, index) {
     setRootConnectionNetworkError(false, getKeyTree().get_selected(true)[0]);
     if (typeof keyData === 'string') keyData = JSON.parse(keyData);
     keyData.connectionId = connectionId;
+    if (uiConfig.clipboard) uiConfig.clipboard.destroy();
     console.log('rendering type ' + keyData.type);
     switch (keyData.type) {
       case 'string':
@@ -294,7 +295,7 @@ function loadKey (connectionId, key, index) {
         selectTreeNodeBinary(keyData);
         break;
       case 'ReJSON-RL':
-        selectTreeNodeString(keyData);
+        selectTreeNodeReJSON(keyData);
         break;
       case 'none':
         selectTreeNodeBranch(keyData);
@@ -642,8 +643,41 @@ function selectTreeNodeStream (data) {
 }
 
 function selectTreeNodeReJSON(data) {
-  renderEjs('templates/viewReJSON.ejs', data, $('#body'), function() {
+  renderEjs('templates/editReJSON.ejs', data, $('#body'), function() {
     console.log('rendered ReJSON template')
+    // do not check if it is valid json - assume it is as its stored server-side as ReJSON
+    // simplifies handling here compared to pure string data
+    const jsonObject = losslessJSON.parse(data.value);
+    $('#jqtree_json_div').jsonViewer(jsonObject, {withQuotes: true, withLinks: false, bigNumbers: true});
+    if ((uiConfig.jsonViewAsDefault & uiConfig.const.jsonViewString) > 0) dataUIFuncs.onModeJsonButtonClick('#editJsonForm')
+
+    $('#stringValue').val(data.value);
+    addInputValidator('stringValue', 'json');
+
+    if (!redisReadOnly) {
+      $('#editJsonForm').off('submit').on('submit', function(event) {
+        console.log('saving');
+        event.preventDefault();
+        var editForm = $(event.target);
+        $('#saveKeyButton').attr('disabled', 'disabled').html('<i class="icon-refresh"></i> Saving');
+
+        $.post(editForm.attr('action'), editForm.serialize()
+        ).done(function(data2, status) {
+          console.log('saved', arguments);
+          refreshTree();
+          getKeyTree().select_node(0);
+        })
+        .fail(function(err) {
+          console.log('save error', arguments);
+          alert('Could not save "' + err.statusText + '"');
+        })
+        .always(function() {
+          setTimeout(function() {
+            $('#saveKeyButton').prop('disabled', false).html('Save');
+          }, 500);
+        });
+      });
+    }
   });
 }
 
@@ -1214,6 +1248,7 @@ var dataUIFuncs = {
 
     $('#viewModeJsonButton').css('display', 'inline');
     $('#viewModeStringButton').css('display', 'none');
+    $('#saveKeyButton').css('display', 'inline');
   },
 
   /** function to toggle between display of raw strings and json object view.
@@ -1231,6 +1266,7 @@ var dataUIFuncs = {
 
     $('#viewModeJsonButton').css('display', 'none');
     $('#viewModeStringButton').css('display', 'inline');
+    $('#saveKeyButton').css('display', 'none');
   },
 
   /** this function generates the json object tree view for all elements containing
@@ -1291,6 +1327,7 @@ function renderEjs(filename, data, element, callback) {
 
 var uiConfig = {
   jsonViewAsDefault: 0,
+  clipboard: null,
   const: {
     jsonViewString: 1 << 0,
     jsonViewList: 1 << 1,
@@ -1413,7 +1450,7 @@ function detectServerDB() {
 /** check list of selectServerDbModal and add all selected databases with their display name
  *  do ajax post call for every selected to "/login" and reload at the end to refresh entire UI
  */
- function selectNewServerDbs() {
+function selectNewServerDbs() {
   var addServerForm = $('#addServerForm');
   var list = $('#selectServerDbModal').find('#selectServerDbList');
   var connectionString = list.data('connstring');

@@ -1,0 +1,62 @@
+<div id="itemActionsBar">
+    <% if (!redisReadOnly) { %>
+        <button class="btn btn-danger" onclick="deleteKey('<%= connectionId %>','<%= key %>')">Delete Key</button>
+    <% } %>
+    <button id="viewModeStringButton" class="btn" style="display: none;" onclick="onModeStringButtonClick()">View mode edit</button>
+    <button id="viewModeJsonButton" class="btn" onclick="onModeJsonButtonClick()">View mode tree</button>
+    <button id="copyTextButton" class="btn">Copy JSON</button>
+</div>
+<div id="itemData">
+  <label>Key: <b><%= key %></b></label>
+  <label>TTL: <b><%= ttl %></b></label>
+  <label>Type: <b><%= type %></b></label>
+  <form id="editJsonForm" action="apiv1/key/<%= connectionId %>/<%= key %>"
+            method="POST" class="form-vertical">
+    <div id="jqtree_json_div" class="json-renderer" style="display: none;">loading ...</div>
+    <span id="jsonValueBox" class="text-renderer">
+      <textarea id="stringValue" name="stringValue" style="width: 600px; height: 300px;"></textarea>
+      <br>
+      <label class="checkbox"><input type="checkbox" id="isJson" name="isJson" disabled checked>Validate as JSON</label>
+    </span>
+    <br>
+    <% if (!redisReadOnly) { %>
+    <button id="saveKeyButton" type="button" class="btn" onclick="$('#editJsonForm').trigger('submit')">Save</button>
+    <% } %>
+  </form>
+</div>
+<script>
+  uiConfig.clipboard = new ClipboardJS('#copyTextButton', {
+    text: function() {
+      if ($('#jsonValueBox:visible').length === 0) {
+        if (document.getElementById('jqtree_json_div')) {
+          return document.getElementById('jqtree_json_div').textContent;
+        }
+        return null;
+      }
+      else {
+        return document.getElementById('stringValue').value;
+      }
+    }
+  });
+
+  function onModeStringButtonClick() {
+    dataUIFuncs.onModeStringButtonClick('#editJsonForm')
+  }
+
+  function onModeJsonButtonClick() {
+    dataUIFuncs.onModeJsonButtonClick('#editJsonForm')
+  }
+
+  $('#stringValue').on('blur', function(event) {
+    try {
+      $('#jqtree_string_div').jsonViewer(losslessJSON.parse(event.target.value), {
+        withQuotes: true,
+        withLinks: false,
+        bigNumbers: true
+      });
+    }
+    catch(ex) {
+      $('#jqtree_string_div').empty().text('Text is no valid JSON: ' + ex.message);
+    }
+  });
+</script>

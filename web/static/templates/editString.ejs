@@ -5,7 +5,7 @@
   <button id="base64Button" class="btn btn-primary" onclick="decodeKey('<%= connectionId %>','<%= key %>')">Decode <small>base64</small></button>
   <button id="viewModeStringButton" class="btn" style="display: none;" onclick="onModeStringButtonClick()">View mode edit</button>
   <button id="viewModeJsonButton" class="btn" onclick="onModeJsonButtonClick()">View mode tree</button>
-  <button id="copyTextButton" class="btn" data-clipboard-target="#stringValue">Copy Text</button>
+  <button id="copyTextButton" class="btn">Copy Text</button>
 </div>
 <div id="itemData">
   <label>Key: <b><%= key %></b></label>
@@ -25,7 +25,7 @@
   </form>
 </div>
 <script>
-  new ClipboardJS('#copyTextButton', {
+  uiConfig.clipboard = new ClipboardJS('#copyTextButton', {
     text: function(trigger) {
       if ($('#stringValueBox:visible').length === 0) {
         return document.getElementById('jqtree_string_div').textContent;
