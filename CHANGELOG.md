@@ -6,6 +6,7 @@
 * fix display of big integer and float numbers in json view, #479
 #### Enhancements
 * display ReJSON data as formatted json with support for big numbers and floats, #478
+* add editing ReJSON data, #452
 * update dependencies to fix security vulnerabilities in ansi-regex
 
 ## Version 0.8.0
