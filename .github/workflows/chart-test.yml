@@ -18,7 +18,6 @@ on:
       - 'k8s/helm-chart/**'
   push:
     branches-ignore:
-      - 'master'
       - 'gh-pages'
     paths:
       - 'k8s/helm-chart/**'
