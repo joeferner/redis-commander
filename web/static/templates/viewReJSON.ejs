@@ -6,6 +6,13 @@
     >
         Copy JSON
     </button>
+    <button
+        id="viewJSONButton"
+        class="btn"
+        onclick="showHideJSONTreeClick()"
+    >
+        View mode tree
+    </button>
 </div>
 <div id="itemData">
     <label>Key: <b><%= key %></b></label>
@@ -28,6 +35,34 @@
         <br>
     </form>
 </div>
+<div id="itemTree">
+    <label>Key: <b><%= key %></b></label>
+    <label>Type: <b><% type %></b></label>
+    <label>JSON Tree:</label>
+    <div id="jsontree">
+    </div>
+</div>
 <script>
+    $('#itemTree').toggle()
+
+    jsonStr = $('#stringValue').val()
+    try{
+        jsonObj = JSON.parse(jsonStr)
+        $('#jsontree').jsonViewer(jsonObj, {collapsed: true, withQuotes: false, withLinks: false});
+    } catch(e) {
+        $('#jsontree').val("There are parsing error in JSON string: "+e.message);
+    }
+
+    function showHideJSONTreeClick() {
+        console.log("click", $('#itemData:visible').length)
+        if($('#itemData:visible').length) {
+            $('#itemData').toggle();
+            $('#itemTree').toggle();
+        } else {
+            $('#itemTree').toggle();
+            $('#itemData').toggle();
+        }
+    }
+
     new ClipboardJS('#copyTextButton');
 </script>

@@ -69,6 +69,7 @@ body {
   vertical-align: top;
 }
 
+#itemTree,
 #itemData {
   overflow-x: auto;
   margin-top: 62px;
