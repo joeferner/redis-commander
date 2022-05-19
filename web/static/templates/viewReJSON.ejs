@@ -65,5 +65,14 @@
         }
     }
 
-    new ClipboardJS('#copyTextButton');
+    new ClipboardJS('#copyTextButton', {
+        text: function(trigger) {
+            if ($('#stringValueBox:visible').length === 0) {
+              return document.getElementById('jqtree_string_div').textContent;
+            }
+            else {
+              return document.getElementById('stringValue').value;
+            }
+        }
+    });
 </script>

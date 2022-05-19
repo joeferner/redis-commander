@@ -2,7 +2,10 @@
 
 ## Next Version
 #### Bugfixes
+* fix text not copied when in json view mode
+* fix display of big integer and float numbers in json view, #479
 #### Enhancements
+* display ReJSON data as formatted json with support for big numbers and floats, #478
 
 ## Version 0.8.0
 #### Bugfixes
