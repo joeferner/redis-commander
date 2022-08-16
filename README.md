@@ -248,7 +248,7 @@ docker run --rm --name redis-commander -d -p 8081:8081 \
 ```bash
 docker run --rm --name redis-commander -d -p 8081:8081 \
   --env REDIS_HOSTS=local:localhost:6379,myredis:10.10.20.30 \
-  rghcr.io/joeferner/redis-commander:latest
+  ghcr.io/joeferner/redis-commander:latest
 ```
 
 ## Kubernetes
