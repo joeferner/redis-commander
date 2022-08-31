@@ -94,7 +94,7 @@ let args = yargs
   .options('test', {
     alias: 't',
     type: 'boolean',
-    describe: 'Test final configuration (file, env-vars, command line)'
+    describe: 'Test final configuration (file, env-vars, command line).'
   })
   .options('open', {
     // open local web-browser to connect to web ui on startup of server daemon too
@@ -152,12 +152,12 @@ let args = yargs
   })
   .options('trust-proxy', {
     type: 'boolean',
-    describe: 'App is run behind proxy (enable Express "trust proxy")',
+    describe: 'App is run behind proxy (enable Express "trust proxy").',
     default: config.get('server.trustProxy')
   })
   .options('max-hash-field-size', {
     type: 'number',
-    describe: 'The max number of bytes for a hash field before you must click to view it',
+    describe: 'The max number of bytes for a hash field before you must click to view it.',
     default: config.get('ui.maxHashFieldSize'),
   })
   .options('nosave', {
