@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.16
 
 WORKDIR /redis-commander
 
@@ -18,7 +18,7 @@ COPY . .
 # for Openshift compatibility set project config dir itself group root and make it group writeable
 RUN  apk update \
   && apk upgrade \
-  && apk add --no-cache ca-certificates dumb-init sed jq nodejs npm yarn \
+  && apk add --no-cache ca-certificates dumb-init sed jq nodejs npm yarn icu-libs icu-data-full \
   && update-ca-certificates \
   && echo -e "\n---- Create runtime user and fix file access rights ----------" \
   && adduser "${SERVICE_USER}" -h "${HOME}" -G root -S -u 1000 \
