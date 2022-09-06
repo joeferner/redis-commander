@@ -64,13 +64,13 @@ Options:
   --nosave, --ns                       Do not save new connections to config file. [boolean] [default: true]
   --noload, --nl                       Do not load connections from config.        [boolean] [default: false]
   --use-scan, --sc                     Use scan instead of keys.                   [boolean] [default: false]
-  --clear-config, --cc                 clear configuration file.
-  --migrate-config                     migrate old configuration file in $HOME to new style.
-  --scan-count, --sc                   The size of each seperate scan.             [integer] [default: 100]
+  --clear-config, --cc                 Clear configuration file.
+  --migrate-config                     Migrate old configuration file in $HOME to new style.
+  --scan-count, --sc                   The size of each separate scan.             [integer] [default: 100]
   --no-log-data                        Do not log data values from redis store.    [boolean] [default: false]
   --open                               Open web-browser with Redis-Commander.      [boolean] [default: false]
   --folding-char, --fc                 Character to fold keys at in tree view.     [character] [default: ":"]
-  --test, -t                           test final configuration (file, env-vars, command line)
+  --test, -t                           Test final configuration (file, env-vars, command line)
 ```
 
 The connection can be established either via direct connection to redis server or indirect
