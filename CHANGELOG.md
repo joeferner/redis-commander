@@ -4,10 +4,14 @@
 #### Bugfixes
 * fix text not copied when in json view mode
 * fix display of big integer and float numbers in json view, #479
+* update to alpine:3.16 as base image, #495
+* update shell-quote from 1.7.2 to 1.7.3 (fix CVE-2021-42740)
 #### Enhancements
 * display ReJSON data as formatted json with support for big numbers and floats, #478
 * add editing ReJSON data, #452
-* update dependencies to fix security vulnerabilities in ansi-regex
+* update dependencies to fix security vulnerabilities in ansi-regex@5.0.1, filelist@1.0.4
+* update dependencies ejs@3.1.8, async@3.2.4, clipboard@2.0.11, yargs@17.5.1
+* improve documentation, #500 #498
 
 ## Version 0.8.0
 #### Bugfixes
