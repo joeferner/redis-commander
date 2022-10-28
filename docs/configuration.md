@@ -22,7 +22,7 @@ All top-level configuration data are
 | Name | Type | Default | Cli | Environment-Var | Description |
 |---|---|---|---|---|---|
 | noSave | boolean | false | --nosave | NO_SAVE | do not persist changes in active connection list  |
-| noLogData | boolean | false | --no-log-data | NO_LOG | do not log values of redis keys to console |
+| noLogData | boolean | false | --no-log-data | NO_LOG_DATA | do not log values of redis keys to console |
 | ui | object |  | | | see section 2. User interface parameter|
 | redis | object |  | | | see section 3. General Redis connection parameter |
 | server | object |  | | | see section 4. Express HTTP Server parameter |
