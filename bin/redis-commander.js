@@ -447,7 +447,6 @@ function startAllConnections() {
           }
           else {
             let count = res[0], curKeys = res[1];
-            console.log("scanning: " + count + ": " + curKeys.length);
             keys = keys.concat(curKeys);
             if (Number(count) === 0) {
               if (typeof cb === 'function') cb(null, keys);
