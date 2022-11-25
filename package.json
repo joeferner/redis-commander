@@ -8,7 +8,7 @@
     "Stefan Seide <account-github@seide.st"
   ],
   "name": "redis-commander",
-  "version": "0.8.1-rc2",
+  "version": "0.8.1-rc3",
   "description": "Redis web-based management tool written in node.js",
   "license": "MIT",
   "repository": {
@@ -49,6 +49,7 @@
     "bcrypt": "~5.0.1"
   },
   "devDependencies": {
+    "@cyclonedx/bom": "^4.0.2",
     "browserify": "^17.0.0",
     "chai": "^4.3.6",
     "mocha": "^10.1.0",
@@ -70,7 +71,8 @@
     "snyk-protect": "snyk protect",
     "helm-doc": "helm-docs -c k8s/helm-chart",
     "test": "mocha",
-    "test-with-lcov": "nyc --reporter=lcov --report-dir ./docs/coverage/nodejs mocha --timeout 10000 --reporter mocha-junit-reporter --reporter-options mochaFile=./docs/coverage/junit.xml --exit"
+    "test-with-lcov": "nyc --reporter=lcov --report-dir ./docs/coverage/nodejs mocha --timeout 10000 --reporter mocha-junit-reporter --reporter-options mochaFile=./docs/coverage/junit.xml --exit",
+    "sbom": "cyclonedx-npm --omit optional --mc-type application --output-format json --output-file ./sbom.json"
   },
   "snyk": true
 }
