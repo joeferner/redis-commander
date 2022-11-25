@@ -2,6 +2,11 @@
 
 ## Next Version
 #### Bugfixes
+#### Enhancements
+
+
+## Version 0.8.1
+#### Bugfixes
 * fix text not copied when in json view mode
 * fix display of big integer and float numbers in json view, #479
 * update to alpine:3.16 as base image, #495
@@ -9,9 +14,10 @@
 #### Enhancements
 * display ReJSON data as formatted json with support for big numbers and floats, #478
 * add editing ReJSON data, #452
-* update dependencies to fix security vulnerabilities in ansi-regex@5.0.1, filelist@1.0.4
-* update dependencies ejs@3.1.8, async@3.2.4, clipboard@2.0.11, yargs@17.5.1
-* improve documentation, #500 #498
+* update dependencies to fix security vulnerabilities in ansi-regex@5.0.1, filelist@1.0.4, minimatch@3.1.2, shell-quote@1.7.3
+* update dependencies express@4.18.2, body-parser@1.20.1, ejs@3.1.8, async@3.2.4, clipboard@2.0.11, yargs@17.6.0, inflection@1.13.4. config@3.3.8
+* improve documentation, #498 #500 #506
+* add software bill of material in CycloneDX format
 
 ## Version 0.8.0
 #### Bugfixes
