@@ -8,9 +8,10 @@ Dockerfile
 ecosystem.config.js
 
 # directories
-.git
-.idea
-dist
-k8s
-node_modules
-test
+.git/
+.idea/
+dist/
+k8s/
+node_modules/
+test/
+docs/coverage/

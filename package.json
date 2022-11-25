@@ -50,6 +50,10 @@
   },
   "devDependencies": {
     "browserify": "^17.0.0",
+    "chai": "^4.3.6",
+    "mocha": "^10.1.0",
+    "mocha-junit-reporter":  "^2.1.0",
+    "nyc": "^15.1.0",
     "uglify-js": "^3.14.3"
   },
   "engines": {
@@ -64,7 +68,9 @@
     "healthcheck": "./bin/healthcheck.js",
     "postinstall": "echo '==> INFO: Errors with module \"bcrypt\" can be ignored'",
     "snyk-protect": "snyk protect",
-    "helm-doc": "helm-docs -c k8s/helm-chart"
+    "helm-doc": "helm-docs -c k8s/helm-chart",
+    "test": "mocha",
+    "test-with-lcov": "nyc --reporter=lcov --report-dir ./docs/coverage/nodejs mocha --timeout 10000 --reporter mocha-junit-reporter --reporter-options mochaFile=./docs/coverage/junit.xml --exit"
   },
   "snyk": true
 }
