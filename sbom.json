@@ -4,7 +4,7 @@
   "specVersion": "1.4",
   "version": 1,
   "metadata": {
-    "timestamp": "2022-11-25T09:12:25.155Z",
+    "timestamp": "2023-01-04T09:00:18.824Z",
     "tools": [
       {
         "vendor": "@cyclonedx",
@@ -32,8 +32,8 @@
     "component": {
       "type": "application",
       "name": "redis-commander",
-      "version": "0.8.1-rc2",
-      "bom-ref": "redis-commander@0.8.1-rc2",
+      "version": "0.8.1",
+      "bom-ref": "redis-commander@0.8.1",
       "author": "Joe Ferner <joe@fernsroth.com>",
       "description": "Redis web-based management tool written in node.js",
       "licenses": [
@@ -43,7 +43,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/redis-commander@0.8.1-rc2?vcs_url=git://github.com/joeferner/redis-commander.git",
+      "purl": "pkg:npm/redis-commander@0.8.1?vcs_url=git://github.com/joeferner/redis-commander.git",
       "externalReferences": [
         {
           "url": "git://github.com/joeferner/redis-commander.git",
@@ -11755,14 +11755,14 @@
     {
       "type": "library",
       "name": "json5",
-      "version": "2.2.1",
-      "bom-ref": "json5@2.2.1",
+      "version": "2.2.3",
+      "bom-ref": "json5@2.2.3",
       "author": "Aseem Kishore <aseem.kishore@gmail.com>",
-      "description": "JSON for humans.",
+      "description": "JSON for Humans",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "d61a8b14c4ab187447c5abfdabd80d8c9e445f39c8c4654ed3dc5046bc2995c4bcaacdbca59f2cf21ba96409aa0f065499567641bda39f23ce59c0c7f26f1d94"
+          "content": "5e63967bb7b21d81f5e1c2dd54fa3283e18e1f7ad85fef8aa73af2949c125bdf2ddcd93e53c5ce97c15628e830b7375bf255c67facd8c035337873167f16acca"
         }
       ],
       "licenses": [
@@ -11772,7 +11772,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/json5@2.2.1",
+      "purl": "pkg:npm/json5@2.2.3",
       "externalReferences": [
         {
           "url": "git+https://github.com/json5/json5.git",
@@ -11790,7 +11790,7 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz",
+          "url": "https://registry.npmjs.org/json5/-/json5-2.2.3.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -14706,14 +14706,14 @@
     {
       "type": "library",
       "name": "jsonwebtoken",
-      "version": "8.5.1",
-      "bom-ref": "jsonwebtoken@8.5.1",
+      "version": "9.0.0",
+      "bom-ref": "jsonwebtoken@9.0.0",
       "author": "auth0",
       "description": "JSON Web Token implementation (symmetric and asymmetric)",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5e3c157d14ba8d332ca98b3412cb89e0b1b15d5d78cd0c9b35de0bdabd14bdb567485f407fcc7ba793336c9f74228cfff53238d7f8530afce717f968892ce7f3"
+          "content": "b6e19f617c644060cf9cb27b4a26e242056078381f6cfab693620271b82a5bc5b158b040c4a40cfd90aefc84fc48e4b099a625e1da531425b9c59bfb61b6d653"
         }
       ],
       "licenses": [
@@ -14723,17 +14723,12 @@
           }
         }
       ],
-      "purl": "pkg:npm/jsonwebtoken@8.5.1",
+      "purl": "pkg:npm/jsonwebtoken@9.0.0",
       "externalReferences": [
         {
-          "url": "git+https://github.com/auth0/node-jsonwebtoken.git",
+          "url": "https://github.com/auth0/node-jsonwebtoken",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/auth0/node-jsonwebtoken#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
         },
         {
           "url": "https://github.com/auth0/node-jsonwebtoken/issues",
@@ -14741,7 +14736,7 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz",
+          "url": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.0.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -14949,11 +14944,17 @@
     },
     {
       "type": "library",
-      "name": "lodash.includes",
-      "version": "4.3.0",
-      "bom-ref": "lodash.includes@4.3.0",
-      "author": "John-David Dalton",
-      "description": "The lodash method `_.includes` exported as a module.",
+      "name": "lodash",
+      "version": "4.17.21",
+      "bom-ref": "lodash@4.17.21",
+      "author": "John-David Dalton <john.david.dalton@gmail.com>",
+      "description": "Lodash modular utilities.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "bf690311ee7b95e713ba568322e3533f2dd1cb880b189e99d4edef13592b81764daec43e2c54c61d5c558dc5cfb35ecb85b65519e74026ff17675b6f8f916f4a"
+        }
+      ],
       "licenses": [
         {
           "license": {
@@ -14961,12 +14962,12 @@
           }
         }
       ],
-      "purl": "pkg:npm/lodash.includes@4.3.0",
+      "purl": "pkg:npm/lodash@4.17.21",
       "externalReferences": [
         {
-          "url": "git+https://github.com/lodash/lodash.git",
+          "url": "lodash/lodash",
           "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
+          "comment": "as detected from PackageJson property \"repository\""
         },
         {
           "url": "https://lodash.com/",
@@ -14974,12 +14975,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/lodash/lodash/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz",
+          "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -14987,284 +14983,21 @@
       "properties": [
         {
           "name": "cdx:npm:package:path",
-          "value": "node_modules/lodash.includes"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "lodash.isboolean",
-      "version": "3.0.3",
-      "bom-ref": "lodash.isboolean@3.0.3",
-      "author": "John-David Dalton",
-      "description": "The lodash method `_.isBoolean` exported as a module.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/lodash.isboolean@3.0.3",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/lodash/lodash.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://lodash.com/",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/lodash/lodash/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz",
-          "type": "distribution",
-          "comment": "as detected from npm-ls property \"resolved\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/lodash.isboolean"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "lodash.isinteger",
-      "version": "4.0.4",
-      "bom-ref": "lodash.isinteger@4.0.4",
-      "author": "John-David Dalton",
-      "description": "The lodash method `_.isInteger` exported as a module.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/lodash.isinteger@4.0.4",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/lodash/lodash.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://lodash.com/",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/lodash/lodash/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz",
-          "type": "distribution",
-          "comment": "as detected from npm-ls property \"resolved\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/lodash.isinteger"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "lodash.isnumber",
-      "version": "3.0.3",
-      "bom-ref": "lodash.isnumber@3.0.3",
-      "author": "John-David Dalton",
-      "description": "The lodash method `_.isNumber` exported as a module.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/lodash.isnumber@3.0.3",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/lodash/lodash.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://lodash.com/",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/lodash/lodash/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz",
-          "type": "distribution",
-          "comment": "as detected from npm-ls property \"resolved\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/lodash.isnumber"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "lodash.isplainobject",
-      "version": "4.0.6",
-      "bom-ref": "lodash.isplainobject@4.0.6",
-      "author": "John-David Dalton",
-      "description": "The lodash method `_.isPlainObject` exported as a module.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/lodash.isplainobject@4.0.6",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/lodash/lodash.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://lodash.com/",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/lodash/lodash/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz",
-          "type": "distribution",
-          "comment": "as detected from npm-ls property \"resolved\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/lodash.isplainobject"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "lodash.isstring",
-      "version": "4.0.1",
-      "bom-ref": "lodash.isstring@4.0.1",
-      "author": "John-David Dalton",
-      "description": "The lodash method `_.isString` exported as a module.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/lodash.isstring@4.0.1",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/lodash/lodash.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://lodash.com/",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/lodash/lodash/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz",
-          "type": "distribution",
-          "comment": "as detected from npm-ls property \"resolved\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/lodash.isstring"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "lodash.once",
-      "version": "4.1.1",
-      "bom-ref": "lodash.once@4.1.1",
-      "author": "John-David Dalton",
-      "description": "The lodash method `_.once` exported as a module.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/lodash.once@4.1.1",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/lodash/lodash.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://lodash.com/",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/lodash/lodash/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz",
-          "type": "distribution",
-          "comment": "as detected from npm-ls property \"resolved\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/lodash.once"
+          "value": "node_modules/lodash"
         }
       ]
     },
     {
       "type": "library",
       "name": "semver",
-      "version": "5.7.0",
-      "bom-ref": "semver@5.7.0",
+      "version": "7.3.8",
+      "bom-ref": "semver@7.3.8",
+      "author": "GitHub Inc.",
       "description": "The semantic version parser used by npm.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "61ae768d25f6bbb40a821c5ea051a92f00ad1a5b7b8f4a18f4361be5aa6df673e5278d880feba54d71129edfea010728484472679b25dcb0c83b0d27027ff90c"
+          "content": "341d5cb462f9ae51eb3c9b450d5215cd3c90ca530bbbd37d548080e87485268f0c086553316ea07e989cc0a9a62bf7408d33abaaee65eb72493a90d2ac08acdc"
         }
       ],
       "licenses": [
@@ -15274,25 +15007,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/semver@5.7.0",
+      "purl": "pkg:npm/semver@7.3.8",
       "externalReferences": [
         {
-          "url": "git+https://github.com/npm/node-semver.git",
+          "url": "https://github.com/npm/node-semver.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/npm/node-semver#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/npm/node-semver/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/semver/-/semver-5.7.0.tgz",
+          "url": "https://registry.npmjs.org/semver/-/semver-7.3.8.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -15301,6 +15024,106 @@
         {
           "name": "cdx:npm:package:path",
           "value": "node_modules/semver"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lru-cache",
+      "version": "6.0.0",
+      "bom-ref": "lru-cache@6.0.0",
+      "author": "Isaac Z. Schlueter",
+      "description": "A cache object that deletes the least-recently-used items.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "268e9d274e029928eece7c09492de951e5a677f1f47df4e59175e0c198be7aad540a6a90c0287e78bb183980b063df758b615a878875044302c78a938466ec88"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lru-cache@6.0.0",
+      "externalReferences": [
+        {
+          "url": "git://github.com/isaacs/node-lru-cache.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/isaacs/node-lru-cache#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/isaacs/node-lru-cache/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/lru-cache/-/lru-cache-6.0.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/lru-cache"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "yallist",
+      "version": "4.0.0",
+      "bom-ref": "yallist@4.0.0",
+      "author": "Isaac Z. Schlueter",
+      "description": "Yet Another Linked List",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "df074689d672ab93c1d3ce172c44b94e9392440df08d7025216321ba6da445cbffe354a7d9e990d1dc9c416e2e6572de8f02af83a12cbdb76554bf8560472dec"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/yallist@4.0.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/isaacs/yallist.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/isaacs/yallist#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/isaacs/yallist/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/yallist"
         }
       ]
     },
@@ -25151,13 +24974,13 @@
     {
       "type": "library",
       "name": "yargs",
-      "version": "17.6.0",
-      "bom-ref": "yargs@17.6.0",
+      "version": "17.6.2",
+      "bom-ref": "yargs@17.6.2",
       "description": "yargs the modern, pirate-themed, successor to optimist.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "f07ff04c3aa54b0a129d272f57637f2477cb58e2ae87931595af61a8b8cade7b1fcb2e98e240d2612be45396025043ce4a74577c8cb1dd2abe07f216b9d4e8e2"
+          "content": "d7ff54add1e30d973478e5341f1387a12efc0baf540f725132fce527b4bbf52da74da59103fc211824d5f28f5efcdff555af58215ed0e2c3b10fc555e290963b"
         }
       ],
       "licenses": [
@@ -25167,7 +24990,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/yargs@17.6.0",
+      "purl": "pkg:npm/yargs@17.6.2",
       "externalReferences": [
         {
           "url": "https://github.com/yargs/yargs.git",
@@ -25180,7 +25003,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://registry.npmjs.org/yargs/-/yargs-17.6.0.tgz",
+          "url": "https://registry.npmjs.org/yargs/-/yargs-17.6.2.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -25335,14 +25158,14 @@
     {
       "type": "library",
       "name": "yargs-parser",
-      "version": "21.0.1",
-      "bom-ref": "yargs-parser@21.0.1",
-      "author": "Ben Coe",
+      "version": "21.1.1",
+      "bom-ref": "yargs-parser@21.1.1",
+      "author": "Ben Coe <ben@npmjs.com>",
       "description": "the mighty option parser used by yargs",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "f412b58c5a4bcc944e088e53cf064bfd353882a8cae7188757f45f58b39a86b8c0928fdee032644436505dfbea02c899cf3621800cdb833ea5838f23726e062e"
+          "content": "b55a6c256ec376379c0221696c80757b7ab1210b04e8da0f739fde4ddadb6c80b88742d5b16867a1ade0fa6d87725048ba31f3b31678549540f8652e736fcb07"
         }
       ],
       "licenses": [
@@ -25352,25 +25175,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/yargs-parser@21.0.1",
+      "purl": "pkg:npm/yargs-parser@21.1.1",
       "externalReferences": [
         {
-          "url": "git+https://github.com/yargs/yargs-parser.git",
+          "url": "https://github.com/yargs/yargs-parser.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/yargs/yargs-parser#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/yargs/yargs-parser/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.0.1.tgz",
+          "url": "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -25385,7 +25198,7 @@
   ],
   "dependencies": [
     {
-      "ref": "redis-commander@0.8.1-rc2",
+      "ref": "redis-commander@0.8.1",
       "dependsOn": [
         "@cyclonedx/bom@4.0.2",
         "async@3.2.4",
@@ -25403,7 +25216,7 @@
         "inflection@1.13.4",
         "ioredis@4.28.5",
         "jquery.json-viewer@1.5.0",
-        "jsonwebtoken@8.5.1",
+        "jsonwebtoken@9.0.0",
         "jstree@3.3.12",
         "lodash.isequal@4.5.0",
         "lossless-json@1.0.5",
@@ -25414,7 +25227,7 @@
         "opener@1.5.2",
         "readline-browserify@0.0.4",
         "uglify-js@3.14.3",
-        "yargs@17.6.0"
+        "yargs@17.6.2"
       ]
     },
     {
@@ -26747,11 +26560,11 @@
     {
       "ref": "config@3.3.8",
       "dependsOn": [
-        "json5@2.2.1"
+        "json5@2.2.3"
       ]
     },
     {
-      "ref": "json5@2.2.1"
+      "ref": "json5@2.2.3"
     },
     {
       "ref": "dateformat@3.0.3"
@@ -27070,18 +26883,12 @@
       "ref": "jquery.json-viewer@1.5.0"
     },
     {
-      "ref": "jsonwebtoken@8.5.1",
+      "ref": "jsonwebtoken@9.0.0",
       "dependsOn": [
         "jws@3.2.2",
-        "lodash.includes@4.3.0",
-        "lodash.isboolean@3.0.3",
-        "lodash.isinteger@4.0.4",
-        "lodash.isnumber@3.0.3",
-        "lodash.isplainobject@4.0.6",
-        "lodash.isstring@4.0.1",
-        "lodash.once@4.1.1",
+        "lodash@4.17.21",
         "ms@2.1.2",
-        "semver@5.7.0"
+        "semver@7.3.8"
       ]
     },
     {
@@ -27109,28 +26916,22 @@
       ]
     },
     {
-      "ref": "lodash.includes@4.3.0"
+      "ref": "lodash@4.17.21"
     },
     {
-      "ref": "lodash.isboolean@3.0.3"
+      "ref": "semver@7.3.8",
+      "dependsOn": [
+        "lru-cache@6.0.0"
+      ]
     },
     {
-      "ref": "lodash.isinteger@4.0.4"
+      "ref": "lru-cache@6.0.0",
+      "dependsOn": [
+        "yallist@4.0.0"
+      ]
     },
     {
-      "ref": "lodash.isnumber@3.0.3"
-    },
-    {
-      "ref": "lodash.isplainobject@4.0.6"
-    },
-    {
-      "ref": "lodash.isstring@4.0.1"
-    },
-    {
-      "ref": "lodash.once@4.1.1"
-    },
-    {
-      "ref": "semver@5.7.0"
+      "ref": "yallist@4.0.0"
     },
     {
       "ref": "jstree@3.3.12",
@@ -27868,7 +27669,7 @@
         "@babel/core@7.19.6|convert-source-map@1.9.0",
         "debug@4.3.4",
         "gensync@1.0.0-beta.2",
-        "json5@2.2.1",
+        "json5@2.2.3",
         "@babel/core@7.19.6|semver@6.3.0"
       ]
     },
@@ -28261,7 +28062,7 @@
       "ref": "uglify-js@3.14.3"
     },
     {
-      "ref": "yargs@17.6.0",
+      "ref": "yargs@17.6.2",
       "dependsOn": [
         "cliui@8.0.1",
         "escalade@3.1.1",
@@ -28269,7 +28070,7 @@
         "require-directory@2.1.1",
         "string-width@4.2.3",
         "y18n@5.0.8",
-        "yargs-parser@21.0.1"
+        "yargs-parser@21.1.1"
       ]
     },
     {
@@ -28287,7 +28088,7 @@
       "ref": "is-fullwidth-code-point@3.0.0"
     },
     {
-      "ref": "yargs-parser@21.0.1"
+      "ref": "yargs-parser@21.1.1"
     }
   ]
 }
