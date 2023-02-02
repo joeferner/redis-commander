@@ -4,7 +4,7 @@
   "specVersion": "1.4",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-01-04T09:00:18.824Z",
+    "timestamp": "2023-02-02T14:00:05.943Z",
     "tools": [
       {
         "vendor": "@cyclonedx",
@@ -32,8 +32,8 @@
     "component": {
       "type": "application",
       "name": "redis-commander",
-      "version": "0.8.1",
-      "bom-ref": "redis-commander@0.8.1",
+      "version": "0.8.2-rc2",
+      "bom-ref": "redis-commander@0.8.2-rc2",
       "author": "Joe Ferner <joe@fernsroth.com>",
       "description": "Redis web-based management tool written in node.js",
       "licenses": [
@@ -43,7 +43,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/redis-commander@0.8.1?vcs_url=git://github.com/joeferner/redis-commander.git",
+      "purl": "pkg:npm/redis-commander@0.8.2-rc2?vcs_url=git://github.com/joeferner/redis-commander.git",
       "externalReferences": [
         {
           "url": "git://github.com/joeferner/redis-commander.git",
@@ -11710,14 +11710,14 @@
     {
       "type": "library",
       "name": "config",
-      "version": "3.3.8",
-      "bom-ref": "config@3.3.8",
+      "version": "3.3.9",
+      "bom-ref": "config@3.3.9",
       "author": "Loren West <open_source@lorenwest.com>",
       "description": "Configuration control for production node deployments",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "ac5cc5e9511239da7bc005c5941f48399238a2e2f4e60dc0d37bf67917131e3d89050693349e34ce1014979c116d61ea2d9faeaa9ffb384d01596b40560ae89e"
+          "content": "1b5ee77def9c63b911d30569738f4d098bcdb5e966fe93f2f1ccc7a0590082d57596499ca7b0c7b5609d0eef82f59ee06f6595a9af539b7b85f5a29a3db09f86"
         }
       ],
       "licenses": [
@@ -11727,7 +11727,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/config@3.3.8",
+      "purl": "pkg:npm/config@3.3.9",
       "externalReferences": [
         {
           "url": "http://github.com/node-config/node-config.git",
@@ -11740,7 +11740,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://registry.npmjs.org/config/-/config-3.3.8.tgz",
+          "url": "https://registry.npmjs.org/config/-/config-3.3.9.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -14037,14 +14037,14 @@
     {
       "type": "library",
       "name": "ioredis",
-      "version": "4.28.5",
-      "bom-ref": "ioredis@4.28.5",
-      "author": "luin",
+      "version": "5.3.0",
+      "bom-ref": "ioredis@5.3.0",
+      "author": "Zihua Li <i@zihua.li> (http://zihua.li)",
       "description": "A robust, performance-focused and full-featured Redis client for Node.js.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "dc6628d0626d2ea80d5e3e1886b8ac2da34dbd648dc124b6c12e0e10b19f1b11fc23af7e5df35d9e657503237e66a321d22ede5fe4968ebc0528304381f042d4"
+          "content": "21df6328786c20bb886691dceb54246a07d57548f645a8391b31b54c612f44d78ceddb533a32028230beb6fa98c62fff3ee5f6c2343e5e3bdad8e341b9ff763f"
         }
       ],
       "licenses": [
@@ -14054,7 +14054,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/ioredis@4.28.5",
+      "purl": "pkg:npm/ioredis@5.3.0",
       "externalReferences": [
         {
           "url": "git://github.com/luin/ioredis.git",
@@ -14062,17 +14062,7 @@
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/luin/ioredis#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/luin/ioredis/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/ioredis/-/ioredis-4.28.5.tgz",
+          "url": "https://registry.npmjs.org/ioredis/-/ioredis-5.3.0.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -14081,6 +14071,57 @@
         {
           "name": "cdx:npm:package:path",
           "value": "node_modules/ioredis"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "commands",
+      "group": "@ioredis",
+      "version": "1.2.0",
+      "bom-ref": "@ioredis/commands@1.2.0",
+      "author": "Zihua Li <i@zihua.li> (http://zihua.li)",
+      "description": "Redis commands",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "4b1d6953c10ceb8a3606ba8da443b508d2ed290c3286e5eeab27c7ee818a0a4fb56b7ddddabe6c696f333709b78fa053131b63aefd81c53833ce4330b6ceaf1a"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ioredis/commands@1.2.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/ioredis/commands.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/ioredis/commands",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/ioredis/commands/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@ioredis/commands/-/commands-1.2.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ioredis/commands"
         }
       ]
     },
@@ -14236,14 +14277,14 @@
     {
       "type": "library",
       "name": "denque",
-      "version": "1.5.1",
-      "bom-ref": "denque@1.5.1",
+      "version": "2.1.0",
+      "bom-ref": "denque@2.1.0",
       "author": "Invertase",
       "description": "The fastest javascript implementation of a double-ended queue. Used by the official Redis, MongoDB, MariaDB & MySQL libraries for Node.js and many other libraries. Maintains compatability with deque.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5f013e899e03e99501ee67d844c6f9c01c84f0bef81c29f7d0504deec5a75e4b167352ced5b3c397aee9051f68fe40b8cffc52340c2431870682a0d5dc11371f"
+          "content": "1d5404dc001bfe9c45f1f400a22aa9be0f62ddebeaba0de1a22c1a90ec99030266fbabd97a16e46176749782714be23743133deefe5a6913618fcbf9a0185e93"
         }
       ],
       "licenses": [
@@ -14253,7 +14294,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/denque@1.5.1",
+      "purl": "pkg:npm/denque@2.1.0",
       "externalReferences": [
         {
           "url": "git+https://github.com/invertase/denque.git",
@@ -14271,7 +14312,7 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/denque/-/denque-1.5.1.tgz",
+          "url": "https://registry.npmjs.org/denque/-/denque-2.1.0.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -14329,50 +14370,6 @@
     },
     {
       "type": "library",
-      "name": "lodash.flatten",
-      "version": "4.4.0",
-      "bom-ref": "lodash.flatten@4.4.0",
-      "author": "John-David Dalton",
-      "description": "The lodash method `_.flatten` exported as a module.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/lodash.flatten@4.4.0",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/lodash/lodash.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://lodash.com/",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/lodash/lodash/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/lodash.flatten/-/lodash.flatten-4.4.0.tgz",
-          "type": "distribution",
-          "comment": "as detected from npm-ls property \"resolved\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/lodash.flatten"
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "lodash.isarguments",
       "version": "3.1.0",
       "bom-ref": "lodash.isarguments@3.1.0",
@@ -14412,106 +14409,6 @@
         {
           "name": "cdx:npm:package:path",
           "value": "node_modules/lodash.isarguments"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "p-map",
-      "version": "2.1.0",
-      "bom-ref": "p-map@2.1.0",
-      "author": "Sindre Sorhus",
-      "description": "Map over promises concurrently",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "cb76fc2a977c380378e388717c16c57e3d4563f463b5377cb73630854a8d617c747d7c76897e2668fe10afaaa120a6d05c8d36c132c075ae1f6146c36a04d417"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/p-map@2.1.0",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/sindresorhus/p-map.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/sindresorhus/p-map#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/sindresorhus/p-map/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/p-map/-/p-map-2.1.0.tgz",
-          "type": "distribution",
-          "comment": "as detected from npm-ls property \"resolved\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/p-map"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "redis-commands",
-      "version": "1.7.0",
-      "bom-ref": "redis-commands@1.7.0",
-      "author": "luin",
-      "description": "Redis commands",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "9c95aac376d3172db5857fc23ca1ed87ab1f8596dd8873fa6d36b04a040194a395446ec46647c76db1f04099eb138bec41fd0230d13ede02781669b5eaf75595"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/redis-commands@1.7.0",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/NodeRedis/redis-commands.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/NodeRedis/redis-commands",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/NodeRedis/redis-commands/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/redis-commands/-/redis-commands-1.7.0.tgz",
-          "type": "distribution",
-          "comment": "as detected from npm-ls property \"resolved\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/redis-commands"
         }
       ]
     },
@@ -15130,14 +15027,14 @@
     {
       "type": "library",
       "name": "jstree",
-      "version": "3.3.12",
-      "bom-ref": "jstree@3.3.12",
+      "version": "3.3.14",
+      "bom-ref": "jstree@3.3.14",
       "author": "Ivan Bozhanov",
       "description": "jQuery tree plugin",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "bc734b5a452bd366581fb45c21c92f86d2d4b6779609512d20aa48a761bd5ad461d35213bf5f04a0db4d41c146de8cccfa82bac29d59df4d2048b5cd4160aa18"
+          "content": "5bcb7e9c538a10d5cd22e96fbbe0d6e203dc9e939763416cc224e23a7d459e1b3aa6845ee9e03f29fe9f4b5fc6249f02f0a132d2adedb45ead6c644398720cfe"
         }
       ],
       "licenses": [
@@ -15153,7 +15050,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/jstree@3.3.12",
+      "purl": "pkg:npm/jstree@3.3.14",
       "externalReferences": [
         {
           "url": "git://github.com/vakata/jstree.git",
@@ -15171,7 +15068,7 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/jstree/-/jstree-3.3.12.tgz",
+          "url": "https://registry.npmjs.org/jstree/-/jstree-3.3.14.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -18355,14 +18252,14 @@
     {
       "type": "library",
       "name": "node-redis-dump2",
-      "version": "0.5.0",
-      "bom-ref": "node-redis-dump2@0.5.0",
+      "version": "0.6.0",
+      "bom-ref": "node-redis-dump2@0.6.0",
       "author": "Stefan Seide",
       "description": "Backup and restore your Redis data written in node.js.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "ac6e78b24b313ef341d3fd6db1411254185aa73097d32008c16d9cbf79348c52b4d6773466eff2687182dbcb4293a0c70d5b3dfa408574059ec0caec9494eb10"
+          "content": "688aef08c228789d49ad36fa60a170726fdc8d84a0784492cfc7e42726011cabdd4303b80f0ac6e8c0f08946d674a0e8573f6b4ced0c194db5154bdb11fc6cde"
         }
       ],
       "licenses": [
@@ -18372,17 +18269,12 @@
           }
         }
       ],
-      "purl": "pkg:npm/node-redis-dump2@0.5.0",
+      "purl": "pkg:npm/node-redis-dump2@0.6.0",
       "externalReferences": [
         {
-          "url": "git+ssh://git@github.com/sseide/node-redis-dump.git",
+          "url": "git@github.com:sseide/node-redis-dump.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/sseide/node-redis-dump#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
         },
         {
           "url": "https://github.com/sseide/node-redis-dump/issues",
@@ -18390,7 +18282,7 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/node-redis-dump2/-/node-redis-dump2-0.5.0.tgz",
+          "url": "https://registry.npmjs.org/node-redis-dump2/-/node-redis-dump2-0.6.0.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -25198,7 +25090,7 @@
   ],
   "dependencies": [
     {
-      "ref": "redis-commander@0.8.1",
+      "ref": "redis-commander@0.8.2-rc2",
       "dependsOn": [
         "@cyclonedx/bom@4.0.2",
         "async@3.2.4",
@@ -25208,21 +25100,21 @@
         "chai@4.3.6",
         "clipboard@2.0.11",
         "cmdparser@0.0.3",
-        "config@3.3.8",
+        "config@3.3.9",
         "dateformat@3.0.3",
         "ejs@3.1.8",
         "express-partials@0.3.0",
         "express@4.18.2",
         "inflection@1.13.4",
-        "ioredis@4.28.5",
+        "ioredis@5.3.0",
         "jquery.json-viewer@1.5.0",
         "jsonwebtoken@9.0.0",
-        "jstree@3.3.12",
+        "jstree@3.3.14",
         "lodash.isequal@4.5.0",
         "lossless-json@1.0.5",
         "mocha-junit-reporter@2.1.0",
         "mocha@10.1.0",
-        "node-redis-dump2@0.5.0",
+        "node-redis-dump2@0.6.0",
         "nyc@15.1.0",
         "opener@1.5.2",
         "readline-browserify@0.0.4",
@@ -26558,7 +26450,7 @@
       "ref": "cmdparser@0.0.3|async@0.1.22"
     },
     {
-      "ref": "config@3.3.8",
+      "ref": "config@3.3.9",
       "dependsOn": [
         "json5@2.2.3"
       ]
@@ -26822,20 +26714,21 @@
       "ref": "inflection@1.13.4"
     },
     {
-      "ref": "ioredis@4.28.5",
+      "ref": "ioredis@5.3.0",
       "dependsOn": [
+        "@ioredis/commands@1.2.0",
         "cluster-key-slot@1.1.0",
         "debug@4.3.4",
-        "denque@1.5.1",
+        "denque@2.1.0",
         "lodash.defaults@4.2.0",
-        "lodash.flatten@4.4.0",
         "lodash.isarguments@3.1.0",
-        "p-map@2.1.0",
-        "redis-commands@1.7.0",
         "redis-errors@1.2.0",
         "redis-parser@3.0.0",
         "standard-as-callback@2.1.0"
       ]
+    },
+    {
+      "ref": "@ioredis/commands@1.2.0"
     },
     {
       "ref": "cluster-key-slot@1.1.0"
@@ -26850,22 +26743,13 @@
       "ref": "ms@2.1.2"
     },
     {
-      "ref": "denque@1.5.1"
+      "ref": "denque@2.1.0"
     },
     {
       "ref": "lodash.defaults@4.2.0"
     },
     {
-      "ref": "lodash.flatten@4.4.0"
-    },
-    {
       "ref": "lodash.isarguments@3.1.0"
-    },
-    {
-      "ref": "p-map@2.1.0"
-    },
-    {
-      "ref": "redis-commands@1.7.0"
     },
     {
       "ref": "redis-errors@1.2.0"
@@ -26934,7 +26818,7 @@
       "ref": "yallist@4.0.0"
     },
     {
-      "ref": "jstree@3.3.12",
+      "ref": "jstree@3.3.14",
       "dependsOn": [
         "jquery@3.6.0"
       ]
@@ -27279,10 +27163,10 @@
       "ref": "y18n@5.0.8"
     },
     {
-      "ref": "node-redis-dump2@0.5.0",
+      "ref": "node-redis-dump2@0.6.0",
       "dependsOn": [
         "async@3.2.4",
-        "ioredis@4.28.5",
+        "ioredis@5.3.0",
         "underscore@1.13.1"
       ]
     },

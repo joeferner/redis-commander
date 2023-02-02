@@ -6,6 +6,7 @@
 * update json5 from 2.2.1 to 2.2.3 (fix CVE-2022-46175)
 #### Enhancements
 * update dependencies yargs@17.6.2
+* update ioredis from 4.28.5 to 5.3.0
 
 ## Version 0.8.1
 #### Bugfixes
