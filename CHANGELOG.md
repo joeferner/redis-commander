@@ -5,6 +5,7 @@
 * update jsonwebtoken from 8.5.1 to 9.0.0 (fix CVE-2022-23529, CVE-2022-23541, CVE-2022-23539, CVE-2022-23540)
 * update json5 from 2.2.1 to 2.2.3 (fix CVE-2022-46175)
 #### Enhancements
+* allow using IPv6 addresses for Redis connection definitions. (except REDIS_HOSTS env var, here no IPv6 allowed, use host names instead) 
 * update dependencies yargs@17.6.2
 * update ioredis from 4.28.5 to 5.3.0
 

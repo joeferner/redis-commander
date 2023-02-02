@@ -203,6 +203,9 @@ If remote redis server needs TLS write all connections into a config file instea
 of using `REDIS_HOSTS` (see [docs/connections.md](docs/connections.md) at the end 
 within the more complex examples).
 
+This environment variable `REDIS_HOSTS` does not support IPv6 addresses. It supports IPv4 or hostnames only due to ':' 
+used as separator within IPv6 addresses and this fields here.
+
 ### With docker-compose
 
 ```yml
@@ -275,6 +278,8 @@ known issues with Kubernetes:
 
 * using REDIS_HOSTS works only with a password-less redis db. You must specify REDIS_HOST on a password
   protected redis db
+* using REDIS_HOSTS does not work with IPv6 addresses. For connections to IPv6 addresses either use `REDIS_HOST` and `REDIS_PORT`
+  env var or a custom `config/local.json` configuration file mounted into the redis container.
 
 
 ## Helm chart
