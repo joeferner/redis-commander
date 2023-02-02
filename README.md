@@ -100,10 +100,10 @@ The order of precedence for all configuration values (from least to most importa
   This file overwrites all connections defined inside `local.json`
 
   There are some more possible files available to use - please check the node-config Wiki
-  for an complete list of all possible file names (https://github.com/lorenwest/node-config/wiki/Configuration-Files)
+  for a complete list of all possible file names (https://github.com/lorenwest/node-config/wiki/Configuration-Files)
 
 - Environment variables - the full list of env vars possible (except the docker specific ones)
-  can be get from the file `config/custom-environment-variables.json` together with their mapping
+  can be got from the file `config/custom-environment-variables.json` together with their mapping
   to the respective configuration key.
 
 - Command line parameters - Overwrites everything
