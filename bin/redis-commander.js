@@ -6,6 +6,7 @@ let yargs = require('yargs');
 let Redis = require('ioredis');
 var isEqual = require('lodash.isequal');
 let myUtils = require('../lib/util');
+var fs = require('fs');
 
 // fix the cwd to project base dir for browserify and config loading
 let path = require('path');
@@ -74,8 +75,74 @@ let args = yargs
   })
   .options('redis-tls', {
     type: 'boolean',
-    describe: 'Use TLS for connection to redis server or sentinel.',
+    describe: 'Use TLS for connection to redis server. Required for TLS connections.',
     default: false
+  })
+  .options('redis-tls-ca-cert', {
+    type: 'string',
+    describe: 'Use PEM-style CA certificate key for connection to redis server.',
+  })
+  .options('redis-tls-ca-cert-file', {
+    type: 'string',
+    describe: 'File path to PEM-style CA certificate key for connection to redis server.',
+  })
+  .options('redis-tls-cert', {
+    type: 'string',
+    describe: 'Use PEM-style public key for connection to redis server.',
+  })
+  .options('redis-tls-cert-file', {
+    type: 'string',
+    describe: 'File path to PEM-style public key for connection to redis server.',
+  })
+  .options('redis-tls-key', {
+    type: 'string',
+    describe: 'Use PEM-style private key for connection to redis server.',
+  })
+  .options('redis-tls-key-file', {
+    type: 'string',
+    describe: 'File path PEM-style private key for connection to redis server.',
+  })
+  .options('redis-tls-server-name', {
+    type: 'string',
+    describe: 'Server name to confirm client connection. Server name for the SNI (Server Name Indication) TLS extension.',
+  })
+  .options('enable-sentinel-tls', {
+    type: 'boolean',
+    describe: 'Enable TLS for sentinel mode. Required for TLS sentinel connections.',
+    default: false
+  })
+  .options('sentinel-tls', {
+    type: 'boolean',
+    describe: 'Use TLS for connection to sentinel. Required for TLS connections.',
+    default: false
+  })
+  .options('sentinel-tls-ca-cert', {
+    type: 'string',
+    describe: 'Use PEM-style CA certificate key for connection to sentinel.',
+  })
+  .options('sentinel-tls-ca-cert-file', {
+    type: 'string',
+    describe: 'File path to PEM-style CA certificate key for connection to sentinel.',
+  })
+  .options('sentinel-tls-cert', {
+    type: 'string',
+    describe: 'Use PEM-style public key for connection to sentinel.',
+  })
+  .options('sentinel-tls-cert-file', {
+    type: 'string',
+    describe: 'File path to PEM-style public key for connection to sentinel.',
+  })
+  .options('sentinel-tls-key', {
+    type: 'string',
+    describe: 'Use PEM-style private key for connection to sentinel.',
+  })
+  .options('sentinel-tls-key-file', {
+    type: 'string',
+    describe: 'File path to PEM-style private key for connection to sentinel.',
+  })
+  .options('sentinel-tls-server-name', {
+    type: 'string',
+    describe: 'Server name to confirm client connection. Server name for the SNI (Server Name Indication) TLS extension.',
   })
   .options('noload', {
     alias: 'nl',
@@ -413,6 +480,67 @@ function createConnectionObjectFromArgs(argList) {
 
     if (argList['redis-tls']) {
       connObj.tls = {};
+    }
+    if (argList['redis-tls'] &&
+      (argList['redis-tls-ca-cert-file'] || argList['redis-tls-ca-cert']
+        || argList['redis-tls-cert-file'] || argList['redis-tls-cert']
+        || argList['redis-tls-key-file'] || argList['redis-tls-key']
+        || argList['redis-tls-server-name'])) {
+      connObj.tls = {};
+      if (argList['redis-tls-ca-cert-file']) {
+        connObj.tls.ca = fs.readFileSync(argList['redis-tls-ca-cert-file']);
+      }
+      else if (argList['redis-tls-ca-cert']) {
+        connObj.tls.ca = argList['redis-tls-ca-cert'];
+      }
+      if (argList['redis-tls-cert-file']) {
+        connObj.tls.cert = fs.readFileSync(argList['redis-tls-cert-file']);
+      }
+      else if (argList['redis-tls-cert']) {
+        connObj.tls.cert = argList['redis-tls-cert'];
+      }
+      if (argList['redis-tls-key-file']) {
+        connObj.tls.key = fs.readFileSync(argList['redis-tls-key-file']);
+      }
+      else if (argList['redis-tls-key']) {
+        connObj.tls.key = argList['redis-tls-key'];
+      }
+      if (argList['redis-tls-server-name']) {
+        connObj.tls.servername = argList['redis-tls-server-name'];
+      }
+    }
+    if (argList['enable-sentinel-tls']) {
+      connObj.enableTLSForSentinelMode = true;
+    }
+    if (argList['sentinel-tls']) {
+      connObj.sentinelTLS = {};
+    }
+    if (argList['sentinel-tls'] &&
+      (argList['sentinel-tls-ca-cert-file'] || argList['sentinel-tls-ca-cert']
+        || argList['sentinel-tls-cert-file'] || argList['sentinel-tls-cert']
+        || argList['sentinel-tls-key-file'] || argList['sentinel-tls-key']
+        || argList['sentinel-tls-server-name'])) {
+      if (argList['sentinel-tls-ca-cert-file']) {
+        connObj.sentinelTLS.ca = fs.readFileSync(argList['sentinel-tls-ca-cert-file']);
+      }
+      else if (argList['sentinel-tls-ca-cert']) {
+        connObj.sentinelTLS.ca = argList['sentinel-tls-ca-cert'];
+      }
+      if (argList['sentinel-tls-cert-file']) {
+        connObj.sentinelTLS.cert = fs.readFileSync(argList['sentinel-tls-cert-file']);
+      }
+      else if (argList['sentinel-tls-cert']) {
+        connObj.sentinelTLS.cert = argList['sentinel-tls-cert'];
+      }
+      if (argList['sentinel-tls-key-file']) {
+        connObj.sentinelTLS.key = fs.readFileSync(argList['sentinel-tls-key-file']);
+      }
+      else if (argList['sentinel-tls-key']) {
+        connObj.sentinelTLS.key = argList['sentinel-tls-key'];
+      }
+      if (argList['sentinel-tls-server-name']) {
+        connObj.sentinelTLS.servername = argList['sentinel-tls-server-name'];
+      }
     }
   }
   return connObj;
