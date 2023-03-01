@@ -60,15 +60,16 @@ interface of Redis Commander.
 
 ### 4. Express HTTP Server parameter
 
-| Name | Type | Default | Cli | Environment-Var | Description |
-|---|---|---|---|---|---|
-| server.address | string | '0.0.0.0' | --address | ADDRESS | ip address of interface to bind http server to, use 0.0.0.0 to bind to all interfaces |
-| server.port | number | 8081 | --port | PORT | port to listen on for HTTP server |
-| server.urlPrefix | string | '' | --url-prefix | URL_PREFIX | path prefix to run Redis Commander at, can be used if run behind a reverse proxy with different path set (e.g. /rc), if set must start with '/' |
-| server.signinPath | string | 'signin' | | SIGNIN_PATH | path added after urlPrefix as route to send login requests too. Some platforms (e.g. github codespaces) may require changing this path. |
-| server.trustProxy | boolean or string | false | --trust-proxy | TRUST_PROXY | should be set to true if run behind a reverse proxy and 'X-Forwarded-For' headers shall be trusted to get real client ip for logging, this parameter maps directly to the Express "trust proxy" setting (https://expressjs.com/de/guide/behind-proxies.html)|
-| server.clientMaxBodySize | number or string | '100kb' | | CLIENT_MAX_BODY_SIZE | number in bytes or a string with size and SI-unit, this parameter maps to the "limit" options of body-parser (https://github.com/expressjs/body-parser#limit) |
-| server.auth | object |  | | | see section 4.1 Authentication  |
+| Name | Type | Default | Cli | Environment-Var | Description                                                                                                                                                                                                                                             |
+|---|---|---|---|---|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server.address | string | '0.0.0.0' | --address | ADDRESS | ip address of interface to bind http server to, use 0.0.0.0 to bind to all interfaces                                                                                                                                                                   |
+| server.port | number | 8081 | --port | PORT | port to listen on for HTTP server                                                                                                                                                                                                                       |
+| server.urlPrefix | string | '' | --url-prefix | URL_PREFIX | path prefix to run Redis Commander at, can be used if run behind a reverse proxy with different path set (e.g. /rc), if set must start with '/'                                                                                                         |
+| server.signinPath | string | 'signin' | | SIGNIN_PATH | path added after urlPrefix as route to send login requests too. Some platforms (e.g. github codespaces) may require changing this path.                                                                                                                 |
+| server.httpAuthHeaderName | string | 'Authorization' | | NAUGHTY_ISTIO_WORKAROUND_HEADER | set HTTP header name for our own JWT session token to some non-standard name beside 'Authorization'                                                                                                                                                     |
+| server.trustProxy | boolean or string | false | --trust-proxy | TRUST_PROXY | should be set to true if run behind a reverse proxy and 'X-Forwarded-For' headers shall be trusted to get real client ip for logging, this parameter maps directly to the Express "trust proxy" setting (https://expressjs.com/de/guide/behind-proxies.html) |
+| server.clientMaxBodySize | number or string | '100kb' | | CLIENT_MAX_BODY_SIZE | number in bytes or a string with size and SI-unit, this parameter maps to the "limit" options of body-parser (https://github.com/expressjs/body-parser#limit)                                                                                           |
+| server.auth | object |  | | | see section 4.1 Authentication                                                                                                                                                                                                                          |
 
 #### 4.1 Authentication configuration for HTTP server
 
@@ -92,6 +93,15 @@ to via app port (e.g. 8081) unauthenticated!
 | server.httpAuth.passwordHash | string | '' | --http-h | HTTP_PASSWORD_HASH | password hash to use for HTTP Basic auth (either password or passwordHash allowed) |
 | server.httpAuth.jwtSecret | string | '' | | | Shared Secret used to sign JWT tokens for all future requests after initial login to not send HTTP basic auth header on all requests. If this value is empty a random value is generated on every startup. |
 
+Using HTTP authentication all further requests to the server are secured with an JWT token generated by Redis-Commander that is changed
+quite often.
+
+Remark: Using Redis commander inside a Kubernetes cluster secured with Istio authentication no other apps than Istio are allowed 
+to use the HTTP standard "Authentication" header anymore. Istio does not play along with others - it just tries to validate
+every connection using the RFC conformant HTTP header and (naturally) fails doing so. Failing JWT validation it just resets the
+HTTP connection and no more communication allowed.
+To work around Istio cuting in the line the name of the authorization header can be changed to something else ignored by Istio.
+(config value "server.httpAuthHeaderName" or environment variable NAUGHTY_ISTIO_WORKAROUND_HEADER)
 
 ### 5. Redis Connections
 

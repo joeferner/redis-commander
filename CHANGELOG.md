@@ -6,6 +6,8 @@
 * update json5 from 2.2.1 to 2.2.3 (fix CVE-2022-46175)
 #### Enhancements
 * allow using IPv6 addresses for Redis connection definitions. (except REDIS_HOSTS env var, here no IPv6 allowed, use host names instead) 
+* allow setting a custom HTTP header name used for the JWT session authentication token
+* update base image to alpine@3.17 using NodeJS 18.x now
 * update dependencies yargs@17.6.2
 * update ioredis from 4.28.5 to 5.3.0
 

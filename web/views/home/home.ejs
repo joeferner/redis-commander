@@ -132,6 +132,7 @@
   const foldingCharacter = '<%= foldingCharacter %>';
   const redisReadOnly = <%= redisReadOnly %>;
   const signinPath = '<%= signinPath %>';
+  const httpAuthHeaderName = '<%= httpAuthHeaderName %>';
 
   const setConnection = function (connectionBtn) {
     $('#selectedConnectionLabel').text('Current Instance: "' + connectionBtn.dataset.label +
@@ -147,7 +148,7 @@
       beforeSend: function(jqXHR) {
         var redisCommanderBearerToken = sessionStorage.getItem('redisCommanderBearerToken');
         if (!httpAuthDisabled && redisCommanderBearerToken) {
-          jqXHR.setRequestHeader('Authorization', 'Bearer ' + redisCommanderBearerToken);
+          jqXHR.setRequestHeader(httpAuthHeaderName, 'Bearer ' + redisCommanderBearerToken);
         }
       }
     });

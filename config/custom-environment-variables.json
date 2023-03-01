@@ -21,6 +21,7 @@
     "port": "PORT",
     "urlPrefix": "URL_PREFIX",
     "signinPath": "SIGNIN_PATH",
+    "httpAuthHeaderName": "NAUGHTY_ISTIO_WORKAROUND_HEADER",
     "trustProxy": "TRUST_PROXY",
     "clientMaxBodySize": "CLIENT_MAX_BODY_SIZE",
     "httpAuth": {

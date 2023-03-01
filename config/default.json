@@ -26,6 +26,7 @@
     "port": 8081,
     "urlPrefix": "",
     "signinPath": "signin",
+    "httpAuthHeaderName": "Authorization",
     "trustProxy": false,
     "clientMaxBodySize": "100kb",
     "httpAuth": {
