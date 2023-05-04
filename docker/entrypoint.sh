@@ -222,16 +222,16 @@ if [ -n "$REDIS_SOCKET" ]; then
     set -- "$@" "--redis-socket" "$REDIS_SOCKET"
 fi
 
-if [ -n "$REDIS_TLS" ] && parse_boolean "$REDIS_TLS"; then
-    set -- "$@" "--redis-tls"
-fi
-
 if [ -n "$REDIS_USERNAME" ]; then
     set -- "$@" "--redis-username" "$REDIS_USERNAME"
 fi
 
 if [ -n "$REDIS_PASSWORD" ]; then
     set -- "$@" "--redis-password" "$REDIS_PASSWORD"
+fi
+
+if [ -n "$REDIS_TLS" ] && parse_boolean "$REDIS_TLS"; then
+    set -- "$@" "--redis-tls"
 fi
 
 if [ -n "$REDIS_TLS_CA_CERT" ]; then
@@ -286,20 +286,16 @@ if [ -n "$SENTINEL_NAME" ]; then
     set -- "$@" "--sentinel-name" "$SENTINEL_NAME"
 fi
 
-if [ -n "$SENTINEL_ENABLE_TLS" ] && parse_boolean "$SENTINEL_ENABLE_TLS"; then
-    set -- "$@" "--sentinel-enable-tls"
-fi
-
-if [ -n "$SENTINEL_TLS" ] && parse_boolean "$SENTINEL_TLS"; then
-    set -- "$@" "--sentinel-tls"
-fi
-
 if [ -n "$SENTINEL_USERNAME" ]; then
     set -- "$@" "--sentinel-username" "$SENTINEL_USERNAME"
 fi
 
 if [ -n "$SENTINEL_PASSWORD" ]; then
     set -- "$@" "--sentinel-password" "$SENTINEL_PASSWORD"
+fi
+
+if [ -n "$SENTINEL_TLS" ] && parse_boolean "$SENTINEL_TLS"; then
+    set -- "$@" "--sentinel-tls"
 fi
 
 if [ -n "$SENTINEL_TLS_CA_CERT" ]; then
