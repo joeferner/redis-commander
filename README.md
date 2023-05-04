@@ -44,7 +44,23 @@ Options:
   --redis-password                     The redis password.                         [string]
   --redis-db                           The redis database.                         [string]
   --redis-label                        The label to display for the connection.    [string]
-  --redis-tls                          Use TLS for connection to redis server or sentinel. [boolean] [default: false]
+  --redis-tls                          Use TLS for connection to redis server. [boolean] [default: false]
+  --redis-tls-ca-cert                  Use PEM-style CA certificate key for connection to redis server. [string]
+  --redis-tls-ca-cert-file             File path to PEM-style CA certificate key for connection to redis server. [string]
+  --redis-tls-cert                     Use PEM-style public key for connection to redis server. [string]
+  --redis-tls-cert-file                File path to Use PEM-style public key for connection to redis server. [string]
+  --redis-tls-key                      Use PEM-style private key for connection to redis server. [string]
+  --redis-tls-key-file                 File path to PEM-style private key for connection to redis server. [string]
+  --redis-tls-server-name              To confirm client connection, the server name for the SNI (Server Name Indication) TLS extension. [string]
+  --enable-sentinel-tls                Enable TLS for sentinel mode. Required for TLS sentinel connections. [boolean] [default: false]
+  --sentinel-tls                       Use TLS for connection to sentinel. Required for TLS connections. [boolean] [default: false]
+  --sentinel-tls-ca-cert               Use PEM-style CA certificate for connection to sentinel. [string]
+  --sentinel-tls-ca-cert-file          File path to PEM-style CA certificate for connection to sentinel. [string]
+  --sentinel-tls-cert                  Use PEM-style public key for connection to sentinel. [string]
+  --sentinel-tls-cert-file             File path to PEM-style public key for connection to sentinel. [string]
+  --sentinel-tls-key                   Use PEM-style private key for connection to sentinel. [string]
+  --sentinel-tls-key-file              File path to PEM-style private key for connection to sentinel. [string]
+  --sentinel-tls-server-name           To confirm client connection, the server name for the SNI (Server Name Indication) TLS extension. [string]
   --redis-optional                     Set to true if no permanent auto-reconnect shall be done if server is down [boolean] [default: false]
   --sentinel-port                      The port to find redis sentinel on.         [string]
   --sentinel-host                      The host to find redis sentinel on.         [string]
@@ -160,6 +176,12 @@ REDIS_TLS
 REDIS_USERNAME
 REDIS_PASSWORD
 REDIS_PASSWORD_FILE
+REDIS_TLS_CA_CERT
+REDIS_TLS_CA_CERT_FILE
+REDIS_TLS_CERT
+REDIS_TLS_CERT_FILE
+REDIS_TLS_KEY
+REDIS_TLS_KEY_FILE
 REDIS_DB
 REDIS_HOSTS
 REDIS_OPTIONAL
@@ -169,6 +191,13 @@ SENTINEL_NAME
 SENTINEL_USERNAME
 SENTINEL_PASSWORD
 SENTINEL_PASSWORD_FILE
+SENTINEL_ENABLE_TLS
+SENTINEL_TLS_CA_CERT
+SENTINEL_TLS_CA_CERT_FILE
+SENTINEL_TLS_CERT
+SENTINEL_TLS_CERT_FILE
+SENTINEL_TLS_KEY
+SENTINEL_TLS_KEY_FILE
 SENTINELS
 K8S_SIGTERM
 ```

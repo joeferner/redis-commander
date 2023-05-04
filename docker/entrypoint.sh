@@ -234,6 +234,34 @@ if [ -n "$REDIS_PASSWORD" ]; then
     set -- "$@" "--redis-password" "$REDIS_PASSWORD"
 fi
 
+if [ -n "$REDIS_TLS_CA_CERT" ]; then
+    set -- "$@" "--redis-tls-ca-cert" "$REDIS_TLS_CA_CERT"
+fi
+
+if [ -n "$REDIS_TLS_CA_CERT_FILE" ]; then
+    set -- "$@" "--redis-tls-ca-cert-file" "$REDIS_TLS_CA_CERT_FILE"
+fi
+
+if [ -n "$REDIS_TLS_CERT" ]; then
+    set -- "$@" "--redis-tls-cert" "$REDIS_TLS_CERT"
+fi
+
+if [ -n "$REDIS_TLS_CERT_FILE" ]; then
+    set -- "$@" "--redis-tls-cert-file" "$REDIS_TLS_CERT_FILE"
+fi
+
+if [ -n "$REDIS_TLS_KEY" ]; then
+    set -- "$@" "--redis-tls-key" "$REDIS_TLS_KEY"
+fi
+
+if [ -n "$REDIS_TLS_KEY_FILE" ]; then
+    set -- "$@" "--redis-tls-key-file" "$REDIS_TLS_KEY_FILE"
+fi
+
+if [ -n "$REDIS_TLS_SERVER_NAME" ]; then
+    set -- "$@" "--redis-tls-server-name" "$REDIS_TLS_SERVER_NAME"
+fi
+
 if [ -n "$REDIS_DB" ]; then
     set -- "$@" "--redis-db" "$REDIS_DB"
 fi
@@ -258,12 +286,48 @@ if [ -n "$SENTINEL_NAME" ]; then
     set -- "$@" "--sentinel-name" "$SENTINEL_NAME"
 fi
 
+if [ -n "$SENTINEL_ENABLE_TLS" ] && parse_boolean "$SENTINEL_ENABLE_TLS"; then
+    set -- "$@" "--sentinel-enable-tls"
+fi
+
+if [ -n "$SENTINEL_TLS" ] && parse_boolean "$SENTINEL_TLS"; then
+    set -- "$@" "--sentinel-tls"
+fi
+
 if [ -n "$SENTINEL_USERNAME" ]; then
     set -- "$@" "--sentinel-username" "$SENTINEL_USERNAME"
 fi
 
 if [ -n "$SENTINEL_PASSWORD" ]; then
     set -- "$@" "--sentinel-password" "$SENTINEL_PASSWORD"
+fi
+
+if [ -n "$SENTINEL_TLS_CA_CERT" ]; then
+    set -- "$@" "--sentinel-tls-ca-cert" "$SENTINEL_TLS_CA_CERT"
+fi
+
+if [ -n "$SENTINEL_TLS_CA_CERT_FILE" ]; then
+    set -- "$@" "--sentinel-tls-ca-cert-file" "$SENTINEL_TLS_CA_CERT_FILE"
+fi
+
+if [ -n "$SENTINEL_TLS_CERT" ]; then
+    set -- "$@" "--sentinel-tls-cert" "$SENTINEL_TLS_CERT"
+fi
+
+if [ -n "$SENTINEL_TLS_CERT_FILE" ]; then
+    set -- "$@" "--sentinel-tls-cert-file" "$SENTINEL_TLS_CERT_FILE"
+fi
+
+if [ -n "$SENTINEL_TLS_KEY" ]; then
+    set -- "$@" "--sentinel-tls-key" "$SENTINEL_TLS_KEY"
+fi
+
+if [ -n "$SENTINEL_TLS_KEY_FILE" ]; then
+    set -- "$@" "--sentinel-tls-key-file" "$SENTINEL_TLS_KEY_FILE"
+fi
+
+if [ -n "$SENTINEL_TLS_SERVER_NAME" ]; then
+    set -- "$@" "--sentinel-tls-server-name" "$SENTINEL_TLS_SERVER_NAME"
 fi
 
 if [ -n "$REPLACE_CONFIG_ENV" ]; then
