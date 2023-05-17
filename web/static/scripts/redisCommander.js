@@ -1437,7 +1437,7 @@ function clearAddServerForm() {
   $('#selectServerDbList').attr('data-connstring', null).empty();
 }
 
-/** extract json data from ad server form and show new modal to allow selection all dbs
+/** extract json data from add server form and show new modal to allow selection of all dbs
  *  found at this redis server.
  *  Only fields for server type, host, port, path and passwords are used. Label and database are ignored.
  */
@@ -1504,14 +1504,6 @@ function selectNewServerDbs() {
       location.reload();
     }, 200);
   });
-}
-
-function loadDefaultServer (host, port) {
-  console.log('host ' + host);
-  console.log('port ' + port);
-  $('#hostname').val(host);
-  $('#port').val(port);
-  $('#addServerForm').trigger('submit');
 }
 
 function loadConfig (callback) {

@@ -318,7 +318,7 @@ To use the stock Node.js image builder do the following.
 ## Helper Scripts
 ### Generate BCrypted password hash
 
-Redis commander allows setting either a plain text password for http authentication or an already bcrypted 
+Redis commander allows setting either a plain text password for http authentication or a "bcrypt" 
 password hash.
 To generate a hashed password the script `bin/bcrypt-password.js` can be used. The parameter "-p" to set password should be given. 
 

@@ -19,14 +19,14 @@ show when it can be set as cli parameter (overwriting the config file as well as
 
 All top-level configuration data are 
 
-| Name | Type | Default | Cli | Environment-Var | Description |
-|---|---|---|---|---|---|
-| noSave | boolean | false | --nosave | NO_SAVE | do not persist changes in active connection list  |
-| noLogData | boolean | false | --no-log-data | NO_LOG_DATA | do not log values of redis keys to console |
-| ui | object |  | | | see section 2. User interface parameter|
-| redis | object |  | | | see section 3. General Redis connection parameter |
-| server | object |  | | | see section 4. Express HTTP Server parameter |
-| connections | list | [] | | | see section 5. Redis Connections |
+| Name        | Type    | Default | Cli           | Environment-Var | Description |
+|-------------|---------|---------|---------------|-----------------|---|
+| noSave      | boolean | false   | --nosave      | NO_SAVE         | do not persist changes in active connection list  |
+| noLogData   | boolean | false   | --no-log-data | NO_LOG_DATA     | do not log values of redis keys to console |
+| ui          | object  |         |               |                 | see section 2. User interface parameter|
+| redis       | object  |         |               |                 | see section 3. General Redis connection parameter |
+| server      | object  |         |               |                 | see section 4. Express HTTP Server parameter |
+| connections | list    | []      |               |                 | see section 5. Redis Connections |
 
 
 ### 2. User interface parameter
@@ -81,29 +81,29 @@ while the second connection to 10.9.8.7 uses '/' here:
 
 ### 3. General Redis connection parameter
 
-| Name | Type | Default | Cli | Environment-Var | Description |
-|---|---|---|---|---|---|
-| redis.readOnly | boolean | false | --read-only | READ_ONLY | use Redis Commander in read-only mode - if set to "true" no commands modifying data are allowed (ui and command line) |
-| redis.flushOnImport | boolean | false | | FLUSH_ON_IMPORT | flag to either check "flush" checkbox (true) on import page or uncheck (false) it. If "true" the entire database is flushed before bulk importing the data. |
-| redis.useScan | boolean | true | --use-scan | USE_SCAN | use redis "SCAN" command instead of "KEYS" to enumerate all keys inside db for display |
-| redis.scanCount | number | 100 | --scan-count | SCAN_COUNT | number of keys read when using SCAN cursor instead of KEYS (useScan must be true) |
-| redis.rootPattern | string | '*' | --root-pattern | ROOT_PATTERN | filter pattern to use at start, can be used to exclude some date inside redis db |
-| redis.connectionName | string | 'redis-commander' | | REDIS_CONNECTION_NAME | connection name to set at redis client for easier identification of clients at redis server (command "client list") |
-| redis.defaultLabel | string | 'local' | | REDIS_LABEL | default label to display for a connection if no label is specified (e.g. for connection from env vars or command line) |
-| redis.defaultSentinelGroup | string | 'mymaster' | | | default redis database group if using sentinels to connect and no special database group via connection param 'sentinelName' is given. |
+| Name                       | Type    | Default           | Cli            | Environment-Var       | Description |
+|----------------------------|---------|-------------------|----------------|-----------------------|---|
+| redis.readOnly             | boolean | false             | --read-only    | READ_ONLY             | use Redis Commander in read-only mode - if set to "true" no commands modifying data are allowed (ui and command line) |
+| redis.flushOnImport        | boolean | false             |                | FLUSH_ON_IMPORT       | flag to either check "flush" checkbox (true) on import page or uncheck (false) it. If "true" the entire database is flushed before bulk importing the data. |
+| redis.useScan              | boolean | true              | --use-scan     | USE_SCAN              | use redis "SCAN" command instead of "KEYS" to enumerate all keys inside db for display |
+| redis.scanCount            | number  | 100               | --scan-count   | SCAN_COUNT            | number of keys read when using SCAN cursor instead of KEYS (useScan must be true) |
+| redis.rootPattern          | string  | '*'               | --root-pattern | ROOT_PATTERN          | filter pattern to use at start, can be used to exclude some date inside redis db |
+| redis.connectionName       | string  | 'redis-commander' |                | REDIS_CONNECTION_NAME | connection name to set at redis client for easier identification of clients at redis server (command "client list") |
+| redis.defaultLabel         | string  | 'local'           |                | REDIS_LABEL           | default label to display for a connection if no label is specified (e.g. for connection from env vars or command line) |
+| redis.defaultSentinelGroup | string  | 'mymaster'        |                |                       | default redis database group if using sentinels to connect and no special database group via connection param 'sentinelName' is given. |
 
 ### 4. Express HTTP Server parameter
 
-| Name | Type | Default | Cli | Environment-Var | Description                                                                                                                                                                                                                                             |
-|---|---|---|---|---|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server.address | string | '0.0.0.0' | --address | ADDRESS | ip address of interface to bind http server to, use 0.0.0.0 to bind to all interfaces                                                                                                                                                                   |
-| server.port | number | 8081 | --port | PORT | port to listen on for HTTP server                                                                                                                                                                                                                       |
-| server.urlPrefix | string | '' | --url-prefix | URL_PREFIX | path prefix to run Redis Commander at, can be used if run behind a reverse proxy with different path set (e.g. /rc), if set must start with '/'                                                                                                         |
-| server.signinPath | string | 'signin' | | SIGNIN_PATH | path added after urlPrefix as route to send login requests too. Some platforms (e.g. github codespaces) may require changing this path.                                                                                                                 |
-| server.httpAuthHeaderName | string | 'Authorization' | | NAUGHTY_ISTIO_WORKAROUND_HEADER | set HTTP header name for our own JWT session token to some non-standard name beside 'Authorization'                                                                                                                                                     |
-| server.trustProxy | boolean or string | false | --trust-proxy | TRUST_PROXY | should be set to true if run behind a reverse proxy and 'X-Forwarded-For' headers shall be trusted to get real client ip for logging, this parameter maps directly to the Express "trust proxy" setting (https://expressjs.com/de/guide/behind-proxies.html) |
-| server.clientMaxBodySize | number or string | '100kb' | | CLIENT_MAX_BODY_SIZE | number in bytes or a string with size and SI-unit, this parameter maps to the "limit" options of body-parser (https://github.com/expressjs/body-parser#limit)                                                                                           |
-| server.auth | object |  | | | see section 4.1 Authentication                                                                                                                                                                                                                          |
+| Name                      | Type              | Default         | Cli           | Environment-Var                 | Description                                                                                                                                                                                                                                             |
+|---------------------------|-------------------|-----------------|---------------|---------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server.address            | string            | '0.0.0.0'       | --address     | ADDRESS                         | ip address of interface to bind http server to, use 0.0.0.0 to bind to all interfaces                                                                                                                                                                   |
+| server.port               | number            | 8081            | --port        | PORT                            | port to listen on for HTTP server                                                                                                                                                                                                                       |
+| server.urlPrefix          | string            | ''              | --url-prefix  | URL_PREFIX                      | path prefix to run Redis Commander at, can be used if run behind a reverse proxy with different path set (e.g. /rc), if set must start with '/'                                                                                                         |
+| server.signinPath         | string            | 'signin'        |               | SIGNIN_PATH                     | path added after urlPrefix as route to send login requests too. Some platforms (e.g. github codespaces) may require changing this path.                                                                                                                 |
+| server.httpAuthHeaderName | string            | 'Authorization' |               | NAUGHTY_ISTIO_WORKAROUND_HEADER | set HTTP header name for our own JWT session token to some non-standard name beside 'Authorization'                                                                                                                                                     |
+| server.trustProxy         | boolean or string | false           | --trust-proxy | TRUST_PROXY                     | should be set to true if run behind a reverse proxy and 'X-Forwarded-For' headers shall be trusted to get real client ip for logging, this parameter maps directly to the Express "trust proxy" setting (https://expressjs.com/de/guide/behind-proxies.html) |
+| server.clientMaxBodySize  | number or string  | '100kb'         |               | CLIENT_MAX_BODY_SIZE            | number in bytes or a string with size and SI-unit, this parameter maps to the "limit" options of body-parser (https://github.com/expressjs/body-parser#limit)                                                                                           |
+| server.auth               | object            |                 |               |                                 | see section 4.1 Authentication                                                                                                                                                                                                                          |
 
 #### 4.1 Authentication configuration for HTTP server
 
@@ -120,12 +120,12 @@ not using Redis Commander builtin auth allows (at least) all users having
 accounts on the server running Redis Commander to connect via localhost directly
 to via app port (e.g. 8081) unauthenticated!
 
-| Name | Type | Default | Cli | Environment-Var | Description |
-|---|---|---|---|---|---|
-| server.httpAuth.username | string | '' | --http-u | HTTP_USER | set a username and either password or passwordHash to |
-| server.httpAuth.password | string | '' | --http-p | HTTP_PASSWORD | clear text password to use for HTTP Basic auth (either password or passwordHash allowed) |
-| server.httpAuth.passwordHash | string | '' | --http-h | HTTP_PASSWORD_HASH | password hash to use for HTTP Basic auth (either password or passwordHash allowed) |
-| server.httpAuth.jwtSecret | string | '' | | | Shared Secret used to sign JWT tokens for all future requests after initial login to not send HTTP basic auth header on all requests. If this value is empty a random value is generated on every startup. |
+| Name                         | Type   | Default | Cli      | Environment-Var    | Description |
+|------------------------------|--------|---------|----------|--------------------|---|
+| server.httpAuth.username     | string | ''      | --http-u | HTTP_USER          | set a username and either password or passwordHash to |
+| server.httpAuth.password     | string | ''      | --http-p | HTTP_PASSWORD      | clear text password to use for HTTP Basic auth (either password or passwordHash allowed) |
+| server.httpAuth.passwordHash | string | ''      | --http-h | HTTP_PASSWORD_HASH | password hash to use for HTTP Basic auth (either password or passwordHash allowed) |
+| server.httpAuth.jwtSecret    | string | ''      |          |                    | Shared Secret used to sign JWT tokens for all future requests after initial login to not send HTTP basic auth header on all requests. If this value is empty a random value is generated on every startup. |
 
 Using HTTP authentication all further requests to the server are secured with an JWT token generated by Redis-Commander that is changed
 quite often.
@@ -134,7 +134,7 @@ Remark: Using Redis commander inside a Kubernetes cluster secured with Istio aut
 to use the HTTP standard "Authentication" header anymore. Istio does not play along with others - it just tries to validate
 every connection using the RFC conformant HTTP header and (naturally) fails doing so. Failing JWT validation it just resets the
 HTTP connection and no more communication allowed.
-To work around Istio cuting in the line the name of the authorization header can be changed to something else ignored by Istio.
+To work around Istio cutting in the line the name of the authorization header can be changed to something else ignored by Istio.
 (config value "server.httpAuthHeaderName" or environment variable NAUGHTY_ISTIO_WORKAROUND_HEADER)
 
 ### 5. Redis Connections

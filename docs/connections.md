@@ -141,10 +141,10 @@ For guidance just ask at one of the cluster support tickets.
 
 The FIRST connection can be configured from the command line or via environment variables as listed below.
 
-Configuring multiple connections euither use the `--redis-hosts` (plural) cli param, `REDIS_HOSTS` env var inside docker or (much better)
+Configuring multiple connections either use the `--redis-hosts` (plural) cli param, `REDIS_HOSTS` env var inside docker or (much better)
 configure them directly inside your own custom json config file.
 
-*THE `--redis-...` / `--sentinel-...` COMMAND LINE PARAMS AND THE RESPECTIVE ENVIRONMENT VARIABLES WORK FOR THE FIRST CONNECITON ONLY!*
+*THE `--redis-...` / `--sentinel-...` COMMAND LINE PARAMS AND THE RESPECTIVE ENVIRONMENT VARIABLES WORK FOR THE FIRST CONNECTION ONLY!*
 
 *The environment variables work for the docker image only, not for the stand-alone app!*
 
@@ -229,12 +229,11 @@ services:
 ```
 
 The file must be mounted read-write as all changes to the connection configurations (add or delete
-servers via web-UI) will be saved inside this file too to persist changed acress
+servers via web-UI) will be saved inside this file too to persist changed across
 docker container restarts.
 
 If this file needs to be read-only mount it as `local.json` inside the container, e.g.:
 ```yaml
-    ...
     volumes:
       - ./myconnections.json:/redis-commander/config/local.json:ro
 ```
