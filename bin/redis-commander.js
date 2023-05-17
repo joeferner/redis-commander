@@ -704,6 +704,22 @@ function connectToDB (redisConnection, db) {
     };
   });
 
+  // check all modules installed
+  redisConnection.call('module', ['list'], function(errCmd, moduleList) {
+    if (errCmd || !Array.isArray(moduleList)) {
+      console.log(`redis command "module" not supported, cannot build dynamic list of modules installed for (${redisConnection.options.connectionId}`);
+      return;
+    }
+    // console.debug('Got list of ' + moduleList.length + ' modules from server ' + redisConnection.options.host + ':' +
+    //   redisConnection.options.port);
+    redisConnection.options.moduleList = moduleList.map((m) => {
+      const modInfo = {}
+      modInfo[m[0]] = m[1];
+      modInfo[m[2]] = m[3];
+      return modInfo
+    });
+  });
+
   redisConnection.select(db, function (err) {
     if (err) {
       console.log(err);
