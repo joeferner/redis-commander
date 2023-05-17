@@ -202,7 +202,7 @@ let args = yargs
       case '&':
       case '?':
       case '*':
-        throw new Error('Characters &, ? and * are invalid for param folding-char!');
+        throw new Error('Characters &, ? and * are not allowed for param folding-char!');
     }
 
     // parser special handling of params starting with "no-"

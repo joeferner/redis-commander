@@ -1,9 +1,32 @@
 'use strict';
 
-var CmdParser = require('cmdparser');
+const CmdParser = require('cmdparser');
 var cmdparser;
-var losslessJSON = require('lossless-json');
-var simpleObjRE = /^\s*[{\[]/;
+const losslessJSON = require('lossless-json');
+const simpleObjRE = /^\s*[{\[]/;
+
+/** wrapper object to hold redis connection related information */
+const connections = {
+  /** list with all redis connections the server has,
+   * object with
+   * {
+   * conId: string,
+   * label: string,
+   * foldingChar: string,
+   * options: {host: string, port: number, type: string, db: number}
+   * }
+   */
+  list: [],
+  /** list of all JSTree root tree objects, one per connection */
+  treeObjects: [],
+  /** find one connection by their connectionId */
+  findById: function(id) {
+    if (Array.isArray(this.list)) {
+      return this.list.find((c) => c.conId === id)
+    }
+    return null;
+  }
+}
 
 function loadTree () {
   $.get('apiv2/connection', function (isConnected) {
@@ -16,9 +39,8 @@ function loadTree () {
         }
       });
       $.get('connections', function (data) {
-        var json_dataData = [];
-
         if (data.connections) {
+          connections.list = data.connections;
           data.connections.every(function (instance) {
             // build root objects for jstree view on left side
             var treeObj = {
@@ -29,14 +51,14 @@ function loadTree () {
               children: true,
               rel: 'root'
             };
-            json_dataData.push(treeObj);
+            connections.treeObjects.push(treeObj);
             return true;
          });
         }
         return onJSTreeDataComplete();
 
         function getJsTreeData(node, cb) {
-          if (node.id === '#') return cb(json_dataData);
+          if (node.id === '#') return cb(connections.treeObjects);
 
           var dataUrl;
           if (node.parent === '#') {
@@ -692,12 +714,13 @@ function refreshTree () {
 function addKey (connectionId, key) {
   if (typeof(connectionId) === 'object') {
     // context menu click
-    var node = getKeyTree().get_node(connectionId.reference[0]);
-    key = getFullKeyPath(node);
-    if (key.length > 0 && !key.endsWith(foldingCharacter)) {
-      key = key + foldingCharacter;
-    }
+    const node = getKeyTree().get_node(connectionId.reference[0]);
     connectionId = getRootConnection(node);
+    const foldingChar = connections.findById(connectionId).foldingChar
+    key = getFullKeyPath(node);
+    if (key.length > 0 && !key.endsWith(foldingChar)) {
+      key = key + foldingChar;
+    }
   }
   $('#keyValue').val(key);
   $('#addKeyModal').modal('show');
@@ -751,9 +774,10 @@ function deleteKey (connectionId, key) {
       connectionId = getRootConnection(node);
   }
   node = getKeyTree().get_node(connectionId);
+  const foldingChar = connections.findById(connectionId).foldingChar
 
   // context menu or DEL key pressed on folder item
-  if (key.endsWith(foldingCharacter)) {
+  if (key.endsWith(foldingChar)) {
     deleteBranch(connectionId, key);
     return;
   }
@@ -813,9 +837,10 @@ function encodeString (connectionId, key) {
 }
 
 function deleteBranch (connectionId, branchPrefix) {
-  var node = getKeyTree().get_node(connectionId);
-  var query = (branchPrefix.endsWith(foldingCharacter) ? branchPrefix : branchPrefix + foldingCharacter) + '*';
-  var result = confirm('Are you sure you want to delete "' + query + '" from "' + node.text + '"? This will delete all children as well!');
+  const node = getKeyTree().get_node(connectionId);
+  const foldingChar = connections.findById(connectionId).foldingChar
+  const query = (branchPrefix.endsWith(foldingChar) ? branchPrefix : branchPrefix + foldingChar) + '*';
+  const result = confirm('Are you sure you want to delete "' + query + '" from "' + node.text + '"? This will delete all children as well!');
   if (result) {
     $.post('apiv2/keys/' + encodeURIComponent(connectionId) + '/' + encodeURIComponent(query) + '?action=delete', function (data, status) {
       if (status !== 'success') {

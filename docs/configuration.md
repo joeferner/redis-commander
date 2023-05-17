@@ -34,16 +34,50 @@ All top-level configuration data are
 The `ui` object contains configuration values regarding the web user
 interface of Redis Commander.
 
-| Name | Type | Default | Cli | Environment-Var | Description |
-|---|---|---|---|---|---|
-| ui.sidebarWidth |number | 250 | | | start width in pixel of the tree view on the left side of the ui. |
-| ui.locked | boolean | false | | | if "true" do not change height of command line, otherwise increase height if cli is active |
-| ui.cliHeight | number | 320 | | | start height in pixel of the command line at the bottom (if opened) |
-| ui.cliOpen | boolean | false | | | start with maximized cli height on "true", with minimized one on "false" |
-| ui.foldingChar | string | ':' | --folding-char | FOLDING_CHAR | character to use for creation of a virtual hierarchical tree of all keys. e.g key 'top/sub/mykey' is divided into a folder 'top' containing the folder 'sub' with the key 'mykey' inside it. |
-| ui.jsonViewAsDefault | string list | 'none' | | VIEW_JSON_DEFAULT | comma separated list of data types where valid json data should be displayed as JSON tree object instead of plain string. Default '' or 'none' displays no data as string, 'all' displays all data-types supported as JSON objects.<br>Example: "string,hash" only displays these two types as JSON if possible per default<br>Values supported: '', 'none', 'all', 'string', 'list', 'set', 'zset', 'hash'
-| ui.binaryAsHex | boolean | true | | BINARY_AS_HEX | do not display binary data as string but in hexadecimal view |
-| ui.maxHashFieldSize | number | 0 | | MAX_HASH_FIELD_SIZE | The max number of bytes for a hash field before you must click to view it. Defaults to 0, which is disabled
+| Name                 | Type        | Default | Cli            | Environment-Var     | Description |
+|----------------------|-------------|---------|----------------|---------------------|---|
+| ui.sidebarWidth      | number      | 250     |                |                     | start width in pixel of the tree view on the left side of the ui. |
+| ui.locked            | boolean     | false   |                |                     | if "true" do not change height of command line, otherwise increase height if cli is active |
+| ui.cliHeight         | number      | 320     |                |                     | start height in pixel of the command line at the bottom (if opened) |
+| ui.cliOpen           | boolean     | false   |                |                     | start with maximized cli height on "true", with minimized one on "false" |
+| ui.foldingChar       | string      | ':'     | --folding-char | FOLDING_CHAR        | character to use for creation of a virtual hierarchical tree of all keys. e.g key 'top/sub/mykey' is divided into a folder 'top' containing the folder 'sub' with the key 'mykey' inside it. |
+| ui.jsonViewAsDefault | string list | 'none'  |                | VIEW_JSON_DEFAULT   | comma separated list of data types where valid json data should be displayed as JSON tree object instead of plain string. Default '' or 'none' displays no data as string, 'all' displays all data-types supported as JSON objects.<br>Example: "string,hash" only displays these two types as JSON if possible per default<br>Values supported: '', 'none', 'all', 'string', 'list', 'set', 'zset', 'hash' |
+| ui.binaryAsHex       | boolean     | true    |                | BINARY_AS_HEX       | do not display binary data as string but in hexadecimal view |
+| ui.maxHashFieldSize  | number      | 0       |                | MAX_HASH_FIELD_SIZE | The max number of bytes for a hash field before you must click to view it. Defaults to 0, which is disabled |
+
+#### Configure Treeview for Redis keys - Folding Character
+The global UI parameter "foldingChar" can be overwritten on a per connection base with the same parameter
+within a specific connection object.
+
+Example:
+```json
+{
+  "ui": {
+    "foldingChar": ":"
+  },
+  "connections": [{
+      "host": "10.2.3.4"
+    },
+    {
+      "host": "10.9.8.7",
+      "foldingChar": "/"    
+    }
+  ]
+}
+```
+Now the first connection to host 10.2.3.4 creates virtual folders on the ':' key (global default)
+while the second connection to 10.9.8.7 uses '/' here:
+```
+10.2.3.4
+ |- blah:
+ |  |- blub      => Key blah:blub
+ |- yadda/yammi
+ 
+10.9.8.7
+ |- blah:blub
+ |- yadda/
+    |- yammi     => Key yadda/yammi 
+```
 
 ### 3. General Redis connection parameter
 
