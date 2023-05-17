@@ -104,8 +104,8 @@ jobs:
           fi
 
           # Set output parameters.
-          echo ::set-output name=tags::${TAGS}
-          echo ::set-output name=docker_image::${DOCKERHUB_IMAGE}
+          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+          echo "docker_image=${DOCKERHUB_IMAGE}" >> $GITHUB_OUTPUT
 
 
       - name: Show docker image tags to build
