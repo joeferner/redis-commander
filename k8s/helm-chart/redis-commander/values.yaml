@@ -22,6 +22,10 @@ image:
 
 # -- Optional image pull secrets for private docker registries
 imagePullSecrets: []
+
+# -- Optional override Kubernetes version
+kubeVersion: ""
+
 nameOverride: ""
 fullnameOverride: ""
 redis:
@@ -125,7 +129,7 @@ resources: {}
 
 # -- Autoscaling configuration for k8s deployment
 autoscaling:
-  enabled: false
+  enabled: true
   minReplicas: 1
   maxReplicas: 1
   targetCPUUtilizationPercentage: 80
