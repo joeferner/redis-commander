@@ -19,7 +19,7 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| autoscaling | object | `{"enabled":true,"maxReplicas":1,"minReplicas":1,"targetCPUUtilizationPercentage":80}` | Autoscaling configuration for k8s deployment |
+| autoscaling | object | `{"enabled":false,"maxReplicas":1,"minReplicas":1,"targetCPUUtilizationPercentage":80}` | Autoscaling configuration for k8s deployment |
 | env | list | `[]` | Extra env vars for the main pod redis-commander in array structure ([{name: ... , value: ...}, {name: ... , value: ...}]). |
 | fullnameOverride | string | `""` |  |
 | httpAuth.password | string | `""` | Specify http basic password for the web ui |
