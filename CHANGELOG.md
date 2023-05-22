@@ -10,6 +10,7 @@
 * allow setting a custom HTTP header name used for the JWT session authentication token
 * add option to overwrite global folding character per connection  
 * update base image to alpine@3.17 using NodeJS 18.x now
+* update helm chart autoscaling apis for newer K8s versions
 * update dependencies yargs@17.6.2
 * update ioredis from 4.28.5 to 5.3.0
 
