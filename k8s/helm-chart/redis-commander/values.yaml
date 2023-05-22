@@ -22,6 +22,10 @@ image:
 
 # -- Optional image pull secrets for private docker registries
 imagePullSecrets: []
+
+# -- Optional override Kubernetes version
+kubeVersion: ""
+
 nameOverride: ""
 fullnameOverride: ""
 redis:
