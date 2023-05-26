@@ -508,7 +508,7 @@ function createConnectionObjectFromArgs(argList) {
       }
     }
 
-    // either set 'sentinel-tls' toa boolean value to reuse same tls settings as defined for Redis server
+    // either set 'sentinel-tls' to a boolean value to reuse same tls settings as defined for Redis server
     // for Sentinel connections too
     // or use 'sentinel-tls' with optional 'sentinel-tls-*' settings to define some independent tls settings and
     // certificates to use and not reuse config for Redis server
