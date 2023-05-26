@@ -13,6 +13,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if and .Values.ingress.className (semverCompare ">=1.18-0" (include "redis-commander.capabilities.kubeVersion" .)) }}
+  ingressClassName: {{ .Values.ingress.className | quote }}
+  {{- end }}
   {{- if .Values.ingress.tls }}
   tls:
     {{- range .Values.ingress.tls }}

@@ -31,6 +31,7 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` | Optional image pull secrets for private docker registries |
 | ingress.annotations | object | `{}` | Add additional annotations for the ingess spec Example:   'kubernetes.io/ingress.class: nginx' or 'kubernetes.io/tls-acme: "true"' |
+| ingress.className | string | `""` | optional name of an IngressClass used for this Ingress, available since k8s 1.18 https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource |
 | ingress.enabled | bool | `false` | Enable Ingress for the service |
 | ingress.hosts[0] | object | `{"host":"chart-example.local","paths":["/"]}` | Host name to use for the ingress definition |
 | ingress.hosts[0].paths | list | `["/"]` | list of paths within the given host for path-based routing, otherwise the root path "/" will be used |
