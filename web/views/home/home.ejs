@@ -96,13 +96,36 @@
         </label>
         <label for="sentinelPassword" class="muted">Password for Sentinels</label>
         <input type="password" name="sentinelPassword" id="sentinelPassword" value="" class="span6" disabled>
+        <label>Use Sentinel TLS?</label>
+        <label class="radio inline"><input type="radio" name="sentinelTLS" value="no" checked="checked">No</label>
+        <label class="radio inline"><input type="radio" name="sentinelTLS" value="yes">Yes</label>
+        <label class="radio inline"><input type="radio" name="sentinelTLS" value="custom">Custom</label>
+        <label for="sentinelTLSCA" class="muted">SSL CA Certificate</label>
+        <input type="text" name="sentinelTLSCA" id="sentinelTLSCA" value="" class="span6" placeholder="replace newline characters with literal '\n'" disabled>
+        <label for="sentinelTLSPublicKey" class="muted">SSL Certificate/Public Key</label>
+        <input type="text" name="sentinelTLSPublicKey" id="sentinelTLSPublicKey" value="" class="span6" placeholder="replace newline characters with literal '\n'" disabled>
+        <label for="sentinelTLSPrivateKey" class="muted">SSL Private Key</label>
+        <input type="text" name="sentinelTLSPrivateKey" id="sentinelTLSPrivateKey" value="" class="span6" placeholder="replace newline characters with literal '\n'" disabled>
+        <label for="sentinelTLSServerName" class="muted">Server Name <small>It is the name of the host being connected to, and must be a host name, and not an IP address.</small></label>
+        <input type="text" name="sentinelTLSServerName" id="sentinelTLSServerName" value="" class="span6" disabled>
         <hr style="margin-right: 24px">
       </div>
       <label for="password">Redis Server Password</label>
       <input type="password" name="password" id="password" value="" class="span6">
       <label for="dbIndex">Database Index</label>
       <input type="number" name="dbIndex" id="dbIndex" value="0" required>
-      <label for="usetls">UseTLS <input type="checkbox" name="usetls" id="usetls" class="checkbox-oneline"></label>
+      <label>Use TLS?</label>
+      <label class="radio inline"><input type="radio" name="redisTLS" value="no" checked>No</label>
+      <label class="radio inline"><input type="radio" name="redisTLS" value="yes">Yes</label>
+      <label class="radio inline"><input type="radio" name="redisTLS" value="custom">Custom</label>
+      <label for="redisTLSCA" class="muted">SSL CA Certificate</label>
+      <input type="text" name="redisTLSCA" id="redisTLSCA" value="" class="span6" placeholder="replace newline characters with literal '\n'" disabled>
+      <label for="redisTLSPublicKey" class="muted">SSL Certificate</label>
+      <input type="text" name="redisTLSPublicKey" id="redisTLSPublicKey" value="" class="span6" placeholder="replace newline characters with literal '\n'" disabled>
+      <label for="redisTLSPrivateKey" class="muted">SSL Private Key</label>
+      <input type="text" name="redisTLSPrivateKey" id="redisTLSPrivateKey" value="" class="span6" placeholder="replace newline characters with literal '\n'" disabled>
+      <label for="redisTLSServerName" class="muted">Server Name</label>
+      <input type="text" name="redisTLSServerName" id="redisTLSServerName" value="" class="span6" disabled>
     </form>
   </div>
   <div class="modal-footer">

@@ -6,6 +6,7 @@ let yargs = require('yargs');
 let Redis = require('ioredis');
 var isEqual = require('lodash.isequal');
 let myUtils = require('../lib/util');
+var fs = require('fs');
 
 // fix the cwd to project base dir for browserify and config loading
 let path = require('path');
@@ -74,8 +75,69 @@ let args = yargs
   })
   .options('redis-tls', {
     type: 'boolean',
-    describe: 'Use TLS for connection to redis server or sentinel.',
+    describe: 'Use TLS for connection to redis server. Required for TLS connections.',
     default: false
+  })
+  .options('redis-tls-ca-cert', {
+    type: 'string',
+    describe: 'Use PEM-style CA certificate key for connection to redis server. Requires "redis-tls=true"',
+  })
+  .options('redis-tls-ca-cert-file', {
+    type: 'string',
+    describe: 'File path to PEM-style CA certificate key for connection to redis server. Requires "redis-tls=true", Overrides "redis-tls-ca-cert" if set too.',
+  })
+  .options('redis-tls-cert', {
+    type: 'string',
+    describe: 'Use PEM-style public key for connection to redis server. Requires "redis-tls=true"',
+  })
+  .options('redis-tls-cert-file', {
+    type: 'string',
+    describe: 'File path to PEM-style public key for connection to redis server. Requires "redis-tls=true", Overrides "redis-tls-cert" if set too.',
+  })
+  .options('redis-tls-key', {
+    type: 'string',
+    describe: 'Use PEM-style private key for connection to redis server. Requires "redis-tls=true"',
+  })
+  .options('redis-tls-key-file', {
+    type: 'string',
+    describe: 'File path PEM-style private key for connection to redis server. Requires "redis-tls=true", Overrides "redis-tls-key" if set too.',
+  })
+  .options('redis-tls-server-name', {
+    type: 'string',
+    describe: 'Server name to confirm client connection. Server name for the SNI (Server Name Indication) TLS extension. Requires "redis-tls=true"',
+  })
+  .options('sentinel-tls', {
+    type: 'boolean',
+    describe: 'Enable TLS for sentinel mode. If no special "sentinel-tls-*" option is defined the redis TLS settings are reused ("redis-tls-*"). Required for TLS sentinel connections.',
+    default: false
+  })
+  .options('sentinel-tls-ca-cert', {
+    type: 'string',
+    describe: 'Use PEM-style CA certificate key for connection to sentinel. Requires "sentinel-tls=true"',
+  })
+  .options('sentinel-tls-ca-cert-file', {
+    type: 'string',
+    describe: 'File path to PEM-style CA certificate key for connection to sentinel. Requires "sentinel-tls=true", Overrides "sentinel-tls-ca-cert" if set too.',
+  })
+  .options('sentinel-tls-cert', {
+    type: 'string',
+    describe: 'Use PEM-style public key for connection to sentinel. Requires "sentinel-tls=true"',
+  })
+  .options('sentinel-tls-cert-file', {
+    type: 'string',
+    describe: 'File path to PEM-style public key for connection to sentinel. Requires "sentinel-tls=true", Overrides "sentinel-tls-cert" if set too.',
+  })
+  .options('sentinel-tls-key', {
+    type: 'string',
+    describe: 'Use PEM-style private key for connection to sentinel. Requires "sentinel-tls=true"',
+  })
+  .options('sentinel-tls-key-file', {
+    type: 'string',
+    describe: 'File path to PEM-style private key for connection to sentinel. Requires "sentinel-tls=true", Overrides "sentinel-tls-key" if set too.',
+  })
+  .options('sentinel-tls-server-name', {
+    type: 'string',
+    describe: 'Server name to confirm client connection. Server name for the SNI (Server Name Indication) TLS extension. Requires "sentinel-tls=true"',
   })
   .options('noload', {
     alias: 'nl',
@@ -412,7 +474,82 @@ function createConnectionObjectFromArgs(argList) {
     }
 
     if (argList['redis-tls']) {
+      // either basic tls support some special certs set and added to the tls config object
       connObj.tls = {};
+      if (argList['redis-tls-ca-cert-file'] || argList['redis-tls-ca-cert']
+          || argList['redis-tls-cert-file'] || argList['redis-tls-cert']
+          || argList['redis-tls-key-file'] || argList['redis-tls-key']
+          || argList['redis-tls-server-name']) {
+
+        if (argList['redis-tls-ca-cert-file']) {
+          connObj.tls.ca = fs.readFileSync(argList['redis-tls-ca-cert-file']);
+        }
+        else if (argList['redis-tls-ca-cert']) {
+          connObj.tls.ca = argList['redis-tls-ca-cert'];
+        }
+
+        if (argList['redis-tls-cert-file']) {
+          connObj.tls.cert = fs.readFileSync(argList['redis-tls-cert-file']);
+        }
+        else if (argList['redis-tls-cert']) {
+          connObj.tls.cert = argList['redis-tls-cert'];
+        }
+
+        if (argList['redis-tls-key-file']) {
+          connObj.tls.key = fs.readFileSync(argList['redis-tls-key-file']);
+        }
+        else if (argList['redis-tls-key']) {
+          connObj.tls.key = argList['redis-tls-key'];
+        }
+
+        if (argList['redis-tls-server-name']) {
+          connObj.tls.servername = argList['redis-tls-server-name'];
+        }
+      }
+    }
+
+    // either set 'sentinel-tls' to a boolean value to reuse same tls settings as defined for Redis server
+    // for Sentinel connections too
+    // or use 'sentinel-tls' with optional 'sentinel-tls-*' settings to define some independent tls settings and
+    // certificates to use and not reuse config for Redis server
+    if (argList['sentinel-tls']) {
+      connObj.enableTLSForSentinelMode = true;
+      // either basic tls or complex tls support for sentinels, same meaning as for redis server itself
+      connObj.sentinelTLS = {};
+      if (argList['sentinel-tls-ca-cert-file'] || argList['sentinel-tls-ca-cert']
+          || argList['sentinel-tls-cert-file'] || argList['sentinel-tls-cert']
+          || argList['sentinel-tls-key-file'] || argList['sentinel-tls-key']
+          || argList['sentinel-tls-server-name']) {
+
+        if (argList['sentinel-tls-ca-cert-file']) {
+          connObj.sentinelTLS.ca = fs.readFileSync(argList['sentinel-tls-ca-cert-file']);
+        }
+        else if (argList['sentinel-tls-ca-cert']) {
+          connObj.sentinelTLS.ca = argList['sentinel-tls-ca-cert'];
+        }
+
+        if (argList['sentinel-tls-cert-file']) {
+          connObj.sentinelTLS.cert = fs.readFileSync(argList['sentinel-tls-cert-file']);
+        }
+        else if (argList['sentinel-tls-cert']) {
+          connObj.sentinelTLS.cert = argList['sentinel-tls-cert'];
+        }
+
+        if (argList['sentinel-tls-key-file']) {
+          connObj.sentinelTLS.key = fs.readFileSync(argList['sentinel-tls-key-file']);
+        }
+        else if (argList['sentinel-tls-key']) {
+          connObj.sentinelTLS.key = argList['sentinel-tls-key'];
+        }
+
+        if (argList['sentinel-tls-server-name']) {
+          connObj.sentinelTLS.servername = argList['sentinel-tls-server-name'];
+        }
+      }
+      else {
+        // fallback if no special sentinel settings are defined - reuse redis one
+        connObj.sentinelTLS = connObj.tls;
+      }
     }
   }
   return connObj;
@@ -565,6 +702,22 @@ function connectToDB (redisConnection, db) {
       all: cmdList.map((item) => (item[0].toLowerCase())),
       ro: cmdList.filter((item) => (item[2].indexOf('readonly') >= 0)).map((item) => (item[0].toLowerCase()))
     };
+  });
+
+  // check all modules installed
+  redisConnection.call('module', ['list'], function(errCmd, moduleList) {
+    if (errCmd || !Array.isArray(moduleList)) {
+      console.log(`redis command "module" not supported, cannot build dynamic list of modules installed for (${redisConnection.options.connectionId}`);
+      return;
+    }
+    // console.debug('Got list of ' + moduleList.length + ' modules from server ' + redisConnection.options.host + ':' +
+    //   redisConnection.options.port);
+    redisConnection.options.moduleList = moduleList.map((m) => {
+      const modInfo = {}
+      modInfo[m[0]] = m[1];
+      modInfo[m[2]] = m[3];
+      return modInfo
+    });
   });
 
   redisConnection.select(db, function (err) {

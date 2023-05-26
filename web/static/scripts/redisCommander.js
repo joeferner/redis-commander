@@ -450,6 +450,50 @@ function setupAddServerForm() {
         .prev('label').addClass('muted');
     }
   });
+  serverModal.find('input:radio[name=sentinelTLS]').on('change', function() {
+    if ($(this).val() === 'custom') {
+      serverModal.find('#sentinelTLSCA').prop('disabled', false)
+        .prev('label').removeClass('muted');
+      serverModal.find('#sentinelTLSPublicKey').prop('disabled', false)
+        .prev('label').removeClass('muted');
+      serverModal.find('#sentinelTLSPrivateKey').prop('disabled', false)
+        .prev('label').removeClass('muted');
+      serverModal.find('#sentinelTLSServerName').prop('disabled', false)
+        .prev('label').removeClass('muted');
+    }
+    else {
+      serverModal.find('#sentinelTLSCA').val('').prop('disabled', true)
+        .prev('label').addClass('muted');
+      serverModal.find('#sentinelTLSPublicKey').val('').prop('disabled', true)
+        .prev('label').addClass('muted');
+      serverModal.find('#sentinelTLSPrivateKey').val('').prop('disabled', true)
+        .prev('label').addClass('muted');
+      serverModal.find('#sentinelTLSServerName').val('').prop('disabled', true)
+        .prev('label').addClass('muted');
+    }
+  });
+  serverModal.find('input:radio[name=redisTLS]').on('change', function() {
+    if ($(this).val() === 'custom') {
+      serverModal.find('#redisTLSCA').prop('disabled', false)
+        .prev('label').removeClass('muted');
+      serverModal.find('#redisTLSPublicKey').prop('disabled', false)
+        .prev('label').removeClass('muted');
+      serverModal.find('#redisTLSPrivateKey').prop('disabled', false)
+        .prev('label').removeClass('muted');
+      serverModal.find('#redisTLSServerName').prop('disabled', false)
+        .prev('label').removeClass('muted');
+    }
+    else {
+      serverModal.find('#redisTLSCA').val('').prop('disabled', true)
+        .prev('label').addClass('muted');
+      serverModal.find('#redisTLSPublicKey').val('').prop('disabled', true)
+        .prev('label').addClass('muted');
+      serverModal.find('#redisTLSPrivateKey').val('').prop('disabled', true)
+        .prev('label').addClass('muted');
+      serverModal.find('#redisTLSServerName').val('').prop('disabled', true)
+        .prev('label').addClass('muted');
+    }
+  });
   serverModal.find('#label').trigger('focus');
 }
 

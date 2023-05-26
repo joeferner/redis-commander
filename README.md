@@ -18,7 +18,7 @@ Or run Redis Commander as Docker image `ghcr.io/joeferner/redis-commander` ~~red
 Multi-Arch images built are available at `ghcr.io/joeferner/redis-commander:latest`.
 (https://github.com/joeferner/redis-commander/pkgs/container/redis-commander)
 
-Remark: new version are not published to Dockerhub right now.
+_Remark: new version are not published to Dockerhub right now._
 
 # Features
 
@@ -37,40 +37,67 @@ It has support for the following data types to view, add, update and delete data
 ```
 $ redis-commander --help
 Options:
-  --redis-port                         The port to find redis on.                  [string]
-  --redis-host                         The host to find redis on.                  [string]
-  --redis-socket                       The unix-socket to find redis on.           [string]
-  --redis-username                     The redis username.                         [string]
-  --redis-password                     The redis password.                         [string]
-  --redis-db                           The redis database.                         [string]
-  --redis-label                        The label to display for the connection.    [string]
-  --redis-tls                          Use TLS for connection to redis server or sentinel. [boolean] [default: false]
-  --redis-optional                     Set to true if no permanent auto-reconnect shall be done if server is down [boolean] [default: false]
-  --sentinel-port                      The port to find redis sentinel on.         [string]
-  --sentinel-host                      The host to find redis sentinel on.         [string]
-  --sentinels                          Comma separated list of sentinels with host:port. [string]
-  --sentinel-name                      The redis sentinel group name to use.       [string]  [default: mymaster]
-  --sentinel-username                  The username for sentinel instance.         [string]
-  --sentinel-password                  The password for sentinel instance.         [string]
-  --http-auth-username, --http-u       The http authorisation username.            [string]
-  --http-auth-password, --http-p       The http authorisation password.            [string]
-  --http-auth-password-hash, --http-h  The http authorisation password hash.       [string]
-  --address, -a                        The address to run the server on.           [string]  [default: 0.0.0.0]
-  --port, -p                           The port to run the server on.              [string]  [default: 8081]
-  --url-prefix, -u                     The url prefix to respond on.               [string]  [default: ""]
-  --root-pattern, --rp                 The root pattern of the redis keys.         [string]  [default: "*"]
-  --read-only                          Start app in read-only mode.                [boolean] [default: false]
-  --trust-proxy                        App is run behind proxy (enable Express "trust proxy") [boolean|string] [default: false]
-  --nosave, --ns                       Do not save new connections to config file. [boolean] [default: true]
-  --noload, --nl                       Do not load connections from config.        [boolean] [default: false]
-  --use-scan, --sc                     Use scan instead of keys.                   [boolean] [default: false]
-  --clear-config, --cc                 Clear configuration file.
-  --migrate-config                     Migrate old configuration file in $HOME to new style.
-  --scan-count, --sc                   The size of each separate scan.             [integer] [default: 100]
-  --no-log-data                        Do not log data values from redis store.    [boolean] [default: false]
-  --open                               Open web-browser with Redis-Commander.      [boolean] [default: false]
-  --folding-char, --fc                 Character to fold keys at in tree view.     [character] [default: ":"]
-  --test, -t                           Test final configuration (file, env-vars, command line)
+  --version                            Show version number                                                                                      [boolean]
+  --redis-port                         The port to find redis on.                                                                                [number]
+  --redis-host                         The host to find redis on.                                                                                [string]
+  --redis-socket                       The unix-socket to find redis on.                                                                         [string]
+  --redis-username                     The redis username.                                                                                       [string]
+  --redis-password                     The redis password.                                                                                       [string]
+  --redis-db                           The redis database.                                                                                       [number]
+  --redis-optional                     Set to true if no permanent auto-reconnect shall be done if server is down.             [boolean] [default: false]
+  --sentinel-port                      The port to find sentinel on.                                                                             [number]
+  --sentinel-host                      The host to find sentinel on.                                                                             [string]
+  --sentinels                          Comma separated list of sentinels with host:port.                                                         [string]
+  --sentinel-name                      The sentinel group name to use.                                                                           [string]
+  --sentinel-username                  The sentinel username to use.                                                                             [string]
+  --sentinel-password                  The sentinel password to use.                                                                             [string]
+  --redis-tls                          Use TLS for connection to redis server. Required for TLS connections.                   [boolean] [default: false]
+  --redis-tls-ca-cert                  Use PEM-style CA certificate key for connection to redis server. Requires "redis-tls=true"                [string]
+  --redis-tls-ca-cert-file             File path to PEM-style CA certificate key for connection to redis server. Requires "redis-tls=true", Overrides
+                                       "redis-tls-ca-cert" if set too.                                                                           [string]
+  --redis-tls-cert                     Use PEM-style public key for connection to redis server. Requires "redis-tls=true"                        [string]
+  --redis-tls-cert-file                File path to PEM-style public key for connection to redis server. Requires "redis-tls=true", Overrides
+                                       "redis-tls-cert" if set too.                                                                              [string]
+  --redis-tls-key                      Use PEM-style private key for connection to redis server. Requires "redis-tls=true"                       [string]
+  --redis-tls-key-file                 File path PEM-style private key for connection to redis server. Requires "redis-tls=true", Overrides
+                                       "redis-tls-key" if set too.                                                                               [string]
+  --redis-tls-server-name              Server name to confirm client connection. Server name for the SNI (Server Name Indication) TLS extension. Requires
+                                       "redis-tls=true"                                                                                          [string]
+  --sentinel-tls                       Enable TLS for sentinel mode. If no special "sentinel-tls-*" option is defined the redis TLS settings are
+                                       reused ("redis-tls-*"). Required for TLS sentinel connections.                          [boolean] [default: false]
+  --sentinel-tls-ca-cert               Use PEM-style CA certificate key for connection to sentinel. Requires "sentinel-tls=true"                 [string]
+  --sentinel-tls-ca-cert-file          File path to PEM-style CA certificate key for connection to sentinel. Requires "sentinel-tls=true", Overrides
+                                       "sentinel-tls-ca-cert" if set too.                                                                        [string]
+  --sentinel-tls-cert                  Use PEM-style public key for connection to sentinel. Requires "sentinel-tls=true"                         [string]
+  --sentinel-tls-cert-file             File path to PEM-style public key for connection to sentinel. Requires "sentinel-tls=true", Overrides
+                                       "sentinel-tls-cert" if set too.                                                                           [string]
+  --sentinel-tls-key                   Use PEM-style private key for connection to sentinel. Requires "sentinel-tls=true"                        [string]
+  --sentinel-tls-key-file              File path to PEM-style private key for connection to sentinel. Requires "sentinel-tls=true", Overrides
+                                       "sentinel-tls-key" if set too.                                                                            [string]
+  --sentinel-tls-server-name           Server name to confirm client connection. Server name for the SNI (Server Name Indication) TLS extension. Requires
+                                       "sentinel-tls=true"                                                                                       [string]
+  --noload, --nl                       Do not load connections from config.                                                                     [boolean]
+  --clear-config, --cc                 Clear configuration file.                                                                                [boolean]
+  --migrate-config                     Migrate old configuration file in $HOME to new style.                                                    [boolean]
+  --test                               Test final configuration (file, env-vars, command line).                                                 [boolean]
+  --open                               Open web-browser with Redis-Commander.                                                  [boolean] [default: false]
+  --redis-label                        The label to display for the connection.                                               [string] [default: "local"]
+  --read-only                          Start app in read-only mode.                                                            [boolean] [default: false]
+  --http-auth-username, --http-u       The http authorisation username.                                                        [string] [default: "test"]
+  --http-auth-password, --http-p       The http authorisation password.                                                            [string] [default: ""]
+  --http-auth-password-hash, --http-h  The http authorisation password hash.                                                       [string] [default: ""]
+  --address                            The address to run the server on.                                                    [string] [default: "0.0.0.0"]
+  --port                               The port to run the server on.                                                            [number] [default: 8081]
+  --url-prefix                         The url prefix to respond on.                                                               [string] [default: ""]
+  --trust-proxy                        App is run behind proxy (enable Express "trust proxy").                                 [boolean] [default: false]
+  --max-hash-field-size                The max number of bytes for a hash field before you must click to view it.                   [number] [default: 0]
+  --nosave, --ns                       Do not save new connections to config file.                                             [boolean] [default: false]
+  --no-log-data                        Do not log data values from redis store.                                                [boolean] [default: false]
+  --folding-char, --fc                 Character to fold keys at for tree view.                                                   [string] [default: ":"]
+  --root-pattern, --rp                 Default root pattern for redis keys.                                                       [string] [default: "*"]
+  --use-scan, --sc                     Use SCAN instead of KEYS.                                                                [boolean] [default: true]
+  --scan-count                         The size of each separate scan.                                                            [number] [default: 200]
+  -h, -?, --help                           Show help                                                                                                [boolean]
 ```
 
 The connection can be established either via direct connection to redis server or indirect
@@ -144,7 +171,7 @@ CLIENT_MAX_BODY_SIZE
 BINARY_AS_HEX
 ```
 
-## Docker
+## Additional Docker Environment Variables
 
 All environment variables listed at "Environment Variables" can be used running image
 with Docker. The following additional environment variables are available too (defined inside
@@ -156,10 +183,17 @@ HTTP_PASSWORD_HASH_FILE
 REDIS_PORT
 REDIS_HOST
 REDIS_SOCKET
-REDIS_TLS
 REDIS_USERNAME
 REDIS_PASSWORD
 REDIS_PASSWORD_FILE
+REDIS_TLS
+REDIS_TLS_CA_CERT
+REDIS_TLS_CA_CERT_FILE
+REDIS_TLS_CERT
+REDIS_TLS_CERT_FILE
+REDIS_TLS_KEY
+REDIS_TLS_KEY_FILE
+REDIS_TLS_SERVER_NAME
 REDIS_DB
 REDIS_HOSTS
 REDIS_OPTIONAL
@@ -169,6 +203,14 @@ SENTINEL_NAME
 SENTINEL_USERNAME
 SENTINEL_PASSWORD
 SENTINEL_PASSWORD_FILE
+SENTINEL_TLS
+SENTINEL_TLS_CA_CERT
+SENTINEL_TLS_CA_CERT_FILE
+SENTINEL_TLS_CERT
+SENTINEL_TLS_CERT_FILE
+SENTINEL_TLS_KEY
+SENTINEL_TLS_KEY_FILE
+SENTINEL_TLS_SERVER_NAME
 SENTINELS
 K8S_SIGTERM
 ```
@@ -183,7 +225,23 @@ Hosts can be optionally specified with a comma separated string by setting the `
 
 After running the container, `redis-commander` will be available at [localhost:8081](http://localhost:8081).
 
-### Valid host strings
+### Using TLS secured connections
+
+Booth connections to the Redis server itself as well as to the Redis Sentinels (if used)
+can be configured to require TLS encryption. With the simples use case just set 
+the environment vars `REDIS_TLS=1` and (if sentinels are used) `SENTINEL_TLS=1`
+to enable TLS without further checks and special configurations.
+
+The corresponding command line parameters (starting Redis Commander locally without docker)
+are
+
+```--redis-tls --sentinel-tls```
+
+More complex use cases are documented in the [docs/connections.md](docs/connections.md) file
+at "Configure TLS Support".
+
+
+### Valid host strings (used for REDIS_HOSTS)
 
 the `REDIS_HOSTS` environment variable is a comma separated list of host definitions,
 where each host should follow one of these templates:
