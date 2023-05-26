@@ -13,7 +13,7 @@
 * update base image to alpine@3.17 using NodeJS 18.x now, #511
 * update helm chart autoscaling apis for newer K8s versions, #520
 * update ioredis from 4.28.5 to 5.3.2
-* update dependencies yargs@17.7.0, jstree@3.3.15, config@3.3.9, body-parser@1.20.2
+* update dependencies yargs@17.7.2, ejs@3.1.9, jstree@3.3.15, config@3.3.9, body-parser@1.20.2
 
 ## Version 0.8.1
 #### Bugfixes

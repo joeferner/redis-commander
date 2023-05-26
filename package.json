@@ -30,7 +30,7 @@
     "cmdparser": "0.1.0",
     "config": "3.3.9",
     "dateformat": "3.0.3",
-    "ejs": "3.1.8",
+    "ejs": "3.1.9",
     "express": "4.18.2",
     "express-partials": "0.3.0",
     "inflection": "1.13.4",
@@ -43,7 +43,7 @@
     "node-redis-dump2": "0.6.0",
     "opener": "1.5.2",
     "readline-browserify": "0.0.4",
-    "yargs": "17.7.0"
+    "yargs": "17.7.2"
   },
   "optionalDependencies": {
     "bcrypt": "~5.0.1"
