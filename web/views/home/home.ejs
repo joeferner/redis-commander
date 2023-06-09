@@ -65,7 +65,7 @@
           <select id="serverType" name="serverType">
             <option value="redis">Standalone Redis-Server</option>
             <option value="sentinel">Sentinel</option>
-            <!--option value="cluster">Cluster</option-->
+            <option value="cluster">Cluster</option>
           </select>
         </div>
       </div>
@@ -109,6 +109,12 @@
         <label for="sentinelTLSServerName" class="muted">Server Name <small>It is the name of the host being connected to, and must be a host name, and not an IP address.</small></label>
         <input type="text" name="sentinelTLSServerName" id="sentinelTLSServerName" value="" class="span6" disabled>
         <hr style="margin-right: 24px">
+      </div>
+      <div id="addServerGroupCluster">
+        <label for="sentinels">List of cluster nodes</label>
+        <input type="text" name="clusters" id="clusters" value="localhost:6379" class="span6" required>
+        <div>Add comma-separated list of nodes with "host-1:port,host-2 ..."</div>
+        <br>
       </div>
       <label for="password">Redis Server Password</label>
       <input type="password" name="password" id="password" value="" class="span6">

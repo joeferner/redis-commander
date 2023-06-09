@@ -431,13 +431,23 @@ function setupAddServerForm() {
 
   // prepare all input elements
   serverModal.find('#addServerGroupSentinel').hide();
+  serverModal.find('#addServerGroupCluster').hide();
   serverModal.find('#serverType').on('change', function () {
-    if ($(this).val() === 'redis') {
-      serverModal.find('#addServerGroupRedis').show();
-      serverModal.find('#addServerGroupSentinel').hide();
-    } else {
-      serverModal.find('#addServerGroupRedis').hide();
-      serverModal.find('#addServerGroupSentinel').show();
+    switch ($(this).val()) {
+      case 'sentinel':
+        serverModal.find('#addServerGroupRedis').hide();
+        serverModal.find('#addServerGroupSentinel').show();
+        serverModal.find('#addServerGroupCluster').hide();
+        break;
+      case 'cluster':
+        serverModal.find('#addServerGroupRedis').hide();
+        serverModal.find('#addServerGroupSentinel').hide();
+        serverModal.find('#addServerGroupCluster').show();
+        break;
+      default: // 'redis'
+        serverModal.find('#addServerGroupRedis').show();
+        serverModal.find('#addServerGroupSentinel').hide();
+        serverModal.find('#addServerGroupCluster').hide();
     }
   });
   serverModal.find('input:radio[name=sentinelPWType]').on('change', function() {
