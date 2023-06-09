@@ -78,6 +78,11 @@ let args = yargs
     type: 'string',
     describe: 'Comma separated list of redis cluster server with host:port.'
   })
+  .options('is-cluster', {    // names-with-dash are automatically converted to namesWithDash too
+    type: 'boolean',
+    describe: 'Flag to use parameter from redis-host and redis-port as Redis cluster member',
+    default: false
+  })
   .options('redis-tls', {
     type: 'boolean',
     describe: 'Use TLS for connection to redis server. Required for TLS connections.',
@@ -465,6 +470,7 @@ function createConnectionObjectFromArgs(argList) {
       connObj.host = argList['redis-host'] || 'localhost';
       connObj.port = argList['redis-port'] || 6379;
       connObj.port = parseInt(connObj.port);
+      connObj.isCluster = argList['is-cluster'];
       connObj.sentinelUsername = argList['sentinel-username'] || null;
       connObj.sentinelPassword = argList['sentinel-password'] || '';
       if (argList['sentinels']) {

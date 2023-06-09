@@ -127,15 +127,85 @@ being part of the IPv6 address too.
       "sentinelPassword": "<optional-sentinel-pw>",
       "dbIndex": 0
     }
-
   ]
 }
 ```
 
 ### Connect to redis server in cluster mode
 
-This connection mode is currently not support (PR welcome)
-For guidance just ask at one of the cluster support tickets.
+To connect to a redis cluster two possible ways can be used
+
+1. just define connection parameter to one cluster member with regular `--redis-*` configuration parameters and
+   set the `--is-cluster` flag. The disadvance is that there is no fallback list of other cluster members for INITIAL
+   connection if this member is not reachable. As soon as a connection is established the other cluster members are read
+   by ioredis and used on reconnect.
+```shell
+$ redis-commander --host localhost --port 6579 --tls --is-cluster
+```
+   Connection definition within the config JSON file:
+```json
+{
+  "connections": [
+    {
+      "label": "simple-redis-cluster",
+      "host": "localhost",
+      "port": 6379,
+      "password": "<optional-redis-server-pw>",
+      "dbIndex": 0,
+      "isCluster": true
+    },
+```
+
+2. Define a comma-separated list of multiple cluster members with "host:port" values on startup. Giving cluster members explicit 
+   the "--is-cluster" flag is not needed.
+```shell
+$ redis-commander --clusters 192.0.2.2:6379:6379,192.0.2.3:6379 --tls
+```
+   Connection definition within the config JSON file. The syntax of the server list is the same as for Redis sentinel
+   connections:
+      1. pure comma separated string with "host:port" entries
+      2. stringified json array
+      3. array of strings
+      4. array of objects
+
+```json
+{
+  "connections": [
+    {
+      "label": "cluster-1",
+      "clusters": "192.0.2.2:6379,192.0.2.3:6379",
+      "password": "<optional-redis-server-pw>",
+      "dbIndex": 0
+    },
+    {
+      "label": "cluster-2",
+      "clusters": "[192.0.2.2:6379, 192.0.2.3:6379]",
+      "password": "<optional-redis-server-pw>",
+      "dbIndex": 0
+    },
+    {
+      "label": "cluster-3",
+      "sentinels": [
+        "192.0.2.2:6379",
+        "192.0.2.3:6379"
+      ],
+      "password": "<optional-redis-server-pw>",
+      "dbIndex": 0
+    },
+    {
+      "label": "cluster-4",
+      "sentinels": [
+        { "host": "192.0.2.2", "port": 6379 },
+        { "host": "192.0.2.3", "port": 6379 },
+        { "host": "fd00:2::3", "port": 6379 }
+      ],
+      "password": "<optional-redis-server-pw>",
+      "dbIndex": 0
+    }
+```
+
+Independent on the way the cluster members are defined the TLS settings for Redis server are used for them, there
+are no special Cluster-TLS settings available.
 
 ## Connection Parameters
 
@@ -148,38 +218,40 @@ configure them directly inside your own custom json config file.
 
 *The environment variables work for the docker image only, not for the stand-alone app!*
 
-| Name             | Type              | Default    | Cli                 | Environment-Var (Docker only) | Description                                                                                                                                                                                                                                                                  |
-|------------------|-------------------|------------|---------------------|---|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| path             | string            | ''         | --redis-socket      | REDIS_SOCKET | path to the redis server socket, e.g. '/var/run/redis/redis.sock'                                                                                                                                                                                                            |
-| host             | string            | localhost  | --redis-host        | REDIS_HOST | hostname or ipv4/ipv6 address of redis server (standalone mode)                                                                                                                                                                                                              |
-| port             | number            | 6379       | --redis-port        | REDIS_PORT | port number where redis server listens (standalone mode)                                                                                                                                                                                                                     |
-| username         | string            | ''         | --redis-username    | REDIS_USERNAME | optional username of the redis server itself (socket, standalone, sentinel or cluster mode - supported since Redis 6.0)                                                                                                                                                      |
-| password         | string            | ''         | --redis-password    | REDIS_PASSWORD | optional password of the redis server itself (socket, standalone, sentinel or cluster mode)                                                                                                                                                                                  |
-| label            | string            | ''         | --redis-label       | | display label to us to identify this connection within the Web-UI                                                                                                                                                                                                            |
-| db               | number            | 0          | --redis-db          | REDIS_DB | Number of database, starting with 0, max allowed db number is configured server-side (default 15)                                                                                                                                                                            |
-| connectionName   | string            | ''         |                     | | use special connection name at this redis client to identify it with redis "CLIENT LIST" command. If not set default connection name from config param `redis.connectionName` is used                                                                                        |
-| foldingChar      | string            | ''         |                     | | set connection specific value for the folding character, overwrites global config parameter 'ui.foldingChar'                                                                                                                                                                 |
-| sentinels        | string or list    | ''         | --sentinels         | SENTINELS | string: comma separated list of sentinels with "host:port" (sentinel mode) or list of "host:port" strings                                                                                                                                                                    |
-| sentinelName     | string            | 'mymaster' | --sentinel-name     | SENTINEL_NAME | name of redis database group to connect to via sentinel. The default name of 'mymaster' can be change via global redis configuration value 'redis.defaultSentinelGroup' (sentinel mode)                                                                                      |
-| sentinelUsername | string            |            | --sentinel-username | SENTINEL_USERNAME | optional username to connect to sentinels itself. This is not the username of the redis server (sentinel mode - supported since Redis 6.0)                                                                                                                                   |
-| sentinelPassword | string            |            | --sentinel-password | SENTINEL_PASSWORD | password to connect to sentinels itself. This is not the password of the redis server (sentinel mode)                                                                                                                                                                        |
-| tls              | boolean or object | false      | --redis-tls         | REDIS_TLS | set to true to enable TLS secured connections to the redis server, for more specific configurations (allowed algorithms, server certificate checks and so on) this parameter can be an object directly use at Node tls sockets (https://github.com/luin/ioredis#tls-options) |
-| tls.caCert | string | '' | --redis-tls-ca-cert  | REDIS_TLS_CA_CERT | PEM encoded ca certificate used by the Redis server to verify the server certificate on connect. Using this parameter "redis-tls" must be set to "true" too |  
-|  | string | '' | --redis-tls-ca-cert-file  | REDIS_TLS_CA_CERT_FILE | file name holding the PEM encoded server certificate from Redis to verify the server certificate on connect. The content of the file is read and overrides the tls.caCert connection parameter. Using this parameter "redis-tls" must be set to "true" too |  
-| tls.cert | string | '' | --redis-tls-cert  | REDIS_TLS_CERT | PEM encoded client certificate for certificate based authentication if required by the Redis server. Using this parameter "redis-tls" must be set to "true" too |  
-|  | string | '' | --redis-tls-cert-file  | REDIS_TLS_CERT_FILE | file name holding the PEM encoded client certificate requested by the Redis server for certificate based authentication. The content of the file is read and overrides the tls.cert connection parameter. Using this parameter "redis-tls" must be set to "true" too |  
-| tls.key | string | '' | --redis-tls-key  | REDIS_TLS_KEY | PEM encoded client certificate private key used for client authentication. Using this parameter "redis-tls" must be set to "true" too |  
-|  | string | '' | --redis-tls-key-file  | REDIS_TLS_KEY_FILE | file name holding the PEM encoded client certificate private key requested by the Redis server client authentication. The content of the file is read and overrides the tls.key connection parameter. Using this parameter "redis-tls" must be set to "true" too |  
-| tls.servername | string | '' | --redis-tls-server-name  | REDIS_TLS_SERVER_NAME | FQDN used for SNI (server name indication) on connection to secured Redis server. Using this parameter "redis-tls" must be set to "true" too |  
-| sentinelTLS | boolean or object | false | --sentinel-tls | SENTINEL_TLS | set to true to enable TLS secured connections to the sentinel, for more specific configurations (allowed algorithms, server certificate checks and so on) this parameter can be an object directly use at Node tls sockets (https://github.com/luin/ioredis#tls-options). If this value is a boolean the same TLS settings are reused as defined for the redis server connection. |
-| sentinelTLS.caCert | string | '' | --sentinel-tls-ca-cert  | SENTINEL_TLS_CA_CERT | PEM encoded ca certificate used by the Sentinel server to verify the server certificate on connect. Using this parameter "sentinel-tls" must be set to "true" too |  
-|  | string | '' | --sentinel-tls-ca-cert-file  | SENTINEL_TLS_CA_CERT_FILE | file name holding the PEM encoded server certificate from Sentinel to verify the server certificate on connect. The content of the file is read and overrides the sentinelTls.caCert connection parameter. Using this parameter "sentinel-tls" must be set to "true" too |  
-| sentinelTLS.cert | string | '' | --sentinel-tls-cert  | SENTINEL_TLS_CERT | PEM encoded client certificate for certificate based authentication if required by the Sentinel server. Using this parameter "sentinel-tls" must be set to "true" too |  
-|  | string | '' | --sentinel-tls-cert-file  | SENTINEL_TLS_CERT_FILE | file name holding the PEM encoded client certificate requested by the Sentinel server for certificate based authentication. The content of the file is read and overrides the sentinelTls.cert connection parameter. Using this parameter "sentinel-tls" must be set to "true" too |  
-| sentinelTLS.key | string | '' | --sentinel-tls-key  | SENTINEL_TLS_KEY | PEM encoded client certificate private key used for client authentication. Using this parameter "sentinel-tls" must be set to "true" too |  
-|  | string | '' | --sentinel-tls-key-file  | SENTINEL_TLS_KEY_FILE | file name holding the PEM encoded client certificate private key requested by the Sentinel server client authentication. The content of the file is read and overrides the sentinelTls.key connection parameter. Using this parameter "sentinel-tls" must be set to "true" too |  
-| sentinelTLS.servername | string | '' | --sentinel-tls-server-name  | REDIS_TLS_SERVER_NAME | FQDN used for SNI (server name indication) on connection to secured Redis server. Using this parameter "redis-tls" must be set to "true" too |  
-| optional         | boolean           | false      | --redis-optional    | REDIS_OPTIONAL | set to true to not auto-reconnect on connection lost. Reconnect will be done if data are fetch from UI on user request                                                                                                                                                       |
+| Name                   | Type              | Default    | Cli                        | Environment-Var (Docker only) | Description                                                                                                                                                                                                                                                                                                                                                                       |
+|------------------------|-------------------|------------|----------------------------|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| path                   | string            | ''         | --redis-socket             | REDIS_SOCKET                  | path to the redis server socket, e.g. '/var/run/redis/redis.sock'                                                                                                                                                                                                                                                                                                                 |
+| host                   | string            | localhost  | --redis-host               | REDIS_HOST                    | hostname or ipv4/ipv6 address of redis server (standalone mode)                                                                                                                                                                                                                                                                                                                   |
+| port                   | number            | 6379       | --redis-port               | REDIS_PORT                    | port number where redis server listens (standalone mode)                                                                                                                                                                                                                                                                                                                          |
+| username               | string            | ''         | --redis-username           | REDIS_USERNAME                | optional username of the redis server itself (socket, standalone, sentinel or cluster mode - supported since Redis 6.0)                                                                                                                                                                                                                                                           |
+| password               | string            | ''         | --redis-password           | REDIS_PASSWORD                | optional password of the redis server itself (socket, standalone, sentinel or cluster mode)                                                                                                                                                                                                                                                                                       |
+| label                  | string            | ''         | --redis-label              |                               | display label to us to identify this connection within the Web-UI                                                                                                                                                                                                                                                                                                                 |
+| db                     | number            | 0          | --redis-db                 | REDIS_DB                      | Number of database, starting with 0, max allowed db number is configured server-side (default 15)                                                                                                                                                                                                                                                                                 |
+| connectionName         | string            | ''         |                            |                               | use special connection name at this redis client to identify it with redis "CLIENT LIST" command. If not set default connection name from config param `redis.connectionName` is used                                                                                                                                                                                             |
+| foldingChar            | string            | ''         |                            |                               | set connection specific value for the folding character, overwrites global config parameter 'ui.foldingChar'                                                                                                                                                                                                                                                                      |
+| sentinels              | string or list    | ''         | --sentinels                | SENTINELS                     | string: comma separated list of sentinels with "host:port" (sentinel mode) or list of "host:port" strings                                                                                                                                                                                                                                                                         |
+| sentinelName           | string            | 'mymaster' | --sentinel-name            | SENTINEL_NAME                 | name of redis database group to connect to via sentinel. The default name of 'mymaster' can be change via global redis configuration value 'redis.defaultSentinelGroup' (sentinel mode)                                                                                                                                                                                           |
+| sentinelUsername       | string            |            | --sentinel-username        | SENTINEL_USERNAME             | optional username to connect to sentinels itself. This is not the username of the redis server (sentinel mode - supported since Redis 6.0)                                                                                                                                                                                                                                        |
+| sentinelPassword       | string            |            | --sentinel-password        | SENTINEL_PASSWORD             | password to connect to sentinels itself. This is not the password of the redis server (sentinel mode)                                                                                                                                                                                                                                                                             |
+| clusters               | string or list    | ''         | --clusters                 | CLUSTERS                      | string: comma separated list of cluster nodes with "host:port" (sentinel mode) or list of "host:port" strings                                                                                                                                                                                                                                                                     |
+| isCluster              | boolean           | ''         | --is-cluster               | IS_CLUSTER                    | boolean flag to use the values from "host" and "port" for connection setup                                                                                                                                                                                                                                                                                                        |
+| tls                    | boolean or object | false      | --redis-tls                | REDIS_TLS                     | set to true to enable TLS secured connections to the redis server, for more specific configurations (allowed algorithms, server certificate checks and so on) this parameter can be an object directly use at Node tls sockets (https://github.com/luin/ioredis#tls-options)                                                                                                      |
+| tls.caCert             | string            | '' | --redis-tls-ca-cert        | REDIS_TLS_CA_CERT             | PEM encoded ca certificate used by the Redis server to verify the server certificate on connect. Using this parameter "redis-tls" must be set to "true" too                                                                                                                                                                                                                       |  
+|                        | string            | '' | --redis-tls-ca-cert-file   | REDIS_TLS_CA_CERT_FILE        | file name holding the PEM encoded server certificate from Redis to verify the server certificate on connect. The content of the file is read and overrides the tls.caCert connection parameter. Using this parameter "redis-tls" must be set to "true" too                                                                                                                        |  
+| tls.cert               | string            | '' | --redis-tls-cert           | REDIS_TLS_CERT                | PEM encoded client certificate for certificate based authentication if required by the Redis server. Using this parameter "redis-tls" must be set to "true" too                                                                                                                                                                                                                   |  
+|                        | string            | '' | --redis-tls-cert-file      | REDIS_TLS_CERT_FILE           | file name holding the PEM encoded client certificate requested by the Redis server for certificate based authentication. The content of the file is read and overrides the tls.cert connection parameter. Using this parameter "redis-tls" must be set to "true" too                                                                                                              |  
+| tls.key                | string            | '' | --redis-tls-key            | REDIS_TLS_KEY                 | PEM encoded client certificate private key used for client authentication. Using this parameter "redis-tls" must be set to "true" too                                                                                                                                                                                                                                             |  
+|                        | string            | '' | --redis-tls-key-file       | REDIS_TLS_KEY_FILE            | file name holding the PEM encoded client certificate private key requested by the Redis server client authentication. The content of the file is read and overrides the tls.key connection parameter. Using this parameter "redis-tls" must be set to "true" too                                                                                                                  |  
+| tls.servername         | string            | '' | --redis-tls-server-name    | REDIS_TLS_SERVER_NAME         | FQDN used for SNI (server name indication) on connection to secured Redis server. Using this parameter "redis-tls" must be set to "true" too                                                                                                                                                                                                                                      |  
+| sentinelTLS            | boolean or object | false | --sentinel-tls             | SENTINEL_TLS                  | set to true to enable TLS secured connections to the sentinel, for more specific configurations (allowed algorithms, server certificate checks and so on) this parameter can be an object directly use at Node tls sockets (https://github.com/luin/ioredis#tls-options). If this value is a boolean the same TLS settings are reused as defined for the redis server connection. |
+| sentinelTLS.caCert     | string            | '' | --sentinel-tls-ca-cert     | SENTINEL_TLS_CA_CERT          | PEM encoded ca certificate used by the Sentinel server to verify the server certificate on connect. Using this parameter "sentinel-tls" must be set to "true" too                                                                                                                                                                                                                 |  
+|                        | string            | '' | --sentinel-tls-ca-cert-file | SENTINEL_TLS_CA_CERT_FILE     | file name holding the PEM encoded server certificate from Sentinel to verify the server certificate on connect. The content of the file is read and overrides the sentinelTls.caCert connection parameter. Using this parameter "sentinel-tls" must be set to "true" too                                                                                                          |  
+| sentinelTLS.cert       | string            | '' | --sentinel-tls-cert        | SENTINEL_TLS_CERT             | PEM encoded client certificate for certificate based authentication if required by the Sentinel server. Using this parameter "sentinel-tls" must be set to "true" too                                                                                                                                                                                                             |  
+|                        | string            | '' | --sentinel-tls-cert-file   | SENTINEL_TLS_CERT_FILE        | file name holding the PEM encoded client certificate requested by the Sentinel server for certificate based authentication. The content of the file is read and overrides the sentinelTls.cert connection parameter. Using this parameter "sentinel-tls" must be set to "true" too                                                                                                |  
+| sentinelTLS.key        | string            | '' | --sentinel-tls-key         | SENTINEL_TLS_KEY              | PEM encoded client certificate private key used for client authentication. Using this parameter "sentinel-tls" must be set to "true" too                                                                                                                                                                                                                                          |  
+|                        | string            | '' | --sentinel-tls-key-file    | SENTINEL_TLS_KEY_FILE         | file name holding the PEM encoded client certificate private key requested by the Sentinel server client authentication. The content of the file is read and overrides the sentinelTls.key connection parameter. Using this parameter "sentinel-tls" must be set to "true" too                                                                                                    |  
+| sentinelTLS.servername | string            | '' | --sentinel-tls-server-name | REDIS_TLS_SERVER_NAME         | FQDN used for SNI (server name indication) on connection to secured Redis server. Using this parameter "redis-tls" must be set to "true" too                                                                                                                                                                                                                                      |  
+| optional               | boolean           | false      | --redis-optional           | REDIS_OPTIONAL                | set to true to not auto-reconnect on connection lost. Reconnect will be done if data are fetch from UI on user request                                                                                                                                                                                                                                                            |
 
 ## More complex configurations examples
 
