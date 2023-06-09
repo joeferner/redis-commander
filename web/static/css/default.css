@@ -430,3 +430,15 @@ input[type="checkbox"].checkbox-oneline {
 .icon-empty {
   min-width: 14px;
 }
+
+#clusterNodesModal {
+  width: 80%;
+  left: 10%;
+  margin-left: unset;
+}
+
+#clusterNodesTab th,
+#clusterNodesTab td {
+  padding: 0.5rem;
+}
+
