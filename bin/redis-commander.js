@@ -15,7 +15,8 @@ process.chdir( path.join(__dirname, '..') );
 process.env.ALLOW_CONFIG_MUTATIONS = true;
 let config = require('config');
 
-let redisConnections = [];
+const connectionWrapper = require('../lib/connections');
+let redisConnections;
 
 let args = yargs
   .alias('h', 'help')
@@ -72,6 +73,15 @@ let args = yargs
   .options('sentinel-password', {
     type: 'string',
     describe: 'The sentinel password to use.'
+  })
+  .options('clusters', {
+    type: 'string',
+    describe: 'Comma separated list of redis cluster server with host:port.'
+  })
+  .options('is-cluster', {    // names-with-dash are automatically converted to namesWithDash too
+    type: 'boolean',
+    describe: 'Flag to use parameter from redis-host and redis-port as Redis cluster member',
+    default: false
   })
   .options('redis-tls', {
     type: 'boolean',
@@ -367,7 +377,7 @@ if (startServer) {
       config.ui = config.util.extendDeep(config.ui, oldConfig.ui);
       if (Array.isArray(oldConfig.connections) && oldConfig.connections.length > 0) {
         oldConfig.connections.forEach(function(cfg) {
-          if (!myUtils.containsConnection(config.connections, cfg)) {
+          if (!connectionWrapper.containsConnection(config.connections, cfg)) {
             config.connections.push(cfg);
           }
         });
@@ -440,7 +450,7 @@ function createConnectionObjectFromArgs(argList) {
 
   // now create connection object if enough params are set
   let connObj = null;
-  if (argList['sentinel-host'] || argList['sentinels'] || argList['redis-host'] || argList['redis-port'] || argList['redis-socket']
+  if (argList['clusters'] || argList['sentinel-host'] || argList['sentinels'] || argList['redis-host'] || argList['redis-port'] || argList['redis-socket']
     || argList['redis-username'] || argList['redis-password'] || argList['redis-db']) {
 
     let db = parseInt(argList['redis-db']);
@@ -460,16 +470,20 @@ function createConnectionObjectFromArgs(argList) {
       connObj.host = argList['redis-host'] || 'localhost';
       connObj.port = argList['redis-port'] || 6379;
       connObj.port = parseInt(connObj.port);
+      connObj.isCluster = argList['is-cluster'];
       connObj.sentinelUsername = argList['sentinel-username'] || null;
       connObj.sentinelPassword = argList['sentinel-password'] || '';
       if (argList['sentinels']) {
-        connObj.sentinels = myUtils.parseRedisSentinel('--sentinels', argList['sentinels']);
+        connObj.sentinels = myUtils.parseRedisServerList('--sentinels', argList['sentinels']);
         connObj.sentinelName = myUtils.getRedisSentinelGroupName(argList['sentinel-name']);
       }
       else if (argList['sentinel-host']) {
-        connObj.sentinels = myUtils.parseRedisSentinel('--sentinel-host or --sentinel-port',
+        connObj.sentinels = myUtils.parseRedisServerList('--sentinel-host or --sentinel-port',
           argList['sentinel-host'] + ':' + argList['sentinel-port']);
         connObj.sentinelName = myUtils.getRedisSentinelGroupName(argList['sentinel-name']);
+      }
+      else if (argList['clusters']) {
+        connObj.clusters = myUtils.parseRedisServerList('--clusters', argList['clusters']);
       }
     }
 
@@ -566,37 +580,62 @@ function startAllConnections() {
     console.error(e.message);
     process.exit(2);
   }
+  // create new singleton object to hold all connections
+  redisConnections = connectionWrapper.setConnectionList([]);
 
   // redefine keys method before connections are started
   if (config.get('redis.useScan')) {
     console.log('Using scan instead of keys');
-    Object.defineProperty(Redis.prototype, 'keys', {
-      value: function(pattern, cb) {
-        let keys = [];
-        let that = this;
-        let scanCB = function(err, res) {
-          if (err) {
-            if (typeof cb === 'function') cb(err);
-            else {
+    const keysCallbackFunc = function(that, pattern, cb) {
+      let keys = [];
+
+      let scanCB = function(err, res) {
+        if (err) {
+          switch (typeof cb) {
+            case 'function':
+              cb(err);
+              break;
+            case 'object':   // promise
+              cb.reject(err);
+              break;
+            default:
               console.log('ERROR in redefined "keys" function to use "scan" instead without callback: ' +
-                  (err.message ? err.message : JSON.stringify(err)));
+                (err.message ? err.message : JSON.stringify(err)));
+          }
+        }
+        else {
+          let count = res[0], curKeys = res[1];
+          keys = keys.concat(curKeys);
+          if (Number(count) === 0) {
+            switch (typeof cb) {
+              case 'function':
+                cb(null, keys);
+                break;
+              case 'object':
+                cb.resolve(keys);
+                break;
+              default:
+                console.log('ERROR in redefined "keys" function to use "scan" instead - no callback given!');
             }
           }
           else {
-            let count = res[0], curKeys = res[1];
-            keys = keys.concat(curKeys);
-            if (Number(count) === 0) {
-              if (typeof cb === 'function') cb(null, keys);
-              else {
-                console.log('ERROR in redefined "keys" function to use "scan" instead - no callback given!');
-              }
-            }
-            else {
-              that.scan(count, 'MATCH', pattern, 'COUNT', config.get('redis.scanCount'), scanCB);
-            }
+            that.scan(count, 'MATCH', pattern, 'COUNT', config.get('redis.scanCount'), scanCB);
           }
-        };
-        return this.scan(0, 'MATCH', pattern, 'COUNT', config.get('redis.scanCount'), scanCB);
+        }
+      };
+      return that.scan(0, 'MATCH', pattern, 'COUNT', config.get('redis.scanCount'), scanCB);
+    }
+
+    Object.defineProperty(Redis.prototype, 'keys', {
+      value: function(pattern, cb) {
+        if (!cb) {
+          const that = this;
+          cb = new Promise(function(resolve, reject) {
+            keysCallbackFunc(that, pattern, {resolve: resolve, reject: reject});
+          });
+          return cb;
+        }
+        keysCallbackFunc(this, pattern, cb);
       }
     });
   }
@@ -608,12 +647,12 @@ function startAllConnections() {
   if (newDefault) {
     client = myUtils.createRedisClient(newDefault);
     redisConnections.push(client);
-    setUpConnection(client, newDefault.dbIndex);
+    redisConnections.setUpConnection(client);
 
     // now check if this one is already part of default connections
     // update it if needed
     let configChanged = false;
-    let oldDefault = myUtils.findConnection(config.connections, newDefault);
+    let oldDefault = connectionWrapper.findConnection(config.connections, newDefault);
     if (!oldDefault) {
       config.connections.push(newDefault);
       configChanged = true;
@@ -622,7 +661,7 @@ function startAllConnections() {
       // remove connectionId from newDefaults to allow comparison, otherwise non-equal every time
       delete newDefault.connectionId;
       if (!isEqual(oldDefault, newDefault)) {
-        myUtils.replaceConnection(config.connections, oldDefault, newDefault);
+        connectionWrapper.replaceConnection(config.connections, oldDefault, newDefault);
         configChanged = true;
       }
     }
@@ -640,7 +679,7 @@ function startAllConnections() {
     // fallback to localhost if nothing else configured
     client = myUtils.createRedisClient({label: config.get('redis.defaultLabel')});
     redisConnections.push(client);
-    setUpConnection(client, 0);
+    redisConnections.setUpConnection(client);
   }
 
   // now start all default connections (if not same as one given via command line)...
@@ -669,71 +708,16 @@ function startAllConnections() {
 function startDefaultConnections (connections, callback) {
   if (connections && Array.isArray(connections)) {
     connections.forEach(function (connection) {
-      if (!myUtils.containsConnection(redisConnections.map(function(c) {return c.options}), connection)) {
+      if (!redisConnections.containsConnection(connection)) {
         let client = myUtils.createRedisClient(connection);
         redisConnections.push(client);
-        setUpConnection(client, connection.dbIndex);
+        redisConnections.setUpConnection(client);
       }
     });
   }
   return callback(null);
 }
 
-function setUpConnection (redisConnection, db) {
-  redisConnection.on('error', function (err) {
-    console.error(`setUpConnection (${redisConnection.options.connectionId}) Redis error`, err.stack);
-  });
-  redisConnection.on('end', function () {
-    console.log(`connection (${redisConnection.options.connectionId}) closed. Attempting to Reconnect...`);
-  });
-  redisConnection.once('connect', connectToDB.bind(this, redisConnection, db));
-}
-
-
-function connectToDB (redisConnection, db) {
-  redisConnection.call('command', function(errCmd, cmdList) {
-    if (errCmd || !Array.isArray(cmdList)) {
-      console.log(`redis command "command" not supported, cannot build dynamic command list for (${redisConnection.options.connectionId}`);
-      return;
-    }
-    // console.debug('Got list of ' + cmdList.length + ' commands from server ' + redisConnection.options.host + ':' +
-    //   redisConnection.options.port);
-    redisConnection.options.commandList = {
-      all: cmdList.map((item) => (item[0].toLowerCase())),
-      ro: cmdList.filter((item) => (item[2].indexOf('readonly') >= 0)).map((item) => (item[0].toLowerCase()))
-    };
-  });
-
-  // check all modules installed
-  redisConnection.call('module', ['list'], function(errCmd, moduleList) {
-    if (errCmd || !Array.isArray(moduleList)) {
-      console.log(`redis command "module" not supported, cannot build dynamic list of modules installed for (${redisConnection.options.connectionId}`);
-      return;
-    }
-    // console.debug('Got list of ' + moduleList.length + ' modules from server ' + redisConnection.options.host + ':' +
-    //   redisConnection.options.port);
-    redisConnection.options.moduleList = moduleList.map((m) => {
-      const modInfo = {}
-      modInfo[m[0]] = m[1];
-      modInfo[m[2]] = m[3];
-      return modInfo
-    });
-  });
-
-  redisConnection.select(db, function (err) {
-    if (err) {
-      console.log(err);
-      process.exit();
-    }
-    let opt = redisConnection.options;
-    let hostPort = opt.path ? opt.path : opt.host + ':' + opt.port;
-    if (opt.type === 'sentinel') {
-      hostPort = `sentinel ${opt.sentinels[0].host}:${opt.sentinels[0].port}:${opt.name}`;
-    }
-    console.log('Redis Connection ' + hostPort +
-      (opt.tls ? ' with TLS' : '') + ' using Redis DB #' + opt.db);
-  });
-}
 
 
 function startWebApp () {

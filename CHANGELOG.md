@@ -10,6 +10,7 @@
 * allow setting a custom HTTP header name used for the JWT session authentication token
 * add option to overwrite global folding character per connection
 * add Sentinel TLS connections and improved configuration and env var handling for TLS secured connections, #514 
+* add Redis Cluster support, #160 #216
 * update base image to alpine@3.17 using NodeJS 18.x now, #511
 * update helm chart autoscaling apis for newer K8s versions, #520
 * update helm chart to allow setting ingressClassName for newer K8s versions, #494

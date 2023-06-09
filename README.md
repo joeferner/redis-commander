@@ -51,6 +51,8 @@ Options:
   --sentinel-name                      The sentinel group name to use.                                                                           [string]
   --sentinel-username                  The sentinel username to use.                                                                             [string]
   --sentinel-password                  The sentinel password to use.                                                                             [string]
+  --clusters                           Comma separated list of redis cluster server with host:port.                                              [string]
+  --is-cluster                         Flag to use parameter from redis-host and redis-port as Redis cluster member            [boolean] [default: false]
   --redis-tls                          Use TLS for connection to redis server. Required for TLS connections.                   [boolean] [default: false]
   --redis-tls-ca-cert                  Use PEM-style CA certificate key for connection to redis server. Requires "redis-tls=true"                [string]
   --redis-tls-ca-cert-file             File path to PEM-style CA certificate key for connection to redis server. Requires "redis-tls=true", Overrides

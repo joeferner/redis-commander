@@ -28,6 +28,47 @@ const connections = {
   }
 }
 
+const  fullMenu = {
+  'renameKey': {
+    icon: './images/icon-edit.png',
+    label: 'Rename Key',
+    action: renameKey
+  },
+  'addKey': {
+    icon: './images/icon-plus.png',
+    label: 'Add Key',
+    action: addKey
+  },
+  'custerNodes': {
+    icon: './images/icon-info.png',
+    label: 'Cluster Nodes',
+    action: clusterNodes
+  },
+  'refresh': {
+    icon: './images/icon-refresh.png',
+    label: 'Refresh',
+    action: function (obj) {
+      jQuery.jstree.reference('#keyTree').refresh(obj);
+    }
+  },
+  'export': {
+    icon: './images/icon-download.png',
+    label: 'Export Keys',
+    action: exportKey
+  },
+  'remKey': {
+    icon: './images/icon-trash.png',
+    label: 'Remove Key',
+    action: deleteKey
+  },
+  'remConnection': {
+    icon: './images/icon-trash.png',
+    label: 'Disconnect',
+    action: removeServer
+  }
+};
+
+
 function loadTree () {
   $.get('apiv2/connection', function (isConnected) {
     if (isConnected) {
@@ -115,53 +156,34 @@ function loadTree () {
               },
               contextmenu: {
                   items: function (node) {
-                      var menu = {
-                          'renameKey': {
-                            icon: './images/icon-edit.png',
-                            label: 'Rename Key',
-                            action: renameKey
-                          },
-                          'addKey': {
-                            icon: './images/icon-plus.png',
-                            label: 'Add Key',
-                            action: addKey
-                          },
-                          'refresh': {
-                            icon: './images/icon-refresh.png',
-                            label: 'Refresh',
-                            action: function (obj) {
-                                jQuery.jstree.reference('#keyTree').refresh(obj);
-                            }
-                          },
-                          'export': {
-                            icon: './images/icon-download.png',
-                            label: 'Export Keys',
-                            action: exportKey
-                          },
-                          'remKey': {
-                            icon: './images/icon-trash.png',
-                            label: 'Remove Key',
-                            action: deleteKey
-                          },
-                          'remConnection': {
-                            icon: './images/icon-trash.png',
-                            label: 'Disconnect',
-                            action: removeServer
-                          }
-                      };
+                      var menu;
                       var rel = node.original.rel;
                       if (typeof rel === 'undefined' ) {    // folder
-                        delete menu['renameKey'];
+                        menu = {
+                          'addKey': fullMenu['addKey'],
+                          'refresh': fullMenu['refresh'],
+                          'export': fullMenu['export'],
+                          'remKey': fullMenu['remKey']
+                        }
                       }
-                      if (typeof rel !== 'undefined' && rel !== 'root') {  // some redis key
-                        delete menu['addKey'];
+                      else if (rel === 'root') {     // root connection object (first level in tree-view)
+                        menu = {
+                          'addKey': fullMenu['addKey'],
+                          'refresh': fullMenu['refresh'],
+                          'export': fullMenu['export'],
+                          'remConnection': fullMenu['remConnection']
+                        }
+                        if (node.id.startsWith('C:')) {
+                          menu['custerNodes'] = fullMenu['custerNodes'];
+                        }
                       }
-                      if (rel !== 'root') {
-                        delete menu['remConnection'];
-                      }
-                      if (rel === 'root') {     // root connection object (first level in tree-view)
-                        delete menu['renameKey'];
-                        delete menu['remKey'];
+                      else {  // some redis key
+                        menu = {
+                          'renameKey': fullMenu['renameKey'],
+                          'refresh': fullMenu['refresh'],
+                          'export': fullMenu['export'],
+                          'remKey': fullMenu['remKey']
+                        }
                       }
                       if (redisReadOnly) {
                         delete menu['renameKey'];
@@ -431,13 +453,23 @@ function setupAddServerForm() {
 
   // prepare all input elements
   serverModal.find('#addServerGroupSentinel').hide();
+  serverModal.find('#addServerGroupCluster').hide();
   serverModal.find('#serverType').on('change', function () {
-    if ($(this).val() === 'redis') {
-      serverModal.find('#addServerGroupRedis').show();
-      serverModal.find('#addServerGroupSentinel').hide();
-    } else {
-      serverModal.find('#addServerGroupRedis').hide();
-      serverModal.find('#addServerGroupSentinel').show();
+    switch ($(this).val()) {
+      case 'sentinel':
+        serverModal.find('#addServerGroupRedis').hide();
+        serverModal.find('#addServerGroupSentinel').show();
+        serverModal.find('#addServerGroupCluster').hide();
+        break;
+      case 'cluster':
+        serverModal.find('#addServerGroupRedis').hide();
+        serverModal.find('#addServerGroupSentinel').hide();
+        serverModal.find('#addServerGroupCluster').show();
+        break;
+      default: // 'redis'
+        serverModal.find('#addServerGroupRedis').show();
+        serverModal.find('#addServerGroupSentinel').hide();
+        serverModal.find('#addServerGroupCluster').hide();
     }
   });
   serverModal.find('input:radio[name=sentinelPWType]').on('change', function() {
@@ -859,6 +891,38 @@ function decodeKey (connectionId, key) {
         encodeString(connectionId, key)
       });
     $('#stringValue').val(data);
+  });
+}
+
+function clusterNodes (connectionId, key) {
+  if (typeof(connectionId) === 'object') {
+    // context menu click
+    const node = getKeyTree().get_node(connectionId.reference[0]);
+    connectionId = getRootConnection(node);
+    const foldingChar = connections.findById(connectionId).foldingChar
+    key = getFullKeyPath(node);
+    if (key.length > 0 && !key.endsWith(foldingChar)) {
+      key = key + foldingChar;
+    }
+  }
+  $.get('apiv2/server/' + encodeURIComponent(connectionId) + '/cluster/nodes', function (data) {
+    if (data.error) {
+      alert("Error fetching cluster nodes:\n" + data.error);
+    }
+    else {
+      const modal = $('#clusterNodesModal');
+      const tab = modal.find('#clusterNodesTab');
+      tab.empty();
+      tab.append('<tr><th>ID</th><th>Node</th><th>Flags</th><th>Current Master Node</th>' +
+        '<th>Link-State</th></th><th>Ping</th><th>Last Pong Received</th><th>Config-Epoch</th><th>Slots</th></tr>');
+      data.data.forEach(function (n) {
+        tab.append(`<tr><td>${n.id}</td> <td>${n.node}</td> <td class="text-center">${n.flags}</td>` +
+          `<td>${n.primaryMaster}</td> <td class="text-center">${n.linkState}</td>` +
+          `<td class="text-center">${n.pingSent}</td><td class="text-center">${n.pongReceived}</td>` +
+          `<td class="text-center">${n.configEpoch}</td><td>${n.slots}</td></tr>`);
+      });
+      modal.modal('show');
+    }
   });
 }
 

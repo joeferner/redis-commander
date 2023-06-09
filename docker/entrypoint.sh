@@ -326,6 +326,14 @@ if [ -n "$SENTINEL_TLS_SERVER_NAME" ]; then
     set -- "$@" "--sentinel-tls-server-name" "$SENTINEL_TLS_SERVER_NAME"
 fi
 
+if [ -n "$CLUSTERS" ]; then
+    set -- "$@" "--clusters" "$CLUSTERS"
+fi
+
+if [ -n "$IS_CLUSTER" ] && parse_boolean "$IS_CLUSTER"; then
+    set -- "$@" "--is-cluster"
+fi
+
 if [ -n "$REPLACE_CONFIG_ENV" ]; then
     # special case for more complex docker setup with multiple connections
     # to unix sockets, sentinels and normal redis server not configurable
