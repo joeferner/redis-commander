@@ -23,6 +23,7 @@ _Remark: new version are not published to Dockerhub right now._
 # Features
 
 Web-UI to display and edit data within multiple different Redis servers.
+It can connect to Redis standalone server, Sentinel based setups and Redis Cluster.
 
 It has support for the following data types to view, add, update and delete data:
 * Strings
