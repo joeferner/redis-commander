@@ -3,6 +3,9 @@
   <button class="btn" onclick="addKey('<%= connectionId %>')" style="margin-right: 5px">Add New Key...</button>
   <% } %>
   <button class="btn btn-danger" onclick="removeServer('<%= connectionId %>')" style="margin-right: 5px">Disconnect</button>
+  <% if (connectionId.startsWith('C')) { %>
+  <button class="btn" onclick="clusterNodes('<%= connectionId %>')" style="margin-right: 5px">Cluster Infos</button>
+  <% } %>
 </div>
 <div id="itemData">
 </div>

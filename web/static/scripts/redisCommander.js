@@ -894,16 +894,12 @@ function decodeKey (connectionId, key) {
   });
 }
 
-function clusterNodes (connectionId, key) {
+function clusterNodes (connectionId) {
   if (typeof(connectionId) === 'object') {
     // context menu click
     const node = getKeyTree().get_node(connectionId.reference[0]);
     connectionId = getRootConnection(node);
     const foldingChar = connections.findById(connectionId).foldingChar
-    key = getFullKeyPath(node);
-    if (key.length > 0 && !key.endsWith(foldingChar)) {
-      key = key + foldingChar;
-    }
   }
   $.get('apiv2/server/' + encodeURIComponent(connectionId) + '/cluster/nodes', function (data) {
     if (data.error) {
@@ -1613,6 +1609,7 @@ function selectNewServerDbs() {
     }, 200);
   });
 }
+
 
 function loadConfig (callback) {
   $.get('config', function (data) {
