@@ -59,6 +59,7 @@
 
 }(window.jQuery);/* ==========================================================
  * bootstrap-alert.js v2.3.2
+ * update bootstrap to fix issue # 528
  * http://getbootstrap.com/2.3.2/javascript.html#alerts
  * ==========================================================
  * Copyright 2013 Twitter, Inc.
