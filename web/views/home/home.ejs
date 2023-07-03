@@ -43,8 +43,10 @@
 
 <!-- COMMANDS AND CONNECTION MODALS -->
 <div id="redisCommandsModal" class="modal hide fade">
-  <a id="redisCommandsExternal" target="_blank" href="">Open in new window</a>
-  <button id="redisCommandsClose" type="button" class="close" data-dismiss="modal">×</button>
+  <span class="modal-head">
+    <a id="redisCommandsExternal" target="_blank" href="">Open in new window</a> &nbsp; | &nbsp;
+    <button id="redisCommandsClose" type="button" class="close" data-dismiss="modal">Close</button>
+  </span>
   <div class="modal-body">
     <iframe id="redisCommandsModalSrc" seamless="seamless" src="">test</iframe>
   </div>
