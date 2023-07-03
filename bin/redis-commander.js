@@ -2,23 +2,23 @@
 
 'use strict';
 
-let yargs = require('yargs');
-let Redis = require('ioredis');
-var isEqual = require('lodash.isequal');
-let myUtils = require('../lib/util');
-var fs = require('fs');
+const yargs = require('yargs');
+const Redis = require('ioredis');
+const isEqual = require('lodash.isequal');
+const myUtils = require('../lib/util');
+const fs = require('fs');
 
 // fix the cwd to project base dir for browserify and config loading
-let path = require('path');
+const path = require('path');
 process.chdir( path.join(__dirname, '..') );
 
 process.env.ALLOW_CONFIG_MUTATIONS = true;
-let config = require('config');
+const config = require('config');
 
 const connectionWrapper = require('../lib/connections');
 let redisConnections;
 
-let args = yargs
+const args = yargs
   .alias('h', 'help')
   .alias('h', '?')
   .options('redis-port', {
@@ -81,6 +81,11 @@ let args = yargs
   .options('is-cluster', {    // names-with-dash are automatically converted to namesWithDash too
     type: 'boolean',
     describe: 'Flag to use parameter from redis-host and redis-port as Redis cluster member',
+    default: false
+  })
+  .options('cluster-no-tls-validation', {
+    type: 'boolean',
+    describe: 'Flag to disable tls host name validation within cluster node communication (needed for AWS)',
     default: false
   })
   .options('redis-tls', {
@@ -148,6 +153,11 @@ let args = yargs
   .options('sentinel-tls-server-name', {
     type: 'string',
     describe: 'Server name to confirm client connection. Server name for the SNI (Server Name Indication) TLS extension. Requires "sentinel-tls=true"',
+  })
+  .options('insecure-certificate', {
+    type: 'boolean',
+    describe: 'Disable certificate check for all certificates (Redis, Sentinel, Cluster). Should not be used in production!',
+    default: false
   })
   .options('noload', {
     alias: 'nl',
@@ -460,7 +470,8 @@ function createConnectionObjectFromArgs(argList) {
       username: argList['redis-username'] || null,
       password: argList['redis-password'] || '',
       connectionName: config.get('redis.connectionName'),
-      optional: argList['redis-optional']
+      optional: argList['redis-optional'],
+      clusterNoTlsValidation: argList['clusterNoTlsValidation']
     };
 
     if (argList['redis-socket']) {
@@ -520,6 +531,10 @@ function createConnectionObjectFromArgs(argList) {
           connObj.tls.servername = argList['redis-tls-server-name'];
         }
       }
+
+      if (argList['insecure-certificate']) {
+        connObj.tls.rejectUnauthorized = false;
+      }
     }
 
     // either set 'sentinel-tls' to a boolean value to reuse same tls settings as defined for Redis server
@@ -563,6 +578,10 @@ function createConnectionObjectFromArgs(argList) {
       else {
         // fallback if no special sentinel settings are defined - reuse redis one
         connObj.sentinelTLS = connObj.tls;
+
+        if (argList['insecure-certificate']) {
+          connObj.sentinelTLS.rejectUnauthorized = false;
+        }
       }
     }
   }

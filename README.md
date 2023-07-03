@@ -54,6 +54,7 @@ Options:
   --sentinel-password                  The sentinel password to use.                                                                             [string]
   --clusters                           Comma separated list of redis cluster server with host:port.                                              [string]
   --is-cluster                         Flag to use parameter from redis-host and redis-port as Redis cluster member            [boolean] [default: false]
+  --cluster-no-tls-validation          Flag to disable tls host name validation within cluster setups (needed for AWS)         [boolean] [default: false]
   --redis-tls                          Use TLS for connection to redis server. Required for TLS connections.                   [boolean] [default: false]
   --redis-tls-ca-cert                  Use PEM-style CA certificate key for connection to redis server. Requires "redis-tls=true"                [string]
   --redis-tls-ca-cert-file             File path to PEM-style CA certificate key for connection to redis server. Requires "redis-tls=true", Overrides
@@ -79,6 +80,8 @@ Options:
                                        "sentinel-tls-key" if set too.                                                                            [string]
   --sentinel-tls-server-name           Server name to confirm client connection. Server name for the SNI (Server Name Indication) TLS extension. Requires
                                        "sentinel-tls=true"                                                                                       [string]
+  --insecure-certificate               Disable certificate check for all certificates (Redis, Sentinel, Cluster). Should not be used in
+                                       production!                                                                            [boolean] [Standard: false]
   --noload, --nl                       Do not load connections from config.                                                                     [boolean]
   --clear-config, --cc                 Clear configuration file.                                                                                [boolean]
   --migrate-config                     Migrate old configuration file in $HOME to new style.                                                    [boolean]
@@ -100,7 +103,7 @@ Options:
   --root-pattern, --rp                 Default root pattern for redis keys.                                                       [string] [default: "*"]
   --use-scan, --sc                     Use SCAN instead of KEYS.                                                                [boolean] [default: true]
   --scan-count                         The size of each separate scan.                                                            [number] [default: 200]
-  -h, -?, --help                           Show help                                                                                                [boolean]
+  -h, -?, --help                       Show help                                                                                                [boolean]
 ```
 
 The connection can be established either via direct connection to redis server or indirect

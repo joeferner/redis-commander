@@ -223,6 +223,14 @@ body {
   overflow: hidden;
 }
 
+#redisCommandsModal .modal-head {
+  color: white;
+  position: absolute;
+  left: 12rem;
+  top: 6px;
+  z-index: 99999;
+
+}
 #redisCommandsModal .modal-body {
   background-color: transparent;
   padding: 0;
@@ -237,29 +245,24 @@ body {
 }
 
 #redisCommandsClose {
-  position: absolute;
-  top: 10px;
-  right: 25px;
   color: white;
-  z-index: 99999;
+  font-size: unset;
+  font-weight: normal;
+  line-height: unset;
+  opacity: 1;
+  text-shadow: none;
 }
 
 #redisCommandsClose:hover {
-  color: white;
+  opacity: 0.4;
 }
 
 #redisCommandsExternal {
   color: white;
-  opacity: 0.2;
-  position: absolute;
-  top: 14px;
-  left: 350px;
-  z-index: 99999;
 }
 
 #redisCommandsExternal:hover {
   opacity: 0.4;
-  text-decoration: none;
 }
 
 #addServerContainer {
