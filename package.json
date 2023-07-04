@@ -8,7 +8,7 @@
     "Stefan Seide <account-github@seide.st"
   ],
   "name": "redis-commander",
-  "version": "0.9.0-rc1",
+  "version": "0.9.0-rc2",
   "description": "Redis web-based management tool written in node.js",
   "license": "MIT",
   "repository": {
@@ -46,7 +46,7 @@
     "yargs": "17.7.2"
   },
   "optionalDependencies": {
-    "bcrypt": "~5.0.1"
+    "bcrypt": "~5.1.0"
   },
   "devDependencies": {
     "@cyclonedx/bom": "^4.0.2",

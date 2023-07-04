@@ -5,15 +5,17 @@
 * update jsonwebtoken from 8.5.1 to 9.0.0 (fix CVE-2022-23529, CVE-2022-23541, CVE-2022-23539, CVE-2022-23540)
 * update json5 from 2.2.1 to 2.2.3 (fix CVE-2022-46175)
 * update cmdparser from 0.0.3 to 0.1.0 (fix CVE-2021-43138), #517
+* partial update of semver to 7.5.3 (fix CVE-2022-2588)
 #### Enhancements
 * allow using IPv6 addresses for Redis connection definitions. (except REDIS_HOSTS env var, here no IPv6 allowed, use host names instead) 
 * allow setting a custom HTTP header name used for the JWT session authentication token
 * add option to overwrite global folding character per connection
 * add Sentinel TLS connections and improved configuration and env var handling for TLS secured connections, #514 
-* add Redis Cluster support, #160 #216
+* add Redis Cluster support, #160 #216 #527
 * update base image to alpine@3.17 using NodeJS 18.x now, #511
 * update helm chart autoscaling apis for newer K8s versions, #520
 * update helm chart to allow setting ingressClassName for newer K8s versions, #494
+* update UI for better visibility on how to close redis commands modal, #456
 * update ioredis from 4.28.5 to 5.3.2
 * update dependencies yargs@17.7.2, ejs@3.1.9, jstree@3.3.15, config@3.3.9, body-parser@1.20.2
 
