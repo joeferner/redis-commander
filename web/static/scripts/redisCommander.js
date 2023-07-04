@@ -525,6 +525,16 @@ function setupAddServerForm() {
       serverModal.find('#redisTLSServerName').val('').prop('disabled', true)
         .prev('label').addClass('muted');
     }
+    // disable following only for no tls, other setting allow this one
+    if ($(this).val() === 'no') {
+      serverModal.find('#clusterNoTlsValidation').prop('disabled', true)
+        .parent('label').addClass('muted');
+    }
+    else {
+      serverModal.find('#clusterNoTlsValidation').prop('disabled', false)
+        .parent('label').removeClass('muted');
+    }
+
   });
   serverModal.find('#label').trigger('focus');
 }

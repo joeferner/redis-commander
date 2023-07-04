@@ -134,6 +134,10 @@
       <input type="text" name="redisTLSPrivateKey" id="redisTLSPrivateKey" value="" class="span6" placeholder="replace newline characters with literal '\n'" disabled>
       <label for="redisTLSServerName" class="muted">Server Name</label>
       <input type="text" name="redisTLSServerName" id="redisTLSServerName" value="" class="span6" disabled>
+      <label for="clusterNoTlsValidation" class="muted">
+        <input type="checkbox" name="clusterNoTlsValidation" id="clusterNoTlsValidation" value="" style="vertical-align: top" disabled>
+        Disable TLS Validation for Cluster Nodes (AWS Certificate Workaround)
+      </label>
     </form>
   </div>
   <div class="modal-footer">
