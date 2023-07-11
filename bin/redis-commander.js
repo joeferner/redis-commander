@@ -52,8 +52,8 @@ const args = yargs
   })
   .options('redis-family', {
     type: 'number',
-    describe: 'Version of IP stack. Defaults to 4.',
-    default: 4
+    describe: 'Version of IP stack. Defaults to 0 to support both.',
+    default: 0
   })
   .options('sentinel-port', {
     type: 'number',
@@ -466,7 +466,7 @@ function createConnectionObjectFromArgs(argList) {
   // now create connection object if enough params are set
   let connObj = null;
   if (argList['clusters'] || argList['sentinel-host'] || argList['sentinels'] || argList['redis-host'] || argList['redis-port'] || argList['redis-socket']
-    || argList['redis-username'] || argList['redis-password'] || argList['redis-db']) {
+    || argList['redis-username'] || argList['redis-password'] || argList['redis-db'] || argList['redis-family']) {
 
     let db = parseInt(argList['redis-db']);
     connObj = {
@@ -476,7 +476,7 @@ function createConnectionObjectFromArgs(argList) {
       password: argList['redis-password'] || '',
       connectionName: config.get('redis.connectionName'),
       optional: argList['redis-optional'],
-      family: argList['redis-family'] || 4,
+      family: argList['redis-family'] || 0,
       clusterNoTlsValidation: argList['clusterNoTlsValidation']
     };
 
