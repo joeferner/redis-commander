@@ -270,6 +270,10 @@ if [ -n "$REDIS_OPTIONAL" ] && parse_boolean "$REDIS_OPTIONAL"; then
     set -- "$@" "--redis-optional"
 fi
 
+if [ -n "$REDIS_FAMILY" ]; then
+    set -- "$@" "--redis-family" "$REDIS_FAMILY"
+fi
+
 if [ -n "$SENTINEL_PORT" ]; then
     set -- "$@" "--sentinel-port" "$SENTINEL_PORT"
 fi
