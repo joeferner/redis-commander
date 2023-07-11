@@ -46,6 +46,7 @@ Options:
   --redis-password                     The redis password.                                                                                       [string]
   --redis-db                           The redis database.                                                                                       [number]
   --redis-optional                     Set to true if no permanent auto-reconnect shall be done if server is down.             [boolean] [default: false]
+  --redis-family                       Version of IP stack. Defaults to 4.                                                                       [number]
   --sentinel-port                      The port to find sentinel on.                                                                             [number]
   --sentinel-host                      The host to find sentinel on.                                                                             [string]
   --sentinels                          Comma separated list of sentinels with host:port.                                                         [string]
@@ -203,6 +204,7 @@ REDIS_TLS_SERVER_NAME
 REDIS_DB
 REDIS_HOSTS
 REDIS_OPTIONAL
+REDIS_FAMILY
 SENTINEL_PORT
 SENTINEL_HOST
 SENTINEL_NAME
