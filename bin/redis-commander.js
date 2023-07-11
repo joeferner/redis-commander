@@ -50,6 +50,11 @@ const args = yargs
     describe: 'Set to true if no permanent auto-reconnect shall be done if server is down.',
     default: false
   })
+  .options('redis-family', {
+    type: 'number',
+    describe: 'Version of IP stack. Defaults to 4.',
+    default: 4
+  })
   .options('sentinel-port', {
     type: 'number',
     describe: 'The port to find sentinel on.'
@@ -471,6 +476,7 @@ function createConnectionObjectFromArgs(argList) {
       password: argList['redis-password'] || '',
       connectionName: config.get('redis.connectionName'),
       optional: argList['redis-optional'],
+      family: argList['redis-family'] || 4,
       clusterNoTlsValidation: argList['clusterNoTlsValidation']
     };
 
