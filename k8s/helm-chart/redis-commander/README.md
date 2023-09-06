@@ -2,7 +2,7 @@
 
 A Helm chart for redis-commander
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 ## Install
 
@@ -50,6 +50,7 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | replicaCount | int | `1` | Number of replicas to create for deployment, should be 1 |
 | resources | object | `{}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":false,"runAsNonRoot":true}` | Configuration of the linux security context for the docker image. This restricts the rights of the running docker image as far as possible. "readOnlyRootFilesystem" must be set to false to auto-generate a config file with multiple redis hosts or sentinel hosts |
+| service.annotations | object | `{}` | Add additional annotations for the service spec Example:   'my.custom.annotation: value' |
 | service.port | int | `80` | External port where service is available |
 | service.type | string | `"ClusterIP"` | Type of k8s service to export |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

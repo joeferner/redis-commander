@@ -167,6 +167,9 @@
                 },
                 "type": {
                     "type": "string"
+                },
+                "annotations": {
+                    "type": "object"
                 }
             }
         },

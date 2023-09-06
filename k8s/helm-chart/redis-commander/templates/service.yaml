@@ -5,6 +5,10 @@ metadata:
   name: {{ include "redis-commander.fullname" . }}
   labels:
     {{- include "redis-commander.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
