@@ -143,14 +143,29 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+# -- optional set pod node selector definitions for kubernetes
 nodeSelector: {}
 
+# -- optional set pod toleration definitions for kubernetes
 tolerations: []
 
+# -- optional set pod affinity definitions for kubernetes
 affinity: {}
 
+# -- optional object to set the "local_production_json" property to let Helm render a "local-production.json"
+#  file from a configmap to preconfigure more complex configuration examples with connection data too
+#  without the need to set all parameter via environment variables (where available).
+#  For a working example see file "example-manifest.yaml"
 connections: {}
 
+# -- optional list of volumes to mount into the docker deployment. This can either be a local storage volume
+#  or a configmap to mount data as file. Each list item needs a "name" and a "mountPath". Setting this will most time
+#  also require setting a "volumes" entry.
+#  For a working example see file "example-manifest.yaml"
 volumeMounts: []
 
+# -- optional list of volumes to mount into the docker deployment. This can either be a loca storage volume
+#  or a configmap to mount data as file. Each list item needs a "name" and a "mountPath". Setting this will most time
+#  also require setting a "volumeMounts" entry.
+#  For a working example see file "example-manifest.yaml"
 volumes: []

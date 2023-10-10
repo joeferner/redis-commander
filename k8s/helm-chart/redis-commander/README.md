@@ -18,8 +18,9 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` |  |
+| affinity | object | `{}` | optional set pod affinity definitions for kubernetes |
 | autoscaling | object | `{"enabled":false,"maxReplicas":1,"minReplicas":1,"targetCPUUtilizationPercentage":80}` | Autoscaling configuration for k8s deployment |
+| connections | object | `{}` | optional object to set the "local_production_json" property to let Helm render a "local-production.json"  file from a configmap to preconfigure more complex configuration examples with connection data too  without the need to set all parameter via environment variables (where available).  For a working example see file "example-manifest.yaml" |
 | env | list | `[]` | Extra env vars for the main pod redis-commander in array structure ([{name: ... , value: ...}, {name: ... , value: ...}]). |
 | fullnameOverride | string | `""` |  |
 | httpAuth.password | string | `""` | Specify http basic password for the web ui |
@@ -40,7 +41,7 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | ingress.tls | list | `[]` |  |
 | kubeVersion | string | `""` | Optional override Kubernetes version |
 | nameOverride | string | `""` |  |
-| nodeSelector | object | `{}` |  |
+| nodeSelector | object | `{}` | optional set pod node selector definitions for kubernetes |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | redis.host | string | `"redis-master"` | Specifies a single Redis host |
@@ -56,7 +57,9 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `false` | Specifies whether a service account should be created When no service account is created the account credentials of the default account are also not automatically mounted into the pod (automountServiceAccountToken: false), tokens only mounted when service account is used but Redis-Commander itself does not use the k8s api server token |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
-| tolerations | list | `[]` |  |
+| tolerations | list | `[]` | optional set pod toleration definitions for kubernetes |
+| volumeMounts | list | `[]` | optional list of volumes to mount into the docker deployment. This can either be a local storage volume  or a configmap to mount data as file. Each list item needs a "name" and a "mountPath". Setting this will most time  also require setting a "volumes" entry.  For a working example see file "example-manifest.yaml" |
+| volumes | list | `[]` | optional list of volumes to mount into the docker deployment. This can either be a loca storage volume  or a configmap to mount data as file. Each list item needs a "name" and a "mountPath". Setting this will most time  also require setting a "volumeMounts" entry.  For a working example see file "example-manifest.yaml" |
 
 ## Example
 
