@@ -148,3 +148,9 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+connections: {}
+
+volumeMounts: []
+
+volumes: []

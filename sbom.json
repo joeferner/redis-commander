@@ -4,7 +4,7 @@
   "specVersion": "1.4",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-05-26T12:58:41.763Z",
+    "timestamp": "2023-10-10T14:43:46.583Z",
     "tools": [
       {
         "vendor": "@cyclonedx",
@@ -32,8 +32,8 @@
     "component": {
       "type": "application",
       "name": "redis-commander",
-      "version": "0.8.2-rc5",
-      "bom-ref": "redis-commander@0.8.2-rc5",
+      "version": "0.9.0-rc3",
+      "bom-ref": "redis-commander@0.9.0-rc3",
       "author": "Joe Ferner <joe@fernsroth.com>",
       "description": "Redis web-based management tool written in node.js",
       "licenses": [
@@ -43,7 +43,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/redis-commander@0.8.2-rc5?vcs_url=git://github.com/joeferner/redis-commander.git",
+      "purl": "pkg:npm/redis-commander@0.9.0-rc3?vcs_url=git://github.com/joeferner/redis-commander.git",
       "externalReferences": [
         {
           "url": "git://github.com/joeferner/redis-commander.git",
@@ -11340,14 +11340,14 @@
     {
       "type": "library",
       "name": "get-func-name",
-      "version": "2.0.0",
-      "bom-ref": "get-func-name@2.0.0",
-      "author": "Jake Luer",
+      "version": "2.0.2",
+      "bom-ref": "get-func-name@2.0.2",
+      "author": "Jake Luer <jake@alogicalparadox.com> (http://alogicalparadox.com)",
       "description": "Utility for getting a function's name for node and the browser",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "1e6d22c58b5a499fd5ec2f0526bb5922e04123e89280bfb502af36cd2bbc550341e12dc693c7bb42cdd5c010c902199165c16a925ded42edfa83f1688792398a"
+          "content": "f2f5cebee135ebb0ad21cdcec88b5ca3b37f76946d05b60eb0fb170b3ed7fcf3279468d88d21ae64980cd58ee699ec3b04a7fd06abcb5f6b67395cb504152cc5"
         }
       ],
       "licenses": [
@@ -11357,7 +11357,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/get-func-name@2.0.0",
+      "purl": "pkg:npm/get-func-name@2.0.2",
       "externalReferences": [
         {
           "url": "git+ssh://git@github.com/chaijs/get-func-name.git",
@@ -11365,17 +11365,7 @@
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/chaijs/get-func-name#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/chaijs/get-func-name/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/get-func-name/-/get-func-name-2.0.0.tgz",
+          "url": "https://registry.npmjs.org/get-func-name/-/get-func-name-2.0.2.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -14781,14 +14771,14 @@
     {
       "type": "library",
       "name": "jsonwebtoken",
-      "version": "9.0.0",
-      "bom-ref": "jsonwebtoken@9.0.0",
+      "version": "9.0.2",
+      "bom-ref": "jsonwebtoken@9.0.2",
       "author": "auth0",
       "description": "JSON Web Token implementation (symmetric and asymmetric)",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "b6e19f617c644060cf9cb27b4a26e242056078381f6cfab693620271b82a5bc5b158b040c4a40cfd90aefc84fc48e4b099a625e1da531425b9c59bfb61b6d653"
+          "content": "3d1a7aeaf27ceb9492a8e960a92f21ba34f953800e80c7e1af0608b8885f29aa12099722aeb980490afc097edc520f9132287e860ce7ae3a7df68f96e2924b1d"
         }
       ],
       "licenses": [
@@ -14798,17 +14788,12 @@
           }
         }
       ],
-      "purl": "pkg:npm/jsonwebtoken@9.0.0",
+      "purl": "pkg:npm/jsonwebtoken@9.0.2",
       "externalReferences": [
         {
-          "url": "git+https://github.com/auth0/node-jsonwebtoken.git",
+          "url": "https://github.com/auth0/node-jsonwebtoken",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/auth0/node-jsonwebtoken#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
         },
         {
           "url": "https://github.com/auth0/node-jsonwebtoken/issues",
@@ -14816,7 +14801,7 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.0.tgz",
+          "url": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.2.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -15024,15 +15009,15 @@
     },
     {
       "type": "library",
-      "name": "lodash",
-      "version": "4.17.21",
-      "bom-ref": "lodash@4.17.21",
-      "author": "John-David Dalton",
-      "description": "Lodash modular utilities.",
+      "name": "lodash.includes",
+      "version": "4.3.0",
+      "bom-ref": "lodash.includes@4.3.0",
+      "author": "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)",
+      "description": "The lodash method `_.includes` exported as a module.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "bf690311ee7b95e713ba568322e3533f2dd1cb880b189e99d4edef13592b81764daec43e2c54c61d5c558dc5cfb35ecb85b65519e74026ff17675b6f8f916f4a"
+          "content": "5b7071ea67644531ad9492123af543fe56ea8d394f3d40d33279576459d5c22f4d289ead88093a2d5765859326d7b5598acaa129c833a4ee56cfdd4f0ade5bd3"
         }
       ],
       "licenses": [
@@ -15042,12 +15027,12 @@
           }
         }
       ],
-      "purl": "pkg:npm/lodash@4.17.21",
+      "purl": "pkg:npm/lodash.includes@4.3.0",
       "externalReferences": [
         {
-          "url": "git+https://github.com/lodash/lodash.git",
+          "url": "lodash/lodash",
           "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
+          "comment": "as detected from PackageJson property \"repository\""
         },
         {
           "url": "https://lodash.com/",
@@ -15055,12 +15040,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/lodash/lodash/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz",
+          "url": "https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -15068,21 +15048,291 @@
       "properties": [
         {
           "name": "cdx:npm:package:path",
-          "value": "node_modules/lodash"
+          "value": "node_modules/lodash.includes"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lodash.isboolean",
+      "version": "3.0.3",
+      "bom-ref": "lodash.isboolean@3.0.3",
+      "author": "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)",
+      "description": "The lodash method `_.isBoolean` exported as a module.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "073e66ba9cb64956cf1d4441f7c540730f9a1e1e2f455e483cd8482d40ac3b3466b13992435ee322eaa8a407a7b56a1e864b7119df5efe16c85eaf7cd3fd5026"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lodash.isboolean@3.0.3",
+      "externalReferences": [
+        {
+          "url": "lodash/lodash",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository\""
+        },
+        {
+          "url": "https://lodash.com/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/lodash.isboolean"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lodash.isinteger",
+      "version": "4.0.4",
+      "bom-ref": "lodash.isinteger@4.0.4",
+      "author": "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)",
+      "description": "The lodash method `_.isInteger` exported as a module.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "0c1c2d11637671a1d0f7f8a688d784039cacd49a11b517d8ddded5f7092ab5bc9c9c0993bd14666c72835786b411873aefcfdd89ad23aed7b8b6363054169950"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lodash.isinteger@4.0.4",
+      "externalReferences": [
+        {
+          "url": "lodash/lodash",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository\""
+        },
+        {
+          "url": "https://lodash.com/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/lodash.isinteger"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lodash.isnumber",
+      "version": "3.0.3",
+      "bom-ref": "lodash.isnumber@3.0.3",
+      "author": "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)",
+      "description": "The lodash method `_.isNumber` exported as a module.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "418ab3a5fc0edff0967f75cff99fad910b1f68b2ff1275255d6564224e4550f738b017537a112a64e36ec91b763faecf5c093e35799305c73def3c3db75150af"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lodash.isnumber@3.0.3",
+      "externalReferences": [
+        {
+          "url": "lodash/lodash",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository\""
+        },
+        {
+          "url": "https://lodash.com/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/lodash.isnumber"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lodash.isplainobject",
+      "version": "4.0.6",
+      "bom-ref": "lodash.isplainobject@4.0.6",
+      "author": "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)",
+      "description": "The lodash method `_.isPlainObject` exported as a module.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a125f3696ca908c1e43c2dcdbc111a3c77f42ac0399af3eb38f810583b1b83c9fba2b676f743340660bf8e0459e2f709e834c0863aec49881db16fc5f8c14e04"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lodash.isplainobject@4.0.6",
+      "externalReferences": [
+        {
+          "url": "lodash/lodash",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository\""
+        },
+        {
+          "url": "https://lodash.com/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/lodash.isplainobject"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lodash.isstring",
+      "version": "4.0.1",
+      "bom-ref": "lodash.isstring@4.0.1",
+      "author": "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)",
+      "description": "The lodash method `_.isString` exported as a module.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d302717f11f5c203b71ab6ee3fe7534e4ee8a7ee8be354025db188344983fa7cbf1bf782a86cf1c82b21ef5e7d4be9a00c37286ab9c1c3a3c2d4f4b9fb050683"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lodash.isstring@4.0.1",
+      "externalReferences": [
+        {
+          "url": "lodash/lodash",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository\""
+        },
+        {
+          "url": "https://lodash.com/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/lodash.isstring"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lodash.once",
+      "version": "4.1.1",
+      "bom-ref": "lodash.once@4.1.1",
+      "author": "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)",
+      "description": "The lodash method `_.once` exported as a module.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "49be3ceda4ce0abf5dad054bf292313b356169f3a364df54539e2188df0f537b8089257b971d7260da5b3667b1d8f2ba752268353489514b304fae75cb0c3732"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lodash.once@4.1.1",
+      "externalReferences": [
+        {
+          "url": "lodash/lodash",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository\""
+        },
+        {
+          "url": "https://lodash.com/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/lodash.once"
         }
       ]
     },
     {
       "type": "library",
       "name": "semver",
-      "version": "7.3.8",
-      "bom-ref": "semver@7.3.8",
+      "version": "7.5.4",
+      "bom-ref": "semver@7.5.4",
       "author": "GitHub Inc.",
       "description": "The semantic version parser used by npm.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "341d5cb462f9ae51eb3c9b450d5215cd3c90ca530bbbd37d548080e87485268f0c086553316ea07e989cc0a9a62bf7408d33abaaee65eb72493a90d2ac08acdc"
+          "content": "d5b09211257a3effa2db51efa71a770f1fa9483f2520fb7cb958d1af1014b7f9dbb3061cfad2ba6366ed8942e3778f9f9ead793d7fa7a900c2ece7eded693070"
         }
       ],
       "licenses": [
@@ -15092,25 +15342,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/semver@7.3.8",
+      "purl": "pkg:npm/semver@7.5.4",
       "externalReferences": [
         {
-          "url": "git+https://github.com/npm/node-semver.git",
+          "url": "https://github.com/npm/node-semver.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/npm/node-semver#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/npm/node-semver/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/semver/-/semver-7.3.8.tgz",
+          "url": "https://registry.npmjs.org/semver/-/semver-7.5.4.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -15225,14 +15465,14 @@
     {
       "type": "library",
       "name": "jstree",
-      "version": "3.3.15",
-      "bom-ref": "jstree@3.3.15",
+      "version": "3.3.16",
+      "bom-ref": "jstree@3.3.16",
       "author": "Ivan Bozhanov",
       "description": "jQuery tree plugin",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "7cd2b61018068da250ddc26e20d5fff34bc3780b9f616b4cd1cb2e760625dde246f9e4401ffd6bd4825550ebc094921afae4a083e162f2e1abb7e5dbb3dd9e2a"
+          "content": "c9e78825f7e2d9602ac8c787b9f5e3fcecf2ec6aa029d0e4c5f37c2fc9706c6d21d5cc3f4e00da7d69b286ba07e002a00d293dc96d56ea388966ee335c0ab35f"
         }
       ],
       "licenses": [
@@ -15248,7 +15488,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/jstree@3.3.15",
+      "purl": "pkg:npm/jstree@3.3.16",
       "externalReferences": [
         {
           "url": "git://github.com/vakata/jstree.git",
@@ -15266,7 +15506,7 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/jstree/-/jstree-3.3.15.tgz",
+          "url": "https://registry.npmjs.org/jstree/-/jstree-3.3.16.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -20448,13 +20688,14 @@
         {
           "type": "library",
           "name": "semver",
-          "version": "6.3.0",
-          "bom-ref": "make-dir@3.1.0|semver@6.3.0",
+          "version": "6.3.1",
+          "bom-ref": "make-dir@3.1.0|semver@6.3.1",
+          "author": "GitHub Inc.",
           "description": "The semantic version parser used by npm.",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "6f7f5305a4d27d5eb206b6a953cf69e5f29e904da6fcdc270e870e56bb90152d7fbde320773b8f72738cdf833a0b0c56f231ff97111ae6b0680de530bb91c74f"
+              "content": "051ed5bc30951cefaadb10445ac9314ba0c9135a919dbec3c7352ba206fbd425a849f89c07162c88019df8a9749a6abf329ac6f7202b464cab4314cee978cccc"
             }
           ],
           "licenses": [
@@ -20464,25 +20705,15 @@
               }
             }
           ],
-          "purl": "pkg:npm/semver@6.3.0",
+          "purl": "pkg:npm/semver@6.3.1",
           "externalReferences": [
             {
-              "url": "git+https://github.com/npm/node-semver.git",
+              "url": "https://github.com/npm/node-semver.git",
               "type": "vcs",
               "comment": "as detected from PackageJson property \"repository.url\""
             },
             {
-              "url": "https://github.com/npm/node-semver#readme",
-              "type": "website",
-              "comment": "as detected from PackageJson property \"homepage\""
-            },
-            {
-              "url": "https://github.com/npm/node-semver/issues",
-              "type": "issue-tracker",
-              "comment": "as detected from PackageJson property \"bugs.url\""
-            },
-            {
-              "url": "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz",
+              "url": "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz",
               "type": "distribution",
               "comment": "as detected from npm-ls property \"resolved\""
             }
@@ -22114,13 +22345,14 @@
         {
           "type": "library",
           "name": "semver",
-          "version": "6.3.0",
-          "bom-ref": "istanbul-lib-instrument@4.0.3|semver@6.3.0",
+          "version": "6.3.1",
+          "bom-ref": "istanbul-lib-instrument@4.0.3|semver@6.3.1",
+          "author": "GitHub Inc.",
           "description": "The semantic version parser used by npm.",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "6f7f5305a4d27d5eb206b6a953cf69e5f29e904da6fcdc270e870e56bb90152d7fbde320773b8f72738cdf833a0b0c56f231ff97111ae6b0680de530bb91c74f"
+              "content": "051ed5bc30951cefaadb10445ac9314ba0c9135a919dbec3c7352ba206fbd425a849f89c07162c88019df8a9749a6abf329ac6f7202b464cab4314cee978cccc"
             }
           ],
           "licenses": [
@@ -22130,25 +22362,15 @@
               }
             }
           ],
-          "purl": "pkg:npm/semver@6.3.0",
+          "purl": "pkg:npm/semver@6.3.1",
           "externalReferences": [
             {
-              "url": "git+https://github.com/npm/node-semver.git",
+              "url": "https://github.com/npm/node-semver.git",
               "type": "vcs",
               "comment": "as detected from PackageJson property \"repository.url\""
             },
             {
-              "url": "https://github.com/npm/node-semver#readme",
-              "type": "website",
-              "comment": "as detected from PackageJson property \"homepage\""
-            },
-            {
-              "url": "https://github.com/npm/node-semver/issues",
-              "type": "issue-tracker",
-              "comment": "as detected from PackageJson property \"bugs.url\""
-            },
-            {
-              "url": "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz",
+              "url": "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz",
               "type": "distribution",
               "comment": "as detected from npm-ls property \"resolved\""
             }
@@ -22170,14 +22392,14 @@
       "type": "library",
       "name": "core",
       "group": "@babel",
-      "version": "7.19.6",
-      "bom-ref": "@babel/core@7.19.6",
-      "author": "The Babel Team",
+      "version": "7.22.6",
+      "bom-ref": "@babel/core@7.22.6",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Babel compiler core.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0f651ee0a1e973a62cdbe031a48c75059f3e51e80b2cb136a7728912e2512a6a241ceb65e3d8d0e67cb5efbdcab062d9b3c310bc189d005eb259427146ab4ab6"
+          "content": "1cf2320daea7f872b0e5d12ec1acb7bd502105ba180ad44404ca7e2167ac799cba4c5b739fa3079021f628a614382fef28ac2048c1d05b886d04eae6b913d77f"
         }
       ],
       "licenses": [
@@ -22187,10 +22409,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/core@7.19.6#packages/babel-core",
+      "purl": "pkg:npm/%40babel/core@7.22.6#packages/babel-core",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-core",
+          "url": "https://github.com/babel/babel.git#packages/babel-core",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -22202,10 +22424,10 @@
         {
           "url": "https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22pkg%3A%20core%22+is%3Aopen",
           "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
+          "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/core/-/core-7.19.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/core/-/core-7.22.6.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -22225,7 +22447,7 @@
           "type": "library",
           "name": "convert-source-map",
           "version": "1.9.0",
-          "bom-ref": "@babel/core@7.19.6|convert-source-map@1.9.0",
+          "bom-ref": "@babel/core@7.22.6|convert-source-map@1.9.0",
           "author": "Thorsten Lorenz",
           "description": "Converts a source-map from/to  different formats and allows adding/changing properties.",
           "hashes": [
@@ -22268,59 +22490,6 @@
             {
               "name": "cdx:npm:package:path",
               "value": "node_modules/@babel/core/node_modules/convert-source-map"
-            },
-            {
-              "name": "cdx:npm:package:development",
-              "value": "true"
-            }
-          ]
-        },
-        {
-          "type": "library",
-          "name": "semver",
-          "version": "6.3.0",
-          "bom-ref": "@babel/core@7.19.6|semver@6.3.0",
-          "description": "The semantic version parser used by npm.",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "6f7f5305a4d27d5eb206b6a953cf69e5f29e904da6fcdc270e870e56bb90152d7fbde320773b8f72738cdf833a0b0c56f231ff97111ae6b0680de530bb91c74f"
-            }
-          ],
-          "licenses": [
-            {
-              "license": {
-                "id": "ISC"
-              }
-            }
-          ],
-          "purl": "pkg:npm/semver@6.3.0",
-          "externalReferences": [
-            {
-              "url": "git+https://github.com/npm/node-semver.git",
-              "type": "vcs",
-              "comment": "as detected from PackageJson property \"repository.url\""
-            },
-            {
-              "url": "https://github.com/npm/node-semver#readme",
-              "type": "website",
-              "comment": "as detected from PackageJson property \"homepage\""
-            },
-            {
-              "url": "https://github.com/npm/node-semver/issues",
-              "type": "issue-tracker",
-              "comment": "as detected from PackageJson property \"bugs.url\""
-            },
-            {
-              "url": "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz",
-              "type": "distribution",
-              "comment": "as detected from npm-ls property \"resolved\""
-            }
-          ],
-          "properties": [
-            {
-              "name": "cdx:npm:package:path",
-              "value": "node_modules/@babel/core/node_modules/semver"
             },
             {
               "name": "cdx:npm:package:development",
@@ -22664,14 +22833,14 @@
       "type": "library",
       "name": "code-frame",
       "group": "@babel",
-      "version": "7.18.6",
-      "bom-ref": "@babel/code-frame@7.18.6",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/code-frame@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Generate errors that contain a code frame that point to source locations.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "4c30a694ae5e3af1fe787edc74016535779526a58843b816f6d63518922952d15be829a3572ab654cdeeef56cec91f0246285c0a03146280cdc8b5daa37fbbd1"
+          "content": "5e6c27dbaeaf69dfba0c0a8407603a57f09c655a7ad816f056670e25cd913eec22875930d364e342f5955a570a19b04f77ef3fd15e4312439c8b344662cb2961"
         }
       ],
       "licenses": [
@@ -22681,10 +22850,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/code-frame@7.18.6#packages/babel-code-frame",
+      "purl": "pkg:npm/%40babel/code-frame@7.22.5#packages/babel-code-frame",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-code-frame",
+          "url": "https://github.com/babel/babel.git#packages/babel-code-frame",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -22696,10 +22865,10 @@
         {
           "url": "https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen",
           "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
+          "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.18.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -22719,14 +22888,14 @@
       "type": "library",
       "name": "highlight",
       "group": "@babel",
-      "version": "7.18.6",
-      "bom-ref": "@babel/highlight@7.18.6",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/highlight@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Syntax highlight JavaScript strings for output in terminals.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "bbbb2d6ceb988da3decc2b8b8f6f61356d6feb833631ddaaba910a3f57c773b59d380dc380b877eecba24ab65863b85a501ee205e419f4fd6e891177e7d768de"
+          "content": "0522a50f58609de752e5746718e96365ac2d6a0ec7d723df429d2d74d2421e81fa019f8f726f55be4acae7dfd8cb9f77629834cccc47d81c43d553d8510ed423"
         }
       ],
       "licenses": [
@@ -22736,10 +22905,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/highlight@7.18.6#packages/babel-highlight",
+      "purl": "pkg:npm/%40babel/highlight@7.22.5#packages/babel-highlight",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-highlight",
+          "url": "https://github.com/babel/babel.git#packages/babel-highlight",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -22749,12 +22918,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/highlight/-/highlight-7.18.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/highlight/-/highlight-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -22774,7 +22938,7 @@
           "type": "library",
           "name": "chalk",
           "version": "2.4.2",
-          "bom-ref": "@babel/highlight@7.18.6|chalk@2.4.2",
+          "bom-ref": "@babel/highlight@7.22.5|chalk@2.4.2",
           "description": "Terminal string styling done right",
           "hashes": [
             {
@@ -22827,7 +22991,7 @@
           "type": "library",
           "name": "ansi-styles",
           "version": "3.2.1",
-          "bom-ref": "@babel/highlight@7.18.6|ansi-styles@3.2.1",
+          "bom-ref": "@babel/highlight@7.22.5|ansi-styles@3.2.1",
           "author": "Sindre Sorhus",
           "description": "ANSI escape codes for styling strings in the terminal",
           "hashes": [
@@ -22881,7 +23045,7 @@
           "type": "library",
           "name": "color-convert",
           "version": "1.9.3",
-          "bom-ref": "@babel/highlight@7.18.6|color-convert@1.9.3",
+          "bom-ref": "@babel/highlight@7.22.5|color-convert@1.9.3",
           "author": "Heather Arthur",
           "description": "Plain color conversion functions",
           "hashes": [
@@ -22935,7 +23099,7 @@
           "type": "library",
           "name": "color-name",
           "version": "1.1.3",
-          "bom-ref": "@babel/highlight@7.18.6|color-name@1.1.3",
+          "bom-ref": "@babel/highlight@7.22.5|color-name@1.1.3",
           "author": "DY",
           "description": "A list of color names and its values",
           "hashes": [
@@ -22989,7 +23153,7 @@
           "type": "library",
           "name": "escape-string-regexp",
           "version": "1.0.5",
-          "bom-ref": "@babel/highlight@7.18.6|escape-string-regexp@1.0.5",
+          "bom-ref": "@babel/highlight@7.22.5|escape-string-regexp@1.0.5",
           "author": "Sindre Sorhus",
           "description": "Escape RegExp special characters",
           "hashes": [
@@ -23043,7 +23207,7 @@
           "type": "library",
           "name": "supports-color",
           "version": "5.5.0",
-          "bom-ref": "@babel/highlight@7.18.6|supports-color@5.5.0",
+          "bom-ref": "@babel/highlight@7.22.5|supports-color@5.5.0",
           "author": "Sindre Sorhus",
           "description": "Detect whether a terminal supports color",
           "hashes": [
@@ -23097,7 +23261,7 @@
           "type": "library",
           "name": "has-flag",
           "version": "3.0.0",
-          "bom-ref": "@babel/highlight@7.18.6|has-flag@3.0.0",
+          "bom-ref": "@babel/highlight@7.22.5|has-flag@3.0.0",
           "author": "Sindre Sorhus",
           "description": "Check if argv has a specific flag",
           "hashes": [
@@ -23153,14 +23317,14 @@
       "type": "library",
       "name": "helper-validator-identifier",
       "group": "@babel",
-      "version": "7.19.1",
-      "bom-ref": "@babel/helper-validator-identifier@7.19.1",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/helper-validator-identifier@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Validate identifier/keywords name",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "6b0acd7da32d9c752beb9dc680612cfbe2e502f5bac3e0dc3eb3a58923175822a8e7dec2c0be4071fff059d3647ffb5f1101379a391e0f560e55939457fa1dd7"
+          "content": "6895eefba944aeaf25b69f898642547e4d4c4c6cae038bfb7f7a40f812791cb7cd0ba9c04340a98bdb8eaae523f077a1834694887cd641b3952466a8eb3b4101"
         }
       ],
       "licenses": [
@@ -23170,25 +23334,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-validator-identifier@7.19.1#packages/babel-helper-validator-identifier",
+      "purl": "pkg:npm/%40babel/helper-validator-identifier@7.22.5#packages/babel-helper-validator-identifier",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-validator-identifier",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-validator-identifier",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://github.com/babel/babel#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.19.1.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23262,14 +23416,14 @@
       "type": "library",
       "name": "generator",
       "group": "@babel",
-      "version": "7.19.6",
-      "bom-ref": "@babel/generator@7.19.6",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/generator@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Turns an AST into code.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "a071915107a85f542b29e2482957b48708c6a8d9d562c33935ea79ce8d2e1349b8dac2c7f85b1dda94ad279b113356cdc93514a33d297b695378c26b6ffb5a4c"
+          "content": "fa57146e74d185dd2339ec2d15279d2f288fb03e6db302a46e071ecceaaa585515344c285139693ce066be11bb39758b4788cc76fd1cccf187e576df9670f510"
         }
       ],
       "licenses": [
@@ -23279,10 +23433,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/generator@7.19.6#packages/babel-generator",
+      "purl": "pkg:npm/%40babel/generator@7.22.5#packages/babel-generator",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-generator",
+          "url": "https://github.com/babel/babel.git#packages/babel-generator",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -23294,10 +23448,10 @@
         {
           "url": "https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22pkg%3A%20generator%22+is%3Aopen",
           "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
+          "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/generator/-/generator-7.19.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/generator/-/generator-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23317,14 +23471,14 @@
           "type": "library",
           "name": "gen-mapping",
           "group": "@jridgewell",
-          "version": "0.3.2",
-          "bom-ref": "@babel/generator@7.19.6|@jridgewell/gen-mapping@0.3.2",
-          "author": "Justin Ridgewell",
+          "version": "0.3.3",
+          "bom-ref": "@babel/generator@7.22.5|@jridgewell/gen-mapping@0.3.3",
+          "author": "Justin Ridgewell <justin@ridgewell.name>",
           "description": "Generate source maps",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "9a1eb9c4a400cc8ea205c173c2fdbc29559298291d4415a83a1f9b610196dfee8e66f6db3774ea306a3986a631427891707f45d95648a090a6e296b704f0cafc"
+              "content": "1cb85258e2d18bcef9ce38cc1bfafe36fd28096f2e9866f4060121c97ddd0d7dde83066d07c3ea2e78f3df279db7c4794ad06bcdc838681a6787c500f43d41a1"
             }
           ],
           "licenses": [
@@ -23334,25 +23488,15 @@
               }
             }
           ],
-          "purl": "pkg:npm/%40jridgewell/gen-mapping@0.3.2",
+          "purl": "pkg:npm/%40jridgewell/gen-mapping@0.3.3",
           "externalReferences": [
             {
-              "url": "git+https://github.com/jridgewell/gen-mapping.git",
+              "url": "https://github.com/jridgewell/gen-mapping",
               "type": "vcs",
-              "comment": "as detected from PackageJson property \"repository.url\""
+              "comment": "as detected from PackageJson property \"repository\""
             },
             {
-              "url": "https://github.com/jridgewell/gen-mapping#readme",
-              "type": "website",
-              "comment": "as detected from PackageJson property \"homepage\""
-            },
-            {
-              "url": "https://github.com/jridgewell/gen-mapping/issues",
-              "type": "issue-tracker",
-              "comment": "as detected from PackageJson property \"bugs.url\""
-            },
-            {
-              "url": "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.2.tgz",
+              "url": "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.3.tgz",
               "type": "distribution",
               "comment": "as detected from npm-ls property \"resolved\""
             }
@@ -23374,14 +23518,14 @@
       "type": "library",
       "name": "types",
       "group": "@babel",
-      "version": "7.19.4",
-      "bom-ref": "@babel/types@7.19.4",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/types@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Babel Types is a Lodash-esque utility library for AST nodes",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3392caee701e4bafbd8fb840abe6f77d0b3ea4d7d4b531aafb21457c79dab8503ccd0b4b45f9ae8a99ac28328a2eec86fb00bc0015b8dc0d79dd835ac0d4c4b7"
+          "content": "ce8dcc20718e90f39fa115e2b6c8072e31179a50da0ffe4a535533b9cf4636264f852a95c5546dc6e3da481643b1867da95f3c023b4cb565bbc30f7c96827d28"
         }
       ],
       "licenses": [
@@ -23391,10 +23535,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/types@7.19.4#packages/babel-types",
+      "purl": "pkg:npm/%40babel/types@7.22.5#packages/babel-types",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-types",
+          "url": "https://github.com/babel/babel.git#packages/babel-types",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -23406,10 +23550,10 @@
         {
           "url": "https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22pkg%3A%20types%22+is%3Aopen",
           "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
+          "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/types/-/types-7.19.4.tgz",
+          "url": "https://registry.npmjs.org/@babel/types/-/types-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23483,14 +23627,14 @@
       "type": "library",
       "name": "helper-compilation-targets",
       "group": "@babel",
-      "version": "7.19.3",
-      "bom-ref": "@babel/helper-compilation-targets@7.19.3",
-      "author": "The Babel Team",
+      "version": "7.22.6",
+      "bom-ref": "@babel/helper-compilation-targets@7.22.6",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Helper functions on Babel compilation targets",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "eb9112a8b1b21a62ef811d26b2de40756d4590d963f6b42c08a76ecc4a043e10420c5197bf3da35ba6d7146ea2d3f32b576b3b8615e38dbdb203370fb9094bc2"
+          "content": "e77e2c604a960fd55f526dc83e7d922dc1f84373fce972fe42fa9d0bb66c16bcf2c8f1774f85c689582117a3d360d75683aa57ba8a97c4d40085b61e1089d3cc"
         }
       ],
       "licenses": [
@@ -23500,25 +23644,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-compilation-targets@7.19.3#packages/babel-helper-compilation-targets",
+      "purl": "pkg:npm/%40babel/helper-compilation-targets@7.22.6#packages/babel-helper-compilation-targets",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-compilation-targets",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-compilation-targets",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://github.com/babel/babel#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-compilation-targets/-/helper-compilation-targets-7.19.3.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-compilation-targets/-/helper-compilation-targets-7.22.6.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23536,14 +23670,15 @@
       "components": [
         {
           "type": "library",
-          "name": "semver",
-          "version": "6.3.0",
-          "bom-ref": "@babel/helper-compilation-targets@7.19.3|semver@6.3.0",
-          "description": "The semantic version parser used by npm.",
+          "name": "lru-cache",
+          "version": "5.1.1",
+          "bom-ref": "@babel/helper-compilation-targets@7.22.6|lru-cache@5.1.1",
+          "author": "Isaac Z. Schlueter <i@izs.me>",
+          "description": "A cache object that deletes the least-recently-used items.",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "6f7f5305a4d27d5eb206b6a953cf69e5f29e904da6fcdc270e870e56bb90152d7fbde320773b8f72738cdf833a0b0c56f231ff97111ae6b0680de530bb91c74f"
+              "content": "2a9340450037230bfe8d3034bad51555bae1f8996baf516fd1ee7a186cc014e5cdedd93f16f89a0d6f0b1e62b9d8395c1f858fda7ea023cbcdd5a7ac045828f7"
             }
           ],
           "licenses": [
@@ -23553,25 +23688,15 @@
               }
             }
           ],
-          "purl": "pkg:npm/semver@6.3.0",
+          "purl": "pkg:npm/lru-cache@5.1.1",
           "externalReferences": [
             {
-              "url": "git+https://github.com/npm/node-semver.git",
+              "url": "git://github.com/isaacs/node-lru-cache.git",
               "type": "vcs",
-              "comment": "as detected from PackageJson property \"repository.url\""
+              "comment": "as detected from PackageJson property \"repository\""
             },
             {
-              "url": "https://github.com/npm/node-semver#readme",
-              "type": "website",
-              "comment": "as detected from PackageJson property \"homepage\""
-            },
-            {
-              "url": "https://github.com/npm/node-semver/issues",
-              "type": "issue-tracker",
-              "comment": "as detected from PackageJson property \"bugs.url\""
-            },
-            {
-              "url": "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz",
+              "url": "https://registry.npmjs.org/lru-cache/-/lru-cache-5.1.1.tgz",
               "type": "distribution",
               "comment": "as detected from npm-ls property \"resolved\""
             }
@@ -23579,7 +23704,51 @@
           "properties": [
             {
               "name": "cdx:npm:package:path",
-              "value": "node_modules/@babel/helper-compilation-targets/node_modules/semver"
+              "value": "node_modules/@babel/helper-compilation-targets/node_modules/lru-cache"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "yallist",
+          "version": "3.1.1",
+          "bom-ref": "@babel/helper-compilation-targets@7.22.6|yallist@3.1.1",
+          "author": "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)",
+          "description": "Yet Another Linked List",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "6b850641a58f1f9f663975189c01b67b09dc412e22e05e374efdc9a0033eb365430264bd36c2bc1a90cc2eb0873e4b054fb8772ba4cea14367da96fb4685f1e2"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "id": "ISC"
+              }
+            }
+          ],
+          "purl": "pkg:npm/yallist@3.1.1",
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/isaacs/yallist.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/yallist/-/yallist-3.1.1.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/@babel/helper-compilation-targets/node_modules/yallist"
             },
             {
               "name": "cdx:npm:package:development",
@@ -23593,14 +23762,13 @@
       "type": "library",
       "name": "compat-data",
       "group": "@babel",
-      "version": "7.19.4",
-      "bom-ref": "@babel/compat-data@7.19.4",
-      "author": "The Babel Team",
-      "description": ">",
+      "version": "7.22.6",
+      "bom-ref": "@babel/compat-data@7.22.6",
+      "author": "The Babel Team (https://babel.dev/team)",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "087206a49714439954f4aacf1d38c1321570406e82423c5f837e9f197977aa4fc68a4d56c1669c85a5c5ba8d2e096253fe64ad38ab5c6c52426952e2842d4233"
+          "content": "dbdb5fb164ead85b6eecc5e68a6c82d02e450d9bf90d8c4e6648775c3dfe416e15fc162ebff2f212c8e3ddcd21a9e744683b7a0c17c3bdec4c294f187af76a16"
         }
       ],
       "licenses": [
@@ -23610,25 +23778,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/compat-data@7.19.4#packages/babel-compat-data",
+      "purl": "pkg:npm/%40babel/compat-data@7.22.6#packages/babel-compat-data",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-compat-data",
+          "url": "https://github.com/babel/babel.git#packages/babel-compat-data",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://github.com/babel/babel#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.19.4.tgz",
+          "url": "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.22.6.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23648,14 +23806,14 @@
       "type": "library",
       "name": "helper-validator-option",
       "group": "@babel",
-      "version": "7.18.6",
-      "bom-ref": "@babel/helper-validator-option@7.18.6",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/helper-validator-option@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Validate plugin/preset options",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5ceee0112b79a2ebff2d125dad58e44a1724c3a4934da07b97d06ba416801c3785e58653fb4d4f0b0991d122479e45ba8bc3b05bf1155914a17e2e23db1f8a43"
+          "content": "477a01eb194854a527c4d5316e682aee92a3c69aeedb8ce58a6a44f162b8edf002225334208fc79b5452f0868e23b3600abe8b352fa397997be66db49e90338b"
         }
       ],
       "licenses": [
@@ -23665,25 +23823,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-validator-option@7.18.6#packages/babel-helper-validator-option",
+      "purl": "pkg:npm/%40babel/helper-validator-option@7.22.5#packages/babel-helper-validator-option",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-validator-option",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-validator-option",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://github.com/babel/babel#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-validator-option/-/helper-validator-option-7.18.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-validator-option/-/helper-validator-option-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23701,15 +23849,59 @@
     },
     {
       "type": "library",
+      "name": "semver-v6",
+      "group": "@nicolo-ribaudo",
+      "version": "6.3.3",
+      "bom-ref": "@nicolo-ribaudo/semver-v6@6.3.3",
+      "description": "v6 of the \"semver\" package, with security fixes backported from v7.",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "dd87357d44ecebd306fee65b2652d223724848c9f6515dab83ed43fef44e52a67287797a8981c2b3b18ca7e338d190fbc8e7436d88c9714d684c986b73e7462a"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40nicolo-ribaudo/semver-v6@6.3.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/nicolo-ribaudo/semver-v6",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@nicolo-ribaudo/semver-v6/-/semver-v6-6.3.3.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@nicolo-ribaudo/semver-v6"
+        },
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
       "name": "browserslist",
-      "version": "4.21.4",
-      "bom-ref": "browserslist@4.21.4",
-      "author": "Andrey Sitnik",
+      "version": "4.21.9",
+      "bom-ref": "browserslist@4.21.9",
+      "author": "Andrey Sitnik <andrey@sitnik.ru>",
       "description": "Share target browsers between different front-end tools, like Autoprefixer, Stylelint and babel-env-preset",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0811c925d0e682397775a6233790a9e646d37f5994859a12f9b78b9251c8be4396b1cb3cdd80212e51775ac87f95c89060071b049813383e3856d1b7d593381f"
+          "content": "334305a19cdb52b454e0a35f0ab0cb9efc84ee0b9bfa979eb684e27774c122ab6e9da0c9c9797085a913fbf564bd25dc7c8cc57cafe7902b389e6c939b174d4a"
         }
       ],
       "licenses": [
@@ -23719,25 +23911,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/browserslist@4.21.4",
+      "purl": "pkg:npm/browserslist@4.21.9",
       "externalReferences": [
         {
-          "url": "git+https://github.com/browserslist/browserslist.git",
+          "url": "browserslist/browserslist",
           "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
+          "comment": "as detected from PackageJson property \"repository\""
         },
         {
-          "url": "https://github.com/browserslist/browserslist#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/browserslist/browserslist/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/browserslist/-/browserslist-4.21.4.tgz",
+          "url": "https://registry.npmjs.org/browserslist/-/browserslist-4.21.9.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23756,14 +23938,14 @@
     {
       "type": "library",
       "name": "caniuse-lite",
-      "version": "1.0.30001425",
-      "bom-ref": "caniuse-lite@1.0.30001425",
+      "version": "1.0.30001512",
+      "bom-ref": "caniuse-lite@1.0.30001512",
       "author": "Ben Briggs",
       "description": "A smaller version of caniuse-db, with only the essentials!",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "fe9cc5bf43a6346e96d329bcd0fdcdb5aa54d101220d2dd5b98019306a0b2ea882edfe852457b5323a500d110602979e9c3f709687b2b665438fe24b5cf0baab"
+          "content": "d92f672b41bf984fa36ac094b0c3e50118510adb3579b729d898bc63c3d68b834313589174b0a710f1e411f781ac60b8e4be22b01c79babdc843ac9313699167"
         }
       ],
       "licenses": [
@@ -23773,25 +23955,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/caniuse-lite@1.0.30001425",
+      "purl": "pkg:npm/caniuse-lite@1.0.30001512",
       "externalReferences": [
         {
-          "url": "git+https://github.com/browserslist/caniuse-lite.git",
+          "url": "browserslist/caniuse-lite",
           "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
+          "comment": "as detected from PackageJson property \"repository\""
         },
         {
-          "url": "https://github.com/browserslist/caniuse-lite#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/browserslist/caniuse-lite/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001425.tgz",
+          "url": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001512.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23810,14 +23982,14 @@
     {
       "type": "library",
       "name": "electron-to-chromium",
-      "version": "1.4.284",
-      "bom-ref": "electron-to-chromium@1.4.284",
+      "version": "1.4.449",
+      "bom-ref": "electron-to-chromium@1.4.449",
       "author": "Kilian Valkhof",
       "description": "Provides a list of electron-to-chromium version mappings",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "33c5845c5b8a5cc60c56be397e8f26ab4c14aeb24785e88a65fe8102b4ca93d64160228910e5391fc71d5a00d3faa09565fecd6b895551a66c03e87ab80f7e3c"
+          "content": "4f12d1a51523ff5d3b01379f78ff1521458d3aff74c49c5965b096fde21b499422ba2140342c766fbbbe19b55cf57e2053ec676efca934c61533f580ac4d4335"
         }
       ],
       "licenses": [
@@ -23827,25 +23999,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/electron-to-chromium@1.4.284",
+      "purl": "pkg:npm/electron-to-chromium@1.4.449",
       "externalReferences": [
         {
-          "url": "git+https://github.com/kilian/electron-to-chromium.git",
+          "url": "https://github.com/kilian/electron-to-chromium/",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/kilian/electron-to-chromium#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/kilian/electron-to-chromium/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.284.tgz",
+          "url": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.449.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23864,14 +24026,14 @@
     {
       "type": "library",
       "name": "node-releases",
-      "version": "2.0.6",
-      "bom-ref": "node-releases@2.0.6",
-      "author": "Sergey Rubanov",
+      "version": "2.0.12",
+      "bom-ref": "node-releases@2.0.12",
+      "author": "Sergey Rubanov <chi187@gmail.com>",
       "description": "Node.js releases data",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3e25579cdb859b9fa26242c135eab9db5d61bcedfccbadd3d22d8a2a1d8a9d4b37469cc9f89b4e0c58e40fcca32f09c3913605d5e29785e53076cb11f8d45976"
+          "content": "433b182968574d6c7c875908bea7e70befa8d29126a51400fda7a700bb0bd85e29a8d56bed8cdc74c9438a3e56067c1fb516c908d24bfceef374a6b128f1ea81"
         }
       ],
       "licenses": [
@@ -23881,25 +24043,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/node-releases@2.0.6",
+      "purl": "pkg:npm/node-releases@2.0.12",
       "externalReferences": [
         {
-          "url": "git+https://github.com/chicoxyzzy/node-releases.git",
+          "url": "chicoxyzzy/node-releases",
           "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
+          "comment": "as detected from PackageJson property \"repository\""
         },
         {
-          "url": "https://github.com/chicoxyzzy/node-releases#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/chicoxyzzy/node-releases/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/node-releases/-/node-releases-2.0.6.tgz",
+          "url": "https://registry.npmjs.org/node-releases/-/node-releases-2.0.12.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23918,14 +24070,14 @@
     {
       "type": "library",
       "name": "update-browserslist-db",
-      "version": "1.0.10",
-      "bom-ref": "update-browserslist-db@1.0.10",
-      "author": "Andrey Sitnik",
+      "version": "1.0.11",
+      "bom-ref": "update-browserslist-db@1.0.11",
+      "author": "Andrey Sitnik <andrey@sitnik.ru>",
       "description": "CLI tool to update caniuse-lite to refresh target browsers from Browserslist config",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3b3b6a0de9e47c591b486fad47105e0270953dc90305cbe26ca777e720ce371e8e53c37bb2a83073bac26e427f59c62d5516786daebc77a6f2842db518587bb1"
+          "content": "742c0415fd3fa13f393357c7060e05d23b4bc09aeeb46a074905c287bbb8a36b7576b1be7346bd1659eac30e9750a49f40c3e924146353c778457074f6ab6f68"
         }
       ],
       "licenses": [
@@ -23935,25 +24087,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/update-browserslist-db@1.0.10",
+      "purl": "pkg:npm/update-browserslist-db@1.0.11",
       "externalReferences": [
         {
-          "url": "git+https://github.com/browserslist/update-db.git",
+          "url": "browserslist/update-db",
           "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
+          "comment": "as detected from PackageJson property \"repository\""
         },
         {
-          "url": "https://github.com/browserslist/update-db#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/browserslist/update-db/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.0.10.tgz",
+          "url": "https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.0.11.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24027,14 +24169,14 @@
       "type": "library",
       "name": "helper-module-transforms",
       "group": "@babel",
-      "version": "7.19.6",
-      "bom-ref": "@babel/helper-module-transforms@7.19.6",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/helper-module-transforms@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Babel helper functions for implementing ES6 module transformations",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "7c299c7d0a3f298aff5575c3232777081199e801613c5cb54df48427e3e2946565413ea371baad1c03380b511c891a8ccdaeff4e93946658ae487f94e8702127"
+          "content": "fa118a0edfd97bc1851318951e7a3fd9dbc6e4876cb69cc2ab4cb841cf4e276e43e2ade929f8883ffe15a77fc9be10e42cab032b66a98b7ab77e92208881796f"
         }
       ],
       "licenses": [
@@ -24044,10 +24186,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-module-transforms@7.19.6#packages/babel-helper-module-transforms",
+      "purl": "pkg:npm/%40babel/helper-module-transforms@7.22.5#packages/babel-helper-module-transforms",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-module-transforms",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-module-transforms",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24057,12 +24199,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-module-transforms/-/helper-module-transforms-7.19.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-module-transforms/-/helper-module-transforms-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24082,14 +24219,14 @@
       "type": "library",
       "name": "helper-environment-visitor",
       "group": "@babel",
-      "version": "7.18.9",
-      "bom-ref": "@babel/helper-environment-visitor@7.18.9",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/helper-environment-visitor@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Helper visitor to only visit nodes in the current 'this' context",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "debfda0020c9ddf850fc4560172d21a63f281f21e941cf8b3ed26863d4b34d3840b12b66e0fb5e82af76bea2a8137bc3ef4e995455884e7327c6e730f92f48a6"
+          "content": "5c69a11027d503fe6c02df87fb1a5283499fac7aba17336bf4ec61ecf4840414546ff98becacf73480976f5f78ac2a8011dc6484f4f56bcf2d7a2cc0172be4f1"
         }
       ],
       "licenses": [
@@ -24099,10 +24236,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-environment-visitor@7.18.9#packages/babel-helper-environment-visitor",
+      "purl": "pkg:npm/%40babel/helper-environment-visitor@7.22.5#packages/babel-helper-environment-visitor",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-environment-visitor",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-environment-visitor",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24112,12 +24249,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-environment-visitor/-/helper-environment-visitor-7.18.9.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-environment-visitor/-/helper-environment-visitor-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24137,14 +24269,14 @@
       "type": "library",
       "name": "helper-module-imports",
       "group": "@babel",
-      "version": "7.18.6",
-      "bom-ref": "@babel/helper-module-imports@7.18.6",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/helper-module-imports@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Babel helper functions for inserting module loads",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "d0d16fb37564b9261b162d71d9577ab4aaf2c2afb3fdc2de602fd124d16b217ff7d017f96a21986edbc65e894492dcc91fca39139289ded4fe9e4c6eb9915594"
+          "content": "f0397af870ff70a89fbad179a8677ff19262f3841e00a87e0847b5b01cf3f146b20411a0d5d00826b74739c38ce5bd8ca7358bdb2ba8b494ed1a3113ab4aa35e"
         }
       ],
       "licenses": [
@@ -24154,10 +24286,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-module-imports@7.18.6#packages/babel-helper-module-imports",
+      "purl": "pkg:npm/%40babel/helper-module-imports@7.22.5#packages/babel-helper-module-imports",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-module-imports",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-module-imports",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24167,12 +24299,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-module-imports/-/helper-module-imports-7.18.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-module-imports/-/helper-module-imports-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24192,14 +24319,14 @@
       "type": "library",
       "name": "helper-simple-access",
       "group": "@babel",
-      "version": "7.19.4",
-      "bom-ref": "@babel/helper-simple-access@7.19.4",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/helper-simple-access@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Babel helper for ensuring that access to a given value is performed through simple accesses",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "7fd5eae96a8116a6837db0b39f6c3ce61c2496cc33e6ab0a961edfd3cc3863dca1247a67342d107a6b5290ae58c8e63c90f1afca2c1dcd992c19486719d69422"
+          "content": "9f41fdf44fcaf818a46b7fbe58d2f5ecf3afa38aca599ee5644a7543e7d2b556d48bc9f13d01013a54e608ec56ff426c4b9e9228a43ea2301eda91ca247377e7"
         }
       ],
       "licenses": [
@@ -24209,10 +24336,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-simple-access@7.19.4#packages/babel-helper-simple-access",
+      "purl": "pkg:npm/%40babel/helper-simple-access@7.22.5#packages/babel-helper-simple-access",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-simple-access",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-simple-access",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24222,12 +24349,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-simple-access/-/helper-simple-access-7.19.4.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-simple-access/-/helper-simple-access-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24247,14 +24369,13 @@
       "type": "library",
       "name": "helper-split-export-declaration",
       "group": "@babel",
-      "version": "7.18.6",
-      "bom-ref": "@babel/helper-split-export-declaration@7.18.6",
-      "author": "The Babel Team",
-      "description": ">",
+      "version": "7.22.6",
+      "bom-ref": "@babel/helper-split-export-declaration@7.22.6",
+      "author": "The Babel Team (https://babel.dev/team)",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "6dd7b57ad4f1e99c939a86e5f4b2cc310b1a8b315566baae4c41cea8a79011230aa383e539b7fef3e240db966c2296614ff584777f7ebce74b5c0146fe710ba4"
+          "content": "02c527c6e2e1458b22b0589a270be9d5017e2372a30f914ec6eb75e2afc6ce8bd47baa2b1cb7ac5b60bb77be789119b9de1e60aabcfab0597ab31738055b44fe"
         }
       ],
       "licenses": [
@@ -24264,10 +24385,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-split-export-declaration@7.18.6#packages/babel-helper-split-export-declaration",
+      "purl": "pkg:npm/%40babel/helper-split-export-declaration@7.22.6#packages/babel-helper-split-export-declaration",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-split-export-declaration",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-split-export-declaration",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24277,12 +24398,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.18.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.22.6.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24302,14 +24418,14 @@
       "type": "library",
       "name": "template",
       "group": "@babel",
-      "version": "7.18.10",
-      "bom-ref": "@babel/template@7.18.10",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/template@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Generate an AST from a string template.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "4c8fab0ada28587af7409dbb909c5f8eeb6086ee380cb9dab03330a43a825d54da97d44ba7745260d87835d06b44fd9c400a06f40f23b8e425e8fea8646e09c4"
+          "content": "5fbc95ede8b0031763f64f78344ca5bdb5472e2546d67bf3095d84028c21c4b4f03835758e5f54cd9e3c95e382d2c1fb3a7b87ac892595a0609de5329087196b"
         }
       ],
       "licenses": [
@@ -24319,10 +24435,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/template@7.18.10#packages/babel-template",
+      "purl": "pkg:npm/%40babel/template@7.22.5#packages/babel-template",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-template",
+          "url": "https://github.com/babel/babel.git#packages/babel-template",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24334,10 +24450,10 @@
         {
           "url": "https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22pkg%3A%20template%22+is%3Aopen",
           "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
+          "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/template/-/template-7.18.10.tgz",
+          "url": "https://registry.npmjs.org/@babel/template/-/template-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24357,14 +24473,14 @@
       "type": "library",
       "name": "traverse",
       "group": "@babel",
-      "version": "7.19.6",
-      "bom-ref": "@babel/traverse@7.19.6",
-      "author": "The Babel Team",
+      "version": "7.22.6",
+      "bom-ref": "@babel/traverse@7.22.6",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "The Babel Traverse module maintains the overall tree state, and is responsible for replacing, removing, and adding nodes",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "ea5e47ad40b314cd3899f6c6d3d01a82d6324763f407bd41d7037b3df48f8a4b033f3da4e47f42042d6d719a73d8cf0ec5b2933dc701ca8389db6ad429ba6641"
+          "content": "e770a28ccbca94b20394e4eb7568878a579175d9488b0508c822aa61aee56279cf95d5c21b975448ddfcb93d1c03a8bbac758d2892c7d1553f2b176bd46cc1df"
         }
       ],
       "licenses": [
@@ -24374,10 +24490,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/traverse@7.19.6#packages/babel-traverse",
+      "purl": "pkg:npm/%40babel/traverse@7.22.6#packages/babel-traverse",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-traverse",
+          "url": "https://github.com/babel/babel.git#packages/babel-traverse",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24389,10 +24505,10 @@
         {
           "url": "https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22pkg%3A%20traverse%22+is%3Aopen",
           "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
+          "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/traverse/-/traverse-7.19.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/traverse/-/traverse-7.22.6.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24412,14 +24528,14 @@
       "type": "library",
       "name": "helpers",
       "group": "@babel",
-      "version": "7.19.4",
-      "bom-ref": "@babel/helpers@7.19.4",
-      "author": "The Babel Team",
+      "version": "7.22.6",
+      "bom-ref": "@babel/helpers@7.22.6",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Collection of helper functions used by Babel transforms.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "1becf768ec769df0c7c17fe4c958a2e5f26af9b82c720f3dfdd24d5a961e29e06fdeff715fc10869b9b1d64eaef4b4b4e07ee744e1554552be7b7934547a7eb3"
+          "content": "6230eceb2fdf54e60557c8407f5af177542f47dc097b5a43059d804442aafd20dac9f3f3824d0f06756e4c21395f569c12930c34e554aa87be3b0899189f8e68"
         }
       ],
       "licenses": [
@@ -24429,10 +24545,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helpers@7.19.4#packages/babel-helpers",
+      "purl": "pkg:npm/%40babel/helpers@7.22.6#packages/babel-helpers",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helpers",
+          "url": "https://github.com/babel/babel.git#packages/babel-helpers",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24442,12 +24558,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helpers/-/helpers-7.19.4.tgz",
+          "url": "https://registry.npmjs.org/@babel/helpers/-/helpers-7.22.6.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24467,14 +24578,14 @@
       "type": "library",
       "name": "parser",
       "group": "@babel",
-      "version": "7.19.6",
-      "bom-ref": "@babel/parser@7.19.6",
-      "author": "The Babel Team",
+      "version": "7.22.6",
+      "bom-ref": "@babel/parser@7.22.6",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "A JavaScript parser",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "875214a7cd6cd89609de6464771260b3852f992b11bc3af1e4809225b3efb5662fe62d674c119c0699e883ef3dac014cc2fbebbba1393541dd05ed3551e4b360"
+          "content": "10842edb6bcd91c7aadcb6e302aee49c37ff526b48daa6dc348f064419628decfa4e940bbd2a1d24f61fc9d426340e5bbb0931c716bf3d5238e238d867efdc2f"
         }
       ],
       "licenses": [
@@ -24484,10 +24595,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/parser@7.19.6#packages/babel-parser",
+      "purl": "pkg:npm/%40babel/parser@7.22.6#packages/babel-parser",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-parser",
+          "url": "https://github.com/babel/babel.git#packages/babel-parser",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24499,10 +24610,10 @@
         {
           "url": "https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22pkg%3A+parser+%28babylon%29%22+is%3Aopen",
           "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
+          "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/parser/-/parser-7.19.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/parser/-/parser-7.22.6.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24522,14 +24633,14 @@
       "type": "library",
       "name": "helper-function-name",
       "group": "@babel",
-      "version": "7.19.0",
-      "bom-ref": "@babel/helper-function-name@7.19.0",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/helper-function-name@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Helper function to change the property 'name' of every function",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "580c07048372ae9ab2c24507d274e73602398a76b94c59fce47292d296cf0dfc457e1c91fda350127e211a2d4fd49c93fff234b783a05d49687f35882d1bd2e7"
+          "content": "c2d1d2aba8cc444dee176a2dbdfb83dc322f5613ac48db21425d10addeea0bda102731ef38be2a4179509f6f75ebe0971b2c088e91ae224a326514711cf88d41"
         }
       ],
       "licenses": [
@@ -24539,10 +24650,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-function-name@7.19.0#packages/babel-helper-function-name",
+      "purl": "pkg:npm/%40babel/helper-function-name@7.22.5#packages/babel-helper-function-name",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-function-name",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-function-name",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24552,12 +24663,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-function-name/-/helper-function-name-7.19.0.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-function-name/-/helper-function-name-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24577,14 +24683,14 @@
       "type": "library",
       "name": "helper-hoist-variables",
       "group": "@babel",
-      "version": "7.18.6",
-      "bom-ref": "@babel/helper-hoist-variables@7.18.6",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/helper-hoist-variables@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "Helper function to hoist variables",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5252503e416a1542c87325b9b1bce06e4c67d852918305a245ec5cb9a47c44d251cbcf8b2ef7aa3e3c1957f6f0acb6423747941c3ff1f03d2178ad68ceea28e9"
+          "content": "c068e4f50655cef92703ac8a2145116fccd8de0ad709c399b7effb59ccbc3b6b9cb7186996650f90e76582836199d55e7b673dd895db7f5c6932d54d6dfa3147"
         }
       ],
       "licenses": [
@@ -24594,10 +24700,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-hoist-variables@7.18.6#packages/babel-helper-hoist-variables",
+      "purl": "pkg:npm/%40babel/helper-hoist-variables@7.22.5#packages/babel-helper-hoist-variables",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-hoist-variables",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-hoist-variables",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24607,12 +24713,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-hoist-variables/-/helper-hoist-variables-7.18.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-hoist-variables/-/helper-hoist-variables-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24686,14 +24787,14 @@
       "type": "library",
       "name": "helper-string-parser",
       "group": "@babel",
-      "version": "7.19.4",
-      "bom-ref": "@babel/helper-string-parser@7.19.4",
-      "author": "The Babel Team",
+      "version": "7.22.5",
+      "bom-ref": "@babel/helper-string-parser@7.22.5",
+      "author": "The Babel Team (https://babel.dev/team)",
       "description": "A utility package to parse strings",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "9c7b43a1072ea859b060d60fcf745a879a61da9f0f15e142b1993d03fe3c74f73fac6a1c279277840019ee96fbe95597ddf64abbeb84aff1611f98cbc7bba6af"
+          "content": "98ce023a3819a31f14f897174303e28c864b1259201293b9aec111543253736a9f0837c4472a1bea4e567a04b5e125f5f08223bfe5c3f86aea36e998e494420f"
         }
       ],
       "licenses": [
@@ -24703,10 +24804,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-string-parser@7.19.4#packages/babel-helper-string-parser",
+      "purl": "pkg:npm/%40babel/helper-string-parser@7.22.5#packages/babel-helper-string-parser",
       "externalReferences": [
         {
-          "url": "git+https://github.com/babel/babel.git#packages/babel-helper-string-parser",
+          "url": "https://github.com/babel/babel.git#packages/babel-helper-string-parser",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -24716,12 +24817,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/babel/babel/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/@babel/helper-string-parser/-/helper-string-parser-7.19.4.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-string-parser/-/helper-string-parser-7.22.5.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -26461,7 +26557,7 @@
   ],
   "dependencies": [
     {
-      "ref": "redis-commander@0.8.2-rc5",
+      "ref": "redis-commander@0.9.0-rc3",
       "dependsOn": [
         "@cyclonedx/bom@4.0.2",
         "async@3.2.4",
@@ -26479,8 +26575,8 @@
         "inflection@1.13.4",
         "ioredis@5.3.2",
         "jquery.json-viewer@1.5.0",
-        "jsonwebtoken@9.0.0",
-        "jstree@3.3.15",
+        "jsonwebtoken@9.0.2",
+        "jstree@3.3.16",
         "lodash.isequal@4.5.0",
         "lossless-json@1.0.5",
         "mocha-junit-reporter@2.1.0",
@@ -27755,7 +27851,7 @@
         "assertion-error@1.1.0",
         "check-error@1.0.2",
         "deep-eql@3.0.1",
-        "get-func-name@2.0.0",
+        "get-func-name@2.0.2",
         "loupe@2.3.4",
         "pathval@1.1.1",
         "type-detect@4.0.8"
@@ -27777,12 +27873,12 @@
       "ref": "type-detect@4.0.8"
     },
     {
-      "ref": "get-func-name@2.0.0"
+      "ref": "get-func-name@2.0.2"
     },
     {
       "ref": "loupe@2.3.4",
       "dependsOn": [
-        "get-func-name@2.0.0"
+        "get-func-name@2.0.2"
       ]
     },
     {
@@ -28161,12 +28257,18 @@
       "ref": "jquery.json-viewer@1.5.0"
     },
     {
-      "ref": "jsonwebtoken@9.0.0",
+      "ref": "jsonwebtoken@9.0.2",
       "dependsOn": [
         "jws@3.2.2",
-        "lodash@4.17.21",
+        "lodash.includes@4.3.0",
+        "lodash.isboolean@3.0.3",
+        "lodash.isinteger@4.0.4",
+        "lodash.isnumber@3.0.3",
+        "lodash.isplainobject@4.0.6",
+        "lodash.isstring@4.0.1",
+        "lodash.once@4.1.1",
         "ms@2.1.2",
-        "semver@7.3.8"
+        "semver@7.5.4"
       ]
     },
     {
@@ -28194,10 +28296,28 @@
       ]
     },
     {
-      "ref": "lodash@4.17.21"
+      "ref": "lodash.includes@4.3.0"
     },
     {
-      "ref": "semver@7.3.8",
+      "ref": "lodash.isboolean@3.0.3"
+    },
+    {
+      "ref": "lodash.isinteger@4.0.4"
+    },
+    {
+      "ref": "lodash.isnumber@3.0.3"
+    },
+    {
+      "ref": "lodash.isplainobject@4.0.6"
+    },
+    {
+      "ref": "lodash.isstring@4.0.1"
+    },
+    {
+      "ref": "lodash.once@4.1.1"
+    },
+    {
+      "ref": "semver@7.5.4",
       "dependsOn": [
         "lru-cache@6.0.0"
       ]
@@ -28212,7 +28332,7 @@
       "ref": "yallist@4.0.0"
     },
     {
-      "ref": "jstree@3.3.15",
+      "ref": "jstree@3.3.16",
       "dependsOn": [
         "jquery@3.6.0"
       ]
@@ -28763,11 +28883,11 @@
     {
       "ref": "make-dir@3.1.0",
       "dependsOn": [
-        "make-dir@3.1.0|semver@6.3.0"
+        "make-dir@3.1.0|semver@6.3.1"
       ]
     },
     {
-      "ref": "make-dir@3.1.0|semver@6.3.0"
+      "ref": "make-dir@3.1.0|semver@6.3.1"
     },
     {
       "ref": "package-hash@4.0.0",
@@ -28922,40 +29042,37 @@
     {
       "ref": "istanbul-lib-instrument@4.0.3",
       "dependsOn": [
-        "@babel/core@7.19.6",
+        "@babel/core@7.22.6",
         "@istanbuljs/schema@0.1.3",
         "istanbul-lib-coverage@3.2.0",
-        "istanbul-lib-instrument@4.0.3|semver@6.3.0"
+        "istanbul-lib-instrument@4.0.3|semver@6.3.1"
       ]
     },
     {
-      "ref": "istanbul-lib-instrument@4.0.3|semver@6.3.0"
+      "ref": "istanbul-lib-instrument@4.0.3|semver@6.3.1"
     },
     {
-      "ref": "@babel/core@7.19.6",
+      "ref": "@babel/core@7.22.6",
       "dependsOn": [
         "@ampproject/remapping@2.2.0",
-        "@babel/code-frame@7.18.6",
-        "@babel/generator@7.19.6",
-        "@babel/helper-compilation-targets@7.19.3",
-        "@babel/helper-module-transforms@7.19.6",
-        "@babel/helpers@7.19.4",
-        "@babel/parser@7.19.6",
-        "@babel/template@7.18.10",
-        "@babel/traverse@7.19.6",
-        "@babel/types@7.19.4",
-        "@babel/core@7.19.6|convert-source-map@1.9.0",
+        "@babel/code-frame@7.22.5",
+        "@babel/generator@7.22.5",
+        "@babel/helper-compilation-targets@7.22.6",
+        "@babel/helper-module-transforms@7.22.5",
+        "@babel/helpers@7.22.6",
+        "@babel/parser@7.22.6",
+        "@babel/template@7.22.5",
+        "@babel/traverse@7.22.6",
+        "@babel/types@7.22.5",
+        "@nicolo-ribaudo/semver-v6@6.3.3",
+        "@babel/core@7.22.6|convert-source-map@1.9.0",
         "debug@4.3.4",
         "gensync@1.0.0-beta.2",
-        "json5@2.2.3",
-        "@babel/core@7.19.6|semver@6.3.0"
+        "json5@2.2.3"
       ]
     },
     {
-      "ref": "@babel/core@7.19.6|convert-source-map@1.9.0"
-    },
-    {
-      "ref": "@babel/core@7.19.6|semver@6.3.0"
+      "ref": "@babel/core@7.22.6|convert-source-map@1.9.0"
     },
     {
       "ref": "@ampproject/remapping@2.2.0",
@@ -28988,70 +29105,71 @@
       "ref": "@jridgewell/resolve-uri@3.1.0"
     },
     {
-      "ref": "@babel/code-frame@7.18.6",
+      "ref": "@babel/code-frame@7.22.5",
       "dependsOn": [
-        "@babel/highlight@7.18.6"
+        "@babel/highlight@7.22.5"
       ]
     },
     {
-      "ref": "@babel/highlight@7.18.6",
+      "ref": "@babel/highlight@7.22.5",
       "dependsOn": [
-        "@babel/helper-validator-identifier@7.19.1",
-        "@babel/highlight@7.18.6|chalk@2.4.2",
+        "@babel/helper-validator-identifier@7.22.5",
+        "@babel/highlight@7.22.5|chalk@2.4.2",
         "js-tokens@4.0.0"
       ]
     },
     {
-      "ref": "@babel/highlight@7.18.6|chalk@2.4.2",
+      "ref": "@babel/highlight@7.22.5|chalk@2.4.2",
       "dependsOn": [
-        "@babel/highlight@7.18.6|ansi-styles@3.2.1",
-        "@babel/highlight@7.18.6|escape-string-regexp@1.0.5",
-        "@babel/highlight@7.18.6|supports-color@5.5.0"
+        "@babel/highlight@7.22.5|ansi-styles@3.2.1",
+        "@babel/highlight@7.22.5|escape-string-regexp@1.0.5",
+        "@babel/highlight@7.22.5|supports-color@5.5.0"
       ]
     },
     {
-      "ref": "@babel/highlight@7.18.6|ansi-styles@3.2.1",
+      "ref": "@babel/highlight@7.22.5|ansi-styles@3.2.1",
       "dependsOn": [
-        "@babel/highlight@7.18.6|color-convert@1.9.3"
+        "@babel/highlight@7.22.5|color-convert@1.9.3"
       ]
     },
     {
-      "ref": "@babel/highlight@7.18.6|color-convert@1.9.3",
+      "ref": "@babel/highlight@7.22.5|color-convert@1.9.3",
       "dependsOn": [
-        "@babel/highlight@7.18.6|color-name@1.1.3"
+        "@babel/highlight@7.22.5|color-name@1.1.3"
       ]
     },
     {
-      "ref": "@babel/highlight@7.18.6|color-name@1.1.3"
+      "ref": "@babel/highlight@7.22.5|color-name@1.1.3"
     },
     {
-      "ref": "@babel/highlight@7.18.6|escape-string-regexp@1.0.5"
+      "ref": "@babel/highlight@7.22.5|escape-string-regexp@1.0.5"
     },
     {
-      "ref": "@babel/highlight@7.18.6|supports-color@5.5.0",
+      "ref": "@babel/highlight@7.22.5|supports-color@5.5.0",
       "dependsOn": [
-        "@babel/highlight@7.18.6|has-flag@3.0.0"
+        "@babel/highlight@7.22.5|has-flag@3.0.0"
       ]
     },
     {
-      "ref": "@babel/highlight@7.18.6|has-flag@3.0.0"
+      "ref": "@babel/highlight@7.22.5|has-flag@3.0.0"
     },
     {
-      "ref": "@babel/helper-validator-identifier@7.19.1"
+      "ref": "@babel/helper-validator-identifier@7.22.5"
     },
     {
       "ref": "js-tokens@4.0.0"
     },
     {
-      "ref": "@babel/generator@7.19.6",
+      "ref": "@babel/generator@7.22.5",
       "dependsOn": [
-        "@babel/types@7.19.4",
-        "@babel/generator@7.19.6|@jridgewell/gen-mapping@0.3.2",
+        "@babel/types@7.22.5",
+        "@babel/generator@7.22.5|@jridgewell/gen-mapping@0.3.3",
+        "@jridgewell/trace-mapping@0.3.17",
         "jsesc@2.5.2"
       ]
     },
     {
-      "ref": "@babel/generator@7.19.6|@jridgewell/gen-mapping@0.3.2",
+      "ref": "@babel/generator@7.22.5|@jridgewell/gen-mapping@0.3.3",
       "dependsOn": [
         "@jridgewell/set-array@1.1.2",
         "@jridgewell/sourcemap-codec@1.4.14",
@@ -29059,10 +29177,10 @@
       ]
     },
     {
-      "ref": "@babel/types@7.19.4",
+      "ref": "@babel/types@7.22.5",
       "dependsOn": [
-        "@babel/helper-string-parser@7.19.4",
-        "@babel/helper-validator-identifier@7.19.1",
+        "@babel/helper-string-parser@7.22.5",
+        "@babel/helper-validator-identifier@7.22.5",
         "to-fast-properties@2.0.0"
       ]
     },
@@ -29070,46 +29188,56 @@
       "ref": "jsesc@2.5.2"
     },
     {
-      "ref": "@babel/helper-compilation-targets@7.19.3",
+      "ref": "@babel/helper-compilation-targets@7.22.6",
       "dependsOn": [
-        "@babel/compat-data@7.19.4",
-        "@babel/core@7.19.6",
-        "@babel/helper-validator-option@7.18.6",
-        "browserslist@4.21.4",
-        "@babel/helper-compilation-targets@7.19.3|semver@6.3.0"
+        "@babel/compat-data@7.22.6",
+        "@babel/core@7.22.6",
+        "@babel/helper-validator-option@7.22.5",
+        "@nicolo-ribaudo/semver-v6@6.3.3",
+        "browserslist@4.21.9",
+        "@babel/helper-compilation-targets@7.22.6|lru-cache@5.1.1"
       ]
     },
     {
-      "ref": "@babel/helper-compilation-targets@7.19.3|semver@6.3.0"
-    },
-    {
-      "ref": "@babel/compat-data@7.19.4"
-    },
-    {
-      "ref": "@babel/helper-validator-option@7.18.6"
-    },
-    {
-      "ref": "browserslist@4.21.4",
+      "ref": "@babel/helper-compilation-targets@7.22.6|lru-cache@5.1.1",
       "dependsOn": [
-        "caniuse-lite@1.0.30001425",
-        "electron-to-chromium@1.4.284",
-        "node-releases@2.0.6",
-        "update-browserslist-db@1.0.10"
+        "@babel/helper-compilation-targets@7.22.6|yallist@3.1.1"
       ]
     },
     {
-      "ref": "caniuse-lite@1.0.30001425"
+      "ref": "@babel/helper-compilation-targets@7.22.6|yallist@3.1.1"
     },
     {
-      "ref": "electron-to-chromium@1.4.284"
+      "ref": "@babel/compat-data@7.22.6"
     },
     {
-      "ref": "node-releases@2.0.6"
+      "ref": "@babel/helper-validator-option@7.22.5"
     },
     {
-      "ref": "update-browserslist-db@1.0.10",
+      "ref": "@nicolo-ribaudo/semver-v6@6.3.3"
+    },
+    {
+      "ref": "browserslist@4.21.9",
       "dependsOn": [
-        "browserslist@4.21.4",
+        "caniuse-lite@1.0.30001512",
+        "electron-to-chromium@1.4.449",
+        "node-releases@2.0.12",
+        "update-browserslist-db@1.0.11"
+      ]
+    },
+    {
+      "ref": "caniuse-lite@1.0.30001512"
+    },
+    {
+      "ref": "electron-to-chromium@1.4.449"
+    },
+    {
+      "ref": "node-releases@2.0.12"
+    },
+    {
+      "ref": "update-browserslist-db@1.0.11",
+      "dependsOn": [
+        "browserslist@4.21.9",
         "escalade@3.1.1",
         "picocolors@1.0.0"
       ]
@@ -29118,91 +29246,91 @@
       "ref": "picocolors@1.0.0"
     },
     {
-      "ref": "@babel/helper-module-transforms@7.19.6",
+      "ref": "@babel/helper-module-transforms@7.22.5",
       "dependsOn": [
-        "@babel/helper-environment-visitor@7.18.9",
-        "@babel/helper-module-imports@7.18.6",
-        "@babel/helper-simple-access@7.19.4",
-        "@babel/helper-split-export-declaration@7.18.6",
-        "@babel/helper-validator-identifier@7.19.1",
-        "@babel/template@7.18.10",
-        "@babel/traverse@7.19.6",
-        "@babel/types@7.19.4"
+        "@babel/helper-environment-visitor@7.22.5",
+        "@babel/helper-module-imports@7.22.5",
+        "@babel/helper-simple-access@7.22.5",
+        "@babel/helper-split-export-declaration@7.22.6",
+        "@babel/helper-validator-identifier@7.22.5",
+        "@babel/template@7.22.5",
+        "@babel/traverse@7.22.6",
+        "@babel/types@7.22.5"
       ]
     },
     {
-      "ref": "@babel/helper-environment-visitor@7.18.9"
+      "ref": "@babel/helper-environment-visitor@7.22.5"
     },
     {
-      "ref": "@babel/helper-module-imports@7.18.6",
+      "ref": "@babel/helper-module-imports@7.22.5",
       "dependsOn": [
-        "@babel/types@7.19.4"
+        "@babel/types@7.22.5"
       ]
     },
     {
-      "ref": "@babel/helper-simple-access@7.19.4",
+      "ref": "@babel/helper-simple-access@7.22.5",
       "dependsOn": [
-        "@babel/types@7.19.4"
+        "@babel/types@7.22.5"
       ]
     },
     {
-      "ref": "@babel/helper-split-export-declaration@7.18.6",
+      "ref": "@babel/helper-split-export-declaration@7.22.6",
       "dependsOn": [
-        "@babel/types@7.19.4"
+        "@babel/types@7.22.5"
       ]
     },
     {
-      "ref": "@babel/template@7.18.10",
+      "ref": "@babel/template@7.22.5",
       "dependsOn": [
-        "@babel/code-frame@7.18.6",
-        "@babel/parser@7.19.6",
-        "@babel/types@7.19.4"
+        "@babel/code-frame@7.22.5",
+        "@babel/parser@7.22.6",
+        "@babel/types@7.22.5"
       ]
     },
     {
-      "ref": "@babel/traverse@7.19.6",
+      "ref": "@babel/traverse@7.22.6",
       "dependsOn": [
-        "@babel/code-frame@7.18.6",
-        "@babel/generator@7.19.6",
-        "@babel/helper-environment-visitor@7.18.9",
-        "@babel/helper-function-name@7.19.0",
-        "@babel/helper-hoist-variables@7.18.6",
-        "@babel/helper-split-export-declaration@7.18.6",
-        "@babel/parser@7.19.6",
-        "@babel/types@7.19.4",
+        "@babel/code-frame@7.22.5",
+        "@babel/generator@7.22.5",
+        "@babel/helper-environment-visitor@7.22.5",
+        "@babel/helper-function-name@7.22.5",
+        "@babel/helper-hoist-variables@7.22.5",
+        "@babel/helper-split-export-declaration@7.22.6",
+        "@babel/parser@7.22.6",
+        "@babel/types@7.22.5",
         "debug@4.3.4",
         "globals@11.12.0"
       ]
     },
     {
-      "ref": "@babel/helpers@7.19.4",
+      "ref": "@babel/helpers@7.22.6",
       "dependsOn": [
-        "@babel/template@7.18.10",
-        "@babel/traverse@7.19.6",
-        "@babel/types@7.19.4"
+        "@babel/template@7.22.5",
+        "@babel/traverse@7.22.6",
+        "@babel/types@7.22.5"
       ]
     },
     {
-      "ref": "@babel/parser@7.19.6"
+      "ref": "@babel/parser@7.22.6"
     },
     {
-      "ref": "@babel/helper-function-name@7.19.0",
+      "ref": "@babel/helper-function-name@7.22.5",
       "dependsOn": [
-        "@babel/template@7.18.10",
-        "@babel/types@7.19.4"
+        "@babel/template@7.22.5",
+        "@babel/types@7.22.5"
       ]
     },
     {
-      "ref": "@babel/helper-hoist-variables@7.18.6",
+      "ref": "@babel/helper-hoist-variables@7.22.5",
       "dependsOn": [
-        "@babel/types@7.19.4"
+        "@babel/types@7.22.5"
       ]
     },
     {
       "ref": "globals@11.12.0"
     },
     {
-      "ref": "@babel/helper-string-parser@7.19.4"
+      "ref": "@babel/helper-string-parser@7.22.5"
     },
     {
       "ref": "to-fast-properties@2.0.0"
