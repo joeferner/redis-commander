@@ -186,6 +186,15 @@
         },
         "tolerations": {
             "type": "array"
+        },
+        "connections": {
+        "type": "object"
+        },
+        "volumeMounts": {
+        "type": "array"
+        },
+        "volumes": {
+        "type": "array"
         }
     }
 }
