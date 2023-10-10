@@ -85,6 +85,11 @@ service:
   type: ClusterIP
   # -- External port where service is available
   port: 80
+  # -- Add additional annotations for the service spec
+  # Example:
+  #   'my.custom.annotation: value'
+  annotations: {}
+    # my.custom.annotation: value
 
 ingress:
   # -- Enable Ingress for the service
