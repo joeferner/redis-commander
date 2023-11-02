@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ include "redis-commander.fullname" . }}
+spec:
+  gateways:
+  - {{ .Values.istio.gateway }}
+  hosts:
+  - {{ .Values.istio.host }}
+  http:
+  - match:
+    - uri:
+        prefix: {{ .Values.istio.hostPrefix }}
+    route:
+    - destination:
+        host: {{ include "redis-commander.fullname" . }}
+        port:
+          number: {{ .Values.service.port }}
