@@ -132,8 +132,7 @@ istio:
   host: ""
   # -- Host prefix to use for the istio definition
   hostPrefix: "/"
-  # -- Port to use for the istio definition
-  port: 80
+  # -- We use the service.port in this case
 
 # -- We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little
