@@ -6,6 +6,8 @@
 * update json5 from 2.2.1 to 2.2.3 (fix CVE-2022-46175)
 * update cmdparser from 0.0.3 to 0.1.0 (fix CVE-2021-43138), #517
 * partial update of semver to 7.5.3 (fix CVE-2022-2588)
+* update @babel/traverse from 7.22.5 to 7.23.3 (fix CVE-2023-45133) 
+* update browserify-sign from 4.2.1 to 4.2.2 (fix CVE-2023-46234)
 #### Enhancements
 * allow using IPv6 addresses for Redis connection definitions. (except REDIS_HOSTS env var, here no IPv6 allowed, use host names instead) 
 * allow setting a custom HTTP header name used for the JWT session authentication token
