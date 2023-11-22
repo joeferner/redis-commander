@@ -91,6 +91,39 @@ while the second connection to 10.9.8.7 uses '/' here:
 | redis.connectionName       | string  | 'redis-commander' |                | REDIS_CONNECTION_NAME | connection name to set at redis client for easier identification of clients at redis server (command "client list") |
 | redis.defaultLabel         | string  | 'local'           |                | REDIS_LABEL           | default label to display for a connection if no label is specified (e.g. for connection from env vars or command line) |
 | redis.defaultSentinelGroup | string  | 'mymaster'        |                |                       | default redis database group if using sentinels to connect and no special database group via connection param 'sentinelName' is given. |
+| redis.extraAllowedReadOnlyCommands | list | ['select', 'info'] | | | list of additional redis commands allowed if set to read-only. See remark below |
+
+#### Read-Only Mode
+
+Setting the parameter `redis.readOnly` to `true` only commands not changing data are allowed. As Default the list with all read-only commands
+is directly queried from the server (calling "COMMANDS") and parsing the output for the "readonly" flag.
+
+Some commands are not marked as read-only by there server - adding these commands to the list at `redis.extraAllowedReadOnlyCommands`
+allows them too being in readOnly mode. This list is not used if all commands are allowed (readOnly=false).
+
+Attention: if this list shall be changed (ore set to emtpy) within a local config file (like `local.json`) the new 
+value _overwrites_ the default list defined in the `default.json` file. The values are not appended and the full list of allowed
+commands must be configured in the local file.
+
+Example (shortened) output from "COMMANDS" command showing `dbsize` flagged as readonly while `select` is not
+```
+61) 1) "select"
+     2) (integer) 2
+     3) 1) loading
+        2) fast
+     4) (integer) 0
+     5) (integer) 0
+     6) (integer) 0
+...
+86) 1) "dbsize"
+     2) (integer) 1
+     3) 1) readonly
+        2) fast
+     4) (integer) 0
+     5) (integer) 0
+     6) (integer) 0
+...
+```
 
 ### 4. Express HTTP Server parameter
 
