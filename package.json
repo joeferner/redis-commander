@@ -46,7 +46,7 @@
     "yargs": "17.7.2"
   },
   "optionalDependencies": {
-    "bcrypt": "~5.1.0"
+    "bcrypt": "~5.1.1"
   },
   "devDependencies": {
     "@cyclonedx/bom": "^4.0.2",

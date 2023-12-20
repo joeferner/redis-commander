@@ -4,7 +4,7 @@
   "specVersion": "1.4",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-11-16T11:26:04.636Z",
+    "timestamp": "2023-12-20T08:23:08.958Z",
     "tools": [
       {
         "vendor": "@cyclonedx",
@@ -32,8 +32,8 @@
     "component": {
       "type": "application",
       "name": "redis-commander",
-      "version": "0.9.0-rc3",
-      "bom-ref": "redis-commander@0.9.0-rc3",
+      "version": "0.9.0-rc4",
+      "bom-ref": "redis-commander@0.9.0-rc4",
       "author": "Joe Ferner <joe@fernsroth.com>",
       "description": "Redis web-based management tool written in node.js",
       "licenses": [
@@ -43,7 +43,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/redis-commander@0.9.0-rc3?vcs_url=git://github.com/joeferner/redis-commander.git",
+      "purl": "pkg:npm/redis-commander@0.9.0-rc4?vcs_url=git://github.com/joeferner/redis-commander.git",
       "externalReferences": [
         {
           "url": "git://github.com/joeferner/redis-commander.git",
@@ -6706,8 +6706,14 @@
       "name": "inflight",
       "version": "1.0.6",
       "bom-ref": "inflight@1.0.6",
-      "author": "Isaac Z. Schlueter",
+      "author": "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)",
       "description": "Add callbacks to requests in flight to avoid async duplication",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "93dd88fdbd3cab8c2f16c71708bbea7ec1c2ae3ac5ef2897b10b8856f544ecdf365b7f9aaa9cee51d05b7e159ccbf159477ff82207e532028b3acbcf0eb18224"
+        }
+      ],
       "licenses": [
         {
           "license": {
@@ -6718,7 +6724,7 @@
       "purl": "pkg:npm/inflight@1.0.6",
       "externalReferences": [
         {
-          "url": "git+https://github.com/npm/inflight.git",
+          "url": "https://github.com/npm/inflight.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
@@ -26861,7 +26867,7 @@
   ],
   "dependencies": [
     {
-      "ref": "redis-commander@0.9.0-rc3",
+      "ref": "redis-commander@0.9.0-rc4",
       "dependsOn": [
         "@cyclonedx/bom@4.0.2",
         "async@3.2.4",
