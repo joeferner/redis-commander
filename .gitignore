@@ -11,3 +11,4 @@
 # files pulled by actions, no check in
 helm-docs
 .github/kubeval
+k8s/helm-chart/redis-commander/example.values.yaml

@@ -123,6 +123,17 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+istio:
+  # -- Enable Istio VirtualService for the service
+  # The endpoint (target) is defined by the regular k8s service already defined by the chart
+  enabled: false
+  # -- Gateway name to use for the istio definition
+  gateway: ""
+  # -- Host name to use for the istio definition
+  host: ""
+  # -- Host prefix to use for the istio definition
+  hostPrefix: "/"
+
 # -- We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little
 # resources, such as Minikube. If you do want to specify resources, uncomment the following
