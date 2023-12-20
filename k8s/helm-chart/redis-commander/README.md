@@ -2,7 +2,7 @@
 
 A Helm chart for redis-commander
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 ## Install
 
@@ -39,6 +39,10 @@ helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander --set redi
 | ingress.legacy | bool | `false` | Use *Legacy*, deprecated Ingress versions. Ingress apiVersions prior to `networking.k8s.io/v1` are deprecated and removed in kubernetes 1.22. Set the `legacy` flag to *true* if you are using kubernetes older than 1.19 or OpenShift v3 and require support for the older API versions. |
 | ingress.pathType | string | `"ImplementationSpecific"` | Set the pathType for the v1 Ingress resource.  This setting is ignored for `legacy` Ingress resources. Details on **Path Type** are available here; https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types |
 | ingress.tls | list | `[]` |  |
+| istio.enabled | bool | `false` | Enable Istio VirtualService for the service The endpoint (target) is defined by the regular k8s service already defined by the chart |
+| istio.gateway | string | `""` | Gateway name to use for the istio definition |
+| istio.host | string | `""` | Host name to use for the istio definition |
+| istio.hostPrefix | string | `"/"` | Host prefix to use for the istio definition |
 | kubeVersion | string | `""` | Optional override Kubernetes version |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | optional set pod node selector definitions for kubernetes |

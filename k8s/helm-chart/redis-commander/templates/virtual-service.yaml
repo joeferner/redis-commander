@@ -1,7 +1,15 @@
+{{- if .Values.istio.enabled }}
+---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: {{ include "redis-commander.fullname" . }}
+  labels:
+    {{- include "redis-commander.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   gateways:
   - {{ .Values.istio.gateway }}
@@ -16,3 +24,4 @@ spec:
         host: {{ include "redis-commander.fullname" . }}
         port:
           number: {{ .Values.service.port }}
+  {{- end}}
