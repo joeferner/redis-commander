@@ -6,12 +6,15 @@
 * update json5 from 2.2.1 to 2.2.3 (fix CVE-2022-46175)
 * update cmdparser from 0.0.3 to 0.1.0 (fix CVE-2021-43138), #517
 * partial update of semver to 7.5.3 (fix CVE-2022-2588)
+* update @babel/traverse from 7.22.5 to 7.23.3 (fix CVE-2023-45133) 
+* update browserify-sign from 4.2.1 to 4.2.2 (fix CVE-2023-46234)
 #### Enhancements
 * allow using IPv6 addresses for Redis connection definitions. (except REDIS_HOSTS env var, here no IPv6 allowed, use host names instead) 
 * allow setting a custom HTTP header name used for the JWT session authentication token
 * add option to overwrite global folding character per connection
 * add Sentinel TLS connections and improved configuration and env var handling for TLS secured connections, #514 
 * add Redis Cluster support, #160 #216 #527
+* allow defining additional commands as safe for read-only mode, defaulting to "info" and "select", #542
 * update base image to alpine@3.17 using NodeJS 18.x now, #511
 * update helm chart autoscaling apis for newer K8s versions, #520
 * update helm chart to allow setting ingressClassName for newer K8s versions, #494

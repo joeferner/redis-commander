@@ -19,7 +19,11 @@
     "rootPattern": "*",
     "connectionName": "redis-commander",
     "defaultLabel": "local",
-    "defaultSentinelGroup": "mymaster"
+    "defaultSentinelGroup": "mymaster",
+    "extraAllowedReadOnlyCommands": [
+      "select",
+      "info"
+    ]
   },
   "server": {
     "address": "0.0.0.0",

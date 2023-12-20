@@ -4,7 +4,7 @@
   "specVersion": "1.4",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-10-10T14:43:46.583Z",
+    "timestamp": "2023-11-16T11:26:04.636Z",
     "tools": [
       {
         "vendor": "@cyclonedx",
@@ -4559,13 +4559,13 @@
     {
       "type": "library",
       "name": "browserify-sign",
-      "version": "4.2.1",
-      "bom-ref": "browserify-sign@4.2.1",
+      "version": "4.2.2",
+      "bom-ref": "browserify-sign@4.2.2",
       "description": "adds node crypto signing for browsers",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "fefac0e5f82e54028a0154cd2638129b5b514031d453a0dbc0ef4844ebbfd160330bc3ca86e7034a1d7c27444cbd5787027e69b8c77e4070b67ab3d135ff259a"
+          "content": "d6bb9d1b2798638d8393ab5ec66bfb73855c43412cbd56cbc19900f80401ed2c6f5f199c0fdde370789ef1bcde709f82843966026d90caed3e09c839ba16570a"
         }
       ],
       "licenses": [
@@ -4575,17 +4575,12 @@
           }
         }
       ],
-      "purl": "pkg:npm/browserify-sign@4.2.1",
+      "purl": "pkg:npm/browserify-sign@4.2.2",
       "externalReferences": [
         {
-          "url": "git+https://github.com/crypto-browserify/browserify-sign.git",
+          "url": "https://github.com/crypto-browserify/browserify-sign.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/crypto-browserify/browserify-sign#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
         },
         {
           "url": "https://github.com/crypto-browserify/browserify-sign/issues",
@@ -4593,7 +4588,7 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/browserify-sign/-/browserify-sign-4.2.1.tgz",
+          "url": "https://registry.npmjs.org/browserify-sign/-/browserify-sign-4.2.2.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -4612,13 +4607,13 @@
         {
           "type": "library",
           "name": "readable-stream",
-          "version": "3.6.0",
-          "bom-ref": "browserify-sign@4.2.1|readable-stream@3.6.0",
+          "version": "3.6.2",
+          "bom-ref": "browserify-sign@4.2.2|readable-stream@3.6.2",
           "description": "Streams3, a user-land copy of the stream library from Node.js",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "055887cbb2ca793cf8a0d9e470b27e95548beafa6215e5fafddde8487f33096ed4c4fda89dc864faf4c6075e37c6e1631d2ddd7938242a85d7ca65eaca688874"
+              "content": "f6efec9e20ab6370f959db04447cc71381b66025eaa06e454c7522082e1221bafa5dc2d9058d39c9af442a361e93d3b9c4e0308c6abed497460404bb43d49ca0"
             }
           ],
           "licenses": [
@@ -4628,25 +4623,15 @@
               }
             }
           ],
-          "purl": "pkg:npm/readable-stream@3.6.0",
+          "purl": "pkg:npm/readable-stream@3.6.2",
           "externalReferences": [
             {
-              "url": "git://github.com/nodejs/readable-stream.git",
+              "url": "git://github.com/nodejs/readable-stream",
               "type": "vcs",
               "comment": "as detected from PackageJson property \"repository.url\""
             },
             {
-              "url": "https://github.com/nodejs/readable-stream#readme",
-              "type": "website",
-              "comment": "as detected from PackageJson property \"homepage\""
-            },
-            {
-              "url": "https://github.com/nodejs/readable-stream/issues",
-              "type": "issue-tracker",
-              "comment": "as detected from PackageJson property \"bugs.url\""
-            },
-            {
-              "url": "https://registry.npmjs.org/readable-stream/-/readable-stream-3.6.0.tgz",
+              "url": "https://registry.npmjs.org/readable-stream/-/readable-stream-3.6.2.tgz",
               "type": "distribution",
               "comment": "as detected from npm-ls property \"resolved\""
             }
@@ -4666,7 +4651,7 @@
           "type": "library",
           "name": "safe-buffer",
           "version": "5.2.1",
-          "bom-ref": "browserify-sign@4.2.1|safe-buffer@5.2.1",
+          "bom-ref": "browserify-sign@4.2.2|safe-buffer@5.2.1",
           "author": "Feross Aboukhadijeh",
           "description": "Safer Node.js Buffer API",
           "hashes": [
@@ -4721,14 +4706,14 @@
     {
       "type": "library",
       "name": "bn.js",
-      "version": "5.2.0",
-      "bom-ref": "bn.js@5.2.0",
-      "author": "Fedor Indutny",
+      "version": "5.2.1",
+      "bom-ref": "bn.js@5.2.1",
+      "author": "Fedor Indutny <fedor@indutny.com>",
       "description": "Big number implementation in pure javascript",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0fb896441be7644f1e71788b8fff706f11fb4e4efd7c087c20769336ad515918b1b12d365bee6a4be884f72aba4589746ac5f1e6dc346cb8664f9a487db4aabb"
+          "content": "79746f1f35b260f06e078341cb47266108c68ad52bb6ac1bbe5ccfdc6e951673516ec650231435d0f6ca287b7c819fc75bf0ffef8eda0e5f90903aa0dca40b31"
         }
       ],
       "licenses": [
@@ -4738,10 +4723,10 @@
           }
         }
       ],
-      "purl": "pkg:npm/bn.js@5.2.0",
+      "purl": "pkg:npm/bn.js@5.2.1",
       "externalReferences": [
         {
-          "url": "git+ssh://git@github.com/indutny/bn.js.git",
+          "url": "git@github.com:indutny/bn.js",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
@@ -4756,7 +4741,7 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/bn.js/-/bn.js-5.2.0.tgz",
+          "url": "https://registry.npmjs.org/bn.js/-/bn.js-5.2.1.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -22833,14 +22818,14 @@
       "type": "library",
       "name": "code-frame",
       "group": "@babel",
-      "version": "7.22.5",
-      "bom-ref": "@babel/code-frame@7.22.5",
+      "version": "7.22.13",
+      "bom-ref": "@babel/code-frame@7.22.13",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "Generate errors that contain a code frame that point to source locations.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5e6c27dbaeaf69dfba0c0a8407603a57f09c655a7ad816f056670e25cd913eec22875930d364e342f5955a570a19b04f77ef3fd15e4312439c8b344662cb2961"
+          "content": "5e4b6e856949e60fb74c95dce6ea5df4ab351eeb5202b8a4ea37f67808d817220e7f87a3dd137ed7ce1c65bcc3bdb3e7b932485213ca289137708b184e2013df"
         }
       ],
       "licenses": [
@@ -22850,7 +22835,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/code-frame@7.22.5#packages/babel-code-frame",
+      "purl": "pkg:npm/%40babel/code-frame@7.22.13#packages/babel-code-frame",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-code-frame",
@@ -22868,7 +22853,7 @@
           "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.22.5.tgz",
+          "url": "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.22.13.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -22882,20 +22867,339 @@
           "name": "cdx:npm:package:development",
           "value": "true"
         }
+      ],
+      "components": [
+        {
+          "type": "library",
+          "name": "chalk",
+          "version": "2.4.2",
+          "bom-ref": "@babel/code-frame@7.22.13|chalk@2.4.2",
+          "description": "Terminal string styling done right",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "32d8be7fd96924d730178b5657cfcead34ed1758198be7fc16a97201da2eada95c156150585dbe3600874a18e409bf881412eaf5bb99c04d71724414e29792b9"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT"
+              }
+            }
+          ],
+          "purl": "pkg:npm/chalk@2.4.2",
+          "externalReferences": [
+            {
+              "url": "chalk/chalk",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository\""
+            },
+            {
+              "url": "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/@babel/code-frame/node_modules/chalk"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "ansi-styles",
+          "version": "3.2.1",
+          "bom-ref": "@babel/code-frame@7.22.13|ansi-styles@3.2.1",
+          "author": "Sindre Sorhus",
+          "description": "ANSI escape codes for styling strings in the terminal",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "553d1923a91945d4e1f18c89c3748c6d89bfbbe36a7ec03112958ed0f7fdb2af3f7bde16c713a93cac7d151d459720ad3950cd390fbc9ed96a17189173eaf9a8"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT"
+              }
+            }
+          ],
+          "purl": "pkg:npm/ansi-styles@3.2.1",
+          "externalReferences": [
+            {
+              "url": "chalk/ansi-styles",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository\""
+            },
+            {
+              "url": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-3.2.1.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/@babel/code-frame/node_modules/ansi-styles"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "color-convert",
+          "version": "1.9.3",
+          "bom-ref": "@babel/code-frame@7.22.13|color-convert@1.9.3",
+          "author": "Heather Arthur <fayearthur@gmail.com>",
+          "description": "Plain color conversion functions",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "41f014b5dfaf15d02d150702f020b262dd5f616c52a8088ad9c483eb30c1f0dddca6c10102f471a7dcce1a0e86fd21c7258013f3cfdacff22e0c600bb0d55b1a"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT"
+              }
+            }
+          ],
+          "purl": "pkg:npm/color-convert@1.9.3",
+          "externalReferences": [
+            {
+              "url": "Qix-/color-convert",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository\""
+            },
+            {
+              "url": "https://registry.npmjs.org/color-convert/-/color-convert-1.9.3.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/@babel/code-frame/node_modules/color-convert"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "color-name",
+          "version": "1.1.3",
+          "bom-ref": "@babel/code-frame@7.22.13|color-name@1.1.3",
+          "author": "DY <dfcreative@gmail.com>",
+          "description": "A list of color names and its values",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "ef67d27a784cc361d931354778203d2829a91086f35a242c8cdf811dc05b4bdbebd66b6dfaf2633dd92c20135498a016f131540cf24ae52514dd0844f4d1170f"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT"
+              }
+            }
+          ],
+          "purl": "pkg:npm/color-name@1.1.3",
+          "externalReferences": [
+            {
+              "url": "git@github.com:dfcreative/color-name.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/dfcreative/color-name",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/dfcreative/color-name/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/color-name/-/color-name-1.1.3.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/@babel/code-frame/node_modules/color-name"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "escape-string-regexp",
+          "version": "1.0.5",
+          "bom-ref": "@babel/code-frame@7.22.13|escape-string-regexp@1.0.5",
+          "author": "Sindre Sorhus",
+          "description": "Escape RegExp special characters",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "bdb468ac1e455105af95ad7a53c47faa06852326b6a86cf00eb366099b982ab6dd494306e88d5908641179f911561b8e9081959deec1437e4349fa35aaf26a16"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT"
+              }
+            }
+          ],
+          "purl": "pkg:npm/escape-string-regexp@1.0.5",
+          "externalReferences": [
+            {
+              "url": "sindresorhus/escape-string-regexp",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository\""
+            },
+            {
+              "url": "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/@babel/code-frame/node_modules/escape-string-regexp"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "supports-color",
+          "version": "5.5.0",
+          "bom-ref": "@babel/code-frame@7.22.13|supports-color@5.5.0",
+          "author": "Sindre Sorhus",
+          "description": "Detect whether a terminal supports color",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "423563c1d5c8b78d3c308880a825f8a142ac814d84a801b3b363e9926e1a4186e39be644584716e127c5353af8b8c35999ad1ecb87f99602eb901d1a5f440ca3"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT"
+              }
+            }
+          ],
+          "purl": "pkg:npm/supports-color@5.5.0",
+          "externalReferences": [
+            {
+              "url": "chalk/supports-color",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository\""
+            },
+            {
+              "url": "https://registry.npmjs.org/supports-color/-/supports-color-5.5.0.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/@babel/code-frame/node_modules/supports-color"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "has-flag",
+          "version": "3.0.0",
+          "bom-ref": "@babel/code-frame@7.22.13|has-flag@3.0.0",
+          "author": "Sindre Sorhus",
+          "description": "Check if argv has a specific flag",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "b0a25fd7e71e401af848c92f427043343b5fe135e95615466ad7aed2df75f1b977d059db1369b8bcd2d7f9559efdda6395bf87ba0198cd6eee4171fdf073c463"
+            }
+          ],
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT"
+              }
+            }
+          ],
+          "purl": "pkg:npm/has-flag@3.0.0",
+          "externalReferences": [
+            {
+              "url": "sindresorhus/has-flag",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository\""
+            },
+            {
+              "url": "https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/@babel/code-frame/node_modules/has-flag"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
       "type": "library",
       "name": "highlight",
       "group": "@babel",
-      "version": "7.22.5",
-      "bom-ref": "@babel/highlight@7.22.5",
+      "version": "7.22.20",
+      "bom-ref": "@babel/highlight@7.22.20",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "Syntax highlight JavaScript strings for output in terminals.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0522a50f58609de752e5746718e96365ac2d6a0ec7d723df429d2d74d2421e81fa019f8f726f55be4acae7dfd8cb9f77629834cccc47d81c43d553d8510ed423"
+          "content": "76474c08dde9cb4fa4b028189861bc8ca78603ff1393e809c126189451b11b996685f28da00cb4d386292f1a52d56d89f26fc42b6130fb23acf69551c0ef3d9a"
         }
       ],
       "licenses": [
@@ -22905,7 +23209,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/highlight@7.22.5#packages/babel-highlight",
+      "purl": "pkg:npm/%40babel/highlight@7.22.20#packages/babel-highlight",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-highlight",
@@ -22918,7 +23222,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/highlight/-/highlight-7.22.5.tgz",
+          "url": "https://registry.npmjs.org/@babel/highlight/-/highlight-7.22.20.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -22938,7 +23242,7 @@
           "type": "library",
           "name": "chalk",
           "version": "2.4.2",
-          "bom-ref": "@babel/highlight@7.22.5|chalk@2.4.2",
+          "bom-ref": "@babel/highlight@7.22.20|chalk@2.4.2",
           "description": "Terminal string styling done right",
           "hashes": [
             {
@@ -22991,7 +23295,7 @@
           "type": "library",
           "name": "ansi-styles",
           "version": "3.2.1",
-          "bom-ref": "@babel/highlight@7.22.5|ansi-styles@3.2.1",
+          "bom-ref": "@babel/highlight@7.22.20|ansi-styles@3.2.1",
           "author": "Sindre Sorhus",
           "description": "ANSI escape codes for styling strings in the terminal",
           "hashes": [
@@ -23045,7 +23349,7 @@
           "type": "library",
           "name": "color-convert",
           "version": "1.9.3",
-          "bom-ref": "@babel/highlight@7.22.5|color-convert@1.9.3",
+          "bom-ref": "@babel/highlight@7.22.20|color-convert@1.9.3",
           "author": "Heather Arthur",
           "description": "Plain color conversion functions",
           "hashes": [
@@ -23099,7 +23403,7 @@
           "type": "library",
           "name": "color-name",
           "version": "1.1.3",
-          "bom-ref": "@babel/highlight@7.22.5|color-name@1.1.3",
+          "bom-ref": "@babel/highlight@7.22.20|color-name@1.1.3",
           "author": "DY",
           "description": "A list of color names and its values",
           "hashes": [
@@ -23153,7 +23457,7 @@
           "type": "library",
           "name": "escape-string-regexp",
           "version": "1.0.5",
-          "bom-ref": "@babel/highlight@7.22.5|escape-string-regexp@1.0.5",
+          "bom-ref": "@babel/highlight@7.22.20|escape-string-regexp@1.0.5",
           "author": "Sindre Sorhus",
           "description": "Escape RegExp special characters",
           "hashes": [
@@ -23207,7 +23511,7 @@
           "type": "library",
           "name": "supports-color",
           "version": "5.5.0",
-          "bom-ref": "@babel/highlight@7.22.5|supports-color@5.5.0",
+          "bom-ref": "@babel/highlight@7.22.20|supports-color@5.5.0",
           "author": "Sindre Sorhus",
           "description": "Detect whether a terminal supports color",
           "hashes": [
@@ -23261,7 +23565,7 @@
           "type": "library",
           "name": "has-flag",
           "version": "3.0.0",
-          "bom-ref": "@babel/highlight@7.22.5|has-flag@3.0.0",
+          "bom-ref": "@babel/highlight@7.22.20|has-flag@3.0.0",
           "author": "Sindre Sorhus",
           "description": "Check if argv has a specific flag",
           "hashes": [
@@ -23317,14 +23621,14 @@
       "type": "library",
       "name": "helper-validator-identifier",
       "group": "@babel",
-      "version": "7.22.5",
-      "bom-ref": "@babel/helper-validator-identifier@7.22.5",
+      "version": "7.22.20",
+      "bom-ref": "@babel/helper-validator-identifier@7.22.20",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "Validate identifier/keywords name",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "6895eefba944aeaf25b69f898642547e4d4c4c6cae038bfb7f7a40f812791cb7cd0ba9c04340a98bdb8eaae523f077a1834694887cd641b3952466a8eb3b4101"
+          "content": "638399fb2b656ad47c008fbc2997cab8be6eacaa7ba9ecb4f216b7d4bf1bdc1c1ec0902825a993cf2bf13d1ff90fe2a47490863eaffef13ba41c1958d74157f4"
         }
       ],
       "licenses": [
@@ -23334,7 +23638,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-validator-identifier@7.22.5#packages/babel-helper-validator-identifier",
+      "purl": "pkg:npm/%40babel/helper-validator-identifier@7.22.20#packages/babel-helper-validator-identifier",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-helper-validator-identifier",
@@ -23342,7 +23646,7 @@
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.22.5.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.22.20.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23416,14 +23720,14 @@
       "type": "library",
       "name": "generator",
       "group": "@babel",
-      "version": "7.22.5",
-      "bom-ref": "@babel/generator@7.22.5",
+      "version": "7.23.3",
+      "bom-ref": "@babel/generator@7.23.3",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "Turns an AST into code.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "fa57146e74d185dd2339ec2d15279d2f288fb03e6db302a46e071ecceaaa585515344c285139693ce066be11bb39758b4788cc76fd1cccf187e576df9670f510"
+          "content": "91e7995805782d4ded5b4a918b5f4746969b0bf8a53341d1041cdff7f93c145886e0a5698afd05232e211df2df15064d8738824cf4e6779f73a32bfa0cd212ce"
         }
       ],
       "licenses": [
@@ -23433,7 +23737,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/generator@7.22.5#packages/babel-generator",
+      "purl": "pkg:npm/%40babel/generator@7.23.3#packages/babel-generator",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-generator",
@@ -23451,7 +23755,7 @@
           "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/generator/-/generator-7.22.5.tgz",
+          "url": "https://registry.npmjs.org/@babel/generator/-/generator-7.23.3.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -23472,7 +23776,7 @@
           "name": "gen-mapping",
           "group": "@jridgewell",
           "version": "0.3.3",
-          "bom-ref": "@babel/generator@7.22.5|@jridgewell/gen-mapping@0.3.3",
+          "bom-ref": "@babel/generator@7.23.3|@jridgewell/gen-mapping@0.3.3",
           "author": "Justin Ridgewell <justin@ridgewell.name>",
           "description": "Generate source maps",
           "hashes": [
@@ -23518,14 +23822,14 @@
       "type": "library",
       "name": "types",
       "group": "@babel",
-      "version": "7.22.5",
-      "bom-ref": "@babel/types@7.22.5",
+      "version": "7.23.3",
+      "bom-ref": "@babel/types@7.23.3",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "Babel Types is a Lodash-esque utility library for AST nodes",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "ce8dcc20718e90f39fa115e2b6c8072e31179a50da0ffe4a535533b9cf4636264f852a95c5546dc6e3da481643b1867da95f3c023b4cb565bbc30f7c96827d28"
+          "content": "3999efa07da5f0f2b9794bc4714c82b7fb1782bfe1f945a956e05b3a58f072b020525ea5a5c86843ef8f1c6c90cb502d627540e8212adf2e71784235d1bae95f"
         }
       ],
       "licenses": [
@@ -23535,7 +23839,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/types@7.22.5#packages/babel-types",
+      "purl": "pkg:npm/%40babel/types@7.23.3#packages/babel-types",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-types",
@@ -23553,7 +23857,7 @@
           "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/types/-/types-7.22.5.tgz",
+          "url": "https://registry.npmjs.org/@babel/types/-/types-7.23.3.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24219,14 +24523,14 @@
       "type": "library",
       "name": "helper-environment-visitor",
       "group": "@babel",
-      "version": "7.22.5",
-      "bom-ref": "@babel/helper-environment-visitor@7.22.5",
+      "version": "7.22.20",
+      "bom-ref": "@babel/helper-environment-visitor@7.22.20",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "Helper visitor to only visit nodes in the current 'this' context",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5c69a11027d503fe6c02df87fb1a5283499fac7aba17336bf4ec61ecf4840414546ff98becacf73480976f5f78ac2a8011dc6484f4f56bcf2d7a2cc0172be4f1"
+          "content": "cdf79d488cc585ab7f8058567c7b605af95e7349ea07d604215ae9bb08ebb8b9577d44a703c7090749a21cac2a0e743b777d9a2a8db1b7cf3fc59a6dc316df84"
         }
       ],
       "licenses": [
@@ -24236,7 +24540,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-environment-visitor@7.22.5#packages/babel-helper-environment-visitor",
+      "purl": "pkg:npm/%40babel/helper-environment-visitor@7.22.20#packages/babel-helper-environment-visitor",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-helper-environment-visitor",
@@ -24249,7 +24553,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/helper-environment-visitor/-/helper-environment-visitor-7.22.5.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-environment-visitor/-/helper-environment-visitor-7.22.20.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24418,14 +24722,14 @@
       "type": "library",
       "name": "template",
       "group": "@babel",
-      "version": "7.22.5",
-      "bom-ref": "@babel/template@7.22.5",
+      "version": "7.22.15",
+      "bom-ref": "@babel/template@7.22.15",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "Generate an AST from a string template.",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "5fbc95ede8b0031763f64f78344ca5bdb5472e2546d67bf3095d84028c21c4b4f03835758e5f54cd9e3c95e382d2c1fb3a7b87ac892595a0609de5329087196b"
+          "content": "40f12b5159b8bb225aeb4ae423bdea9de0da72f76fcf1b214f7924b06aa519661d3932143b027b44350bf2c1aab25635b975922fac4c14a1170d2de8c76b85d3"
         }
       ],
       "licenses": [
@@ -24435,7 +24739,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/template@7.22.5#packages/babel-template",
+      "purl": "pkg:npm/%40babel/template@7.22.15#packages/babel-template",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-template",
@@ -24453,7 +24757,7 @@
           "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/template/-/template-7.22.5.tgz",
+          "url": "https://registry.npmjs.org/@babel/template/-/template-7.22.15.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24473,14 +24777,14 @@
       "type": "library",
       "name": "traverse",
       "group": "@babel",
-      "version": "7.22.6",
-      "bom-ref": "@babel/traverse@7.22.6",
+      "version": "7.23.3",
+      "bom-ref": "@babel/traverse@7.23.3",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "The Babel Traverse module maintains the overall tree state, and is responsible for replacing, removing, and adding nodes",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "e770a28ccbca94b20394e4eb7568878a579175d9488b0508c822aa61aee56279cf95d5c21b975448ddfcb93d1c03a8bbac758d2892c7d1553f2b176bd46cc1df"
+          "content": "f8ad32175ffdc91d281dd1344ad1ee123dee4cfcf0c1bacb19f34e9dd549555d93a80e7e8f7a258c951be27981f79e052c68cd7a6f7bebe07e783b8b2237ac89"
         }
       ],
       "licenses": [
@@ -24490,7 +24794,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/traverse@7.22.6#packages/babel-traverse",
+      "purl": "pkg:npm/%40babel/traverse@7.23.3#packages/babel-traverse",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-traverse",
@@ -24508,7 +24812,7 @@
           "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/traverse/-/traverse-7.22.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/traverse/-/traverse-7.23.3.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24578,14 +24882,14 @@
       "type": "library",
       "name": "parser",
       "group": "@babel",
-      "version": "7.22.6",
-      "bom-ref": "@babel/parser@7.22.6",
+      "version": "7.23.3",
+      "bom-ref": "@babel/parser@7.23.3",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "A JavaScript parser",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "10842edb6bcd91c7aadcb6e302aee49c37ff526b48daa6dc348f064419628decfa4e940bbd2a1d24f61fc9d426340e5bbb0931c716bf3d5238e238d867efdc2f"
+          "content": "b95b1636f955b089e29d5da9acdcffde51c26fee4227e7be21405f6e34e8007383b5f1982df085b98e0053b4ec908f9d00a93e9e3b0f8818ead60293bd93816b"
         }
       ],
       "licenses": [
@@ -24595,7 +24899,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/parser@7.22.6#packages/babel-parser",
+      "purl": "pkg:npm/%40babel/parser@7.23.3#packages/babel-parser",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-parser",
@@ -24613,7 +24917,7 @@
           "comment": "as detected from PackageJson property \"bugs\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/parser/-/parser-7.22.6.tgz",
+          "url": "https://registry.npmjs.org/@babel/parser/-/parser-7.23.3.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -24633,14 +24937,14 @@
       "type": "library",
       "name": "helper-function-name",
       "group": "@babel",
-      "version": "7.22.5",
-      "bom-ref": "@babel/helper-function-name@7.22.5",
+      "version": "7.23.0",
+      "bom-ref": "@babel/helper-function-name@7.23.0",
       "author": "The Babel Team (https://babel.dev/team)",
       "description": "Helper function to change the property 'name' of every function",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "c2d1d2aba8cc444dee176a2dbdfb83dc322f5613ac48db21425d10addeea0bda102731ef38be2a4179509f6f75ebe0971b2c088e91ae224a326514711cf88d41"
+          "content": "384ac4aacaf18d94c97226783a8f9ea19a9e5bd50888e72e60a449038640815f66c80fa93978619a97cd08a8c41ff6ae55f11854527acb54dce2bd1e200a6a8b"
         }
       ],
       "licenses": [
@@ -24650,7 +24954,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40babel/helper-function-name@7.22.5#packages/babel-helper-function-name",
+      "purl": "pkg:npm/%40babel/helper-function-name@7.23.0#packages/babel-helper-function-name",
       "externalReferences": [
         {
           "url": "https://github.com/babel/babel.git#packages/babel-helper-function-name",
@@ -24663,7 +24967,7 @@
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://registry.npmjs.org/@babel/helper-function-name/-/helper-function-name-7.22.5.tgz",
+          "url": "https://registry.npmjs.org/@babel/helper-function-name/-/helper-function-name-7.23.0.tgz",
           "type": "distribution",
           "comment": "as detected from npm-ls property \"resolved\""
         }
@@ -27036,7 +27340,7 @@
       "ref": "crypto-browserify@3.12.0",
       "dependsOn": [
         "browserify-cipher@1.0.1",
-        "browserify-sign@4.2.1",
+        "browserify-sign@4.2.2",
         "create-ecdh@4.0.4",
         "create-hash@1.2.0",
         "create-hmac@1.1.7",
@@ -27122,21 +27426,21 @@
       ]
     },
     {
-      "ref": "browserify-sign@4.2.1",
+      "ref": "browserify-sign@4.2.2",
       "dependsOn": [
-        "bn.js@5.2.0",
+        "bn.js@5.2.1",
         "browserify-rsa@4.1.0",
         "create-hash@1.2.0",
         "create-hmac@1.1.7",
         "elliptic@6.5.4",
         "inherits@2.0.4",
         "parse-asn1@5.1.6",
-        "browserify-sign@4.2.1|readable-stream@3.6.0",
-        "browserify-sign@4.2.1|safe-buffer@5.2.1"
+        "browserify-sign@4.2.2|readable-stream@3.6.2",
+        "browserify-sign@4.2.2|safe-buffer@5.2.1"
       ]
     },
     {
-      "ref": "browserify-sign@4.2.1|readable-stream@3.6.0",
+      "ref": "browserify-sign@4.2.2|readable-stream@3.6.2",
       "dependsOn": [
         "inherits@2.0.4",
         "string_decoder@1.1.1",
@@ -27144,15 +27448,15 @@
       ]
     },
     {
-      "ref": "browserify-sign@4.2.1|safe-buffer@5.2.1"
+      "ref": "browserify-sign@4.2.2|safe-buffer@5.2.1"
     },
     {
-      "ref": "bn.js@5.2.0"
+      "ref": "bn.js@5.2.1"
     },
     {
       "ref": "browserify-rsa@4.1.0",
       "dependsOn": [
-        "bn.js@5.2.0",
+        "bn.js@5.2.1",
         "randombytes@2.1.0"
       ]
     },
@@ -29055,15 +29359,15 @@
       "ref": "@babel/core@7.22.6",
       "dependsOn": [
         "@ampproject/remapping@2.2.0",
-        "@babel/code-frame@7.22.5",
-        "@babel/generator@7.22.5",
+        "@babel/code-frame@7.22.13",
+        "@babel/generator@7.23.3",
         "@babel/helper-compilation-targets@7.22.6",
         "@babel/helper-module-transforms@7.22.5",
         "@babel/helpers@7.22.6",
-        "@babel/parser@7.22.6",
-        "@babel/template@7.22.5",
-        "@babel/traverse@7.22.6",
-        "@babel/types@7.22.5",
+        "@babel/parser@7.23.3",
+        "@babel/template@7.22.15",
+        "@babel/traverse@7.23.3",
+        "@babel/types@7.23.3",
         "@nicolo-ribaudo/semver-v6@6.3.3",
         "@babel/core@7.22.6|convert-source-map@1.9.0",
         "debug@4.3.4",
@@ -29105,71 +29409,107 @@
       "ref": "@jridgewell/resolve-uri@3.1.0"
     },
     {
-      "ref": "@babel/code-frame@7.22.5",
+      "ref": "@babel/code-frame@7.22.13",
       "dependsOn": [
-        "@babel/highlight@7.22.5"
+        "@babel/highlight@7.22.20",
+        "@babel/code-frame@7.22.13|chalk@2.4.2"
       ]
     },
     {
-      "ref": "@babel/highlight@7.22.5",
+      "ref": "@babel/code-frame@7.22.13|chalk@2.4.2",
       "dependsOn": [
-        "@babel/helper-validator-identifier@7.22.5",
-        "@babel/highlight@7.22.5|chalk@2.4.2",
+        "@babel/code-frame@7.22.13|ansi-styles@3.2.1",
+        "@babel/code-frame@7.22.13|escape-string-regexp@1.0.5",
+        "@babel/code-frame@7.22.13|supports-color@5.5.0"
+      ]
+    },
+    {
+      "ref": "@babel/code-frame@7.22.13|ansi-styles@3.2.1",
+      "dependsOn": [
+        "@babel/code-frame@7.22.13|color-convert@1.9.3"
+      ]
+    },
+    {
+      "ref": "@babel/code-frame@7.22.13|color-convert@1.9.3",
+      "dependsOn": [
+        "@babel/code-frame@7.22.13|color-name@1.1.3"
+      ]
+    },
+    {
+      "ref": "@babel/code-frame@7.22.13|color-name@1.1.3"
+    },
+    {
+      "ref": "@babel/code-frame@7.22.13|escape-string-regexp@1.0.5"
+    },
+    {
+      "ref": "@babel/code-frame@7.22.13|supports-color@5.5.0",
+      "dependsOn": [
+        "@babel/code-frame@7.22.13|has-flag@3.0.0"
+      ]
+    },
+    {
+      "ref": "@babel/code-frame@7.22.13|has-flag@3.0.0"
+    },
+    {
+      "ref": "@babel/highlight@7.22.20",
+      "dependsOn": [
+        "@babel/helper-validator-identifier@7.22.20",
+        "@babel/highlight@7.22.20|chalk@2.4.2",
         "js-tokens@4.0.0"
       ]
     },
     {
-      "ref": "@babel/highlight@7.22.5|chalk@2.4.2",
+      "ref": "@babel/highlight@7.22.20|chalk@2.4.2",
       "dependsOn": [
-        "@babel/highlight@7.22.5|ansi-styles@3.2.1",
-        "@babel/highlight@7.22.5|escape-string-regexp@1.0.5",
-        "@babel/highlight@7.22.5|supports-color@5.5.0"
+        "@babel/highlight@7.22.20|ansi-styles@3.2.1",
+        "@babel/highlight@7.22.20|escape-string-regexp@1.0.5",
+        "@babel/highlight@7.22.20|supports-color@5.5.0"
       ]
     },
     {
-      "ref": "@babel/highlight@7.22.5|ansi-styles@3.2.1",
+      "ref": "@babel/highlight@7.22.20|ansi-styles@3.2.1",
       "dependsOn": [
-        "@babel/highlight@7.22.5|color-convert@1.9.3"
+        "@babel/highlight@7.22.20|color-convert@1.9.3"
       ]
     },
     {
-      "ref": "@babel/highlight@7.22.5|color-convert@1.9.3",
+      "ref": "@babel/highlight@7.22.20|color-convert@1.9.3",
       "dependsOn": [
-        "@babel/highlight@7.22.5|color-name@1.1.3"
+        "@babel/highlight@7.22.20|color-name@1.1.3"
       ]
     },
     {
-      "ref": "@babel/highlight@7.22.5|color-name@1.1.3"
+      "ref": "@babel/highlight@7.22.20|color-name@1.1.3"
     },
     {
-      "ref": "@babel/highlight@7.22.5|escape-string-regexp@1.0.5"
+      "ref": "@babel/highlight@7.22.20|escape-string-regexp@1.0.5"
     },
     {
-      "ref": "@babel/highlight@7.22.5|supports-color@5.5.0",
+      "ref": "@babel/highlight@7.22.20|supports-color@5.5.0",
       "dependsOn": [
-        "@babel/highlight@7.22.5|has-flag@3.0.0"
+        "@babel/highlight@7.22.20|has-flag@3.0.0"
       ]
     },
     {
-      "ref": "@babel/highlight@7.22.5|has-flag@3.0.0"
+      "ref": "@babel/highlight@7.22.20|has-flag@3.0.0"
     },
     {
-      "ref": "@babel/helper-validator-identifier@7.22.5"
+      "ref": "@babel/helper-validator-identifier@7.22.20"
     },
     {
       "ref": "js-tokens@4.0.0"
     },
     {
-      "ref": "@babel/generator@7.22.5",
+      "ref": "@babel/generator@7.23.3",
       "dependsOn": [
-        "@babel/types@7.22.5",
-        "@babel/generator@7.22.5|@jridgewell/gen-mapping@0.3.3",
+        "@babel/types@7.23.3",
+        "@babel/generator@7.23.3|@jridgewell/gen-mapping@0.3.3",
         "@jridgewell/trace-mapping@0.3.17",
         "jsesc@2.5.2"
       ]
     },
     {
-      "ref": "@babel/generator@7.22.5|@jridgewell/gen-mapping@0.3.3",
+      "ref": "@babel/generator@7.23.3|@jridgewell/gen-mapping@0.3.3",
       "dependsOn": [
         "@jridgewell/set-array@1.1.2",
         "@jridgewell/sourcemap-codec@1.4.14",
@@ -29177,10 +29517,10 @@
       ]
     },
     {
-      "ref": "@babel/types@7.22.5",
+      "ref": "@babel/types@7.23.3",
       "dependsOn": [
         "@babel/helper-string-parser@7.22.5",
-        "@babel/helper-validator-identifier@7.22.5",
+        "@babel/helper-validator-identifier@7.22.20",
         "to-fast-properties@2.0.0"
       ]
     },
@@ -29248,56 +29588,56 @@
     {
       "ref": "@babel/helper-module-transforms@7.22.5",
       "dependsOn": [
-        "@babel/helper-environment-visitor@7.22.5",
+        "@babel/helper-environment-visitor@7.22.20",
         "@babel/helper-module-imports@7.22.5",
         "@babel/helper-simple-access@7.22.5",
         "@babel/helper-split-export-declaration@7.22.6",
-        "@babel/helper-validator-identifier@7.22.5",
-        "@babel/template@7.22.5",
-        "@babel/traverse@7.22.6",
-        "@babel/types@7.22.5"
+        "@babel/helper-validator-identifier@7.22.20",
+        "@babel/template@7.22.15",
+        "@babel/traverse@7.23.3",
+        "@babel/types@7.23.3"
       ]
     },
     {
-      "ref": "@babel/helper-environment-visitor@7.22.5"
+      "ref": "@babel/helper-environment-visitor@7.22.20"
     },
     {
       "ref": "@babel/helper-module-imports@7.22.5",
       "dependsOn": [
-        "@babel/types@7.22.5"
+        "@babel/types@7.23.3"
       ]
     },
     {
       "ref": "@babel/helper-simple-access@7.22.5",
       "dependsOn": [
-        "@babel/types@7.22.5"
+        "@babel/types@7.23.3"
       ]
     },
     {
       "ref": "@babel/helper-split-export-declaration@7.22.6",
       "dependsOn": [
-        "@babel/types@7.22.5"
+        "@babel/types@7.23.3"
       ]
     },
     {
-      "ref": "@babel/template@7.22.5",
+      "ref": "@babel/template@7.22.15",
       "dependsOn": [
-        "@babel/code-frame@7.22.5",
-        "@babel/parser@7.22.6",
-        "@babel/types@7.22.5"
+        "@babel/code-frame@7.22.13",
+        "@babel/parser@7.23.3",
+        "@babel/types@7.23.3"
       ]
     },
     {
-      "ref": "@babel/traverse@7.22.6",
+      "ref": "@babel/traverse@7.23.3",
       "dependsOn": [
-        "@babel/code-frame@7.22.5",
-        "@babel/generator@7.22.5",
-        "@babel/helper-environment-visitor@7.22.5",
-        "@babel/helper-function-name@7.22.5",
+        "@babel/code-frame@7.22.13",
+        "@babel/generator@7.23.3",
+        "@babel/helper-environment-visitor@7.22.20",
+        "@babel/helper-function-name@7.23.0",
         "@babel/helper-hoist-variables@7.22.5",
         "@babel/helper-split-export-declaration@7.22.6",
-        "@babel/parser@7.22.6",
-        "@babel/types@7.22.5",
+        "@babel/parser@7.23.3",
+        "@babel/types@7.23.3",
         "debug@4.3.4",
         "globals@11.12.0"
       ]
@@ -29305,25 +29645,25 @@
     {
       "ref": "@babel/helpers@7.22.6",
       "dependsOn": [
-        "@babel/template@7.22.5",
-        "@babel/traverse@7.22.6",
-        "@babel/types@7.22.5"
+        "@babel/template@7.22.15",
+        "@babel/traverse@7.23.3",
+        "@babel/types@7.23.3"
       ]
     },
     {
-      "ref": "@babel/parser@7.22.6"
+      "ref": "@babel/parser@7.23.3"
     },
     {
-      "ref": "@babel/helper-function-name@7.22.5",
+      "ref": "@babel/helper-function-name@7.23.0",
       "dependsOn": [
-        "@babel/template@7.22.5",
-        "@babel/types@7.22.5"
+        "@babel/template@7.22.15",
+        "@babel/types@7.23.3"
       ]
     },
     {
       "ref": "@babel/helper-hoist-variables@7.22.5",
       "dependsOn": [
-        "@babel/types@7.22.5"
+        "@babel/types@7.23.3"
       ]
     },
     {
