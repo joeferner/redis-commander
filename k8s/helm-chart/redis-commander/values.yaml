@@ -167,7 +167,8 @@ affinity: {}
 #  file from a configmap to preconfigure more complex configuration examples with connection data too
 #  without the need to set all parameter via environment variables (where available).
 #  For a working example see file "example-manifest.yaml"
-connections: {}
+connections:
+  local_production_json: ""
 
 # -- optional list of volumes to mount into the docker deployment. This can either be a local storage volume
 #  or a configmap to mount data as file. Each list item needs a "name" and a "mountPath". Setting this will most time
