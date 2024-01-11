@@ -219,6 +219,9 @@ SENTINEL_TLS_KEY_FILE
 SENTINEL_TLS_SERVER_NAME
 SENTINELS
 K8S_SIGTERM
+CLUSTERS
+IS_CLUSTER
+CLUSTER_NO_TLS_VALIDATION
 ```
  A (partial) description for the mapping onto the cli params and into the config files can be found
 at the [docs/connections.md](docs/connections.md) file.
