@@ -334,6 +334,10 @@ if [ -n "$IS_CLUSTER" ] && parse_boolean "$IS_CLUSTER"; then
     set -- "$@" "--is-cluster"
 fi
 
+if [ -n "$CLUSTER_NO_TLS_VALIDATION" ] && parse_boolean "$CLUSTER_NO_TLS_VALIDATION"; then
+    set -- "$@" "--cluster-no-tls-validation"
+fi
+
 if [ -n "$REPLACE_CONFIG_ENV" ]; then
     # special case for more complex docker setup with multiple connections
     # to unix sockets, sentinels and normal redis server not configurable
