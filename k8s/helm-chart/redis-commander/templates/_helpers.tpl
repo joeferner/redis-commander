@@ -61,3 +61,15 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{/*
+Create the correctly formatted entry for the config map from either YAML object or JSON string
+*/}}
+{{- define "redis-commander.localProductionJson" }}
+{{- if eq (kindOf .Values.connections.local_production_json) "string" }}
+{{ .Values.connections.local_production_json }}
+{{- else }}
+{{ .Values.connections.local_production_json | toPrettyJson }}
+{{- end }}
+{{- end }}

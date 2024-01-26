@@ -375,6 +375,7 @@ if(args['test']) {
 
 
 if (startServer) {
+  console.log(`Starting with NODE_ENV=${process.env.NODE_ENV} and config NODE_APP_INSTANCE=${process.env.NODE_APP_INSTANCE}`);
   // check if old deprecated config exists and merge into current one
   if (myUtils.hasDeprecatedConfig()) {
     console.log('==================================================================================================');

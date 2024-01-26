@@ -70,6 +70,8 @@
     "postinstall": "echo '==> INFO: Errors with module \"bcrypt\" can be ignored'",
     "snyk-protect": "snyk protect",
     "helm-doc": "helm-docs -c k8s/helm-chart",
+    "helm-test": "helm template redis-commander -f k8s/helm-chart/redis-commander/values.yaml k8s/helm-chart/redis-commander -n redis | kubeval",
+    "helm-lint": "docker run -it --workdir=/data --volume \"$(pwd)/k8s/helm-chart/redis-commander:/data\" quay.io/helmpack/chart-testing ct lint --charts . --validate-maintainers=false",
     "test": "mocha",
     "test-with-lcov": "nyc --reporter=lcov --report-dir ./docs/coverage/nodejs mocha --timeout 10000 --reporter mocha-junit-reporter --reporter-options mochaFile=./docs/coverage/junit.xml --exit",
     "sbom": "cyclonedx-npm --omit optional --mc-type application --output-format json --output-file ./sbom.json"

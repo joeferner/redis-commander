@@ -76,10 +76,15 @@ spec:
           {{- end }}
           - name: K8S_SIGTERM
             value: "1"
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+            {{- if .Values.connections.local_production_json }}
+            - name: production-local
+              mountPath: /redis-commander/config/local-production-docker.json # This should be your final destination
+              subPath: local-production-docker.json
+            {{- end }}
+            {{- with .Values.volumeMounts }}
             {{- toYaml . | default "" | nindent 12 }}
-          {{- end }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /favicon.png
@@ -88,10 +93,18 @@ spec:
             timeoutSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.volumes }}
       volumes:
+        {{- if .Values.connections.local_production_json }}
+        - name: production-local
+          configMap:
+            name: {{ .Release.Name }}-configmap
+            items:
+              - key: local-production-docker.json
+                path: local-production-docker.json
+        {{- end }}
+        {{- with .Values.volumes }}
         {{- toYaml . | default "" | nindent 8 }}
-      {{- end }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

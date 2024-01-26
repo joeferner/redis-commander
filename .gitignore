@@ -7,6 +7,8 @@
 .DS_Store
 /docs/coverage/
 .nyc_output/
+/test/test-ca/
+/test/local/
 
 # files pulled by actions, no check in
 helm-docs
