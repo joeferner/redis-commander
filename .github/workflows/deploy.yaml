@@ -33,29 +33,4 @@ jobs:
                 --progress=plain
                 --build-arg=NPMT=${{ needs.set_env.outputs.NPMT }}
         secrets: inherit  
-    
-        # deploy:
-        # needs: [set_env, build]
-        # uses: flocasts/github-actions/.github/workflows/shared-flo-deploy.yaml@main
-        # with:
-        #     action: run
-        #     app-env: ${{ needs.set_env.outputs.APP_ENV }}
-        #     app-name: ${{ needs.set_env.outputs.APP_NAME }}
-        #     app-version: ${{ github.sha }}
-        #     namespace: ${{ needs.set_env.outputs.APP_NAME }}
-        #     cluster: ${{ needs.set_env.outputs.cluster }}
-        #     path: ./devops/k8s/base
-        #     image: ${{ needs.set_env.outputs.APP_NAME }}:${{ github.sha }}
-        #     env-vars: |
-        #         {
-        #             "_ACCOUNT": "${{ needs.set_env.outputs.ACCOUNT }} ",
-        #             "_DOMAIN": "${{ needs.set_env.outputs.DOMAIN }}",
-        #             "_LOG_LEVEL": "${{ needs.set_env.outputs.LOG_LEVEL }}",
-        #             "_GOOGLE_PROJECT_ID": "${{ needs.set_env.outputs.GOOGLE_PROJECT_ID }}",
-        #             "_GOOGLE_CLIENT_EMAIL": "${{ needs.set_env.outputs.GOOGLE_CLIENT_EMAIL }}",
-        #             "_GITHUB_SHA": "${{ github.sha }}",
-        #             "_GITHUB_REPO": "github.com/${{ github.repository }}",
-        #             "_REDIS_HOST": "${{ needs.set_env.outputs.REDIS_HOST }}",
-        #             "_REDIS_PORT": "${{ needs.set_env.outputs.REDIS_PORT }}",
-        #         }
 }
