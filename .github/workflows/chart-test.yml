@@ -34,7 +34,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4
         with:
           version: ${{ env.HELM_VERSION }}
       - uses: actions/setup-python@v5
@@ -87,7 +87,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4
         with:
           version: ${{ env.HELM_VERSION }}
       - name: Run kubeval with legacy ingress for older k8s
