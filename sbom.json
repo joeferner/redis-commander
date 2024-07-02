@@ -3,9 +3,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
   "version": 1,
-  "serialNumber": "urn:uuid:5176acff-913a-4551-97d8-957875a90a9f",
+  "serialNumber": "urn:uuid:99e3fe1c-c1f7-4180-92d5-b906c311c118",
   "metadata": {
-    "timestamp": "2024-07-02T08:42:06.247Z",
+    "timestamp": "2024-07-02T09:15:41.922Z",
     "tools": [
       {
         "name": "npm",
@@ -11424,8 +11424,8 @@
     {
       "type": "library",
       "name": "config",
-      "version": "3.3.11",
-      "bom-ref": "config@3.3.11",
+      "version": "3.3.12",
+      "bom-ref": "config@3.3.12",
       "author": "Loren West",
       "description": "Configuration control for production node deployments",
       "licenses": [
@@ -11435,7 +11435,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/config@3.3.11",
+      "purl": "pkg:npm/config@3.3.12",
       "externalReferences": [
         {
           "url": "git+ssh://git@github.com/node-config/node-config.git",
@@ -11453,12 +11453,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/config/-/config-3.3.11.tgz",
+          "url": "https://registry.npmjs.org/config/-/config-3.3.12.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "0e19fadd9a16096e44320e0fd1297f5cdb23ffb44b894200d71d67a42cbe9b6711c111f32e7b7752d62dc510cc656ffaa0e31d5a10b368662439c6a31a0ac038"
+              "content": "566c77f3d47f4153377e8c6a0735cef2ddad52291864feb843abd0c46aec32944478973f6964673d11115d6b18cce1c0ba6c7f00ea082d67ba9d4dd924bfba4b"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -13871,8 +13871,8 @@
     {
       "type": "library",
       "name": "ioredis",
-      "version": "5.3.2",
-      "bom-ref": "ioredis@5.3.2",
+      "version": "5.4.0",
+      "bom-ref": "ioredis@5.4.0",
       "author": "Zihua Li",
       "description": "A robust, performance-focused and full-featured Redis client for Node.js.",
       "licenses": [
@@ -13882,7 +13882,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/ioredis@5.3.2",
+      "purl": "pkg:npm/ioredis@5.4.0",
       "externalReferences": [
         {
           "url": "git://github.com/luin/ioredis.git",
@@ -13900,12 +13900,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/ioredis/-/ioredis-5.3.2.tgz",
+          "url": "https://registry.npmjs.org/ioredis/-/ioredis-5.4.0.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "d4328c3339481ccd36781055385435f80a251a3b3afb111c3383c32fb36a392eacceaec7f6349a1242141fafdae47976e352f35ba24b4a201b36f4d08d4ba950"
+              "content": "9468a26725853ac90fbb7a47e0ff3eba27073991e9cd8a607ca645adeebcc0b2bad39f73068f8a0d3429c3101589b05a8caaa972b449e64fa397fb8d1dc0a8dc"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -26956,13 +26956,13 @@
         "chai@4.4.1",
         "clipboard@2.0.11",
         "cmdparser@0.1.0",
-        "config@3.3.11",
+        "config@3.3.12",
         "dateformat@3.0.3",
         "ejs@3.1.10",
         "express-partials@0.3.0",
         "express@4.19.2",
         "inflection@1.13.4",
-        "ioredis@5.3.2",
+        "ioredis@5.4.0",
         "jquery.json-viewer@1.5.0",
         "jsonwebtoken@9.0.2",
         "jstree@3.3.16",
@@ -28226,7 +28226,7 @@
       ]
     },
     {
-      "ref": "config@3.3.11",
+      "ref": "config@3.3.12",
       "dependsOn": [
         "json5@2.2.3"
       ]
@@ -28490,7 +28490,7 @@
       "ref": "inflection@1.13.4"
     },
     {
-      "ref": "ioredis@5.3.2",
+      "ref": "ioredis@5.4.0",
       "dependsOn": [
         "@ioredis/commands@1.2.0",
         "cluster-key-slot@1.1.0",
@@ -28960,7 +28960,7 @@
       "ref": "node-redis-dump2@0.6.0",
       "dependsOn": [
         "async@3.2.5",
-        "ioredis@5.3.2",
+        "ioredis@5.4.0",
         "underscore@1.13.1"
       ]
     },
