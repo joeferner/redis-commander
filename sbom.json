@@ -3,18 +3,18 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
   "version": 1,
-  "serialNumber": "urn:uuid:a004c1b9-0959-4365-adf2-8554fde620aa",
+  "serialNumber": "urn:uuid:c4dfb866-f6dc-488c-a46e-7afc94c71557",
   "metadata": {
-    "timestamp": "2024-07-02T09:19:04.914Z",
+    "timestamp": "2024-08-18T15:54:43.056Z",
     "tools": [
       {
         "name": "npm",
-        "version": "10.7.0"
+        "version": "10.8.1"
       },
       {
         "vendor": "@cyclonedx",
         "name": "cyclonedx-npm",
-        "version": "1.19.0",
+        "version": "1.19.3",
         "externalReferences": [
           {
             "url": "git+https://github.com/CycloneDX/cyclonedx-node-npm.git",
@@ -36,7 +36,7 @@
       {
         "vendor": "@cyclonedx",
         "name": "cyclonedx-library",
-        "version": "6.10.0",
+        "version": "6.11.0",
         "externalReferences": [
           {
             "url": "git+https://github.com/CycloneDX/cyclonedx-javascript-library.git",
@@ -59,8 +59,8 @@
     "component": {
       "type": "application",
       "name": "redis-commander",
-      "version": "0.9.0-rc4",
-      "bom-ref": "redis-commander@0.9.0-rc4",
+      "version": "0.9.0-rc5",
+      "bom-ref": "redis-commander@0.9.0-rc5",
       "author": "Joe Ferner",
       "description": "Redis web-based management tool written in node.js",
       "licenses": [
@@ -70,7 +70,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/redis-commander@0.9.0-rc4?vcs_url=git%3A//github.com/joeferner/redis-commander.git",
+      "purl": "pkg:npm/redis-commander@0.9.0-rc5?vcs_url=git%3A//github.com/joeferner/redis-commander.git",
       "externalReferences": [
         {
           "url": "git://github.com/joeferner/redis-commander.git",
@@ -4329,8 +4329,8 @@
     {
       "type": "library",
       "name": "elliptic",
-      "version": "6.5.4",
-      "bom-ref": "elliptic@6.5.4",
+      "version": "6.5.7",
+      "bom-ref": "elliptic@6.5.7",
       "author": "Fedor Indutny",
       "description": "EC cryptography",
       "licenses": [
@@ -4340,7 +4340,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/elliptic@6.5.4",
+      "purl": "pkg:npm/elliptic@6.5.7",
       "externalReferences": [
         {
           "url": "git+ssh://git@github.com/indutny/elliptic.git",
@@ -4358,12 +4358,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz",
+          "url": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.7.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "88b842e942de9ab9633d96fe42eb51e5340607ea5d5ba2860f94527a04bef2ca2b3994feadd4056ec405260bcddde46a3402ea25eaf8a10d7a62f247954f21cd"
+              "content": "112542b53c2203e5e1637c32876e10a91181a0fdeb11d0d4977103514a3db5fb74ef87e2d7d22b7691fb84b08c30fdc2223ee36f75bdeab9fc96dfc1a8896de5"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -4384,7 +4384,7 @@
           "type": "library",
           "name": "bn.js",
           "version": "4.12.0",
-          "bom-ref": "elliptic@6.5.4|bn.js@4.12.0",
+          "bom-ref": "elliptic@6.5.7|bn.js@4.12.0",
           "author": "Fedor Indutny",
           "description": "Big number implementation in pure javascript",
           "licenses": [
@@ -13871,8 +13871,8 @@
     {
       "type": "library",
       "name": "ioredis",
-      "version": "5.4.0",
-      "bom-ref": "ioredis@5.4.0",
+      "version": "5.4.1",
+      "bom-ref": "ioredis@5.4.1",
       "author": "Zihua Li",
       "description": "A robust, performance-focused and full-featured Redis client for Node.js.",
       "licenses": [
@@ -13882,7 +13882,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/ioredis@5.4.0",
+      "purl": "pkg:npm/ioredis@5.4.1",
       "externalReferences": [
         {
           "url": "git://github.com/luin/ioredis.git",
@@ -13900,12 +13900,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/ioredis/-/ioredis-5.4.0.tgz",
+          "url": "https://registry.npmjs.org/ioredis/-/ioredis-5.4.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "9468a26725853ac90fbb7a47e0ff3eba27073991e9cd8a607ca645adeebcc0b2bad39f73068f8a0d3429c3101589b05a8caaa972b449e64fa397fb8d1dc0a8dc"
+              "content": "d9866cbe5ee3a2921ad6069e3e478cb5df6b01c4a338e8cfb6970b94e7aeb323be5c7d922b965c4fe502ac494f3fe5952089e1d93cde2385d6f4435a48b5551c"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -26946,7 +26946,7 @@
   ],
   "dependencies": [
     {
-      "ref": "redis-commander@0.9.0-rc4",
+      "ref": "redis-commander@0.9.0-rc5",
       "dependsOn": [
         "@cyclonedx/bom@4.1.0",
         "async@3.2.5",
@@ -26962,7 +26962,7 @@
         "express-partials@0.3.0",
         "express@4.19.2",
         "inflection@1.13.4",
-        "ioredis@5.4.0",
+        "ioredis@5.4.1",
         "jquery.json-viewer@1.5.0",
         "jsonwebtoken@9.0.2",
         "jstree@3.3.16",
@@ -27437,7 +27437,7 @@
         "browserify-rsa@4.1.0",
         "create-hash@1.2.0",
         "create-hmac@1.1.7",
-        "elliptic@6.5.4",
+        "elliptic@6.5.7",
         "inherits@2.0.4",
         "parse-asn1@5.1.6",
         "browserify-sign@4.2.2|readable-stream@3.6.2",
@@ -27483,9 +27483,9 @@
       ]
     },
     {
-      "ref": "elliptic@6.5.4",
+      "ref": "elliptic@6.5.7",
       "dependsOn": [
-        "elliptic@6.5.4|bn.js@4.12.0",
+        "elliptic@6.5.7|bn.js@4.12.0",
         "brorand@1.1.0",
         "hash.js@1.1.7",
         "hmac-drbg@1.0.1",
@@ -27495,7 +27495,7 @@
       ]
     },
     {
-      "ref": "elliptic@6.5.4|bn.js@4.12.0"
+      "ref": "elliptic@6.5.7|bn.js@4.12.0"
     },
     {
       "ref": "brorand@1.1.0"
@@ -27563,7 +27563,7 @@
       "ref": "create-ecdh@4.0.4",
       "dependsOn": [
         "create-ecdh@4.0.4|bn.js@4.12.0",
-        "elliptic@6.5.4"
+        "elliptic@6.5.7"
       ]
     },
     {
@@ -28490,7 +28490,7 @@
       "ref": "inflection@1.13.4"
     },
     {
-      "ref": "ioredis@5.4.0",
+      "ref": "ioredis@5.4.1",
       "dependsOn": [
         "@ioredis/commands@1.2.0",
         "cluster-key-slot@1.1.0",
@@ -28960,7 +28960,7 @@
       "ref": "node-redis-dump2@0.6.0",
       "dependsOn": [
         "async@3.2.5",
-        "ioredis@5.4.0",
+        "ioredis@5.4.1",
         "underscore@1.13.1"
       ]
     },

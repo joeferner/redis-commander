@@ -8,6 +8,8 @@
 * partial update of semver to 7.5.3 (fix CVE-2022-2588)
 * update @babel/traverse from 7.22.5 to 7.23.3 (fix CVE-2023-45133) 
 * update browserify-sign from 4.2.1 to 4.2.2 (fix CVE-2023-46234)
+* update elliptic from 6.5.4 to 6.5.7 (fix CVE-2024-42459, CVE-2024-42460, CVE-2024-42461)
+
 #### Enhancements
 * allow using IPv6 addresses for Redis connection definitions. (except REDIS_HOSTS env var, here no IPv6 allowed, use host names instead) 
 * allow setting a custom HTTP header name used for the JWT session authentication token
@@ -19,8 +21,9 @@
 * update helm chart autoscaling apis for newer K8s versions, #520
 * update helm chart to allow setting ingressClassName for newer K8s versions, #494
 * update UI for better visibility on how to close redis commands modal, #456
-* update ioredis from 4.28.5 to 5.3.2
+* update ioredis from 4.28.5 to 5.4.1
 * update dependencies yargs@17.7.2, ejs@3.1.9, jstree@3.3.15, config@3.3.9, body-parser@1.20.2
+* update @cyclonedx/cyclonedx-npm"@1.19.3
 
 ## Version 0.8.1
 #### Bugfixes
