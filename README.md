@@ -148,6 +148,11 @@ in the output. The config test does not check if hostnames or ip addresses can b
 More information can be found in the documentation at [docs/configuration.md](docs/configuration.md)
 and [docs/connections.md](docs/connections.md).
 
+*Remark: Errors on image startup with "permission denied" on config files might be caused due to
+wrong runtime users running the image. "docker compose" in recent versions does not pick up the
+user defined inside the Dockerfile and uses some other user, therefor it should be explicit set inside
+the docker-compose.yml file as shown in the example file.*
+
 ## Environment Variables
 
 These environment variables can be used starting Redis Commander as normal
@@ -292,7 +297,11 @@ services:
     - REDIS_HOSTS=local:redis:6379
     ports:
     - "8081:8081"
+    user: redis
 ```
+
+Attention - later version of compose do not honor the "USER" directive from the Dockerfile anymore, 
+user must be set explicit. Otherwise, "permission denied" errors are shown on startup.
 
 ### Without docker-compose
 
