@@ -3,9 +3,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
   "version": 1,
-  "serialNumber": "urn:uuid:7d1ee232-1226-4f9a-a90a-fb727419a2d2",
+  "serialNumber": "urn:uuid:7a192111-e973-4ea5-a506-3af080407a16",
   "metadata": {
-    "timestamp": "2024-10-29T09:18:00.450Z",
+    "timestamp": "2024-10-29T09:21:23.030Z",
     "tools": [
       {
         "name": "npm",
@@ -59,8 +59,8 @@
     "component": {
       "type": "application",
       "name": "redis-commander",
-      "version": "0.9.0-rc5",
-      "bom-ref": "redis-commander@0.9.0-rc5",
+      "version": "0.9.0",
+      "bom-ref": "redis-commander@0.9.0",
       "author": "Joe Ferner",
       "description": "Redis web-based management tool written in node.js",
       "licenses": [
@@ -70,7 +70,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/redis-commander@0.9.0-rc5?vcs_url=git%3A//github.com/joeferner/redis-commander.git",
+      "purl": "pkg:npm/redis-commander@0.9.0?vcs_url=git%3A//github.com/joeferner/redis-commander.git",
       "externalReferences": [
         {
           "url": "git://github.com/joeferner/redis-commander.git",
@@ -27399,7 +27399,7 @@
   ],
   "dependencies": [
     {
-      "ref": "redis-commander@0.9.0-rc5",
+      "ref": "redis-commander@0.9.0",
       "dependsOn": [
         "@cyclonedx/bom@4.1.0",
         "async@3.2.6",
