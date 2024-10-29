@@ -25,6 +25,7 @@
 * update ioredis from 4.28.5 to 5.4.1
 * update dependencies yargs@17.7.2, ejs@3.1.10, jstree@3.3.17, config@3.3.12, body-parser@1.20.3
 * update "@cyclonedx/cyclonedx-npm"@1.19.3
+* improve password login check and prevent timing attacks on username check
 
 ## Version 0.8.1
 #### Bugfixes
