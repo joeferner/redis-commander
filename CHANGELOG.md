@@ -5,10 +5,11 @@
 * update jsonwebtoken from 8.5.1 to 9.0.0 (fix CVE-2022-23529, CVE-2022-23541, CVE-2022-23539, CVE-2022-23540)
 * update json5 from 2.2.1 to 2.2.3 (fix CVE-2022-46175)
 * update cmdparser from 0.0.3 to 0.1.0 (fix CVE-2021-43138), #517
-* partial update of semver to 7.5.3 (fix CVE-2022-2588)
+* partial update of semver to 7.5.4 (fix CVE-2022-2588)
 * update @babel/traverse from 7.22.5 to 7.23.3 (fix CVE-2023-45133) 
 * update browserify-sign from 4.2.1 to 4.2.2 (fix CVE-2023-46234)
-* update elliptic from 6.5.4 to 6.5.7 (fix CVE-2024-42459, CVE-2024-42460, CVE-2024-42461)
+* update elliptic from 6.5.4 to 6.6.0 (fix CVE-2024-42459, CVE-2024-42460, CVE-2024-42461, CVE-2024-48948)
+* update cookie from 0.6.0 to 0.7.1 (fix CVE-2024-47764)
 
 #### Enhancements
 * allow using IPv6 addresses for Redis connection definitions. (except REDIS_HOSTS env var, here no IPv6 allowed, use host names instead) 
@@ -22,8 +23,8 @@
 * update helm chart to allow setting ingressClassName for newer K8s versions, #494
 * update UI for better visibility on how to close redis commands modal, #456
 * update ioredis from 4.28.5 to 5.4.1
-* update dependencies yargs@17.7.2, ejs@3.1.9, jstree@3.3.15, config@3.3.9, body-parser@1.20.2
-* update @cyclonedx/cyclonedx-npm"@1.19.3
+* update dependencies yargs@17.7.2, ejs@3.1.10, jstree@3.3.17, config@3.3.12, body-parser@1.20.3
+* update "@cyclonedx/cyclonedx-npm"@1.19.3
 
 ## Version 0.8.1
 #### Bugfixes

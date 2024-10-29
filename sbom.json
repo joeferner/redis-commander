@@ -3,9 +3,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
   "version": 1,
-  "serialNumber": "urn:uuid:99b72f8e-ee90-46aa-8910-39f6195aee9a",
+  "serialNumber": "urn:uuid:7d1ee232-1226-4f9a-a90a-fb727419a2d2",
   "metadata": {
-    "timestamp": "2024-09-17T10:05:29.288Z",
+    "timestamp": "2024-10-29T09:18:00.450Z",
     "tools": [
       {
         "name": "npm",
@@ -4673,8 +4673,8 @@
     {
       "type": "library",
       "name": "elliptic",
-      "version": "6.5.7",
-      "bom-ref": "elliptic@6.5.7",
+      "version": "6.6.0",
+      "bom-ref": "elliptic@6.6.0",
       "author": "Fedor Indutny",
       "description": "EC cryptography",
       "licenses": [
@@ -4684,7 +4684,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/elliptic@6.5.7",
+      "purl": "pkg:npm/elliptic@6.6.0",
       "externalReferences": [
         {
           "url": "git+ssh://git@github.com/indutny/elliptic.git",
@@ -4702,12 +4702,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.7.tgz",
+          "url": "https://registry.npmjs.org/elliptic/-/elliptic-6.6.0.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "112542b53c2203e5e1637c32876e10a91181a0fdeb11d0d4977103514a3db5fb74ef87e2d7d22b7691fb84b08c30fdc2223ee36f75bdeab9fc96dfc1a8896de5"
+              "content": "769c2841c2dcff658b42f26f2d11ca67e7fd16039d8e7ab5d6bbabab07a4190ca018fb1848adbd38c303d966a56ad8aa43e5c61438254cd8b1a4f7c8fa5a5a00"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -4728,7 +4728,7 @@
           "type": "library",
           "name": "bn.js",
           "version": "4.12.0",
-          "bom-ref": "elliptic@6.5.7|bn.js@4.12.0",
+          "bom-ref": "elliptic@6.6.0|bn.js@4.12.0",
           "author": "Fedor Indutny",
           "description": "Big number implementation in pure javascript",
           "licenses": [
@@ -12522,8 +12522,8 @@
     {
       "type": "library",
       "name": "express",
-      "version": "4.21.0",
-      "bom-ref": "express@4.21.0",
+      "version": "4.21.1",
+      "bom-ref": "express@4.21.1",
       "author": "TJ Holowaychuk",
       "description": "Fast, unopinionated, minimalist web framework",
       "licenses": [
@@ -12533,7 +12533,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/express@4.21.0",
+      "purl": "pkg:npm/express@4.21.1",
       "externalReferences": [
         {
           "url": "git+https://github.com/expressjs/express.git",
@@ -12551,12 +12551,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/express/-/express-4.21.0.tgz",
+          "url": "https://registry.npmjs.org/express/-/express-4.21.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "56a70d19c8ff21de594f52d9fdc7e2862dedb539fe3499a4962d9e6400e2823ab6f6a4e55a2fe1010e37b7f54b3eaf3e517d3a142131dc1c8e61eb7a6456e59e"
+              "content": "6121652b511ed3f182f1068ef75b47703c49884fd7e056e903241693102f1ba0170ae47ae58ccaf2e6ba0fd86f8bf4f351f64ca5cf81c2e33520fc3c7e640189"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -12573,7 +12573,7 @@
           "type": "library",
           "name": "debug",
           "version": "2.6.9",
-          "bom-ref": "express@4.21.0|debug@2.6.9",
+          "bom-ref": "express@4.21.1|debug@2.6.9",
           "author": "TJ Holowaychuk",
           "description": "small debugging utility",
           "licenses": [
@@ -12623,7 +12623,7 @@
           "type": "library",
           "name": "ms",
           "version": "2.0.0",
-          "bom-ref": "express@4.21.0|ms@2.0.0",
+          "bom-ref": "express@4.21.1|ms@2.0.0",
           "description": "Tiny milisecond conversion utility",
           "licenses": [
             {
@@ -12672,7 +12672,7 @@
           "type": "library",
           "name": "safe-buffer",
           "version": "5.2.1",
-          "bom-ref": "express@4.21.0|safe-buffer@5.2.1",
+          "bom-ref": "express@4.21.1|safe-buffer@5.2.1",
           "author": "Feross Aboukhadijeh",
           "description": "Safer Node.js Buffer API",
           "licenses": [
@@ -13023,8 +13023,8 @@
     {
       "type": "library",
       "name": "cookie",
-      "version": "0.6.0",
-      "bom-ref": "cookie@0.6.0",
+      "version": "0.7.1",
+      "bom-ref": "cookie@0.7.1",
       "author": "Roman Shtylman",
       "description": "HTTP server cookie parsing and serialization",
       "licenses": [
@@ -13034,7 +13034,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/cookie@0.6.0",
+      "purl": "pkg:npm/cookie@0.7.1",
       "externalReferences": [
         {
           "url": "git+https://github.com/jshttp/cookie.git",
@@ -13052,12 +13052,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/cookie/-/cookie-0.6.0.tgz",
+          "url": "https://registry.npmjs.org/cookie/-/cookie-0.7.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "53bd5cc936a6ba1d4244d09fa4663ab68dbc971bcdc0f1b81aecff1158e07f7266cefd2f943a756ad4fd792e5d0e33181ee7291db5a7b3a2f07f704acfab2f77"
+              "content": "e839c89e9c7b489d802b7f824d413f64cd2f59351ba1909e831842db1888c9d1d1f6336e4c001206b7c4a4786218e670fe75f9d5b1ede98425f23b06a38cbfd3"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -15674,8 +15674,8 @@
     {
       "type": "library",
       "name": "jstree",
-      "version": "3.3.16",
-      "bom-ref": "jstree@3.3.16",
+      "version": "3.3.17",
+      "bom-ref": "jstree@3.3.17",
       "author": "Ivan Bozhanov",
       "description": "jQuery tree plugin",
       "licenses": [
@@ -15691,7 +15691,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/jstree@3.3.16",
+      "purl": "pkg:npm/jstree@3.3.17",
       "externalReferences": [
         {
           "url": "git://github.com/vakata/jstree.git",
@@ -15709,12 +15709,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/jstree/-/jstree-3.3.16.tgz",
+          "url": "https://registry.npmjs.org/jstree/-/jstree-3.3.17.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "c9e78825f7e2d9602ac8c787b9f5e3fcecf2ec6aa029d0e4c5f37c2fc9706c6d21d5cc3f4e00da7d69b286ba07e002a00d293dc96d56ea388966ee335c0ab35f"
+              "content": "5743e5d41e8121ac475103225a4a25dfb42586504aa1903d4547949a6f79f949d5d90799b23d903f5b0e425fe6d8420ec995ce3b1387bd1d126192d20c2ec417"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -27413,12 +27413,12 @@
         "dateformat@3.0.3",
         "ejs@3.1.10",
         "express-partials@0.3.0",
-        "express@4.21.0",
+        "express@4.21.1",
         "inflection@1.13.4",
         "ioredis@5.4.1",
         "jquery.json-viewer@1.5.0",
         "jsonwebtoken@9.0.2",
-        "jstree@3.3.16",
+        "jstree@3.3.17",
         "lodash.isequal@4.5.0",
         "lossless-json@1.0.5",
         "mocha-junit-reporter@2.2.1",
@@ -27939,7 +27939,7 @@
         "browserify-rsa@4.1.0",
         "create-hash@1.2.0",
         "create-hmac@1.1.7",
-        "elliptic@6.5.7",
+        "elliptic@6.6.0",
         "inherits@2.0.4",
         "parse-asn1@5.1.6",
         "browserify-sign@4.2.2|readable-stream@3.6.2",
@@ -27985,9 +27985,9 @@
       ]
     },
     {
-      "ref": "elliptic@6.5.7",
+      "ref": "elliptic@6.6.0",
       "dependsOn": [
-        "elliptic@6.5.7|bn.js@4.12.0",
+        "elliptic@6.6.0|bn.js@4.12.0",
         "brorand@1.1.0",
         "hash.js@1.1.7",
         "hmac-drbg@1.0.1",
@@ -27997,7 +27997,7 @@
       ]
     },
     {
-      "ref": "elliptic@6.5.7|bn.js@4.12.0"
+      "ref": "elliptic@6.6.0|bn.js@4.12.0"
     },
     {
       "ref": "brorand@1.1.0"
@@ -28065,7 +28065,7 @@
       "ref": "create-ecdh@4.0.4",
       "dependsOn": [
         "create-ecdh@4.0.4|bn.js@4.12.0",
-        "elliptic@6.5.7"
+        "elliptic@6.6.0"
       ]
     },
     {
@@ -28810,7 +28810,7 @@
       "ref": "express-partials@0.3.0"
     },
     {
-      "ref": "express@4.21.0",
+      "ref": "express@4.21.1",
       "dependsOn": [
         "accepts@1.3.8",
         "array-flatten@1.1.1",
@@ -28818,8 +28818,8 @@
         "content-disposition@0.5.4",
         "content-type@1.0.5",
         "cookie-signature@1.0.6",
-        "cookie@0.6.0",
-        "express@4.21.0|debug@2.6.9",
+        "cookie@0.7.1",
+        "express@4.21.1|debug@2.6.9",
         "depd@2.0.0",
         "encodeurl@2.0.0",
         "escape-html@1.0.3",
@@ -28835,7 +28835,7 @@
         "proxy-addr@2.0.7",
         "qs@6.13.0",
         "range-parser@1.2.1",
-        "express@4.21.0|safe-buffer@5.2.1",
+        "express@4.21.1|safe-buffer@5.2.1",
         "send@0.19.0",
         "serve-static@1.16.2",
         "setprototypeof@1.2.0",
@@ -28846,16 +28846,16 @@
       ]
     },
     {
-      "ref": "express@4.21.0|debug@2.6.9",
+      "ref": "express@4.21.1|debug@2.6.9",
       "dependsOn": [
-        "express@4.21.0|ms@2.0.0"
+        "express@4.21.1|ms@2.0.0"
       ]
     },
     {
-      "ref": "express@4.21.0|ms@2.0.0"
+      "ref": "express@4.21.1|ms@2.0.0"
     },
     {
-      "ref": "express@4.21.0|safe-buffer@5.2.1"
+      "ref": "express@4.21.1|safe-buffer@5.2.1"
     },
     {
       "ref": "accepts@1.3.8",
@@ -28883,7 +28883,7 @@
       "ref": "cookie-signature@1.0.6"
     },
     {
-      "ref": "cookie@0.6.0"
+      "ref": "cookie@0.7.1"
     },
     {
       "ref": "encodeurl@2.0.0"
@@ -29129,7 +29129,7 @@
       "ref": "yallist@4.0.0"
     },
     {
-      "ref": "jstree@3.3.16",
+      "ref": "jstree@3.3.17",
       "dependsOn": [
         "jquery@3.6.0"
       ]
