@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.21
 
 WORKDIR /redis-commander
 
@@ -22,7 +22,7 @@ RUN  apk update \
   && update-ca-certificates \
   && echo -e "\n---- Create runtime user and fix file access rights ----------" \
   && adduser "${SERVICE_USER}" -h "${HOME}" -G root -S -u 10000 \
-  && chown -R root.root "${HOME}" \
+  && chown -R root:root "${HOME}" \
   && chown -R "${SERVICE_USER}" "${HOME}/config" \
   && chmod g+w "${HOME}/config" \
   && chmod ug+r,o-rwx "${HOME}"/config/*.json \
@@ -42,4 +42,3 @@ ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["/redis-commander/docker/entrypoint.sh"]
 
 EXPOSE 8081
-

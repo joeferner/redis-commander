@@ -2,7 +2,12 @@
 
 ## Next Version
 #### Bugfixes
+* update express from 4.21.1 to 4.21.2 (fix CVE-2024-52798)
+* update cross-spawn from 7.0.3 to 7.0.6 (fix CVE-2024-21538)  
+* update base image to Alpine@3.21 and Node.js@22 
+
 #### Enhancements
+* update ioredis from 5.4.1 to 5.5.0
 
 ## Version 0.9.0
 #### Bugfixes
