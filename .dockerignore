@@ -2,14 +2,20 @@
 .DS_Store
 .dockerignore
 .gitignore
+.snyk
 *.iml
 docker-compose.yml
 Dockerfile
 ecosystem.config.js
+helm-docs
+kubeval
 
 # directories
 .git/
+.github/
 .idea/
+.nyc_output/
+.s2i/
 dist/
 k8s/
 node_modules/
