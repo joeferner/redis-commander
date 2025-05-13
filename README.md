@@ -361,11 +361,11 @@ known issues with Kubernetes:
 ## Helm chart
 
 You can install the application on any Kubernetes cluster using Helm.
-There is no helm repo available currently, therefore local checkout of helm sources inside 
-this repo is needed:
+There is a helm repo available, and can be installed via:
 
 ```sh
-helm -n myspace install redis-web-ui ./k8s/helm-chart/redis-commander
+helm repo add redis-commander https://joeferner.github.io/redis-commander/
+helm install redis-commander/redis-commander
 ```
 
 More [Documentation](k8s/helm-chart/README.md) about this Helm chart and its values.
