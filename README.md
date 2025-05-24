@@ -391,6 +391,13 @@ To use the stock Node.js image builder do the following.
    oc delete all --selector appl=redis-commander-dev1
    ```
 
+## Dev Container
+
+1. Open project in VSCode dev container
+1. Run `redis-server` in one terminal
+1. Run `npm ci` then `node bin/redis-commander.js` in another terminal
+1. Clock on http://127.0.0.1:8081 in the terminal
+
 ## Helper Scripts
 ### Generate BCrypted password hash
 
