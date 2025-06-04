@@ -3,9 +3,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
   "version": 1,
-  "serialNumber": "urn:uuid:094c2a8f-8a3b-4b8e-8f22-53020bb81660",
+  "serialNumber": "urn:uuid:c5be25a8-4323-406b-9a49-d8292e5b8e61",
   "metadata": {
-    "timestamp": "2025-03-25T08:52:31.006Z",
+    "timestamp": "2025-06-04T10:30:36.419Z",
     "tools": {
       "components": [
         {
@@ -17,7 +17,7 @@
           "type": "application",
           "name": "cyclonedx-npm",
           "group": "@cyclonedx",
-          "version": "2.1.0",
+          "version": "3.0.0",
           "author": "Jan Kowalleck",
           "description": "Create CycloneDX Software Bill of Materials (SBOM) from NPM projects.",
           "licenses": [
@@ -49,7 +49,7 @@
           "type": "library",
           "name": "cyclonedx-library",
           "group": "@cyclonedx",
-          "version": "7.1.0",
+          "version": "8.1.0",
           "author": "Jan Kowalleck",
           "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
           "licenses": [
@@ -14619,8 +14619,8 @@
     {
       "type": "library",
       "name": "ioredis",
-      "version": "5.5.0",
-      "bom-ref": "ioredis@5.5.0",
+      "version": "5.6.1",
+      "bom-ref": "ioredis@5.6.1",
       "author": "Zihua Li",
       "description": "A robust, performance-focused and full-featured Redis client for Node.js.",
       "licenses": [
@@ -14631,7 +14631,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/ioredis@5.5.0",
+      "purl": "pkg:npm/ioredis@5.6.1",
       "externalReferences": [
         {
           "url": "git://github.com/luin/ioredis.git",
@@ -14649,12 +14649,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/ioredis/-/ioredis-5.5.0.tgz",
+          "url": "https://registry.npmjs.org/ioredis/-/ioredis-5.6.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "ec2bad4fcf60db715f49af0c0e8205b3619861ad0f68d896fcead3fa74728d15c70d9775ec7988832fab78e43fca187bd8dce73631ae4bc91b080700e11a389b"
+              "content": "5310b462fd58e164498864314243f485f74bd3fe7fe98bdd7ce382951809d2aa6949aae48677926ba52f90c926b340247468a6487dc892a9beea690c997eef18"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -19119,7 +19119,7 @@
       "type": "library",
       "name": "strip-ansi",
       "version": "6.0.1",
-      "bom-ref": "BomRef.3lv5k0ajhlo.7s114q1otro",
+      "bom-ref": "BomRef.8ubdbjqp81o.1dhen19bsig",
       "author": "Sindre Sorhus",
       "description": "Strip ANSI escape codes from a string",
       "licenses": [
@@ -19229,7 +19229,7 @@
       "type": "library",
       "name": "string-width",
       "version": "4.2.3",
-      "bom-ref": "BomRef.bdjfpshl9d8.91evsm3i8n",
+      "bom-ref": "BomRef.hq8tn16bgtg.rj2gtcjcv38",
       "author": "Sindre Sorhus",
       "description": "Get the visual width of a string - the number of columns required to display it",
       "licenses": [
@@ -27569,7 +27569,7 @@
       "type": "library",
       "name": "wrap-ansi",
       "version": "7.0.0",
-      "bom-ref": "BomRef.f3brllupcfg.tfcordl7kb",
+      "bom-ref": "BomRef.7puihm2jl7g.huel9mia0v",
       "author": "Sindre Sorhus",
       "description": "Wordwrap a string with ANSI escape codes",
       "licenses": [
@@ -27686,7 +27686,7 @@
         "express-partials@0.3.0",
         "express@4.21.2",
         "inflection@1.13.4",
-        "ioredis@5.5.0",
+        "ioredis@5.6.1",
         "jquery.json-viewer@1.5.0",
         "jsonwebtoken@9.0.2",
         "jstree@3.3.17",
@@ -29272,7 +29272,7 @@
       "ref": "inflection@1.13.4"
     },
     {
-      "ref": "ioredis@5.5.0",
+      "ref": "ioredis@5.6.1",
       "dependsOn": [
         "@ioredis/commands@1.2.0",
         "cluster-key-slot@1.1.0",
@@ -29662,7 +29662,7 @@
       "dependsOn": [
         "string-width@4.2.3",
         "@isaacs/cliui@8.0.2|string-width@5.1.2",
-        "BomRef.3lv5k0ajhlo.7s114q1otro",
+        "BomRef.8ubdbjqp81o.1dhen19bsig",
         "@isaacs/cliui@8.0.2|strip-ansi@7.1.0",
         "wrap-ansi@7.0.0",
         "@isaacs/cliui@8.0.2|wrap-ansi@8.1.0"
@@ -29717,7 +29717,7 @@
       "ref": "eastasianwidth@0.2.0"
     },
     {
-      "ref": "BomRef.3lv5k0ajhlo.7s114q1otro",
+      "ref": "BomRef.8ubdbjqp81o.1dhen19bsig",
       "dependsOn": [
         "ansi-regex@5.0.1"
       ]
@@ -29726,12 +29726,12 @@
       "ref": "wrap-ansi@7.0.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.bdjfpshl9d8.91evsm3i8n",
+        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
         "strip-ansi@6.0.1"
       ]
     },
     {
-      "ref": "BomRef.bdjfpshl9d8.91evsm3i8n",
+      "ref": "BomRef.hq8tn16bgtg.rj2gtcjcv38",
       "dependsOn": [
         "emoji-regex@8.0.0",
         "is-fullwidth-code-point@3.0.0",
@@ -29822,7 +29822,7 @@
         "escalade@3.2.0",
         "get-caller-file@2.0.5",
         "require-directory@2.1.1",
-        "BomRef.bdjfpshl9d8.91evsm3i8n",
+        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
         "y18n@5.0.8",
         "yargs-parser@21.1.1"
       ]
@@ -29831,7 +29831,7 @@
       "ref": "node-redis-dump2@0.6.0",
       "dependsOn": [
         "async@3.2.6",
-        "ioredis@5.5.0",
+        "ioredis@5.6.1",
         "underscore@1.13.1"
       ]
     },
@@ -29924,7 +29924,7 @@
         "require-directory@2.1.1",
         "require-main-filename@2.0.0",
         "set-blocking@2.0.0",
-        "BomRef.bdjfpshl9d8.91evsm3i8n",
+        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
         "which-module@2.0.0",
         "nyc@17.1.0|y18n@4.0.3",
         "nyc@17.1.0|yargs-parser@18.1.3"
@@ -29933,7 +29933,7 @@
     {
       "ref": "nyc@17.1.0|cliui@6.0.0",
       "dependsOn": [
-        "BomRef.bdjfpshl9d8.91evsm3i8n",
+        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
         "strip-ansi@6.0.1",
         "nyc@17.1.0|wrap-ansi@6.2.0"
       ]
@@ -29942,7 +29942,7 @@
       "ref": "nyc@17.1.0|wrap-ansi@6.2.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.bdjfpshl9d8.91evsm3i8n",
+        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
         "strip-ansi@6.0.1"
       ]
     },
@@ -30555,16 +30555,16 @@
     {
       "ref": "cliui@8.0.1",
       "dependsOn": [
-        "BomRef.bdjfpshl9d8.91evsm3i8n",
+        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
         "strip-ansi@6.0.1",
-        "BomRef.f3brllupcfg.tfcordl7kb"
+        "BomRef.7puihm2jl7g.huel9mia0v"
       ]
     },
     {
-      "ref": "BomRef.f3brllupcfg.tfcordl7kb",
+      "ref": "BomRef.7puihm2jl7g.huel9mia0v",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.bdjfpshl9d8.91evsm3i8n",
+        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
         "strip-ansi@6.0.1"
       ]
     },
