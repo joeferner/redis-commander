@@ -3,9 +3,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
   "version": 1,
-  "serialNumber": "urn:uuid:c5be25a8-4323-406b-9a49-d8292e5b8e61",
+  "serialNumber": "urn:uuid:6d423977-128d-45b3-82d0-ad32e2b1aca3",
   "metadata": {
-    "timestamp": "2025-06-04T10:30:36.419Z",
+    "timestamp": "2025-07-04T10:26:17.580Z",
     "tools": {
       "components": [
         {
@@ -1195,8 +1195,8 @@
     {
       "type": "library",
       "name": "call-bind",
-      "version": "1.0.7",
-      "bom-ref": "call-bind@1.0.7",
+      "version": "1.0.8",
+      "bom-ref": "call-bind@1.0.8",
       "author": "Jordan Harband",
       "description": "Robustly `.call.bind()` a function",
       "licenses": [
@@ -1207,7 +1207,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/call-bind@1.0.7",
+      "purl": "pkg:npm/call-bind@1.0.8",
       "externalReferences": [
         {
           "url": "git+https://github.com/ljharb/call-bind.git",
@@ -1225,12 +1225,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/call-bind/-/call-bind-1.0.7.tgz",
+          "url": "https://registry.npmjs.org/call-bind/-/call-bind-1.0.8.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "1874d2352608090eec707eec67e336ac5a294682e1f2dd9b2d25ba05b82bb4bb1a84e201e62c805497fd1a358addc6130da323e17741a4cd5c03aa484b42afdb"
+              "content": "a0a95214c70cc29520d9e767921438e78c1f5a253fba5dc29097bf3c41dc4caba25fa4696de854885317bb5dc76a5199c5f530090cd91bbe3b617067d629bdc3"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -1245,11 +1245,11 @@
     },
     {
       "type": "library",
-      "name": "es-define-property",
-      "version": "1.0.0",
-      "bom-ref": "es-define-property@1.0.0",
+      "name": "call-bind-apply-helpers",
+      "version": "1.0.2",
+      "bom-ref": "call-bind-apply-helpers@1.0.2",
       "author": "Jordan Harband",
-      "description": "`Object.defineProperty`, but not IE 8's broken one.",
+      "description": "Helper functions around Function call/apply/bind, for use in `call-bind`",
       "licenses": [
         {
           "license": {
@@ -1258,30 +1258,30 @@
           }
         }
       ],
-      "purl": "pkg:npm/es-define-property@1.0.0",
+      "purl": "pkg:npm/call-bind-apply-helpers@1.0.2",
       "externalReferences": [
         {
-          "url": "git+https://github.com/ljharb/es-define-property.git",
+          "url": "git+https://github.com/ljharb/call-bind-apply-helpers.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/ljharb/es-define-property#readme",
+          "url": "https://github.com/ljharb/call-bind-apply-helpers#readme",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/ljharb/es-define-property/issues",
+          "url": "https://github.com/ljharb/call-bind-apply-helpers/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/es-define-property/-/es-define-property-1.0.0.tgz",
+          "url": "https://registry.npmjs.org/call-bind-apply-helpers/-/call-bind-apply-helpers-1.0.2.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "8f16b22ca4a1ac4aaacc9d1eba641b5614d840cdbb09f4f54f7e7e8028031682fcd892ec5ea4c9efacefe80d182ce8049cb50cbcbcec0ec188ae5f0d1694f681"
+              "content": "4a9d5a6e52748af0e44b38dc68977112e9cde7f5ef92c149dac30115fabac74af285057fd9bfcac057b6d5c329987b4f3928a3f0af7dff049fa04b9339b9ae31"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -1290,58 +1290,7 @@
       "properties": [
         {
           "name": "cdx:npm:package:path",
-          "value": "node_modules/es-define-property"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "get-intrinsic",
-      "version": "1.2.4",
-      "bom-ref": "get-intrinsic@1.2.4",
-      "author": "Jordan Harband",
-      "description": "Get and robustly cache all JS language-level intrinsics at first require time",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/get-intrinsic@1.2.4",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/ljharb/get-intrinsic.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/ljharb/get-intrinsic#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/ljharb/get-intrinsic/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.2.4.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "e6e621b091fc549053bfba2c960e01ce7258843a1123ac1a602c4c9827674eb702ac703f7c214aa13173d8928a1341dd0c5505effa10ba1cee99724aee968145"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/get-intrinsic"
+          "value": "node_modules/call-bind-apply-helpers"
         }
       ]
     },
@@ -1444,6 +1393,108 @@
         {
           "name": "cdx:npm:package:path",
           "value": "node_modules/function-bind"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "es-define-property",
+      "version": "1.0.1",
+      "bom-ref": "es-define-property@1.0.1",
+      "author": "Jordan Harband",
+      "description": "`Object.defineProperty`, but not IE 8's broken one.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/es-define-property@1.0.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/ljharb/es-define-property.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/ljharb/es-define-property#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/ljharb/es-define-property/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/es-define-property/-/es-define-property-1.0.1.tgz",
+          "type": "distribution",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "7b79d17e07d4678acd18bdb7da05205f4e90372c9ecf4e0a76316b17e2d34683979ab3a014a0e0e0109db235bc1274faf5ea9d606991a49c223d560dac2696de"
+            }
+          ],
+          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/es-define-property"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "get-intrinsic",
+      "version": "1.3.0",
+      "bom-ref": "get-intrinsic@1.3.0",
+      "author": "Jordan Harband",
+      "description": "Get and robustly cache all JS language-level intrinsics at first require time",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/get-intrinsic@1.3.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/ljharb/get-intrinsic.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/ljharb/get-intrinsic#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/ljharb/get-intrinsic/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.3.0.tgz",
+          "type": "distribution",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "f5f4a349aa2cfdf448548a7ec5226513a95fc21112ecb36d29a08121a987b23af69dad418800493e8d263a38f3f062435116ab9823c6a9a89583999f8dbf7c09"
+            }
+          ],
+          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/get-intrinsic"
         }
       ]
     },
@@ -1552,8 +1603,8 @@
     {
       "type": "library",
       "name": "gopd",
-      "version": "1.0.1",
-      "bom-ref": "gopd@1.0.1",
+      "version": "1.2.0",
+      "bom-ref": "gopd@1.2.0",
       "author": "Jordan Harband",
       "description": "`Object.getOwnPropertyDescriptor`, but accounts for IE's broken implementation.",
       "licenses": [
@@ -1564,7 +1615,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/gopd@1.0.1",
+      "purl": "pkg:npm/gopd@1.2.0",
       "externalReferences": [
         {
           "url": "git+https://github.com/ljharb/gopd.git",
@@ -1582,12 +1633,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/gopd/-/gopd-1.0.1.tgz",
+          "url": "https://registry.npmjs.org/gopd/-/gopd-1.2.0.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "77ae5b36521a771be96ff03669b55d96a2aa579eb78ee4676755ad93ab35b0847cb8db1747bd31a88cd5ab155fd5e4ea0ee9f04f632473311e69ecc2293661c0"
+              "content": "65429187afe4505a0089302d4d83d9277870f70371c7e04804e8a39e51bd3e7ac9b027128ecd70cb20fabc9a5a62d827cc3aca6114aa7f738ee917daf77c6c46"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -1653,11 +1704,11 @@
     },
     {
       "type": "library",
-      "name": "has-proto",
-      "version": "1.0.3",
-      "bom-ref": "has-proto@1.0.3",
+      "name": "es-object-atoms",
+      "version": "1.1.1",
+      "bom-ref": "es-object-atoms@1.1.1",
       "author": "Jordan Harband",
-      "description": "Does this environment have the ability to get the [[Prototype]] of an object on creation with `__proto__`?",
+      "description": "ES Object-related atoms: Object, ToObject, RequireObjectCoercible",
       "licenses": [
         {
           "license": {
@@ -1666,30 +1717,30 @@
           }
         }
       ],
-      "purl": "pkg:npm/has-proto@1.0.3",
+      "purl": "pkg:npm/es-object-atoms@1.1.1",
       "externalReferences": [
         {
-          "url": "git+https://github.com/inspect-js/has-proto.git",
+          "url": "git+https://github.com/ljharb/es-object-atoms.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/inspect-js/has-proto#readme",
+          "url": "https://github.com/ljharb/es-object-atoms#readme",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/inspect-js/has-proto/issues",
+          "url": "https://github.com/ljharb/es-object-atoms/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/has-proto/-/has-proto-1.0.3.tgz",
+          "url": "https://registry.npmjs.org/es-object-atoms/-/es-object-atoms-1.1.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "489d5a999009522652f8f86c54b7f9b46c9d95a541f04745a5a48ee209a250a50ec64f2ace7e40232e19789526876db39c8764fee300513da9977171cd5507f9"
+              "content": "146807da1f3328d8a6f658e3edd6a79053dc20220af42a796e6f9cda041261e3e1a5a1b9f9eb2b2ce0e2848a2b9fe3dee85189cd6857428b4fbfbde34da95d5c"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -1698,15 +1749,66 @@
       "properties": [
         {
           "name": "cdx:npm:package:path",
-          "value": "node_modules/has-proto"
+          "value": "node_modules/es-object-atoms"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "get-proto",
+      "version": "1.0.1",
+      "bom-ref": "get-proto@1.0.1",
+      "author": "Jordan Harband",
+      "description": "Robustly get the [[Prototype]] of an object",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/get-proto@1.0.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/ljharb/get-proto.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/ljharb/get-proto#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/ljharb/get-proto/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/get-proto/-/get-proto-1.0.1.tgz",
+          "type": "distribution",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "b1349f063a17069f3d26f20a21e7eac3b53608279bb1cef892263a6b0886a202ada1219b823604fc6ffe97db05dcc5853cd73d21ca0e0b83837ca1dfc459a9d2"
+            }
+          ],
+          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/get-proto"
         }
       ]
     },
     {
       "type": "library",
       "name": "has-symbols",
-      "version": "1.0.3",
-      "bom-ref": "has-symbols@1.0.3",
+      "version": "1.1.0",
+      "bom-ref": "has-symbols@1.1.0",
       "author": "Jordan Harband",
       "description": "Determine if the JS environment has Symbol support. Supports spec, or shams.",
       "licenses": [
@@ -1717,7 +1819,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/has-symbols@1.0.3",
+      "purl": "pkg:npm/has-symbols@1.1.0",
       "externalReferences": [
         {
           "url": "git://github.com/inspect-js/has-symbols.git",
@@ -1735,12 +1837,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/has-symbols/-/has-symbols-1.0.3.tgz",
+          "url": "https://registry.npmjs.org/has-symbols/-/has-symbols-1.1.0.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "9772c2b85e8c8033704c32a47581848a1623b79a513db120e3aaed9669d23e551b82607c2ce22b2896d86050526e73da25ec4c2ad88f3bc8667918d1cf64ddf8"
+              "content": "d5c0cd77027625aa2199bdec8383a629a301c2e0b8f2c6278b91d4c360efb02f0b8c64cb2bd87e79bd57e91cae3877b8853d142c25baf22a26863528294aa53d"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -1801,6 +1903,57 @@
         {
           "name": "cdx:npm:package:path",
           "value": "node_modules/hasown"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "math-intrinsics",
+      "version": "1.1.0",
+      "bom-ref": "math-intrinsics@1.1.0",
+      "author": "Jordan Harband",
+      "description": "ES Math-related intrinsics and helpers, robustly cached.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/math-intrinsics@1.1.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/es-shims/math-intrinsics.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/es-shims/math-intrinsics#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/es-shims/math-intrinsics/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/math-intrinsics/-/math-intrinsics-1.1.0.tgz",
+          "type": "distribution",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "fc85ed6f0124e474cfc84c32297ea11a4617c4cf676e3eb807e8a55499c2fd1e81d291f91b85776f4a556cbec3063e2d921040a696d05257fa17a5e5f4b1eed6"
+            }
+          ],
+          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/math-intrinsics"
         }
       ]
     },
@@ -5283,8 +5436,8 @@
     {
       "type": "library",
       "name": "pbkdf2",
-      "version": "3.1.2",
-      "bom-ref": "pbkdf2@3.1.2",
+      "version": "3.1.3",
+      "bom-ref": "pbkdf2@3.1.3",
       "author": "Daniel Cousens",
       "description": "This library provides the functionality of PBKDF2 with the ability to use any supported hashing algorithm returned from crypto.getHashes()",
       "licenses": [
@@ -5295,7 +5448,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/pbkdf2@3.1.2",
+      "purl": "pkg:npm/pbkdf2@3.1.3",
       "externalReferences": [
         {
           "url": "git+https://github.com/crypto-browserify/pbkdf2.git",
@@ -5313,12 +5466,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/pbkdf2/-/pbkdf2-3.1.2.tgz",
+          "url": "https://registry.npmjs.org/pbkdf2/-/pbkdf2-3.1.3.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "8ae87b2fa8c0ec9106bb65b10f0b503f575d3a9689342e0a9431057dd41a8d21a018f362e0ec8373647b4276d8d9b47d4230551b082f4dd34966813b45ac5430"
+              "content": "c1f44b059d1f796461088928301e9eb5eedccc9727367a91a5ca164012ea6ada975e67a5491a9f7432b8177bbd4f6b367176acfe140972bc88ff89402fe5d394"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -5332,6 +5485,226 @@
         {
           "name": "cdx:npm:package:development",
           "value": "true"
+        }
+      ],
+      "components": [
+        {
+          "type": "library",
+          "name": "create-hash",
+          "version": "1.1.3",
+          "bom-ref": "pbkdf2@3.1.3|create-hash@1.1.3",
+          "description": "create hashes for browserify",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/create-hash@1.1.3",
+          "externalReferences": [
+            {
+              "url": "git+ssh://git@github.com/crypto-browserify/createHash.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/crypto-browserify/createHash",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/crypto-browserify/createHash/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/create-hash/-/create-hash-1.1.3.tgz",
+              "type": "distribution",
+              "hashes": [
+                {
+                  "alg": "SHA-512",
+                  "content": "b27469721fe4c1085c7659d92986a7345d66d110e5ac2752290687f3bc3514214f54f34243f225f5024a017da354165d75175a1c1302fb35daf46c3db6690d50"
+                }
+              ],
+              "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/pbkdf2/node_modules/create-hash"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "ripemd160",
+          "version": "2.0.1",
+          "bom-ref": "pbkdf2@3.1.3|ripemd160@2.0.1",
+          "description": "Compute ripemd160 of bytes or strings.",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/ripemd160@2.0.1",
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/crypto-browserify/ripemd160.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/crypto-browserify/ripemd160#readme",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/crypto-browserify/ripemd160/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/ripemd160/-/ripemd160-2.0.1.tgz",
+              "type": "distribution",
+              "hashes": [
+                {
+                  "alg": "SHA-512",
+                  "content": "27b7f8c2eb4df2675b574f0c2675e26d8a4238f1d1fb2cf2fa243f02c8ccbf68fc70b6af43c5466a00c5530c1301d17c16644a55e3696d34c4c0d1c25b583de3"
+                }
+              ],
+              "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/pbkdf2/node_modules/ripemd160"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "hash-base",
+          "version": "2.0.2",
+          "bom-ref": "pbkdf2@3.1.3|hash-base@2.0.2",
+          "author": "Kirill Fomichev",
+          "description": "abstract base class for hash-streams",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/hash-base@2.0.2",
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/crypto-browserify/hash-base.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/crypto-browserify/hash-base",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/crypto-browserify/hash-base/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/hash-base/-/hash-base-2.0.2.tgz",
+              "type": "distribution",
+              "hashes": [
+                {
+                  "alg": "SHA-512",
+                  "content": "d1344e810d7f4b113a2a6c564af5c7bd18fdd3f5e8d49bd94a1a1f9d817e7fa66c1ad4787844bb59fad0ccf6a59b26a07ca6425e95678ad89179b66e956b1b8b"
+                }
+              ],
+              "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/pbkdf2/node_modules/hash-base"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "safe-buffer",
+          "version": "5.2.1",
+          "bom-ref": "pbkdf2@3.1.3|safe-buffer@5.2.1",
+          "author": "Feross Aboukhadijeh",
+          "description": "Safer Node.js Buffer API",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/safe-buffer@5.2.1",
+          "externalReferences": [
+            {
+              "url": "git://github.com/feross/safe-buffer.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/feross/safe-buffer",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/feross/safe-buffer/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz",
+              "type": "distribution",
+              "hashes": [
+                {
+                  "alg": "SHA-512",
+                  "content": "ae9dd2a34eca71d9a629b1af81a37141226bedb1954959394bd12ad45fa9a5b468ef4f9879a0f1930e4377c34f37e183e9b8e7626d95b8fb825e6a6e62f9825d"
+                }
+              ],
+              "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/pbkdf2/node_modules/safe-buffer"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
         }
       ]
     },
@@ -6052,6 +6425,338 @@
               "value": "true"
             }
           ]
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "to-buffer",
+      "version": "1.2.1",
+      "bom-ref": "to-buffer@1.2.1",
+      "author": "Mathias Buus",
+      "description": "Pass in a string, array, Buffer, Data View, or Uint8Array, and get a Buffer back.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/to-buffer@1.2.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/browserify/to-buffer.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/browserify/to-buffer",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/browserify/to-buffer/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/to-buffer/-/to-buffer-1.2.1.tgz",
+          "type": "distribution",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "b41f362e90085a384b61baa3c775f8cc478737a33c0a2b8e132d8963c48441575845edc20873856aaac15b57682c3adfa5686995c5bb04bf9b3b7ffa4b7a5c0d"
+            }
+          ],
+          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/to-buffer"
+        },
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "components": [
+        {
+          "type": "library",
+          "name": "isarray",
+          "version": "2.0.5",
+          "bom-ref": "to-buffer@1.2.1|isarray@2.0.5",
+          "author": "Julian Gruber",
+          "description": "Array#isArray for older browsers",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/isarray@2.0.5",
+          "externalReferences": [
+            {
+              "url": "git://github.com/juliangruber/isarray.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/juliangruber/isarray",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/juliangruber/isarray/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/isarray/-/isarray-2.0.5.tgz",
+              "type": "distribution",
+              "hashes": [
+                {
+                  "alg": "SHA-512",
+                  "content": "c478e10ebddc3412b40737542523d7667b50531fe6c0c4b9470e00ee53c9f745c600ee8848ffde3c336ea34be1a8e654f940f9268a1dc02000a1941ddc57802b"
+                }
+              ],
+              "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/to-buffer/node_modules/isarray"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "safe-buffer",
+          "version": "5.2.1",
+          "bom-ref": "to-buffer@1.2.1|safe-buffer@5.2.1",
+          "author": "Feross Aboukhadijeh",
+          "description": "Safer Node.js Buffer API",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/safe-buffer@5.2.1",
+          "externalReferences": [
+            {
+              "url": "git://github.com/feross/safe-buffer.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/feross/safe-buffer",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/feross/safe-buffer/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz",
+              "type": "distribution",
+              "hashes": [
+                {
+                  "alg": "SHA-512",
+                  "content": "ae9dd2a34eca71d9a629b1af81a37141226bedb1954959394bd12ad45fa9a5b468ef4f9879a0f1930e4377c34f37e183e9b8e7626d95b8fb825e6a6e62f9825d"
+                }
+              ],
+              "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/to-buffer/node_modules/safe-buffer"
+            },
+            {
+              "name": "cdx:npm:package:development",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "typed-array-buffer",
+      "version": "1.0.3",
+      "bom-ref": "typed-array-buffer@1.0.3",
+      "author": "Jordan Harband",
+      "description": "Get the ArrayBuffer out of a TypedArray, robustly.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/typed-array-buffer@1.0.3",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/inspect-js/typed-array-buffer.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/inspect-js/typed-array-buffer#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/inspect-js/typed-array-buffer/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/typed-array-buffer/-/typed-array-buffer-1.0.3.tgz",
+          "type": "distribution",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "9c0618c1f637aa7cd7df422403a01066355bb4ae9db86a27b5c426d56486d4c0fde182ea2b4e75e46340a57928c4a39632eb15b2c00758b87d49e6a879f6051b"
+            }
+          ],
+          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/typed-array-buffer"
+        },
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "call-bound",
+      "version": "1.0.4",
+      "bom-ref": "call-bound@1.0.4",
+      "author": "Jordan Harband",
+      "description": "Robust call-bound JavaScript intrinsics, using `call-bind` and `get-intrinsic`.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/call-bound@1.0.4",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/ljharb/call-bound.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/ljharb/call-bound#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/ljharb/call-bound/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/call-bound/-/call-bound-1.0.4.tgz",
+          "type": "distribution",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "fb2b3df7b53dea9a382b1fc0069042aa103d12ec49690583420ef6f791f8841a61bf72198346e804abb0629b78617a7a319e4099942753fb72313951a5a49e8e"
+            }
+          ],
+          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/call-bound"
+        },
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "is-typed-array",
+      "version": "1.1.15",
+      "bom-ref": "is-typed-array@1.1.15",
+      "author": "Jordan Harband",
+      "description": "Is this value a JS Typed Array? This module works cross-realm/iframe, does not depend on `instanceof` or mutable properties, and despite ES6 Symbol.toStringTag.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/is-typed-array@1.1.15",
+      "externalReferences": [
+        {
+          "url": "git://github.com/inspect-js/is-typed-array.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/inspect-js/is-typed-array#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/inspect-js/is-typed-array/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/is-typed-array/-/is-typed-array-1.1.15.tgz",
+          "type": "distribution",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "a7711cb227178e2b7b49ab245c7b35840f75431813c38e85bfa10528a192e434452c3f322a7a218c5de1c688eef786ff39c319a10ba4ce93e9044f6e2d52b381"
+            }
+          ],
+          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/is-typed-array"
+        },
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
         }
       ]
     },
@@ -6885,8 +7590,8 @@
     {
       "type": "library",
       "name": "brace-expansion",
-      "version": "1.1.11",
-      "bom-ref": "brace-expansion@1.1.11",
+      "version": "1.1.12",
+      "bom-ref": "brace-expansion@1.1.12",
       "author": "Julian Gruber",
       "description": "Brace expansion as known from sh/bash",
       "licenses": [
@@ -6897,7 +7602,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/brace-expansion@1.1.11",
+      "purl": "pkg:npm/brace-expansion@1.1.12",
       "externalReferences": [
         {
           "url": "git://github.com/juliangruber/brace-expansion.git",
@@ -6915,12 +7620,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+          "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "882b8f1c3160ac75fb1f6bc423fe71a73d3bcd21c1d344e9ba0aa1998b5598c3bae75f260ae44ca0e60595d101974835f3bb9fa3375a1e058a71815beb5a8688"
+              "content": "f53f548d6debd145b973543b193c25969b57c21bd8984cc587331f67d1fb1505adfae65e3e364f8c13ff5b5644c99d6dc065a89b9ff9e9317894f72a8e70c772"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -9908,11 +10613,11 @@
     },
     {
       "type": "library",
-      "name": "is-typed-array",
-      "version": "1.1.5",
-      "bom-ref": "is-typed-array@1.1.5",
+      "name": "which-typed-array",
+      "version": "1.1.19",
+      "bom-ref": "which-typed-array@1.1.19",
       "author": "Jordan Harband",
-      "description": "Is this value a JS Typed Array? This module works cross-realm/iframe, does not depend on `instanceof` or mutable properties, and despite ES6 Symbol.toStringTag.",
+      "description": "Which kind of Typed Array is this JavaScript value? Works cross-realm, without `instanceof`, and despite Symbol.toStringTag.",
       "licenses": [
         {
           "license": {
@@ -9921,30 +10626,30 @@
           }
         }
       ],
-      "purl": "pkg:npm/is-typed-array@1.1.5",
+      "purl": "pkg:npm/which-typed-array@1.1.19",
       "externalReferences": [
         {
-          "url": "git://github.com/inspect-js/is-typed-array.git",
+          "url": "git://github.com/inspect-js/which-typed-array.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/inspect-js/is-typed-array#readme",
+          "url": "https://github.com/inspect-js/which-typed-array#readme",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/inspect-js/is-typed-array/issues",
+          "url": "https://github.com/inspect-js/which-typed-array/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/is-typed-array/-/is-typed-array-1.1.5.tgz",
+          "url": "https://registry.npmjs.org/which-typed-array/-/which-typed-array-1.1.19.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "4be1910e02654773f211bb17fc5a1b77d72aa5906ebd44bef1ab11a980cc2c26f6a8ccedd68cf99b9a31402c4e8140f1896b0e54d8b8c9a17efeebdd947958ba"
+              "content": "ac4bebf7405c938599b7d1c7142e0324cb23beeef1fabe9b226cf4fc1adb59bec0d9d8c9f219d932b5a71e8f45f2cb2fd0e304adab0385fb6b7d1393caa483af"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -9953,7 +10658,7 @@
       "properties": [
         {
           "name": "cdx:npm:package:path",
-          "value": "node_modules/is-typed-array"
+          "value": "node_modules/which-typed-array"
         },
         {
           "name": "cdx:npm:package:development",
@@ -9964,8 +10669,8 @@
     {
       "type": "library",
       "name": "available-typed-arrays",
-      "version": "1.0.3",
-      "bom-ref": "available-typed-arrays@1.0.3",
+      "version": "1.0.7",
+      "bom-ref": "available-typed-arrays@1.0.7",
       "author": "Jordan Harband",
       "description": "Returns an array of Typed Array names that are available in the current environment",
       "licenses": [
@@ -9976,7 +10681,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/available-typed-arrays@1.0.3",
+      "purl": "pkg:npm/available-typed-arrays@1.0.7",
       "externalReferences": [
         {
           "url": "git+https://github.com/inspect-js/available-typed-arrays.git",
@@ -9994,12 +10699,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.3.tgz",
+          "url": "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.7.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "0ae3e11542e2c55fddf3d3cea35506e06a866d1edd9ab79f63665d9ac61a91e47880e4895e817bb5f79a8aa30718e32b953889a1e12cf3b7e92ec058984d8133"
+              "content": "c2f52306d48637bfbb4a3369abff4cd93837e745190f7abad881592db4404756d23250a8d5969e5be049f83d3dd1ee2120864b05c4c359ee0c8788ef5036a3cd"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -10018,11 +10723,11 @@
     },
     {
       "type": "library",
-      "name": "array.prototype.filter",
-      "version": "1.0.0",
-      "bom-ref": "array.prototype.filter@1.0.0",
+      "name": "possible-typed-array-names",
+      "version": "1.1.0",
+      "bom-ref": "possible-typed-array-names@1.1.0",
       "author": "Jordan Harband",
-      "description": "An ES5 spec-compliant `Array.prototype.filter` shim/polyfill/replacement that works as far down as ES3.",
+      "description": "A simple list of possible Typed Array names.",
       "licenses": [
         {
           "license": {
@@ -10031,30 +10736,30 @@
           }
         }
       ],
-      "purl": "pkg:npm/array.prototype.filter@1.0.0",
+      "purl": "pkg:npm/possible-typed-array-names@1.1.0",
       "externalReferences": [
         {
-          "url": "git+https://github.com/es-shims/Array.prototype.filter.git",
+          "url": "git+https://github.com/ljharb/possible-typed-array-names.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/es-shims/Array.prototype.filter#readme",
+          "url": "https://github.com/ljharb/possible-typed-array-names#readme",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/es-shims/Array.prototype.filter/issues",
+          "url": "https://github.com/ljharb/possible-typed-array-names/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/array.prototype.filter/-/array.prototype.filter-1.0.0.tgz",
+          "url": "https://registry.npmjs.org/possible-typed-array-names/-/possible-typed-array-names-1.1.0.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "4df3b5833fad2e6f81b30ab41413973ea01c86d0abd919f8f13f1d2c9a11165f0da04a2c8d99b3a6d9aea355fc69907365caac4755bc53beb5b6300226d9e04d"
+              "content": "ffee55153721243a158f76e1a2a8ba51eca6703d340c0c1bd672706a6ccfbc712ccc9e05a45e9234d6d46ce4bcc88e7aa87cdd57c78ad2a11f3928a87644ddc6"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -10063,7 +10768,7 @@
       "properties": [
         {
           "name": "cdx:npm:package:path",
-          "value": "node_modules/array.prototype.filter"
+          "value": "node_modules/possible-typed-array-names"
         },
         {
           "name": "cdx:npm:package:development",
@@ -10073,11 +10778,11 @@
     },
     {
       "type": "library",
-      "name": "define-properties",
-      "version": "1.1.3",
-      "bom-ref": "define-properties@1.1.3",
-      "author": "Jordan Harband",
-      "description": "Define multiple non-enumerable properties at once. Uses `Object.defineProperty` when available; falls back to standard assignment in older engines.",
+      "name": "for-each",
+      "version": "0.3.5",
+      "bom-ref": "for-each@0.3.5",
+      "author": "Raynos",
+      "description": "A better forEach",
       "licenses": [
         {
           "license": {
@@ -10086,30 +10791,30 @@
           }
         }
       ],
-      "purl": "pkg:npm/define-properties@1.1.3",
+      "purl": "pkg:npm/for-each@0.3.5",
       "externalReferences": [
         {
-          "url": "git://github.com/ljharb/define-properties.git",
+          "url": "git+https://github.com/Raynos/for-each.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/ljharb/define-properties#readme",
+          "url": "https://github.com/Raynos/for-each",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/ljharb/define-properties/issues",
+          "url": "https://github.com/Raynos/for-each/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/define-properties/-/define-properties-1.1.3.tgz",
+          "url": "https://registry.npmjs.org/for-each/-/for-each-0.3.5.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "dcca9f60a8f694bcdd3127fc648644fd5f99bb2f81803e9fd7ae1ef0adb0edd827a4a02b0437ab198a4ce3a21861c8e791d3cd3233e4f40e95141f3edd22a55d"
+              "content": "74ac75d9e442548cea0b1146a65c8528930fbcb11682636d52ba53889211e6ef7bcc48511bcc92aed6e83c7657c7b75a2f1415ae5eb8ddc4f36da6f6b64423c6"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -10118,282 +10823,7 @@
       "properties": [
         {
           "name": "cdx:npm:package:path",
-          "value": "node_modules/define-properties"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "object-keys",
-      "version": "1.1.1",
-      "bom-ref": "object-keys@1.1.1",
-      "author": "Jordan Harband",
-      "description": "An Object.keys replacement, in case Object.keys is not available. From https://github.com/es-shims/es5-shim",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/object-keys@1.1.1",
-      "externalReferences": [
-        {
-          "url": "git://github.com/ljharb/object-keys.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/ljharb/object-keys#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/ljharb/object-keys/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/object-keys/-/object-keys-1.1.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "36e00449439432b9485ce7c72b30fa6e93eeded62ddf1be335d44843e15e4f494d6f82bc591ef409a0f186e360b92d971be1a39323303b3b0de5992d2267e12c"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/object-keys"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "es-abstract",
-      "version": "1.18.0",
-      "bom-ref": "es-abstract@1.18.0",
-      "author": "Jordan Harband",
-      "description": "ECMAScript spec abstract operations.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/es-abstract@1.18.0",
-      "externalReferences": [
-        {
-          "url": "git://github.com/ljharb/es-abstract.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/ljharb/es-abstract#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/ljharb/es-abstract/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/es-abstract/-/es-abstract-1.18.0.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "2c9ccaeccad06bc4d2d236b6c3760d2f352024218f74f395d7256f7b38cd9d2f3d0fe551d3cf92cedda6cf7601d83724ffec39b5f22afd1a14005a89246336cb"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/es-abstract"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "es-array-method-boxes-properly",
-      "version": "1.0.0",
-      "bom-ref": "es-array-method-boxes-properly@1.0.0",
-      "author": "Jordan Harband",
-      "description": "Utility package to determine if an `Array.prototype` method properly boxes the callback's receiver and third argument.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/es-array-method-boxes-properly@1.0.0",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/ljharb/es-array-method-boxes-properly.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/ljharb/es-array-method-boxes-properly#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/ljharb/es-array-method-boxes-properly/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/es-array-method-boxes-properly/-/es-array-method-boxes-properly-1.0.0.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "c1de895d49b21e6b7c4f96b6c6b794c0a7063eae9fd5ff96c082648a352a886709cf5aaa9d980fe9720af90c88594e654fb8a678dc54965e3c6f3886f9349870"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/es-array-method-boxes-properly"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-string",
-      "version": "1.0.6",
-      "bom-ref": "is-string@1.0.6",
-      "author": "Jordan Harband",
-      "description": "Is this value a JS String object or primitive? This module works cross-realm/iframe, and despite ES6 @@toStringTag.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-string@1.0.6",
-      "externalReferences": [
-        {
-          "url": "git://github.com/ljharb/is-string.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/ljharb/is-string#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/ljharb/is-string/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-string/-/is-string-1.0.6.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "da07736ca52eaad43795836b513418a0294f866ee842ee14769499329d7f0c68241c14fc136675974c8c75be83e33340c700e232ff0c76e94a44e246365d10d3"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-string"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "es-to-primitive",
-      "version": "1.2.1",
-      "bom-ref": "es-to-primitive@1.2.1",
-      "author": "Jordan Harband",
-      "description": "ECMAScript “ToPrimitive” algorithm. Provides ES5 and ES2015 versions.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/es-to-primitive@1.2.1",
-      "externalReferences": [
-        {
-          "url": "git://github.com/ljharb/es-to-primitive.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/ljharb/es-to-primitive#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/ljharb/es-to-primitive/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/es-to-primitive/-/es-to-primitive-1.2.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "4023a5960649b5a528f6689805c2c285351a1cd8c91773d8b35562743ec0c22123d6463129e41372d2c07b300e1f964a447d20d8880f9fa2b0078213f22469bc"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/es-to-primitive"
+          "value": "node_modules/for-each"
         },
         {
           "name": "cdx:npm:package:development",
@@ -10404,8 +10834,8 @@
     {
       "type": "library",
       "name": "is-callable",
-      "version": "1.2.3",
-      "bom-ref": "is-callable@1.2.3",
+      "version": "1.2.7",
+      "bom-ref": "is-callable@1.2.7",
       "author": "Jordan Harband",
       "description": "Is this JS value callable? Works with Functions and GeneratorFunctions, despite ES6 @@toStringTag.",
       "licenses": [
@@ -10416,30 +10846,30 @@
           }
         }
       ],
-      "purl": "pkg:npm/is-callable@1.2.3",
+      "purl": "pkg:npm/is-callable@1.2.7",
       "externalReferences": [
         {
-          "url": "git://github.com/ljharb/is-callable.git",
+          "url": "git://github.com/inspect-js/is-callable.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/ljharb/is-callable#readme",
+          "url": "https://github.com/inspect-js/is-callable#readme",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/ljharb/is-callable/issues",
+          "url": "https://github.com/inspect-js/is-callable/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/is-callable/-/is-callable-1.2.3.tgz",
+          "url": "https://registry.npmjs.org/is-callable/-/is-callable-1.2.7.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "2750dc31ef14613052aca7b3b885135308d7b21a36f7af77ba75ccd98849513476b712bf786e3b6ef35aff08a93c5999160aff37a7f5180eba76fd261324c8c9"
+              "content": "d410b40551614bfa74aadc3a7a7a7c7bef0e0f452b2b4a052f3b528cdce170a037583b89c7100f5f33ee3ed2a48c463d514a045a55fff1f80a7aed92f22f494c"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -10458,396 +10888,11 @@
     },
     {
       "type": "library",
-      "name": "is-date-object",
-      "version": "1.0.4",
-      "bom-ref": "is-date-object@1.0.4",
-      "author": "Jordan Harband",
-      "description": "Is this value a JS Date object? This module works cross-realm/iframe, and despite ES6 @@toStringTag.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-date-object@1.0.4",
-      "externalReferences": [
-        {
-          "url": "git://github.com/inspect-js/is-date-object.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-date-object#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-date-object/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-date-object/-/is-date-object-1.0.4.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "fdbe1956c1bb6795d5b48c6cfe1f56f27bdf2e0480c8a61db465902dbab2ea303589c9a08dff160a84ca81e4b8c32e6d61a3de3e8bb314c00d6e78fde1cd99f8"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-date-object"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-symbol",
-      "version": "1.0.4",
-      "bom-ref": "is-symbol@1.0.4",
-      "author": "Jordan Harband",
-      "description": "Determine if a value is an ES6 Symbol or not.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-symbol@1.0.4",
-      "externalReferences": [
-        {
-          "url": "git://github.com/inspect-js/is-symbol.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-symbol#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-symbol/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-symbol/-/is-symbol-1.0.4.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "0bf08f06a2969ef75cc6a200471c8e878bf551410e087a600dad16620a4a0c532ccdcacf71f7e0e6e8704a03c22c3d965b19aaea2b22b33f3bb734f4d6db8686"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-symbol"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-negative-zero",
-      "version": "2.0.1",
-      "bom-ref": "is-negative-zero@2.0.1",
-      "author": "Jordan Harband",
-      "description": "Is this value negative zero? === will lie to you",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-negative-zero@2.0.1",
-      "externalReferences": [
-        {
-          "url": "git://github.com/inspect-js/is-negative-zero.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-negative-zero",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-negative-zero/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-negative-zero/-/is-negative-zero-2.0.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "db3e89cd0bd945af40d98ef10ba750426e054934933568ca218613b78db8e9e313266228d10f99c8eb14eba5fc9712b501b07dd9d15e8253cbae1c2979128eeb"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-negative-zero"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-regex",
-      "version": "1.1.3",
-      "bom-ref": "is-regex@1.1.3",
-      "author": "Jordan Harband",
-      "description": "Is this value a JS regex? Works cross-realm/iframe, and despite ES6 @@toStringTag",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-regex@1.1.3",
-      "externalReferences": [
-        {
-          "url": "git://github.com/inspect-js/is-regex.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-regex",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-regex/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-regex/-/is-regex-1.1.3.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "a92557173dbc1ccef2f88597eaf2c2b1ec5d96fcd3d4f24d15206e6902d0e68d08130f140d85baff6f9e08c57222c6ccf0234b5f66bf416992a72c5810763b09"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-regex"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "object.assign",
-      "version": "4.1.2",
-      "bom-ref": "object.assign@4.1.2",
-      "author": "Jordan Harband",
-      "description": "ES6 spec-compliant Object.assign shim. From https://github.com/es-shims/es6-shim",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/object.assign@4.1.2",
-      "externalReferences": [
-        {
-          "url": "git://github.com/ljharb/object.assign.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/ljharb/object.assign#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/ljharb/object.assign/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/object.assign/-/object.assign-4.1.2.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "8b14f62f94c75ec029ca250f60a996fb6107a575dee488b733e7f87be6891401daa396a61515ba27438ee9cfcb53c05ee3bbad0b1d862fcf61c4607a5d298ab9"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/object.assign"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "string.prototype.trimend",
-      "version": "1.0.4",
-      "bom-ref": "string.prototype.trimend@1.0.4",
-      "author": "Jordan Harband",
-      "description": "ES2019 spec-compliant String.prototype.trimEnd shim.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/string.prototype.trimend@1.0.4",
-      "externalReferences": [
-        {
-          "url": "git://github.com/es-shims/String.prototype.trimEnd.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/es-shims/String.prototype.trimEnd#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/es-shims/String.prototype.trimEnd/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/string.prototype.trimend/-/string.prototype.trimend-1.0.4.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "cbdc428f0d4fdb703093c12f4e97322f6348af58fbc09dfd7fe93a96f46748ccfe9b3f421b3f4d60f7a50e4e3690ecfafaa97cc637caf28633cb78c03f9414e4"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/string.prototype.trimend"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "string.prototype.trimstart",
-      "version": "1.0.4",
-      "bom-ref": "string.prototype.trimstart@1.0.4",
-      "author": "Jordan Harband",
-      "description": "ES2019 spec-compliant String.prototype.trimStart shim.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/string.prototype.trimstart@1.0.4",
-      "externalReferences": [
-        {
-          "url": "git://github.com/es-shims/String.prototype.trimStart.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/es-shims/String.prototype.trimStart#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/es-shims/String.prototype.trimStart/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/string.prototype.trimstart/-/string.prototype.trimstart-1.0.4.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "8e1e9ef7ce0e05fbf14b9d2d758da74599e80b9fe62c528e44441fc3cb79cb2b64a14b0944dc6f23f137f6abb5b03d0eb56237382d1780a4a6716c338b062e67"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/string.prototype.trimstart"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "unbox-primitive",
+      "name": "dunder-proto",
       "version": "1.0.1",
-      "bom-ref": "unbox-primitive@1.0.1",
+      "bom-ref": "dunder-proto@1.0.1",
       "author": "Jordan Harband",
-      "description": "Unbox a boxed JS primitive value.",
+      "description": "If available, the `Object.prototype.__proto__` accessor and mutator, call-bound",
       "licenses": [
         {
           "license": {
@@ -10856,30 +10901,30 @@
           }
         }
       ],
-      "purl": "pkg:npm/unbox-primitive@1.0.1",
+      "purl": "pkg:npm/dunder-proto@1.0.1",
       "externalReferences": [
         {
-          "url": "git+https://github.com/ljharb/unbox-primitive.git",
+          "url": "git+https://github.com/es-shims/dunder-proto.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/ljharb/unbox-primitive#readme",
+          "url": "https://github.com/es-shims/dunder-proto#readme",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/ljharb/unbox-primitive/issues",
+          "url": "https://github.com/es-shims/dunder-proto/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/unbox-primitive/-/unbox-primitive-1.0.1.tgz",
+          "url": "https://registry.npmjs.org/dunder-proto/-/dunder-proto-1.0.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "b5953fdcda8addd0398291352adca2254ac40749719c690c147a6d27baba7b0759f2cd7642b383c0d6e12094ad98991dd500d76b535103c685d80d7393f629cb"
+              "content": "28837f9c3241411717c3430b561644f62407986ebca80548060f42aa65188e64088608a3f54e4c16faea9142f915bb72cb366e39e3add3375e45ee1463b72df8"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -10888,76 +10933,17 @@
       "properties": [
         {
           "name": "cdx:npm:package:path",
-          "value": "node_modules/unbox-primitive"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
+          "value": "node_modules/dunder-proto"
         }
       ]
     },
     {
       "type": "library",
-      "name": "has-bigints",
-      "version": "1.0.1",
-      "bom-ref": "has-bigints@1.0.1",
-      "author": "Jordan Harband",
-      "description": "Determine if the JS environment has BigInt support.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/has-bigints@1.0.1",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/ljharb/has-bigints.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/ljharb/has-bigints#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/ljharb/has-bigints/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/has-bigints/-/has-bigints-1.0.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "2d2052d8b8db3414dfeb6f3b2446c4cef2607ed905e6a164982a3d8434690332a150e949fa1c7c75de144acd344a0b14370738eb5ec9f648b962d10294cd9f7c"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/has-bigints"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "which-boxed-primitive",
+      "name": "has-tostringtag",
       "version": "1.0.2",
-      "bom-ref": "which-boxed-primitive@1.0.2",
+      "bom-ref": "has-tostringtag@1.0.2",
       "author": "Jordan Harband",
-      "description": "Which kind of boxed JS primitive is this?",
+      "description": "Determine if the JS environment has `Symbol.toStringTag` support. Supports spec, or shams.",
       "licenses": [
         {
           "license": {
@@ -10966,30 +10952,30 @@
           }
         }
       ],
-      "purl": "pkg:npm/which-boxed-primitive@1.0.2",
+      "purl": "pkg:npm/has-tostringtag@1.0.2",
       "externalReferences": [
         {
-          "url": "git+https://github.com/inspect-js/which-boxed-primitive.git",
+          "url": "git+https://github.com/inspect-js/has-tostringtag.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/inspect-js/which-boxed-primitive#readme",
+          "url": "https://github.com/inspect-js/has-tostringtag#readme",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/inspect-js/which-boxed-primitive/issues",
+          "url": "https://github.com/inspect-js/has-tostringtag/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/which-boxed-primitive/-/which-boxed-primitive-1.0.2.tgz",
+          "url": "https://registry.npmjs.org/has-tostringtag/-/has-tostringtag-1.0.2.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "6f065dbf400a2e9a65158d8a6515fa4efcae37ba238ebee5c2483a9a5d2ba08cbd61eb92afb252dfbdaa94d5b5f14418ce060af7388671ead6a993a6127f5536"
+              "content": "36a00307c5633c52ccd95d15bc751ec30c2cc3465605a21d828fa2787b4ade16ac2f3e2a78246361ca9f07a010ac182044aa69285f0be76fd5a9d56c3b8ec397"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -10998,282 +10984,7 @@
       "properties": [
         {
           "name": "cdx:npm:package:path",
-          "value": "node_modules/which-boxed-primitive"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-bigint",
-      "version": "1.0.2",
-      "bom-ref": "is-bigint@1.0.2",
-      "author": "Jordan Harband",
-      "description": "Is this value an ES BigInt?",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-bigint@1.0.2",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/inspect-js/is-bigint.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-bigint#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-bigint/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-bigint/-/is-bigint-1.0.2.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "d09579f9238242421dce304af5bb8045c57cd380ddbbb03441eb7ab078b7162984f677ba9b80464197d19fe3598976c19381785e61df0d9222a4b8fda57f1d48"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-bigint"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-boolean-object",
-      "version": "1.1.1",
-      "bom-ref": "is-boolean-object@1.1.1",
-      "author": "Jordan Harband",
-      "description": "Is this value a JS Boolean? This module works cross-realm/iframe, and despite ES6 @@toStringTag.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-boolean-object@1.1.1",
-      "externalReferences": [
-        {
-          "url": "git://github.com/inspect-js/is-boolean-object.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-boolean-object#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-boolean-object/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-boolean-object/-/is-boolean-object-1.1.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "6d77505a410205420070291e1f5ba7c092c8a5961a6b956fbb2812c92fdcda57fbd7d9932990d4e54743465a5dd355230038265bc45fa9a3fe9916953ddaff36"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-boolean-object"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-number-object",
-      "version": "1.0.5",
-      "bom-ref": "is-number-object@1.0.5",
-      "author": "Jordan Harband",
-      "description": "Is this value a JS Number object? This module works cross-realm/iframe, and despite ES6 @@toStringTag.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-number-object@1.0.5",
-      "externalReferences": [
-        {
-          "url": "git://github.com/inspect-js/is-number-object.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-number-object#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/inspect-js/is-number-object/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-number-object/-/is-number-object-1.0.5.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "454d2523f9fde6932850abbdbf50593f9301719b8d495264324006d9d26a0b8cf61a590650d787ebc4ae1ee04a043fd715ef8b1d9f9ff412a42c44fad0d89e77"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-number-object"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "foreach",
-      "version": "2.0.5",
-      "bom-ref": "foreach@2.0.5",
-      "author": "Manuel Stofer",
-      "description": "foreach component + npm package",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/foreach@2.0.5",
-      "externalReferences": [
-        {
-          "url": "git://github.com/manuelstofer/foreach.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/manuelstofer/foreach#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/manuelstofer/foreach/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/foreach/-/foreach-2.0.5.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-1",
-              "content": "0bee005018aeb260d0a3af3ae658dd0136ec1b99"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/foreach"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "which-typed-array",
-      "version": "1.1.4",
-      "bom-ref": "which-typed-array@1.1.4",
-      "author": "Jordan Harband",
-      "description": "Which kind of Typed Array is this JavaScript value? Works cross-realm, without `instanceof`, and despite Symbol.toStringTag.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/which-typed-array@1.1.4",
-      "externalReferences": [
-        {
-          "url": "git://github.com/inspect-js/which-typed-array.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/inspect-js/which-typed-array#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/inspect-js/which-typed-array/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/which-typed-array/-/which-typed-array-1.1.4.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "e3d1344a951ef74723a6873b04e270c8f1d1a9201dd76735d109b66a674466b24f098d8d0f1696d35cc7213ade9beae7113637770adb1f7514ad4c1a81f0980c"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/which-typed-array"
+          "value": "node_modules/has-tostringtag"
         },
         {
           "name": "cdx:npm:package:development",
@@ -12684,8 +12395,8 @@
         {
           "type": "library",
           "name": "brace-expansion",
-          "version": "2.0.1",
-          "bom-ref": "filelist@1.0.4|brace-expansion@2.0.1",
+          "version": "2.0.2",
+          "bom-ref": "filelist@1.0.4|brace-expansion@2.0.2",
           "author": "Julian Gruber",
           "description": "Brace expansion as known from sh/bash",
           "licenses": [
@@ -12696,7 +12407,7 @@
               }
             }
           ],
-          "purl": "pkg:npm/brace-expansion@2.0.1",
+          "purl": "pkg:npm/brace-expansion@2.0.2",
           "externalReferences": [
             {
               "url": "git://github.com/juliangruber/brace-expansion.git",
@@ -12714,12 +12425,12 @@
               "comment": "as detected from PackageJson property \"bugs.url\""
             },
             {
-              "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.1.tgz",
+              "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.2.tgz",
               "type": "distribution",
               "hashes": [
                 {
                   "alg": "SHA-512",
-                  "content": "5e7008bd0f1e33e902e9a50bc7ac2e422c15b27cec8bd7775b1cd5dc5a564c6035f45eb6d64c1d6ec01c14a5e02941d95accbe998ea22f5b074f1584142cad0c"
+                  "content": "26dd2f1f233e8e6501aa88c1ec4d4d21869db74bc8d10c63c5dd9312b5bde300f3f84d8b026e6f28c5d7c20e996414c73ee5250e0407297be318175f705d590d"
                 }
               ],
               "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -16710,8 +16421,8 @@
         {
           "type": "library",
           "name": "brace-expansion",
-          "version": "2.0.1",
-          "bom-ref": "mocha@11.1.0|brace-expansion@2.0.1",
+          "version": "2.0.2",
+          "bom-ref": "mocha@11.1.0|brace-expansion@2.0.2",
           "author": "Julian Gruber",
           "description": "Brace expansion as known from sh/bash",
           "licenses": [
@@ -16722,7 +16433,7 @@
               }
             }
           ],
-          "purl": "pkg:npm/brace-expansion@2.0.1",
+          "purl": "pkg:npm/brace-expansion@2.0.2",
           "externalReferences": [
             {
               "url": "git://github.com/juliangruber/brace-expansion.git",
@@ -16740,12 +16451,12 @@
               "comment": "as detected from PackageJson property \"bugs.url\""
             },
             {
-              "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.1.tgz",
+              "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.2.tgz",
               "type": "distribution",
               "hashes": [
                 {
                   "alg": "SHA-512",
-                  "content": "5e7008bd0f1e33e902e9a50bc7ac2e422c15b27cec8bd7775b1cd5dc5a564c6035f45eb6d64c1d6ec01c14a5e02941d95accbe998ea22f5b074f1584142cad0c"
+                  "content": "26dd2f1f233e8e6501aa88c1ec4d4d21869db74bc8d10c63c5dd9312b5bde300f3f84d8b026e6f28c5d7c20e996414c73ee5250e0407297be318175f705d590d"
                 }
               ],
               "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -19119,7 +18830,7 @@
       "type": "library",
       "name": "strip-ansi",
       "version": "6.0.1",
-      "bom-ref": "BomRef.8ubdbjqp81o.1dhen19bsig",
+      "bom-ref": "BomRef.e8h9ou3ergg.vv2k8gk79l",
       "author": "Sindre Sorhus",
       "description": "Strip ANSI escape codes from a string",
       "licenses": [
@@ -19229,7 +18940,7 @@
       "type": "library",
       "name": "string-width",
       "version": "4.2.3",
-      "bom-ref": "BomRef.hq8tn16bgtg.rj2gtcjcv38",
+      "bom-ref": "BomRef.6b3k6vi1nc8.jtfdt95pfog",
       "author": "Sindre Sorhus",
       "description": "Get the visual width of a string - the number of columns required to display it",
       "licenses": [
@@ -27569,7 +27280,7 @@
       "type": "library",
       "name": "wrap-ansi",
       "version": "7.0.0",
-      "bom-ref": "BomRef.7puihm2jl7g.huel9mia0v",
+      "bom-ref": "BomRef.l3f3s2kft9o.tneafd5on7g",
       "author": "Sindre Sorhus",
       "description": "Wordwrap a string with ANSI escape codes",
       "licenses": [
@@ -27798,36 +27509,26 @@
     {
       "ref": "side-channel@1.0.6",
       "dependsOn": [
-        "call-bind@1.0.7",
+        "call-bind@1.0.8",
         "es-errors@1.3.0",
-        "get-intrinsic@1.2.4",
+        "get-intrinsic@1.3.0",
         "object-inspect@1.13.2"
       ]
     },
     {
-      "ref": "call-bind@1.0.7",
+      "ref": "call-bind@1.0.8",
       "dependsOn": [
-        "es-define-property@1.0.0",
-        "es-errors@1.3.0",
-        "function-bind@1.1.2",
-        "get-intrinsic@1.2.4",
+        "call-bind-apply-helpers@1.0.2",
+        "es-define-property@1.0.1",
+        "get-intrinsic@1.3.0",
         "set-function-length@1.2.2"
       ]
     },
     {
-      "ref": "es-define-property@1.0.0",
-      "dependsOn": [
-        "get-intrinsic@1.2.4"
-      ]
-    },
-    {
-      "ref": "get-intrinsic@1.2.4",
+      "ref": "call-bind-apply-helpers@1.0.2",
       "dependsOn": [
         "es-errors@1.3.0",
-        "function-bind@1.1.2",
-        "has-proto@1.0.3",
-        "has-symbols@1.0.3",
-        "hasown@2.0.2"
+        "function-bind@1.1.2"
       ]
     },
     {
@@ -27837,47 +27538,75 @@
       "ref": "function-bind@1.1.2"
     },
     {
+      "ref": "es-define-property@1.0.1"
+    },
+    {
+      "ref": "get-intrinsic@1.3.0",
+      "dependsOn": [
+        "call-bind-apply-helpers@1.0.2",
+        "es-define-property@1.0.1",
+        "es-errors@1.3.0",
+        "es-object-atoms@1.1.1",
+        "function-bind@1.1.2",
+        "get-proto@1.0.1",
+        "gopd@1.2.0",
+        "has-symbols@1.1.0",
+        "hasown@2.0.2",
+        "math-intrinsics@1.1.0"
+      ]
+    },
+    {
       "ref": "set-function-length@1.2.2",
       "dependsOn": [
         "define-data-property@1.1.4",
         "es-errors@1.3.0",
         "function-bind@1.1.2",
-        "get-intrinsic@1.2.4",
-        "gopd@1.0.1",
+        "get-intrinsic@1.3.0",
+        "gopd@1.2.0",
         "has-property-descriptors@1.0.2"
       ]
     },
     {
       "ref": "define-data-property@1.1.4",
       "dependsOn": [
-        "es-define-property@1.0.0",
+        "es-define-property@1.0.1",
         "es-errors@1.3.0",
-        "gopd@1.0.1"
+        "gopd@1.2.0"
       ]
     },
     {
-      "ref": "gopd@1.0.1",
-      "dependsOn": [
-        "get-intrinsic@1.2.4"
-      ]
+      "ref": "gopd@1.2.0"
     },
     {
       "ref": "has-property-descriptors@1.0.2",
       "dependsOn": [
-        "es-define-property@1.0.0"
+        "es-define-property@1.0.1"
       ]
     },
     {
-      "ref": "has-proto@1.0.3"
+      "ref": "es-object-atoms@1.1.1",
+      "dependsOn": [
+        "es-errors@1.3.0"
+      ]
     },
     {
-      "ref": "has-symbols@1.0.3"
+      "ref": "get-proto@1.0.1",
+      "dependsOn": [
+        "dunder-proto@1.0.1",
+        "es-object-atoms@1.1.1"
+      ]
+    },
+    {
+      "ref": "has-symbols@1.1.0"
     },
     {
       "ref": "hasown@2.0.2",
       "dependsOn": [
         "function-bind@1.1.2"
       ]
+    },
+    {
+      "ref": "math-intrinsics@1.1.0"
     },
     {
       "ref": "object-inspect@1.13.2"
@@ -28124,7 +27853,7 @@
         "create-hmac@1.1.7",
         "diffie-hellman@5.0.3",
         "inherits@2.0.4",
-        "pbkdf2@3.1.2",
+        "pbkdf2@3.1.3",
         "public-encrypt@4.0.3",
         "randombytes@2.1.0",
         "randomfill@1.0.4"
@@ -28297,7 +28026,7 @@
         "asn1.js@5.4.1",
         "browserify-aes@1.2.0",
         "evp_bytestokey@1.0.3",
-        "pbkdf2@3.1.2",
+        "pbkdf2@3.1.3",
         "safe-buffer@5.1.2"
       ]
     },
@@ -28314,14 +28043,40 @@
       "ref": "asn1.js@5.4.1|bn.js@4.12.0"
     },
     {
-      "ref": "pbkdf2@3.1.2",
+      "ref": "pbkdf2@3.1.3",
       "dependsOn": [
-        "create-hash@1.2.0",
+        "pbkdf2@3.1.3|create-hash@1.1.3",
         "create-hmac@1.1.7",
-        "ripemd160@2.0.2",
-        "safe-buffer@5.1.2",
+        "pbkdf2@3.1.3|ripemd160@2.0.1",
+        "pbkdf2@3.1.3|safe-buffer@5.2.1",
+        "sha.js@2.4.11",
+        "to-buffer@1.2.1"
+      ]
+    },
+    {
+      "ref": "pbkdf2@3.1.3|create-hash@1.1.3",
+      "dependsOn": [
+        "cipher-base@1.0.4",
+        "inherits@2.0.4",
+        "pbkdf2@3.1.3|ripemd160@2.0.1",
         "sha.js@2.4.11"
       ]
+    },
+    {
+      "ref": "pbkdf2@3.1.3|ripemd160@2.0.1",
+      "dependsOn": [
+        "pbkdf2@3.1.3|hash-base@2.0.2",
+        "inherits@2.0.4"
+      ]
+    },
+    {
+      "ref": "pbkdf2@3.1.3|hash-base@2.0.2",
+      "dependsOn": [
+        "inherits@2.0.4"
+      ]
+    },
+    {
+      "ref": "pbkdf2@3.1.3|safe-buffer@5.2.1"
     },
     {
       "ref": "string_decoder@1.1.1",
@@ -28395,6 +28150,41 @@
     },
     {
       "ref": "miller-rabin@4.0.1|bn.js@4.12.0"
+    },
+    {
+      "ref": "to-buffer@1.2.1",
+      "dependsOn": [
+        "to-buffer@1.2.1|isarray@2.0.5",
+        "to-buffer@1.2.1|safe-buffer@5.2.1",
+        "typed-array-buffer@1.0.3"
+      ]
+    },
+    {
+      "ref": "to-buffer@1.2.1|isarray@2.0.5"
+    },
+    {
+      "ref": "to-buffer@1.2.1|safe-buffer@5.2.1"
+    },
+    {
+      "ref": "typed-array-buffer@1.0.3",
+      "dependsOn": [
+        "call-bound@1.0.4",
+        "es-errors@1.3.0",
+        "is-typed-array@1.1.15"
+      ]
+    },
+    {
+      "ref": "call-bound@1.0.4",
+      "dependsOn": [
+        "call-bind-apply-helpers@1.0.2",
+        "get-intrinsic@1.3.0"
+      ]
+    },
+    {
+      "ref": "is-typed-array@1.1.15",
+      "dependsOn": [
+        "which-typed-array@1.1.19"
+      ]
     },
     {
       "ref": "public-encrypt@4.0.3",
@@ -28483,11 +28273,11 @@
     {
       "ref": "minimatch@3.1.2",
       "dependsOn": [
-        "brace-expansion@1.1.11"
+        "brace-expansion@1.1.12"
       ]
     },
     {
-      "ref": "brace-expansion@1.1.11",
+      "ref": "brace-expansion@1.1.12",
       "dependsOn": [
         "balanced-match@1.0.0",
         "concat-map@0.0.1"
@@ -28752,182 +28542,62 @@
         "inherits@2.0.4",
         "is-arguments@1.1.0",
         "is-generator-function@1.0.9",
-        "is-typed-array@1.1.5",
+        "is-typed-array@1.1.15",
         "safe-buffer@5.1.2",
-        "which-typed-array@1.1.4"
+        "which-typed-array@1.1.19"
       ]
     },
     {
       "ref": "is-arguments@1.1.0",
       "dependsOn": [
-        "call-bind@1.0.7"
+        "call-bind@1.0.8"
       ]
     },
     {
       "ref": "is-generator-function@1.0.9"
     },
     {
-      "ref": "is-typed-array@1.1.5",
+      "ref": "which-typed-array@1.1.19",
       "dependsOn": [
-        "available-typed-arrays@1.0.3",
-        "call-bind@1.0.7",
-        "es-abstract@1.18.0",
-        "foreach@2.0.5",
-        "has-symbols@1.0.3"
+        "available-typed-arrays@1.0.7",
+        "call-bind@1.0.8",
+        "call-bound@1.0.4",
+        "for-each@0.3.5",
+        "get-proto@1.0.1",
+        "gopd@1.2.0",
+        "has-tostringtag@1.0.2"
       ]
     },
     {
-      "ref": "available-typed-arrays@1.0.3",
+      "ref": "available-typed-arrays@1.0.7",
       "dependsOn": [
-        "array.prototype.filter@1.0.0"
+        "possible-typed-array-names@1.1.0"
       ]
     },
     {
-      "ref": "array.prototype.filter@1.0.0",
+      "ref": "possible-typed-array-names@1.1.0"
+    },
+    {
+      "ref": "for-each@0.3.5",
       "dependsOn": [
-        "call-bind@1.0.7",
-        "define-properties@1.1.3",
-        "es-abstract@1.18.0",
-        "es-array-method-boxes-properly@1.0.0",
-        "is-string@1.0.6"
+        "is-callable@1.2.7"
       ]
     },
     {
-      "ref": "define-properties@1.1.3",
+      "ref": "is-callable@1.2.7"
+    },
+    {
+      "ref": "dunder-proto@1.0.1",
       "dependsOn": [
-        "object-keys@1.1.1"
+        "call-bind-apply-helpers@1.0.2",
+        "es-errors@1.3.0",
+        "gopd@1.2.0"
       ]
     },
     {
-      "ref": "object-keys@1.1.1"
-    },
-    {
-      "ref": "es-abstract@1.18.0",
+      "ref": "has-tostringtag@1.0.2",
       "dependsOn": [
-        "call-bind@1.0.7",
-        "es-to-primitive@1.2.1",
-        "function-bind@1.1.2",
-        "get-intrinsic@1.2.4",
-        "has-symbols@1.0.3",
-        "has@1.0.3",
-        "is-callable@1.2.3",
-        "is-negative-zero@2.0.1",
-        "is-regex@1.1.3",
-        "is-string@1.0.6",
-        "object-inspect@1.13.2",
-        "object-keys@1.1.1",
-        "object.assign@4.1.2",
-        "string.prototype.trimend@1.0.4",
-        "string.prototype.trimstart@1.0.4",
-        "unbox-primitive@1.0.1"
-      ]
-    },
-    {
-      "ref": "es-array-method-boxes-properly@1.0.0"
-    },
-    {
-      "ref": "is-string@1.0.6"
-    },
-    {
-      "ref": "es-to-primitive@1.2.1",
-      "dependsOn": [
-        "is-callable@1.2.3",
-        "is-date-object@1.0.4",
-        "is-symbol@1.0.4"
-      ]
-    },
-    {
-      "ref": "is-callable@1.2.3"
-    },
-    {
-      "ref": "is-date-object@1.0.4"
-    },
-    {
-      "ref": "is-symbol@1.0.4",
-      "dependsOn": [
-        "has-symbols@1.0.3"
-      ]
-    },
-    {
-      "ref": "is-negative-zero@2.0.1"
-    },
-    {
-      "ref": "is-regex@1.1.3",
-      "dependsOn": [
-        "call-bind@1.0.7",
-        "has-symbols@1.0.3"
-      ]
-    },
-    {
-      "ref": "object.assign@4.1.2",
-      "dependsOn": [
-        "call-bind@1.0.7",
-        "define-properties@1.1.3",
-        "has-symbols@1.0.3",
-        "object-keys@1.1.1"
-      ]
-    },
-    {
-      "ref": "string.prototype.trimend@1.0.4",
-      "dependsOn": [
-        "call-bind@1.0.7",
-        "define-properties@1.1.3"
-      ]
-    },
-    {
-      "ref": "string.prototype.trimstart@1.0.4",
-      "dependsOn": [
-        "call-bind@1.0.7",
-        "define-properties@1.1.3"
-      ]
-    },
-    {
-      "ref": "unbox-primitive@1.0.1",
-      "dependsOn": [
-        "function-bind@1.1.2",
-        "has-bigints@1.0.1",
-        "has-symbols@1.0.3",
-        "which-boxed-primitive@1.0.2"
-      ]
-    },
-    {
-      "ref": "has-bigints@1.0.1"
-    },
-    {
-      "ref": "which-boxed-primitive@1.0.2",
-      "dependsOn": [
-        "is-bigint@1.0.2",
-        "is-boolean-object@1.1.1",
-        "is-number-object@1.0.5",
-        "is-string@1.0.6",
-        "is-symbol@1.0.4"
-      ]
-    },
-    {
-      "ref": "is-bigint@1.0.2"
-    },
-    {
-      "ref": "is-boolean-object@1.1.1",
-      "dependsOn": [
-        "call-bind@1.0.7"
-      ]
-    },
-    {
-      "ref": "is-number-object@1.0.5"
-    },
-    {
-      "ref": "foreach@2.0.5"
-    },
-    {
-      "ref": "which-typed-array@1.1.4",
-      "dependsOn": [
-        "available-typed-arrays@1.0.3",
-        "call-bind@1.0.7",
-        "es-abstract@1.18.0",
-        "foreach@2.0.5",
-        "function-bind@1.1.2",
-        "has-symbols@1.0.3",
-        "is-typed-array@1.1.5"
+        "has-symbols@1.1.0"
       ]
     },
     {
@@ -29068,11 +28738,11 @@
     {
       "ref": "filelist@1.0.4|minimatch@5.1.0",
       "dependsOn": [
-        "filelist@1.0.4|brace-expansion@2.0.1"
+        "filelist@1.0.4|brace-expansion@2.0.2"
       ]
     },
     {
-      "ref": "filelist@1.0.4|brace-expansion@2.0.1",
+      "ref": "filelist@1.0.4|brace-expansion@2.0.2",
       "dependsOn": [
         "balanced-match@1.0.0"
       ]
@@ -29478,7 +29148,7 @@
     {
       "ref": "mocha@11.1.0|glob@10.4.5|minimatch@9.0.5",
       "dependsOn": [
-        "mocha@11.1.0|brace-expansion@2.0.1"
+        "mocha@11.1.0|brace-expansion@2.0.2"
       ]
     },
     {
@@ -29492,7 +29162,7 @@
       "ref": "mocha@11.1.0|signal-exit@4.1.0"
     },
     {
-      "ref": "mocha@11.1.0|brace-expansion@2.0.1",
+      "ref": "mocha@11.1.0|brace-expansion@2.0.2",
       "dependsOn": [
         "balanced-match@1.0.0"
       ]
@@ -29503,7 +29173,7 @@
     {
       "ref": "mocha@11.1.0|minimatch@5.1.6",
       "dependsOn": [
-        "mocha@11.1.0|brace-expansion@2.0.1"
+        "mocha@11.1.0|brace-expansion@2.0.2"
       ]
     },
     {
@@ -29662,7 +29332,7 @@
       "dependsOn": [
         "string-width@4.2.3",
         "@isaacs/cliui@8.0.2|string-width@5.1.2",
-        "BomRef.8ubdbjqp81o.1dhen19bsig",
+        "BomRef.e8h9ou3ergg.vv2k8gk79l",
         "@isaacs/cliui@8.0.2|strip-ansi@7.1.0",
         "wrap-ansi@7.0.0",
         "@isaacs/cliui@8.0.2|wrap-ansi@8.1.0"
@@ -29717,7 +29387,7 @@
       "ref": "eastasianwidth@0.2.0"
     },
     {
-      "ref": "BomRef.8ubdbjqp81o.1dhen19bsig",
+      "ref": "BomRef.e8h9ou3ergg.vv2k8gk79l",
       "dependsOn": [
         "ansi-regex@5.0.1"
       ]
@@ -29726,12 +29396,12 @@
       "ref": "wrap-ansi@7.0.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
+        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
         "strip-ansi@6.0.1"
       ]
     },
     {
-      "ref": "BomRef.hq8tn16bgtg.rj2gtcjcv38",
+      "ref": "BomRef.6b3k6vi1nc8.jtfdt95pfog",
       "dependsOn": [
         "emoji-regex@8.0.0",
         "is-fullwidth-code-point@3.0.0",
@@ -29822,7 +29492,7 @@
         "escalade@3.2.0",
         "get-caller-file@2.0.5",
         "require-directory@2.1.1",
-        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
+        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
         "y18n@5.0.8",
         "yargs-parser@21.1.1"
       ]
@@ -29924,7 +29594,7 @@
         "require-directory@2.1.1",
         "require-main-filename@2.0.0",
         "set-blocking@2.0.0",
-        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
+        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
         "which-module@2.0.0",
         "nyc@17.1.0|y18n@4.0.3",
         "nyc@17.1.0|yargs-parser@18.1.3"
@@ -29933,7 +29603,7 @@
     {
       "ref": "nyc@17.1.0|cliui@6.0.0",
       "dependsOn": [
-        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
+        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
         "strip-ansi@6.0.1",
         "nyc@17.1.0|wrap-ansi@6.2.0"
       ]
@@ -29942,7 +29612,7 @@
       "ref": "nyc@17.1.0|wrap-ansi@6.2.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
+        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
         "strip-ansi@6.0.1"
       ]
     },
@@ -30555,16 +30225,16 @@
     {
       "ref": "cliui@8.0.1",
       "dependsOn": [
-        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
+        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
         "strip-ansi@6.0.1",
-        "BomRef.7puihm2jl7g.huel9mia0v"
+        "BomRef.l3f3s2kft9o.tneafd5on7g"
       ]
     },
     {
-      "ref": "BomRef.7puihm2jl7g.huel9mia0v",
+      "ref": "BomRef.l3f3s2kft9o.tneafd5on7g",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.hq8tn16bgtg.rj2gtcjcv38",
+        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
         "strip-ansi@6.0.1"
       ]
     },
