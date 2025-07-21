@@ -1,12 +1,19 @@
 # Redis-Commander CHANGELOG
 
 ## Next Version
+
+## Version 0.9.1
 #### Bugfixes
 * fix bug with docker variables used by REPLACE_CONFIG_ENV containing some special characters
 * update express from 4.21.1 to 4.21.2 (fix CVE-2024-52798)
 * update cross-spawn from 7.0.3 to 7.0.6 (fix CVE-2024-21538)  
 * update base image to Alpine@3.21 and Node.js@22 
-* bcrypt from 5.2.1 to 6.0.0 (fix SNYK-JS-INFLIGHT-6095116 for production image)
+* update bcrypt from 5.2.1 to 6.0.0 (fix SNYK-JS-INFLIGHT-6095116 for production image)
+* update elliptic from 6.6.0 to 6.6.1 (fix SNYK-JS-ELLIPTIC-8720086)
+* update @babel/helpers from 7.26.7 to 7.26.10 (fix CVE-2025-27789)
+* update tarfs from 2.1.2 to 2.1.3 (fix CVE-2025-48)
+* update pbkdf2 from 3.1.2 to 3.1.3 (fix CVE-2025-6545, CVE-2025-6547)
+* update brace-expansion from 1.1.11 to 1.1.12 (fix CVE-2025-5889)
 
 #### Enhancements
 * update ioredis from 5.4.1 to 5.5.0
