@@ -3,9 +3,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
   "version": 1,
-  "serialNumber": "urn:uuid:1f96a0da-a04d-4905-bc13-799ae65e82ad",
+  "serialNumber": "urn:uuid:22dd2604-89b4-40b5-9a54-d089f7845f43",
   "metadata": {
-    "timestamp": "2025-07-21T09:50:59.236Z",
+    "timestamp": "2025-07-21T09:54:56.383Z",
     "tools": {
       "components": [
         {
@@ -11041,8 +11041,8 @@
     {
       "type": "library",
       "name": "chai",
-      "version": "4.5.0",
-      "bom-ref": "chai@4.5.0",
+      "version": "5.2.1",
+      "bom-ref": "chai@5.2.1",
       "author": "Jake Luer",
       "description": "BDD/TDD assertion library for node.js and the browser. Test framework agnostic.",
       "licenses": [
@@ -11053,7 +11053,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/chai@4.5.0",
+      "purl": "pkg:npm/chai@5.2.1",
       "externalReferences": [
         {
           "url": "git+https://github.com/chaijs/chai.git",
@@ -11071,12 +11071,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/chai/-/chai-4.5.0.tgz",
+          "url": "https://registry.npmjs.org/chai/-/chai-5.2.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "4484c605f8a32e405d759be79fc8ddaa84f2a71bea6ce2d8424186c57cde163547bee75a3f0d073450fdc7ddbcfde53061677674f0ae815aaca4600b4d96502b"
+              "content": "e67171854ad7d0faadca882860e03c20fb30cb9b191533ac04597ff5b36c9832e0b31613cd26502433e9a439d93d341bcd2126d21a868d63f345e9900986c3e8"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -11096,8 +11096,8 @@
     {
       "type": "library",
       "name": "assertion-error",
-      "version": "1.1.0",
-      "bom-ref": "assertion-error@1.1.0",
+      "version": "2.0.1",
+      "bom-ref": "assertion-error@2.0.1",
       "author": "Jake Luer",
       "description": "Error constructor for test and validation frameworks that implements standardized AssertionError specification.",
       "licenses": [
@@ -11108,7 +11108,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/assertion-error@1.1.0",
+      "purl": "pkg:npm/assertion-error@2.0.1",
       "externalReferences": [
         {
           "url": "git+ssh://git@github.com/chaijs/assertion-error.git",
@@ -11126,12 +11126,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/assertion-error/-/assertion-error-1.1.0.tgz",
+          "url": "https://registry.npmjs.org/assertion-error/-/assertion-error-2.0.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "8e0b1a35dbb3fa776f1b216ddee4ae5aabf2e250a72098a8beda2e40de4964738a092d90ba111d6dc407161564b33d8dd94f615c9a3ca1d1bb113c969447ae0f"
+              "content": "2338bc45071f7ea09e3558058a02a58b5b2c92521ba479c261ce809275c662807a82b26ac9e6f2ee3bf5d895108264c09c80e76dc935bb192c4f87733773d604"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -11151,8 +11151,8 @@
     {
       "type": "library",
       "name": "check-error",
-      "version": "1.0.3",
-      "bom-ref": "check-error@1.0.3",
+      "version": "2.1.1",
+      "bom-ref": "check-error@2.1.1",
       "author": "Jake Luer",
       "description": "Error comparison and information related utility for node and the browser",
       "licenses": [
@@ -11163,7 +11163,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/check-error@1.0.3",
+      "purl": "pkg:npm/check-error@2.1.1",
       "externalReferences": [
         {
           "url": "git+ssh://git@github.com/chaijs/check-error.git",
@@ -11181,12 +11181,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/check-error/-/check-error-1.0.3.tgz",
+          "url": "https://registry.npmjs.org/check-error/-/check-error-2.1.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "88a1280d869199dd66c4cf746b63847d6863b233e960fb90fa5318b28c41d76ebeb7c7f0ef24843b8f2798383908e4e3c4323ae7f636396a5e10793764e7bcce"
+              "content": "38095bf93ed5e0ea7d3b07648e682e611aa771d971e498a87f038052499317e8cd747c334da4ece2c4401a9ccb177a0ecf9c40c831ab3e07880c54260ce4e227"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -11205,64 +11205,9 @@
     },
     {
       "type": "library",
-      "name": "get-func-name",
-      "version": "2.0.2",
-      "bom-ref": "get-func-name@2.0.2",
-      "author": "Jake Luer",
-      "description": "Utility for getting a function's name for node and the browser",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/get-func-name@2.0.2",
-      "externalReferences": [
-        {
-          "url": "git+ssh://git@github.com/chaijs/get-func-name.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/chaijs/get-func-name#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/chaijs/get-func-name/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/get-func-name/-/get-func-name-2.0.2.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "f2f5cebee135ebb0ad21cdcec88b5ca3b37f76946d05b60eb0fb170b3ed7fcf3279468d88d21ae64980cd58ee699ec3b04a7fd06abcb5f6b67395cb504152cc5"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/get-func-name"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "deep-eql",
-      "version": "4.1.4",
-      "bom-ref": "deep-eql@4.1.4",
+      "version": "5.0.2",
+      "bom-ref": "deep-eql@5.0.2",
       "author": "Jake Luer",
       "description": "Improved deep equality testing for Node.js and the browser.",
       "licenses": [
@@ -11273,7 +11218,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/deep-eql@4.1.4",
+      "purl": "pkg:npm/deep-eql@5.0.2",
       "externalReferences": [
         {
           "url": "git+ssh://git@github.com/chaijs/deep-eql.git",
@@ -11291,12 +11236,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/deep-eql/-/deep-eql-4.1.4.tgz",
+          "url": "https://registry.npmjs.org/deep-eql/-/deep-eql-5.0.2.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "494c1d19fa9d28ec3108f795623c12c91a49ed9f9f869c0802d98251d648599fd83f947d580b32b928292d50e2f5b8d6a0dd8b5c736cb3f764deead7b5d4311a"
+              "content": "87993fe54e74209245a737cbea73bd8da6ae99f8cefdfd8d8cafe8601d838f39b8a7d2fedd3f6a5a966a6768406cb3eeb98abdc2b534f164320532f919b3e4e5"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -11315,64 +11260,9 @@
     },
     {
       "type": "library",
-      "name": "type-detect",
-      "version": "4.1.0",
-      "bom-ref": "type-detect@4.1.0",
-      "author": "Jake Luer",
-      "description": "Improved typeof detection for node.js and the browser.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/type-detect@4.1.0",
-      "externalReferences": [
-        {
-          "url": "git+ssh://git@github.com/chaijs/type-detect.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/chaijs/type-detect#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/chaijs/type-detect/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/type-detect/-/type-detect-4.1.0.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "01cca5a20f3f96e43c2fb8a5fa07a84b184491acef92c960ecf48d28e5f9f666c1f5c3af78fe5aabd87be18ed853cc83a49c1eb73410adf230b5fe16a782ca73"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/type-detect"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "loupe",
-      "version": "2.3.7",
-      "bom-ref": "loupe@2.3.7",
+      "version": "3.1.4",
+      "bom-ref": "loupe@3.1.4",
       "author": "Veselin Todorov",
       "description": "Inspect utility for Node.js and browsers",
       "licenses": [
@@ -11383,7 +11273,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/loupe@2.3.7",
+      "purl": "pkg:npm/loupe@3.1.4",
       "externalReferences": [
         {
           "url": "git+https://github.com/chaijs/loupe.git",
@@ -11401,12 +11291,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/loupe/-/loupe-2.3.7.tgz",
+          "url": "https://registry.npmjs.org/loupe/-/loupe-3.1.4.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "cd230834655891da5848e0662e2d03d54a3b254f6755d40aac7c42f1e62557ef5828af5678fa8094bee54a5a2b1bf536170d70d214c199a6bf8eb43751b3c7b4"
+              "content": "c09ce42b026b85e2ad92708e28d12d0cae22aa0fccc6666178432d49362f9f345d118699ce6807f7bea77a7a7c59d251771e557355fff4c3b43acce5e9ecde5e"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -11426,8 +11316,8 @@
     {
       "type": "library",
       "name": "pathval",
-      "version": "1.1.1",
-      "bom-ref": "pathval@1.1.1",
+      "version": "2.0.1",
+      "bom-ref": "pathval@2.0.1",
       "author": "Veselin Todorov",
       "description": "Object value retrieval given a string path",
       "licenses": [
@@ -11438,7 +11328,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/pathval@1.1.1",
+      "purl": "pkg:npm/pathval@2.0.1",
       "externalReferences": [
         {
           "url": "git+ssh://git@github.com/chaijs/pathval.git",
@@ -11456,12 +11346,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/pathval/-/pathval-1.1.1.tgz",
+          "url": "https://registry.npmjs.org/pathval/-/pathval-2.0.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "0e9eb31aaa537444dd47ade57a12583de20eaa988d04db5cec1a5648bace8deed4688b04e5a63ddabfc0ba7400eebb17bdeb7796b277267657dbd50f4ca5f229"
+              "content": "fff9ec8660f9e5ce3a16e170dbac55ff1140681e4717d5dd6a9ec7241067aca74077afc6c4305a340d7cef43bbf7ef6e7a0eb57192d255cf8e68595f98e6d855"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -16135,8 +16025,8 @@
     {
       "type": "library",
       "name": "mocha",
-      "version": "11.1.0",
-      "bom-ref": "mocha@11.1.0",
+      "version": "11.7.1",
+      "bom-ref": "mocha@11.7.1",
       "author": "TJ Holowaychuk",
       "description": "simple, flexible, fun test framework",
       "licenses": [
@@ -16147,7 +16037,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/mocha@11.1.0",
+      "purl": "pkg:npm/mocha@11.7.1",
       "externalReferences": [
         {
           "url": "git+https://github.com/mochajs/mocha.git",
@@ -16165,12 +16055,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/mocha/-/mocha-11.1.0.tgz",
+          "url": "https://registry.npmjs.org/mocha/-/mocha-11.7.1.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "f2e251e514c2d8d8296371ab61c82966bb0477dcca6cf0e9a1bd517b3c91daea461d142d1d6a1f9b34cccd331257a76bbb7b63e5492dd3e567ab5aa114413002"
+              "content": "e442be0adcba2a178c4bf60b3cf3090bae20e55eb5808476e4ab1122d1f0eb1e2110a4fa363a759fd2ce947e20a5ebeec0c552eba49768106983e456664cdae0"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -16191,7 +16081,7 @@
           "type": "library",
           "name": "glob",
           "version": "10.4.5",
-          "bom-ref": "mocha@11.1.0|glob@10.4.5",
+          "bom-ref": "mocha@11.7.1|glob@10.4.5",
           "author": "Isaac Z. Schlueter",
           "description": "the most correct and second fastest glob implementation in JavaScript",
           "licenses": [
@@ -16240,70 +16130,13 @@
               "name": "cdx:npm:package:development",
               "value": "true"
             }
-          ],
-          "components": [
-            {
-              "type": "library",
-              "name": "minimatch",
-              "version": "9.0.5",
-              "bom-ref": "mocha@11.1.0|glob@10.4.5|minimatch@9.0.5",
-              "author": "Isaac Z. Schlueter",
-              "description": "a glob matcher in javascript",
-              "licenses": [
-                {
-                  "license": {
-                    "id": "ISC",
-                    "acknowledgement": "declared"
-                  }
-                }
-              ],
-              "purl": "pkg:npm/minimatch@9.0.5",
-              "externalReferences": [
-                {
-                  "url": "git://github.com/isaacs/minimatch.git",
-                  "type": "vcs",
-                  "comment": "as detected from PackageJson property \"repository.url\""
-                },
-                {
-                  "url": "https://github.com/isaacs/minimatch#readme",
-                  "type": "website",
-                  "comment": "as detected from PackageJson property \"homepage\""
-                },
-                {
-                  "url": "https://github.com/isaacs/minimatch/issues",
-                  "type": "issue-tracker",
-                  "comment": "as detected from PackageJson property \"bugs.url\""
-                },
-                {
-                  "url": "https://registry.npmjs.org/minimatch/-/minimatch-9.0.5.tgz",
-                  "type": "distribution",
-                  "hashes": [
-                    {
-                      "alg": "SHA-512",
-                      "content": "1ba4f4657e3cc60a33c7be7cee4a1e5fd62cd8d632e869affff3fcf6c12d7bd57dc2121aa4c345e2274ac675b642d09c2e24d695bff07c269b02d0055a1841a3"
-                    }
-                  ],
-                  "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-                }
-              ],
-              "properties": [
-                {
-                  "name": "cdx:npm:package:path",
-                  "value": "node_modules/mocha/node_modules/glob/node_modules/minimatch"
-                },
-                {
-                  "name": "cdx:npm:package:development",
-                  "value": "true"
-                }
-              ]
-            }
           ]
         },
         {
           "type": "library",
           "name": "foreground-child",
           "version": "3.3.0",
-          "bom-ref": "mocha@11.1.0|foreground-child@3.3.0",
+          "bom-ref": "mocha@11.7.1|foreground-child@3.3.0",
           "author": "Isaac Z. Schlueter",
           "description": "Run a child as if it's the foreground process. Give it stdio. Exit when it exits.",
           "licenses": [
@@ -16358,7 +16191,7 @@
           "type": "library",
           "name": "signal-exit",
           "version": "4.1.0",
-          "bom-ref": "mocha@11.1.0|signal-exit@4.1.0",
+          "bom-ref": "mocha@11.7.1|signal-exit@4.1.0",
           "author": "Ben Coe",
           "description": "when you want to fire an event no matter how a process exits.",
           "licenses": [
@@ -16411,43 +16244,43 @@
         },
         {
           "type": "library",
-          "name": "brace-expansion",
-          "version": "2.0.2",
-          "bom-ref": "mocha@11.1.0|brace-expansion@2.0.2",
-          "author": "Julian Gruber",
-          "description": "Brace expansion as known from sh/bash",
+          "name": "minimatch",
+          "version": "9.0.5",
+          "bom-ref": "mocha@11.7.1|minimatch@9.0.5",
+          "author": "Isaac Z. Schlueter",
+          "description": "a glob matcher in javascript",
           "licenses": [
             {
               "license": {
-                "id": "MIT",
+                "id": "ISC",
                 "acknowledgement": "declared"
               }
             }
           ],
-          "purl": "pkg:npm/brace-expansion@2.0.2",
+          "purl": "pkg:npm/minimatch@9.0.5",
           "externalReferences": [
             {
-              "url": "git://github.com/juliangruber/brace-expansion.git",
+              "url": "git://github.com/isaacs/minimatch.git",
               "type": "vcs",
               "comment": "as detected from PackageJson property \"repository.url\""
             },
             {
-              "url": "https://github.com/juliangruber/brace-expansion",
+              "url": "https://github.com/isaacs/minimatch#readme",
               "type": "website",
               "comment": "as detected from PackageJson property \"homepage\""
             },
             {
-              "url": "https://github.com/juliangruber/brace-expansion/issues",
+              "url": "https://github.com/isaacs/minimatch/issues",
               "type": "issue-tracker",
               "comment": "as detected from PackageJson property \"bugs.url\""
             },
             {
-              "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.2.tgz",
+              "url": "https://registry.npmjs.org/minimatch/-/minimatch-9.0.5.tgz",
               "type": "distribution",
               "hashes": [
                 {
                   "alg": "SHA-512",
-                  "content": "26dd2f1f233e8e6501aa88c1ec4d4d21869db74bc8d10c63c5dd9312b5bde300f3f84d8b026e6f28c5d7c20e996414c73ee5250e0407297be318175f705d590d"
+                  "content": "1ba4f4657e3cc60a33c7be7cee4a1e5fd62cd8d632e869affff3fcf6c12d7bd57dc2121aa4c345e2274ac675b642d09c2e24d695bff07c269b02d0055a1841a3"
                 }
               ],
               "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -16456,7 +16289,7 @@
           "properties": [
             {
               "name": "cdx:npm:package:path",
-              "value": "node_modules/mocha/node_modules/brace-expansion"
+              "value": "node_modules/mocha/node_modules/minimatch"
             },
             {
               "name": "cdx:npm:package:development",
@@ -16468,7 +16301,7 @@
           "type": "library",
           "name": "minipass",
           "version": "7.1.2",
-          "bom-ref": "mocha@11.1.0|minipass@7.1.2",
+          "bom-ref": "mocha@11.7.1|minipass@7.1.2",
           "author": "Isaac Z. Schlueter",
           "description": "minimal implementation of a PassThrough stream",
           "licenses": [
@@ -16521,43 +16354,43 @@
         },
         {
           "type": "library",
-          "name": "minimatch",
-          "version": "5.1.6",
-          "bom-ref": "mocha@11.1.0|minimatch@5.1.6",
-          "author": "Isaac Z. Schlueter",
-          "description": "a glob matcher in javascript",
+          "name": "brace-expansion",
+          "version": "2.0.2",
+          "bom-ref": "mocha@11.7.1|brace-expansion@2.0.2",
+          "author": "Julian Gruber",
+          "description": "Brace expansion as known from sh/bash",
           "licenses": [
             {
               "license": {
-                "id": "ISC",
+                "id": "MIT",
                 "acknowledgement": "declared"
               }
             }
           ],
-          "purl": "pkg:npm/minimatch@5.1.6",
+          "purl": "pkg:npm/brace-expansion@2.0.2",
           "externalReferences": [
             {
-              "url": "git://github.com/isaacs/minimatch.git",
+              "url": "git://github.com/juliangruber/brace-expansion.git",
               "type": "vcs",
               "comment": "as detected from PackageJson property \"repository.url\""
             },
             {
-              "url": "https://github.com/isaacs/minimatch#readme",
+              "url": "https://github.com/juliangruber/brace-expansion",
               "type": "website",
               "comment": "as detected from PackageJson property \"homepage\""
             },
             {
-              "url": "https://github.com/isaacs/minimatch/issues",
+              "url": "https://github.com/juliangruber/brace-expansion/issues",
               "type": "issue-tracker",
               "comment": "as detected from PackageJson property \"bugs.url\""
             },
             {
-              "url": "https://registry.npmjs.org/minimatch/-/minimatch-5.1.6.tgz",
+              "url": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.2.tgz",
               "type": "distribution",
               "hashes": [
                 {
                   "alg": "SHA-512",
-                  "content": "94ac15ff56eba46ea6054147b5becd526b400426f65996669b6c0d88e0398406fc55d092e01dddb4c5b2bdca1589c730016fc23844635cbb74ccfd735d4376ea"
+                  "content": "26dd2f1f233e8e6501aa88c1ec4d4d21869db74bc8d10c63c5dd9312b5bde300f3f84d8b026e6f28c5d7c20e996414c73ee5250e0407297be318175f705d590d"
                 }
               ],
               "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -16566,7 +16399,7 @@
           "properties": [
             {
               "name": "cdx:npm:package:path",
-              "value": "node_modules/mocha/node_modules/minimatch"
+              "value": "node_modules/mocha/node_modules/brace-expansion"
             },
             {
               "name": "cdx:npm:package:development",
@@ -16578,7 +16411,7 @@
           "type": "library",
           "name": "supports-color",
           "version": "8.1.1",
-          "bom-ref": "mocha@11.1.0|supports-color@8.1.1",
+          "bom-ref": "mocha@11.7.1|supports-color@8.1.1",
           "author": "Sindre Sorhus",
           "description": "Detect whether a terminal supports color",
           "licenses": [
@@ -16790,61 +16623,6 @@
     },
     {
       "type": "library",
-      "name": "ansi-colors",
-      "version": "4.1.3",
-      "bom-ref": "ansi-colors@4.1.3",
-      "author": "Brian Woodward",
-      "description": "Easily add ANSI colors to your text and symbols in the terminal. A faster drop-in replacement for chalk, kleur and turbocolor (without the dependencies and rendering bugs).",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/ansi-colors@4.1.3",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/doowb/ansi-colors.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/doowb/ansi-colors",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/doowb/ansi-colors/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/ansi-colors/-/ansi-colors-4.1.3.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "ffac3f0b6d4f9b503b6998ad948e4d8bfd89e8515037c8b50afcf79070010006f0f77bff365bca7553aacfb0825b3ff78affc9a6545210467cdd720e375e68bf"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/ansi-colors"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "browser-stdout",
       "version": "1.3.1",
       "bom-ref": "browser-stdout@1.3.1",
@@ -16901,8 +16679,8 @@
     {
       "type": "library",
       "name": "chokidar",
-      "version": "3.5.3",
-      "bom-ref": "chokidar@3.5.3",
+      "version": "4.0.3",
+      "bom-ref": "chokidar@4.0.3",
       "author": "Paul Miller",
       "description": "Minimal and efficient cross-platform file watching library",
       "licenses": [
@@ -16913,7 +16691,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/chokidar@3.5.3",
+      "purl": "pkg:npm/chokidar@4.0.3",
       "externalReferences": [
         {
           "url": "git+https://github.com/paulmillr/chokidar.git",
@@ -16931,12 +16709,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/chokidar/-/chokidar-3.5.3.tgz",
+          "url": "https://registry.npmjs.org/chokidar/-/chokidar-4.0.3.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "0ebdec7ca44fea84dc8dfd8999498525f79532f5c175e83107489543979bd95d74b852540804bc381c9975503255bf315cdcf71a38d3823f642d6b194ea13a93"
+              "content": "420ceef247c1be8f9c038f7ada39cfd4a912e83a29e4d4ba83b4792c5609af86fc51bf783cf417524b02c3d3ef5e87973d145d751342e42d4941447648c1ad9c"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -16955,671 +16733,11 @@
     },
     {
       "type": "library",
-      "name": "anymatch",
-      "version": "3.1.2",
-      "bom-ref": "anymatch@3.1.2",
-      "author": "Elan Shanker",
-      "description": "Matches strings against configurable strings, globs, regular expressions, and/or functions",
-      "licenses": [
-        {
-          "license": {
-            "id": "ISC",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/anymatch@3.1.2",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/micromatch/anymatch.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/micromatch/anymatch",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/micromatch/anymatch/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/anymatch/-/anymatch-3.1.2.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "3f8dde3df38022ea6482e1d4c9cadce2a27d933f198ae3948a36844f05fb4c7b7463f18d2bbbf469af2b63cd7ac568d9eeb25d0395dd31ca5515328cabe46f5a"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/anymatch"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "normalize-path",
-      "version": "3.0.0",
-      "bom-ref": "normalize-path@3.0.0",
-      "author": "Jon Schlinkert",
-      "description": "Normalize slashes in a file path to be posix/unix-like forward slashes. Also condenses repeat slashes to a single slash and removes and trailing slashes, unless disabled.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/normalize-path@3.0.0",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/jonschlinkert/normalize-path.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/jonschlinkert/normalize-path",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/jonschlinkert/normalize-path/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "e9e66ce4bb375ad0a2b075a9f52d86532f1daa4a468b80554b3dc66aa884e9ecee6f4e75d844b3b57530501e82e8829b4246363e76ff983e166288c24707302c"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/normalize-path"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "picomatch",
-      "version": "2.3.1",
-      "bom-ref": "picomatch@2.3.1",
-      "author": "Jon Schlinkert",
-      "description": "Blazing fast and accurate glob matcher written in JavaScript, with no dependencies and full support for standard and extended Bash glob features, including braces, extglobs, POSIX brackets, and regular expressions.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/picomatch@2.3.1",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/micromatch/picomatch.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/micromatch/picomatch",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/micromatch/picomatch/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/picomatch/-/picomatch-2.3.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "254ded7874cd8e6136542185cee63c117cc20d5c04a81d9af1fb08bf0692b4784058911e55dd68d500fcd0253af997445d748b6d2b2e2f0263902056a9141454"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/picomatch"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "braces",
-      "version": "3.0.3",
-      "bom-ref": "braces@3.0.3",
-      "author": "Jon Schlinkert",
-      "description": "Bash-like brace expansion, implemented in JavaScript. Safer than other brace expansion libs, with complete support for the Bash 4.3 braces specification, without sacrificing speed.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/braces@3.0.3",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/micromatch/braces.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/micromatch/braces",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/micromatch/braces/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/braces/-/braces-3.0.3.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "c906d780efce499543d88b222e5ae8fbb1dfe90d7c109aca484b1da0ccca78f29772dde0bc3f282dc390748cc6ba9af9163f840def203bf9717350737cca71bc"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/braces"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "fill-range",
-      "version": "7.1.1",
-      "bom-ref": "fill-range@7.1.1",
-      "author": "Jon Schlinkert",
-      "description": "Fill in a range of numbers or letters, optionally passing an increment or `step` to use, or create a regex-compatible range with `options.toRegex`",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/fill-range@7.1.1",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/jonschlinkert/fill-range.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/jonschlinkert/fill-range",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/jonschlinkert/fill-range/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "62c1a97b75872caf19622e2d583836272dde6d1cf6ad7a300f19e57786e4401d3471cff5670f405a70b48bdced0c98ad8afb50bda23d29a2f22ab73e8415b4ca"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/fill-range"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "to-regex-range",
-      "version": "5.0.1",
-      "bom-ref": "to-regex-range@5.0.1",
-      "author": "Jon Schlinkert",
-      "description": "Pass two numbers, get a regex-compatible source string for matching ranges. Validated against more than 2.78 million test assertions.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/to-regex-range@5.0.1",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/micromatch/to-regex-range.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/micromatch/to-regex-range",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/micromatch/to-regex-range/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "eb93fb8b3e97e7212bd5cc1c82f4316db230ed493780ecb974876d678ac3bde2ea86b7493fe2e2fc7c7ab722b43446fed860b29de08c2621aaac00c248d93cb1"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/to-regex-range"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-number",
-      "version": "7.0.0",
-      "bom-ref": "is-number@7.0.0",
-      "author": "Jon Schlinkert",
-      "description": "Returns true if a number or string value is a finite number. Useful for regex matches, parsing, user input, etc.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-number@7.0.0",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/jonschlinkert/is-number.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/jonschlinkert/is-number",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/jonschlinkert/is-number/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "e350a27e483a7bc4f2952a5db53a5e2d532abd20445734edb47bc4443ef8d7ea6767c00dbf4d34e0c44be3740a3c394af5c1af369e8d6566540656c65d8c719e"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-number"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "glob-parent",
-      "version": "5.1.2",
-      "bom-ref": "glob-parent@5.1.2",
-      "author": "Gulp Team",
-      "description": "Extract the non-magic parent path from a glob string.",
-      "licenses": [
-        {
-          "license": {
-            "id": "ISC",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/glob-parent@5.1.2",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/gulpjs/glob-parent.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/gulpjs/glob-parent#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/gulpjs/glob-parent/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "00e22049009ea62258c0fdc04671b1fb95674eed870587736c63f8e5e2f0d6faf7cc1def64b7b279dd6c0bd8676dc39cf7f4ab33233944f42b906cf8692f59a3"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/glob-parent"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-glob",
-      "version": "4.0.3",
-      "bom-ref": "is-glob@4.0.3",
-      "author": "Jon Schlinkert",
-      "description": "Returns `true` if the given string looks like a glob pattern or an extglob pattern. This makes it easy to create code that only uses external modules like node-glob when necessary, resulting in much faster code execution and initialization time, and a better user experience.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-glob@4.0.3",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/micromatch/is-glob.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/micromatch/is-glob",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/micromatch/is-glob/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "c5e9526b21c7dfa66013b6568658bba56df884d6cd97c3a3bf92959a4243e2105d0f7b61f137e4f6f61ab0b33e99758e6611648197f184b4a7af046be1e9524a"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-glob"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-binary-path",
-      "version": "2.1.0",
-      "bom-ref": "is-binary-path@2.1.0",
-      "author": "Sindre Sorhus",
-      "description": "Check if a file path is a binary file",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-binary-path@2.1.0",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/sindresorhus/is-binary-path.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/sindresorhus/is-binary-path#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/sindresorhus/is-binary-path/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-binary-path/-/is-binary-path-2.1.0.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "64c11161eb3aa43c9dcae1a276c7bb3ac1f1b5b23b595794128ce047f83baddd31522998365bd9444fcad8c8194e35b2ef6e487de94b79570433dee69ad4465f"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-binary-path"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "binary-extensions",
-      "version": "2.2.0",
-      "bom-ref": "binary-extensions@2.2.0",
-      "author": "Sindre Sorhus",
-      "description": "List of binary file extensions",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/binary-extensions@2.2.0",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/sindresorhus/binary-extensions.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/sindresorhus/binary-extensions#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/sindresorhus/binary-extensions/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "8c372d27f21541b6682729287876e15e93a5341a8635cc1724a268838d84e470cf53041349d8c21dd8a18e3d0396785e43b6e56d3e9d1ce69f340892f28a1028"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/binary-extensions"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "is-extglob",
-      "version": "2.1.1",
-      "bom-ref": "is-extglob@2.1.1",
-      "author": "Jon Schlinkert",
-      "description": "Returns true if a string has an extglob.",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/is-extglob@2.1.1",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/jonschlinkert/is-extglob.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/jonschlinkert/is-extglob",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/jonschlinkert/is-extglob/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "49b29b00d90deb4dd58b88c466fe3d2de549327e321b0b1bcd9c28ac4a32122badb0dde725875b3b7eb37e1189e90103a4e6481640ed9eae494719af9778eca1"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/is-extglob"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "readdirp",
-      "version": "3.6.0",
-      "bom-ref": "readdirp@3.6.0",
+      "version": "4.1.2",
+      "bom-ref": "readdirp@4.1.2",
       "author": "Thorsten Lorenz",
-      "description": "Recursive version of fs.readdir with streaming API.",
+      "description": "Recursive version of fs.readdir with small RAM & CPU footprint.",
       "licenses": [
         {
           "license": {
@@ -17628,7 +16746,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/readdirp@3.6.0",
+      "purl": "pkg:npm/readdirp@4.1.2",
       "externalReferences": [
         {
           "url": "git://github.com/paulmillr/readdirp.git",
@@ -17646,12 +16764,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/readdirp/-/readdirp-3.6.0.tgz",
+          "url": "https://registry.npmjs.org/readdirp/-/readdirp-4.1.2.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "84e4b4f3da27f1176ea9d6e1bd0e59dfb0341128ecab3eaa9d171f7ec314df8f7916e4dda929beedb849dbd26f20eb010c41276a7e433eef6ddd3a3d55194ccc"
+              "content": "18387090b7f2c162f6b3abc48f286b8be79799f1fa8f52fb244dbb5a1a8b798ce887f0370c16981848f61ff1c56429ff90c7e29bbdc55f11094f0d3a5adc50c2"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -17671,8 +16789,8 @@
     {
       "type": "library",
       "name": "diff",
-      "version": "5.2.0",
-      "bom-ref": "diff@5.2.0",
+      "version": "7.0.0",
+      "bom-ref": "diff@7.0.0",
       "description": "A JavaScript text diff implementation.",
       "licenses": [
         {
@@ -17682,7 +16800,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/diff@5.2.0",
+      "purl": "pkg:npm/diff@7.0.0",
       "externalReferences": [
         {
           "url": "git://github.com/kpdecker/jsdiff.git",
@@ -17700,12 +16818,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/diff/-/diff-5.2.0.tgz",
+          "url": "https://registry.npmjs.org/diff/-/diff-7.0.0.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "b88143c6aa5164667a4e13a4f388447ea5a81f1d9d7af445be94d97131eeafce6f2267dac546d35bd4728780a90ae0e74e838fd4212d5ca220cad1c13d57dfe4"
+              "content": "3c958751bd5115ebca0b068503d4651b9b4277e14ee62461f40f0712d926047d8b8b4de226b881ea6e8920de2b1b3dcadc92dac08effbde035c7344a3fa21207"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -18821,7 +17939,7 @@
       "type": "library",
       "name": "strip-ansi",
       "version": "6.0.1",
-      "bom-ref": "BomRef.lr48753n2p8.5r2cs1a3jtg",
+      "bom-ref": "BomRef.57dh60hpv8o.aqsnkg22e7g",
       "author": "Sindre Sorhus",
       "description": "Strip ANSI escape codes from a string",
       "licenses": [
@@ -18931,7 +18049,7 @@
       "type": "library",
       "name": "string-width",
       "version": "4.2.3",
-      "bom-ref": "BomRef.ed6nfpk2ujo.45905udn5e",
+      "bom-ref": "BomRef.g24cbvul4oo.qt50c0nnkk",
       "author": "Sindre Sorhus",
       "description": "Get the visual width of a string - the number of columns required to display it",
       "licenses": [
@@ -19476,6 +18594,61 @@
     },
     {
       "type": "library",
+      "name": "picocolors",
+      "version": "1.1.1",
+      "bom-ref": "picocolors@1.1.1",
+      "author": "Alexey Raspopov",
+      "description": "The tiniest and the fastest library for terminal output formatting with ANSI colors",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/picocolors@1.1.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/alexeyraspopov/picocolors.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/alexeyraspopov/picocolors#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/alexeyraspopov/picocolors/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz",
+          "type": "distribution",
+          "hashes": [
+            {
+              "alg": "SHA-512",
+              "content": "c5c787dac9e1b5be4cf658aa0ec984c39ea57b7efa993664117fe311bfd1c4d1727a036e97b78db250973fd1438ff2dcbb45fc284c8c71e3f69eda5a1eb0c454"
+            }
+          ],
+          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/picocolors"
+        },
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
       "name": "serialize-javascript",
       "version": "6.0.2",
       "bom-ref": "serialize-javascript@6.0.2",
@@ -19638,8 +18811,8 @@
     {
       "type": "library",
       "name": "workerpool",
-      "version": "6.5.1",
-      "bom-ref": "workerpool@6.5.1",
+      "version": "9.3.3",
+      "bom-ref": "workerpool@9.3.3",
       "author": "Jos de Jong",
       "description": "Offload tasks to a pool of workers on node.js and in the browser",
       "licenses": [
@@ -19650,7 +18823,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/workerpool@6.5.1",
+      "purl": "pkg:npm/workerpool@9.3.3",
       "externalReferences": [
         {
           "url": "git://github.com/josdejong/workerpool.git",
@@ -19668,12 +18841,12 @@
           "comment": "as detected from PackageJson property \"bugs.url\""
         },
         {
-          "url": "https://registry.npmjs.org/workerpool/-/workerpool-6.5.1.tgz",
+          "url": "https://registry.npmjs.org/workerpool/-/workerpool-9.3.3.tgz",
           "type": "distribution",
           "hashes": [
             {
               "alg": "SHA-512",
-              "content": "16ce1d35872c76961201f5718679752f9cd392c8ef389c6d0b987330d97ed6df41f214c94dd283c99e63bbbced80fcbe7edf6d0455e83a50cd88e4fd5945d994"
+              "content": "b25c4268a6d88c47454ffa36ac7f714b585fe2e443721d70ed4a3e6a9c6167eb1fff577d7b4655927e3690f3463f67608c8c7a605bd27af8f4cc7bdb59eda377"
             }
           ],
           "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
@@ -24256,61 +23429,6 @@
     },
     {
       "type": "library",
-      "name": "picocolors",
-      "version": "1.1.1",
-      "bom-ref": "picocolors@1.1.1",
-      "author": "Alexey Raspopov",
-      "description": "The tiniest and the fastest library for terminal output formatting with ANSI colors",
-      "licenses": [
-        {
-          "license": {
-            "id": "ISC",
-            "acknowledgement": "declared"
-          }
-        }
-      ],
-      "purl": "pkg:npm/picocolors@1.1.1",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/alexeyraspopov/picocolors.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/alexeyraspopov/picocolors#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/alexeyraspopov/picocolors/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        },
-        {
-          "url": "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz",
-          "type": "distribution",
-          "hashes": [
-            {
-              "alg": "SHA-512",
-              "content": "c5c787dac9e1b5be4cf658aa0ec984c39ea57b7efa993664117fe311bfd1c4d1727a036e97b78db250973fd1438ff2dcbb45fc284c8c71e3f69eda5a1eb0c454"
-            }
-          ],
-          "comment": "as detected from npm-ls property \"resolved\" and property \"integrity\""
-        }
-      ],
-      "properties": [
-        {
-          "name": "cdx:npm:package:path",
-          "value": "node_modules/picocolors"
-        },
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "generator",
       "group": "@babel",
       "version": "7.27.0",
@@ -27265,7 +26383,7 @@
       "type": "library",
       "name": "wrap-ansi",
       "version": "7.0.0",
-      "bom-ref": "BomRef.mgv7bj22aeg.p4mq9e4368g",
+      "bom-ref": "BomRef.rnme652s2po.haeni03n6bg",
       "author": "Sindre Sorhus",
       "description": "Wordwrap a string with ANSI escape codes",
       "licenses": [
@@ -27373,7 +26491,7 @@
         "bcryptjs@2.4.3",
         "body-parser@1.20.3",
         "browserify@17.0.0",
-        "chai@4.5.0",
+        "chai@5.2.1",
         "clipboard@2.0.11",
         "cmdparser@0.1.0",
         "config@3.3.12",
@@ -27389,7 +26507,7 @@
         "lodash.isequal@4.5.0",
         "lossless-json@1.0.5",
         "mocha-junit-reporter@2.2.1",
-        "mocha@11.1.0",
+        "mocha@11.7.1",
         "node-redis-dump2@0.6.0",
         "nyc@17.1.0",
         "opener@1.5.2",
@@ -28589,46 +27707,29 @@
       "ref": "vm-browserify@1.1.2"
     },
     {
-      "ref": "chai@4.5.0",
+      "ref": "chai@5.2.1",
       "dependsOn": [
-        "assertion-error@1.1.0",
-        "check-error@1.0.3",
-        "deep-eql@4.1.4",
-        "get-func-name@2.0.2",
-        "loupe@2.3.7",
-        "pathval@1.1.1",
-        "type-detect@4.1.0"
+        "assertion-error@2.0.1",
+        "check-error@2.1.1",
+        "deep-eql@5.0.2",
+        "loupe@3.1.4",
+        "pathval@2.0.1"
       ]
     },
     {
-      "ref": "assertion-error@1.1.0"
+      "ref": "assertion-error@2.0.1"
     },
     {
-      "ref": "check-error@1.0.3",
-      "dependsOn": [
-        "get-func-name@2.0.2"
-      ]
+      "ref": "check-error@2.1.1"
     },
     {
-      "ref": "get-func-name@2.0.2"
+      "ref": "deep-eql@5.0.2"
     },
     {
-      "ref": "deep-eql@4.1.4",
-      "dependsOn": [
-        "type-detect@4.1.0"
-      ]
+      "ref": "loupe@3.1.4"
     },
     {
-      "ref": "type-detect@4.1.0"
-    },
-    {
-      "ref": "loupe@2.3.7",
-      "dependsOn": [
-        "get-func-name@2.0.2"
-      ]
-    },
-    {
-      "ref": "pathval@1.1.1"
+      "ref": "pathval@2.0.1"
     },
     {
       "ref": "clipboard@2.0.11",
@@ -29072,7 +28173,7 @@
         "debug@4.4.0",
         "md5@2.3.0",
         "mocha-junit-reporter@2.2.1|mkdirp@3.0.1",
-        "mocha@11.1.0",
+        "mocha@11.7.1",
         "strip-ansi@6.0.1",
         "xml@1.0.1"
       ]
@@ -29095,74 +28196,68 @@
       "ref": "crypt@0.0.2"
     },
     {
-      "ref": "mocha@11.1.0",
+      "ref": "mocha@11.7.1",
       "dependsOn": [
-        "ansi-colors@4.1.3",
         "browser-stdout@1.3.1",
-        "chokidar@3.5.3",
+        "chokidar@4.0.3",
         "debug@4.4.0",
-        "diff@5.2.0",
+        "diff@7.0.0",
         "escape-string-regexp@4.0.0",
         "find-up@5.0.0",
-        "mocha@11.1.0|glob@10.4.5",
+        "mocha@11.7.1|glob@10.4.5",
         "he@1.2.0",
         "js-yaml@4.1.0",
         "log-symbols@4.1.0",
-        "mocha@11.1.0|minimatch@5.1.6",
+        "mocha@11.7.1|minimatch@9.0.5",
         "ms@2.1.3",
+        "picocolors@1.1.1",
         "serialize-javascript@6.0.2",
         "strip-json-comments@3.1.1",
-        "mocha@11.1.0|supports-color@8.1.1",
-        "workerpool@6.5.1",
+        "mocha@11.7.1|supports-color@8.1.1",
+        "workerpool@9.3.3",
         "yargs-parser@21.1.1",
         "yargs-unparser@2.0.0",
         "yargs@17.7.2"
       ]
     },
     {
-      "ref": "mocha@11.1.0|glob@10.4.5",
+      "ref": "mocha@11.7.1|glob@10.4.5",
       "dependsOn": [
-        "mocha@11.1.0|foreground-child@3.3.0",
+        "mocha@11.7.1|foreground-child@3.3.0",
         "jackspeak@3.4.3",
-        "mocha@11.1.0|glob@10.4.5|minimatch@9.0.5",
-        "mocha@11.1.0|minipass@7.1.2",
+        "mocha@11.7.1|minimatch@9.0.5",
+        "mocha@11.7.1|minipass@7.1.2",
         "package-json-from-dist@1.0.1",
         "path-scurry@1.11.1"
       ]
     },
     {
-      "ref": "mocha@11.1.0|glob@10.4.5|minimatch@9.0.5",
-      "dependsOn": [
-        "mocha@11.1.0|brace-expansion@2.0.2"
-      ]
-    },
-    {
-      "ref": "mocha@11.1.0|foreground-child@3.3.0",
+      "ref": "mocha@11.7.1|foreground-child@3.3.0",
       "dependsOn": [
         "cross-spawn@7.0.6",
-        "mocha@11.1.0|signal-exit@4.1.0"
+        "mocha@11.7.1|signal-exit@4.1.0"
       ]
     },
     {
-      "ref": "mocha@11.1.0|signal-exit@4.1.0"
+      "ref": "mocha@11.7.1|signal-exit@4.1.0"
     },
     {
-      "ref": "mocha@11.1.0|brace-expansion@2.0.2",
+      "ref": "mocha@11.7.1|minimatch@9.0.5",
+      "dependsOn": [
+        "mocha@11.7.1|brace-expansion@2.0.2"
+      ]
+    },
+    {
+      "ref": "mocha@11.7.1|minipass@7.1.2"
+    },
+    {
+      "ref": "mocha@11.7.1|brace-expansion@2.0.2",
       "dependsOn": [
         "balanced-match@1.0.0"
       ]
     },
     {
-      "ref": "mocha@11.1.0|minipass@7.1.2"
-    },
-    {
-      "ref": "mocha@11.1.0|minimatch@5.1.6",
-      "dependsOn": [
-        "mocha@11.1.0|brace-expansion@2.0.2"
-      ]
-    },
-    {
-      "ref": "mocha@11.1.0|supports-color@8.1.1",
+      "ref": "mocha@11.7.1|supports-color@8.1.1",
       "dependsOn": [
         "has-flag@4.0.0"
       ]
@@ -29180,89 +28275,19 @@
       "ref": "xml@1.0.1"
     },
     {
-      "ref": "ansi-colors@4.1.3"
-    },
-    {
       "ref": "browser-stdout@1.3.1"
     },
     {
-      "ref": "chokidar@3.5.3",
+      "ref": "chokidar@4.0.3",
       "dependsOn": [
-        "anymatch@3.1.2",
-        "braces@3.0.3",
-        "glob-parent@5.1.2",
-        "is-binary-path@2.1.0",
-        "is-glob@4.0.3",
-        "normalize-path@3.0.0",
-        "readdirp@3.6.0"
+        "readdirp@4.1.2"
       ]
     },
     {
-      "ref": "anymatch@3.1.2",
-      "dependsOn": [
-        "normalize-path@3.0.0",
-        "picomatch@2.3.1"
-      ]
+      "ref": "readdirp@4.1.2"
     },
     {
-      "ref": "normalize-path@3.0.0"
-    },
-    {
-      "ref": "picomatch@2.3.1"
-    },
-    {
-      "ref": "braces@3.0.3",
-      "dependsOn": [
-        "fill-range@7.1.1"
-      ]
-    },
-    {
-      "ref": "fill-range@7.1.1",
-      "dependsOn": [
-        "to-regex-range@5.0.1"
-      ]
-    },
-    {
-      "ref": "to-regex-range@5.0.1",
-      "dependsOn": [
-        "is-number@7.0.0"
-      ]
-    },
-    {
-      "ref": "is-number@7.0.0"
-    },
-    {
-      "ref": "glob-parent@5.1.2",
-      "dependsOn": [
-        "is-glob@4.0.3"
-      ]
-    },
-    {
-      "ref": "is-glob@4.0.3",
-      "dependsOn": [
-        "is-extglob@2.1.1"
-      ]
-    },
-    {
-      "ref": "is-binary-path@2.1.0",
-      "dependsOn": [
-        "binary-extensions@2.2.0"
-      ]
-    },
-    {
-      "ref": "binary-extensions@2.2.0"
-    },
-    {
-      "ref": "is-extglob@2.1.1"
-    },
-    {
-      "ref": "readdirp@3.6.0",
-      "dependsOn": [
-        "picomatch@2.3.1"
-      ]
-    },
-    {
-      "ref": "diff@5.2.0"
+      "ref": "diff@7.0.0"
     },
     {
       "ref": "escape-string-regexp@4.0.0"
@@ -29317,7 +28342,7 @@
       "dependsOn": [
         "string-width@4.2.3",
         "@isaacs/cliui@8.0.2|string-width@5.1.2",
-        "BomRef.lr48753n2p8.5r2cs1a3jtg",
+        "BomRef.57dh60hpv8o.aqsnkg22e7g",
         "@isaacs/cliui@8.0.2|strip-ansi@7.1.0",
         "wrap-ansi@7.0.0",
         "@isaacs/cliui@8.0.2|wrap-ansi@8.1.0"
@@ -29372,7 +28397,7 @@
       "ref": "eastasianwidth@0.2.0"
     },
     {
-      "ref": "BomRef.lr48753n2p8.5r2cs1a3jtg",
+      "ref": "BomRef.57dh60hpv8o.aqsnkg22e7g",
       "dependsOn": [
         "ansi-regex@5.0.1"
       ]
@@ -29381,12 +28406,12 @@
       "ref": "wrap-ansi@7.0.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.ed6nfpk2ujo.45905udn5e",
+        "BomRef.g24cbvul4oo.qt50c0nnkk",
         "strip-ansi@6.0.1"
       ]
     },
     {
-      "ref": "BomRef.ed6nfpk2ujo.45905udn5e",
+      "ref": "BomRef.g24cbvul4oo.qt50c0nnkk",
       "dependsOn": [
         "emoji-regex@8.0.0",
         "is-fullwidth-code-point@3.0.0",
@@ -29432,6 +28457,9 @@
       "ref": "is-unicode-supported@0.1.0"
     },
     {
+      "ref": "picocolors@1.1.1"
+    },
+    {
       "ref": "serialize-javascript@6.0.2",
       "dependsOn": [
         "randombytes@2.1.0"
@@ -29444,7 +28472,7 @@
       "ref": "has-flag@4.0.0"
     },
     {
-      "ref": "workerpool@6.5.1"
+      "ref": "workerpool@9.3.3"
     },
     {
       "ref": "yargs-parser@21.1.1"
@@ -29477,7 +28505,7 @@
         "escalade@3.2.0",
         "get-caller-file@2.0.5",
         "require-directory@2.1.1",
-        "BomRef.ed6nfpk2ujo.45905udn5e",
+        "BomRef.g24cbvul4oo.qt50c0nnkk",
         "y18n@5.0.8",
         "yargs-parser@21.1.1"
       ]
@@ -29579,7 +28607,7 @@
         "require-directory@2.1.1",
         "require-main-filename@2.0.0",
         "set-blocking@2.0.0",
-        "BomRef.ed6nfpk2ujo.45905udn5e",
+        "BomRef.g24cbvul4oo.qt50c0nnkk",
         "which-module@2.0.0",
         "nyc@17.1.0|y18n@4.0.3",
         "nyc@17.1.0|yargs-parser@18.1.3"
@@ -29588,7 +28616,7 @@
     {
       "ref": "nyc@17.1.0|cliui@6.0.0",
       "dependsOn": [
-        "BomRef.ed6nfpk2ujo.45905udn5e",
+        "BomRef.g24cbvul4oo.qt50c0nnkk",
         "strip-ansi@6.0.1",
         "nyc@17.1.0|wrap-ansi@6.2.0"
       ]
@@ -29597,7 +28625,7 @@
       "ref": "nyc@17.1.0|wrap-ansi@6.2.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.ed6nfpk2ujo.45905udn5e",
+        "BomRef.g24cbvul4oo.qt50c0nnkk",
         "strip-ansi@6.0.1"
       ]
     },
@@ -29928,9 +28956,6 @@
       "ref": "js-tokens@4.0.0"
     },
     {
-      "ref": "picocolors@1.1.1"
-    },
-    {
       "ref": "@babel/generator@7.27.0",
       "dependsOn": [
         "@babel/parser@7.27.0",
@@ -30210,16 +29235,16 @@
     {
       "ref": "cliui@8.0.1",
       "dependsOn": [
-        "BomRef.ed6nfpk2ujo.45905udn5e",
+        "BomRef.g24cbvul4oo.qt50c0nnkk",
         "strip-ansi@6.0.1",
-        "BomRef.mgv7bj22aeg.p4mq9e4368g"
+        "BomRef.rnme652s2po.haeni03n6bg"
       ]
     },
     {
-      "ref": "BomRef.mgv7bj22aeg.p4mq9e4368g",
+      "ref": "BomRef.rnme652s2po.haeni03n6bg",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.ed6nfpk2ujo.45905udn5e",
+        "BomRef.g24cbvul4oo.qt50c0nnkk",
         "strip-ansi@6.0.1"
       ]
     },

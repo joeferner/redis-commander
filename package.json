@@ -51,11 +51,11 @@
   "devDependencies": {
     "@cyclonedx/bom": "^4.1.0",
     "browserify": "^17.0.0",
-    "chai": "^4.5.0",
-    "mocha": "^11.1.0",
+    "chai": "^5.2.1",
+    "mocha": "^11.7.1",
     "mocha-junit-reporter": "^2.2.1",
     "nyc": "^17.1.0",
-    "uglify-js": "^3.14.3"
+    "uglify-js": "^3.19.3"
   },
   "engines": {
     "node": ">=12.0"

@@ -2,12 +2,16 @@
 
 ## Next Version
 #### Bugfixes
+* fix bug with docker variables used by REPLACE_CONFIG_ENV containing some special characters
 * update express from 4.21.1 to 4.21.2 (fix CVE-2024-52798)
 * update cross-spawn from 7.0.3 to 7.0.6 (fix CVE-2024-21538)  
 * update base image to Alpine@3.21 and Node.js@22 
+* bcrypt from 5.2.1 to 6.0.0 (fix SNYK-JS-INFLIGHT-6095116 for production image)
 
 #### Enhancements
 * update ioredis from 5.4.1 to 5.5.0
+* update chai from 4.5.0 to 5.2.1
+* update mocha from 11.1.0 to 11.7.1
 
 ## Version 0.9.0
 #### Bugfixes
