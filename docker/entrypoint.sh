@@ -353,8 +353,9 @@ if [ -n "$REPLACE_CONFIG_ENV" ]; then
     for env_var in ${env_vars_replace}; do
         for json_conf in config/*.json; do
             if [ "$json_conf" != "config/custom-environment-variables.json" ]; then
-                # need to replace &\/ from content of env_var var as they are special chars in sed
-                sed -i 's/"'"$env_var"'"/"'"$(printenv "$env_var" | sed 's/\\/\\\\/g; s/&/\\&/g; s#/#\\/#g;')"'"/g' "$json_conf"
+              if grep -q "$env_var" "$json_conf"; then
+                jq --arg var_name "$env_var" --arg new_value "$(printenv "$env_var")" -f "$(dirname "$0")/replace-var-filter.jq" "$json_conf" | sponge "$json_conf"
+              fi
             fi
         done
     done
