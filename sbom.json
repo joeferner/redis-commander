@@ -3,9 +3,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
   "version": 1,
-  "serialNumber": "urn:uuid:6d423977-128d-45b3-82d0-ad32e2b1aca3",
+  "serialNumber": "urn:uuid:1f96a0da-a04d-4905-bc13-799ae65e82ad",
   "metadata": {
-    "timestamp": "2025-07-04T10:26:17.580Z",
+    "timestamp": "2025-07-21T09:50:59.236Z",
     "tools": {
       "components": [
         {
@@ -2538,7 +2538,6 @@
       "bom-ref": "object-assign@4.1.1",
       "author": "Sindre Sorhus",
       "description": "ES2015 `Object.assign()` ponyfill",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -5714,7 +5713,6 @@
       "version": "1.1.1",
       "bom-ref": "string_decoder@1.1.1",
       "description": "The string_decoder module from Node core",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -5770,7 +5768,6 @@
       "bom-ref": "util-deprecate@1.0.2",
       "author": "Nathan Rajlich",
       "description": "The Node.js `util.deprecate()` function with browser support",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -7263,7 +7260,6 @@
       "bom-ref": "glob@7.2.0",
       "author": "Isaac Z. Schlueter",
       "description": "a little globber",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -7319,7 +7315,6 @@
       "bom-ref": "fs.realpath@1.0.0",
       "author": "Isaac Z. Schlueter",
       "description": "Use node's fs.realpath, but fall back to the JS implementation if the native one fails",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -7375,7 +7370,6 @@
       "bom-ref": "inflight@1.0.6",
       "author": "Isaac Z. Schlueter",
       "description": "Add callbacks to requests in flight to avoid async duplication",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -7431,7 +7425,6 @@
       "bom-ref": "once@1.4.0",
       "author": "Isaac Z. Schlueter",
       "description": "Run a function exactly one time",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -7487,7 +7480,6 @@
       "bom-ref": "wrappy@1.0.2",
       "author": "Isaac Z. Schlueter",
       "description": "Callback wrapping utility",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -7747,7 +7739,6 @@
       "bom-ref": "path-is-absolute@1.0.1",
       "author": "Sindre Sorhus",
       "description": "Node.js 0.12 path.isAbsolute() ponyfill",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -18830,7 +18821,7 @@
       "type": "library",
       "name": "strip-ansi",
       "version": "6.0.1",
-      "bom-ref": "BomRef.e8h9ou3ergg.vv2k8gk79l",
+      "bom-ref": "BomRef.lr48753n2p8.5r2cs1a3jtg",
       "author": "Sindre Sorhus",
       "description": "Strip ANSI escape codes from a string",
       "licenses": [
@@ -18940,7 +18931,7 @@
       "type": "library",
       "name": "string-width",
       "version": "4.2.3",
-      "bom-ref": "BomRef.6b3k6vi1nc8.jtfdt95pfog",
+      "bom-ref": "BomRef.ed6nfpk2ujo.45905udn5e",
       "author": "Sindre Sorhus",
       "description": "Get the visual width of a string - the number of columns required to display it",
       "licenses": [
@@ -19161,7 +19152,6 @@
       "bom-ref": "minipass@5.0.0",
       "author": "Isaac Z. Schlueter",
       "description": "minimal implementation of a PassThrough stream",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -21949,7 +21939,6 @@
       "bom-ref": "make-dir@3.1.0",
       "author": "Sindre Sorhus",
       "description": "Make a directory and its parents if needed - Think `mkdir -p`",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -22005,7 +21994,6 @@
           "bom-ref": "make-dir@3.1.0|semver@6.3.1",
           "author": "GitHub Inc.",
           "description": "The semantic version parser used by npm.",
-          "scope": "optional",
           "licenses": [
             {
               "license": {
@@ -22502,7 +22490,6 @@
       "bom-ref": "signal-exit@3.0.7",
       "author": "Ben Coe",
       "description": "when you want to fire an event no matter how a process exits.",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -25880,7 +25867,6 @@
       "bom-ref": "rimraf@3.0.2",
       "author": "Isaac Z. Schlueter",
       "description": "A deep deletion module for node (like `rm -rf`)",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -26974,7 +26960,6 @@
       "bom-ref": "set-blocking@2.0.0",
       "author": "Ben Coe",
       "description": "set blocking stdio and stderr ensuring that terminal output does not truncate",
-      "scope": "optional",
       "licenses": [
         {
           "license": {
@@ -27280,7 +27265,7 @@
       "type": "library",
       "name": "wrap-ansi",
       "version": "7.0.0",
-      "bom-ref": "BomRef.l3f3s2kft9o.tneafd5on7g",
+      "bom-ref": "BomRef.mgv7bj22aeg.p4mq9e4368g",
       "author": "Sindre Sorhus",
       "description": "Wordwrap a string with ANSI escape codes",
       "licenses": [
@@ -29332,7 +29317,7 @@
       "dependsOn": [
         "string-width@4.2.3",
         "@isaacs/cliui@8.0.2|string-width@5.1.2",
-        "BomRef.e8h9ou3ergg.vv2k8gk79l",
+        "BomRef.lr48753n2p8.5r2cs1a3jtg",
         "@isaacs/cliui@8.0.2|strip-ansi@7.1.0",
         "wrap-ansi@7.0.0",
         "@isaacs/cliui@8.0.2|wrap-ansi@8.1.0"
@@ -29387,7 +29372,7 @@
       "ref": "eastasianwidth@0.2.0"
     },
     {
-      "ref": "BomRef.e8h9ou3ergg.vv2k8gk79l",
+      "ref": "BomRef.lr48753n2p8.5r2cs1a3jtg",
       "dependsOn": [
         "ansi-regex@5.0.1"
       ]
@@ -29396,12 +29381,12 @@
       "ref": "wrap-ansi@7.0.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
+        "BomRef.ed6nfpk2ujo.45905udn5e",
         "strip-ansi@6.0.1"
       ]
     },
     {
-      "ref": "BomRef.6b3k6vi1nc8.jtfdt95pfog",
+      "ref": "BomRef.ed6nfpk2ujo.45905udn5e",
       "dependsOn": [
         "emoji-regex@8.0.0",
         "is-fullwidth-code-point@3.0.0",
@@ -29492,7 +29477,7 @@
         "escalade@3.2.0",
         "get-caller-file@2.0.5",
         "require-directory@2.1.1",
-        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
+        "BomRef.ed6nfpk2ujo.45905udn5e",
         "y18n@5.0.8",
         "yargs-parser@21.1.1"
       ]
@@ -29594,7 +29579,7 @@
         "require-directory@2.1.1",
         "require-main-filename@2.0.0",
         "set-blocking@2.0.0",
-        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
+        "BomRef.ed6nfpk2ujo.45905udn5e",
         "which-module@2.0.0",
         "nyc@17.1.0|y18n@4.0.3",
         "nyc@17.1.0|yargs-parser@18.1.3"
@@ -29603,7 +29588,7 @@
     {
       "ref": "nyc@17.1.0|cliui@6.0.0",
       "dependsOn": [
-        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
+        "BomRef.ed6nfpk2ujo.45905udn5e",
         "strip-ansi@6.0.1",
         "nyc@17.1.0|wrap-ansi@6.2.0"
       ]
@@ -29612,7 +29597,7 @@
       "ref": "nyc@17.1.0|wrap-ansi@6.2.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
+        "BomRef.ed6nfpk2ujo.45905udn5e",
         "strip-ansi@6.0.1"
       ]
     },
@@ -30225,16 +30210,16 @@
     {
       "ref": "cliui@8.0.1",
       "dependsOn": [
-        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
+        "BomRef.ed6nfpk2ujo.45905udn5e",
         "strip-ansi@6.0.1",
-        "BomRef.l3f3s2kft9o.tneafd5on7g"
+        "BomRef.mgv7bj22aeg.p4mq9e4368g"
       ]
     },
     {
-      "ref": "BomRef.l3f3s2kft9o.tneafd5on7g",
+      "ref": "BomRef.mgv7bj22aeg.p4mq9e4368g",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.6b3k6vi1nc8.jtfdt95pfog",
+        "BomRef.ed6nfpk2ujo.45905udn5e",
         "strip-ansi@6.0.1"
       ]
     },
