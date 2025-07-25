@@ -50,6 +50,11 @@ const args = yargs
     describe: 'Set to true if no permanent auto-reconnect shall be done if server is down.',
     default: false
   })
+  .options('redis-family', {
+    type: 'number',
+    describe: 'Version of IP stack. Defaults to 0 to support both.',
+    default: 0
+  })
   .options('sentinel-port', {
     type: 'number',
     describe: 'The port to find sentinel on.'
@@ -462,7 +467,7 @@ function createConnectionObjectFromArgs(argList) {
   // now create connection object if enough params are set
   let connObj = null;
   if (argList['clusters'] || argList['sentinel-host'] || argList['sentinels'] || argList['redis-host'] || argList['redis-port'] || argList['redis-socket']
-    || argList['redis-username'] || argList['redis-password'] || argList['redis-db']) {
+    || argList['redis-username'] || argList['redis-password'] || argList['redis-db'] || argList['redis-family']) {
 
     let db = parseInt(argList['redis-db']);
     connObj = {
@@ -472,6 +477,7 @@ function createConnectionObjectFromArgs(argList) {
       password: argList['redis-password'] || '',
       connectionName: config.get('redis.connectionName'),
       optional: argList['redis-optional'],
+      family: argList['redis-family'] || 0,
       clusterNoTlsValidation: argList['clusterNoTlsValidation']
     };
 
