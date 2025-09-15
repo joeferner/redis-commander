@@ -36,7 +36,7 @@ RUN  apk update \
 
 USER 10000
 
-HEALTHCHECK --interval=1m --timeout=2s CMD ["/redis-commander/bin/healthcheck.js"]
+HEALTHCHECK --interval=1m --timeout=2s --start-period=1s CMD ["/redis-commander/bin/healthcheck.js"]
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["/redis-commander/docker/entrypoint.sh"]
