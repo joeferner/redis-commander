@@ -2,6 +2,15 @@
 
 ## Next Version
 
+## Version 0.9.2
+
+#### Bugfixes
+* support read-only container root filesystem by writing generated runtime config files to `/tmp/redis-commander/config` (or `RUNTIME_CONFIG_DIR`) when app config directory is not writable
+* validate write access to the container config directory using a real write probe, so startup correctly falls back to a writable runtime config directory on read-only filesystems
+
+#### Enhancements
+* add an optional redis username field to the web ui form for creating a new connection and persist it in the local config
+
 ## Version 0.9.1
 #### Bugfixes
 * fix bug with docker variables used by REPLACE_CONFIG_ENV containing some special characters

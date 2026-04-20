@@ -70,8 +70,8 @@ podSecurityContext: {}
 # -- Configuration of the linux security context for the docker image. This restricts the
 # rights of the running docker image as far as possible.
 #
-# "readOnlyRootFilesystem" must be set to false to auto-generate a config file with multiple redis hosts or
-# sentinel hosts
+# If "readOnlyRootFilesystem" is true, mount a writable volume/tmpfs at /tmp so redis-commander can
+# create runtime config files (for example from REDIS_HOSTS) under /tmp/redis-commander/config.
 securityContext:
   runAsNonRoot: true
   readOnlyRootFilesystem: false

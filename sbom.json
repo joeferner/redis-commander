@@ -3,15 +3,15 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
   "version": 1,
-  "serialNumber": "urn:uuid:2dd55132-f69d-448e-abef-0bd19b15c179",
+  "serialNumber": "urn:uuid:776a5d96-3682-48b0-8176-d2af84dd3687",
   "metadata": {
-    "timestamp": "2025-07-21T10:36:39.676Z",
+    "timestamp": "2026-04-20T11:59:46.724Z",
     "tools": {
       "components": [
         {
           "type": "application",
           "name": "npm",
-          "version": "10.8.2"
+          "version": "10.9.0"
         },
         {
           "type": "application",
@@ -82,8 +82,8 @@
     "component": {
       "type": "application",
       "name": "redis-commander",
-      "version": "0.9.1",
-      "bom-ref": "redis-commander@0.9.1",
+      "version": "0.9.2",
+      "bom-ref": "redis-commander@0.9.2",
       "author": "Joe Ferner",
       "description": "Redis web-based management tool written in node.js",
       "licenses": [
@@ -94,7 +94,7 @@
           }
         }
       ],
-      "purl": "pkg:npm/redis-commander@0.9.1?vcs_url=git%3A%2F%2Fgithub.com%2Fjoeferner%2Fredis-commander.git",
+      "purl": "pkg:npm/redis-commander@0.9.2?vcs_url=git%3A%2F%2Fgithub.com%2Fjoeferner%2Fredis-commander.git",
       "externalReferences": [
         {
           "url": "git://github.com/joeferner/redis-commander.git",
@@ -3681,7 +3681,6 @@
       "name": "buffer-from",
       "version": "1.1.1",
       "bom-ref": "buffer-from@1.1.1",
-      "description": "A [ponyfill](https://ponyfill.com) for `Buffer.from`, uses native implementation if available.",
       "licenses": [
         {
           "license": {
@@ -4339,7 +4338,6 @@
       "version": "1.0.2",
       "bom-ref": "browserify-des@1.0.2",
       "author": "Calvin Metcalf",
-      "description": "browserify-des ===",
       "licenses": [
         {
           "license": {
@@ -9063,7 +9061,6 @@
       "version": "1.1.1",
       "bom-ref": "stream-combiner2@1.1.1",
       "author": "'Dominic Tarr'",
-      "description": "This is a sequel to [stream-combiner](https://npmjs.org/package/stream-combiner) for streams3.",
       "licenses": [
         {
           "license": {
@@ -9118,7 +9115,6 @@
       "version": "0.3.0",
       "bom-ref": "os-browserify@0.3.0",
       "author": "CoderPuppy",
-      "description": "The [os](https://nodejs.org/api/os.html) module from node.js, but for browsers.",
       "licenses": [
         {
           "license": {
@@ -16627,7 +16623,6 @@
       "version": "1.3.1",
       "bom-ref": "browser-stdout@1.3.1",
       "author": "kumavis",
-      "description": "`process.stdout` in your browser.",
       "licenses": [
         {
           "license": {
@@ -17939,7 +17934,7 @@
       "type": "library",
       "name": "strip-ansi",
       "version": "6.0.1",
-      "bom-ref": "BomRef.4qp91udq2p.sebno25vddo",
+      "bom-ref": "BomRef.lf2nkcpu7rg.ep8brlh49t8",
       "author": "Sindre Sorhus",
       "description": "Strip ANSI escape codes from a string",
       "licenses": [
@@ -18049,7 +18044,7 @@
       "type": "library",
       "name": "string-width",
       "version": "4.2.3",
-      "bom-ref": "BomRef.0at4j3pvhug.ul9jka7svpo",
+      "bom-ref": "BomRef.nup4lh2fovg.6qmirvkvfhg",
       "author": "Sindre Sorhus",
       "description": "Get the visual width of a string - the number of columns required to display it",
       "licenses": [
@@ -25920,7 +25915,6 @@
       "version": "2.0.5",
       "bom-ref": "get-caller-file@2.0.5",
       "author": "Stefan Penner",
-      "description": "[![Build Status](https://travis-ci.org/stefanpenner/get-caller-file.svg?branch=master)](https://travis-ci.org/stefanpenner/get-caller-file) [![Build status](https://ci.appveyor.com/api/projects/status/ol2q94g1932cy14a/branch/master?svg=true)](https://ci.appveyor.com/project/embercli/get-caller-file/branch/master)",
       "licenses": [
         {
           "license": {
@@ -26383,7 +26377,7 @@
       "type": "library",
       "name": "wrap-ansi",
       "version": "7.0.0",
-      "bom-ref": "BomRef.qql0ogk6118.qjrfbrgvki8",
+      "bom-ref": "BomRef.eni3bufm5i.5ejbhkev0b8",
       "author": "Sindre Sorhus",
       "description": "Wordwrap a string with ANSI escape codes",
       "licenses": [
@@ -26484,7 +26478,7 @@
   ],
   "dependencies": [
     {
-      "ref": "redis-commander@0.9.1",
+      "ref": "redis-commander@0.9.2",
       "dependsOn": [
         "@cyclonedx/bom@4.1.0",
         "async@3.2.6",
@@ -28342,7 +28336,7 @@
       "dependsOn": [
         "string-width@4.2.3",
         "@isaacs/cliui@8.0.2|string-width@5.1.2",
-        "BomRef.4qp91udq2p.sebno25vddo",
+        "BomRef.lf2nkcpu7rg.ep8brlh49t8",
         "@isaacs/cliui@8.0.2|strip-ansi@7.1.0",
         "wrap-ansi@7.0.0",
         "@isaacs/cliui@8.0.2|wrap-ansi@8.1.0"
@@ -28397,7 +28391,7 @@
       "ref": "eastasianwidth@0.2.0"
     },
     {
-      "ref": "BomRef.4qp91udq2p.sebno25vddo",
+      "ref": "BomRef.lf2nkcpu7rg.ep8brlh49t8",
       "dependsOn": [
         "ansi-regex@5.0.1"
       ]
@@ -28406,12 +28400,12 @@
       "ref": "wrap-ansi@7.0.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.0at4j3pvhug.ul9jka7svpo",
+        "BomRef.nup4lh2fovg.6qmirvkvfhg",
         "strip-ansi@6.0.1"
       ]
     },
     {
-      "ref": "BomRef.0at4j3pvhug.ul9jka7svpo",
+      "ref": "BomRef.nup4lh2fovg.6qmirvkvfhg",
       "dependsOn": [
         "emoji-regex@8.0.0",
         "is-fullwidth-code-point@3.0.0",
@@ -28505,7 +28499,7 @@
         "escalade@3.2.0",
         "get-caller-file@2.0.5",
         "require-directory@2.1.1",
-        "BomRef.0at4j3pvhug.ul9jka7svpo",
+        "BomRef.nup4lh2fovg.6qmirvkvfhg",
         "y18n@5.0.8",
         "yargs-parser@21.1.1"
       ]
@@ -28607,7 +28601,7 @@
         "require-directory@2.1.1",
         "require-main-filename@2.0.0",
         "set-blocking@2.0.0",
-        "BomRef.0at4j3pvhug.ul9jka7svpo",
+        "BomRef.nup4lh2fovg.6qmirvkvfhg",
         "which-module@2.0.0",
         "nyc@17.1.0|y18n@4.0.3",
         "nyc@17.1.0|yargs-parser@18.1.3"
@@ -28616,7 +28610,7 @@
     {
       "ref": "nyc@17.1.0|cliui@6.0.0",
       "dependsOn": [
-        "BomRef.0at4j3pvhug.ul9jka7svpo",
+        "BomRef.nup4lh2fovg.6qmirvkvfhg",
         "strip-ansi@6.0.1",
         "nyc@17.1.0|wrap-ansi@6.2.0"
       ]
@@ -28625,7 +28619,7 @@
       "ref": "nyc@17.1.0|wrap-ansi@6.2.0",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.0at4j3pvhug.ul9jka7svpo",
+        "BomRef.nup4lh2fovg.6qmirvkvfhg",
         "strip-ansi@6.0.1"
       ]
     },
@@ -29235,16 +29229,16 @@
     {
       "ref": "cliui@8.0.1",
       "dependsOn": [
-        "BomRef.0at4j3pvhug.ul9jka7svpo",
+        "BomRef.nup4lh2fovg.6qmirvkvfhg",
         "strip-ansi@6.0.1",
-        "BomRef.qql0ogk6118.qjrfbrgvki8"
+        "BomRef.eni3bufm5i.5ejbhkev0b8"
       ]
     },
     {
-      "ref": "BomRef.qql0ogk6118.qjrfbrgvki8",
+      "ref": "BomRef.eni3bufm5i.5ejbhkev0b8",
       "dependsOn": [
         "ansi-styles@4.3.0",
-        "BomRef.0at4j3pvhug.ul9jka7svpo",
+        "BomRef.nup4lh2fovg.6qmirvkvfhg",
         "strip-ansi@6.0.1"
       ]
     },

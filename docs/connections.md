@@ -464,6 +464,11 @@ The file must be mounted read-write as all changes to the connection configurati
 servers via web-UI) will be saved inside this file too to persist changed across
 docker container restarts.
 
+If the container runs with a read-only root filesystem, redis-commander uses a writable runtime
+config directory under `/tmp/redis-commander/config` (or path from `RUNTIME_CONFIG_DIR`).
+In this mode, connection changes are ephemeral unless that runtime directory is backed by a writable
+persistent volume.
+
 If this file needs to be read-only mount it as `local.json` inside the container, e.g.:
 ```yaml
 services:
