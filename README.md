@@ -224,6 +224,7 @@ SENTINEL_TLS_KEY_FILE
 SENTINEL_TLS_SERVER_NAME
 SENTINELS
 K8S_SIGTERM
+RUNTIME_CONFIG_DIR
 CLUSTERS
 IS_CLUSTER
 CLUSTER_NO_TLS_VALIDATION
@@ -234,6 +235,10 @@ at the [docs/connections.md](docs/connections.md) file.
 The `K8S_SIGTERM` variable (default "0") can be set to "1" to work around kubernetes specifics
 to allow pod replacement with zero downtime. More information on how kubernetes handles termination of old pods and the
 setup of new ones can be found within the thread [https://github.com/kubernetes/contrib/issues/1140#issuecomment-290836405]
+
+When running with a read-only root filesystem, redis-commander uses a writable runtime config directory.
+By default this is `/tmp/redis-commander/config` and can be changed with `RUNTIME_CONFIG_DIR`.
+Ensure `/tmp` (or the directory set via `RUNTIME_CONFIG_DIR`) is mounted writable (for example as tmpfs/emptyDir).
 
 Hosts can be optionally specified with a comma separated string by setting the `REDIS_HOSTS` environment variable.
 

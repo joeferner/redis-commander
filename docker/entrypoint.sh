@@ -8,7 +8,8 @@ umask 0027
 # see https://github.com/lorenwest/node-config/wiki/Configuration-Files
 # this file only contains the connections to load, nothing else
 # to overwrite something else just place additional files beside this one inside config folder (e.g. local.json)
-CONFIG_FILE=${HOME}/config/local-${NODE_ENV}.json
+DEFAULT_CONFIG_DIR=${HOME}/config
+RUNTIME_CONFIG_DIR=${RUNTIME_CONFIG_DIR:-/tmp/redis-commander/config}
 
 # set default instance for node config ("docker") but allow overwriting via docker env vars
 NODE_APP_INSTANCE=${NODE_APP_INSTANCE:-docker}
@@ -21,6 +22,64 @@ K8S_SIGTERM=${K8S_SIGTERM:-0}
 # only used if K8S_SIGTERM=1
 GRACE_PERIOD=6
 NODE=$(command -v node)
+
+# copy json config files from source to destination if destination does not already have them
+copyConfigFiles() {
+    source_dir="$1"
+    target_dir="$2"
+
+    if [ ! -d "${source_dir}" ]; then
+      return
+    fi
+
+    for json_conf in "${source_dir}"/*.json; do
+        [ -e "${json_conf}" ] || continue
+        target_conf="${target_dir}/$(basename "${json_conf}")"
+        if [ ! -e "${target_conf}" ]; then
+            cp "${json_conf}" "${target_conf}"
+        fi
+    done
+}
+
+
+# resolve a writable config directory for runtime.
+# if read-only root filesystem is used this falls back to /tmp.
+resolveRuntimeConfigDir() {
+    # node-config supports a list here; writing needs one deterministic path.
+    source_dir=${NODE_CONFIG_DIR:-${DEFAULT_CONFIG_DIR}}
+    source_dir="$(echo "${source_dir}" | cut -d: -f1)"
+    target_dir="${source_dir}"
+
+    # Use a real write probe rather than [ -w ] because permission bits can
+    # show writable even when the underlying filesystem is read-only.
+    _probe="${target_dir}/.write-probe-$$"
+    if ! touch "${_probe}" 2>/dev/null; then
+        target_dir="${RUNTIME_CONFIG_DIR}"
+    else
+        rm -f "${_probe}"
+    fi
+
+    if [ ! -d "${target_dir}" ]; then
+        if ! mkdir -p "${target_dir}"; then
+            echo "ERROR: Failed to create writable config directory '${target_dir}'." >> /dev/stderr
+            echo "Hint: Mount '/tmp' as writable tmpfs when using read-only root filesystem." >> /dev/stderr
+            exit 1
+        fi
+    fi
+
+    if [ "${target_dir}" != "${source_dir}" ]; then
+        copyConfigFiles "${source_dir}" "${target_dir}"
+    fi
+    if [ "${target_dir}" != "${DEFAULT_CONFIG_DIR}" ] && [ "${source_dir}" != "${DEFAULT_CONFIG_DIR}" ]; then
+        copyConfigFiles "${DEFAULT_CONFIG_DIR}" "${target_dir}"
+    fi
+
+    export NODE_CONFIG_DIR="${target_dir}"
+    echo "Using redis-commander config directory '${NODE_CONFIG_DIR}'."
+}
+
+resolveRuntimeConfigDir
+CONFIG_FILE=${NODE_CONFIG_DIR}/local-${NODE_ENV}.json
 
 # this function checks all arguments given and outputs them. All parameter pairs where key is ending with "password"
 # are replaced with string "<set>" instead of real password (e.g. "--redis-password XYZ" => "--redis-password <set>")
@@ -351,8 +410,9 @@ if [ -n "$REPLACE_CONFIG_ENV" ]; then
     echo "Going to replace this env vars inside config files: $env_vars_replace"
 
     for env_var in ${env_vars_replace}; do
-        for json_conf in config/*.json; do
-            if [ "$json_conf" != "config/custom-environment-variables.json" ]; then
+        for json_conf in "${NODE_CONFIG_DIR}"/*.json; do
+            [ -e "$json_conf" ] || continue
+            if [ "$json_conf" != "${NODE_CONFIG_DIR}/custom-environment-variables.json" ]; then
               if grep -q "$env_var" "$json_conf"; then
                 jq --arg var_name "$env_var" --arg new_value "$(printenv "$env_var")" -f "$(dirname "$0")/replace-var-filter.jq" "$json_conf" | sponge "$json_conf"
               fi
@@ -363,7 +423,8 @@ fi
 # all other env vars are evaluated by node-config module ...
 
 # syntax check of all config files to help detecting invalid ones early
-for i in config/*.json; do
+for i in "${NODE_CONFIG_DIR}"/*.json; do
+    [ -e "${i}" ] || continue
     if ! jq empty "${i}"; then
         echo "ERROR: config file ${i} has invalid json syntax" >> /dev/stderr
         exit 1
@@ -390,4 +451,3 @@ else
     echo "node ./bin/redis-commander $(safe_print_args "$@")"
     exec "$NODE" ./bin/redis-commander "$@"
 fi
-
