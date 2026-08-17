@@ -1,6 +1,8 @@
 # Redis-Commander CHANGELOG
 
 ## Next Version
+#### Bugfixes
+* fix config key "sso.subject" overwriting the expected token audience instead of the expected subject
 
 ## Version 0.9.1
 #### Bugfixes
