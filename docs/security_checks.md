@@ -34,12 +34,30 @@ either via HTTP GET or HTTP POST:
 example: `HTTP GET https://<ip>:<port>/sso?access_token=dfgfdg.token...`
 
 The parameters to validate the jwt are configured in the config file below the 
-`sso` config object. Currently only JWT signing with a shared secret is supported. 
+`sso` config object. Tokens signed with a shared secret (HS256, HS384, HS512) as well as tokens
+signed with a private key (RS256, PS256, ES256, ...) are supported. For the latter the public key
+is either configured directly or downloaded from the JSON Web Key Set (JWKS) endpoint of the
+identity provider. Exactly one of these three key sources must be configured:
+* `sso.jwtSharedSecret` - the shared secret used to sign the token
+* `sso.jwtPublicKey` - PEM encoded public key or the name of a file containing it
+* `sso.jwksUri` - url of the JWKS endpoint the public keys are downloaded from
+
 Alternative configuration can be done via environment variables: `SSO_ENABLED`,
-`SSO_JWT_SECRET`, `SSO_ISSUER`, `SSO_AUDIENCE`, `SSO_SUBJECT`.
+`SSO_JWT_SECRET`, `SSO_JWT_PUBLIC_KEY`, `SSO_JWKS_URI`, `SSO_JWKS_CACHE_MAX_AGE`,
+`SSO_JWT_ALGORITHMS`, `SSO_ISSUER`, `SSO_AUDIENCE`, `SSO_SUBJECT`.
+
+Using a public key or a JWKS endpoint the list of allowed signature algorithms
+(`sso.jwtAlgorithms`, default `HS256, HS384, HS512`) must be set to the asymmetric algorithms
+used by the identity provider - e.g. `SSO_JWT_ALGORITHMS=RS256`. HMAC algorithms are rejected
+on startup in this case as the public key is known to everybody and could be used as shared
+secret to sign own tokens otherwise.
+
+The public key may be mounted into the container as a file (with restrictive permissions on it)
+and referenced by name, e.g. `SSO_JWT_PUBLIC_KEY=/run/secrets/sso-public-key.pem`.
 
 SSO JWT login must be enabled explicitly within the configuration and all values to check the 
 token validity for should be set. SSO JWT login is disabled as default.
+All configuration details can be found at [configuration.md](configuration.md).
  
 ### Use TLS 
 Redis commander does not support TLS encryption out-of-the box. To add TLS encryption

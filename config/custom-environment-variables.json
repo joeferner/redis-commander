@@ -33,6 +33,10 @@
   "sso": {
     "enabled": "SSO_ENABLED",
     "jwtSharedSecret": "SSO_JWT_SECRET",
+    "jwtPublicKey": "SSO_JWT_PUBLIC_KEY",
+    "jwksUri": "SSO_JWKS_URI",
+    "jwksCacheMaxAge": "SSO_JWKS_CACHE_MAX_AGE",
+    "jwtAlgorithms": "SSO_JWT_ALGORITHMS",
     "allowedIssuer": "SSO_ISSUER",
     "audience": "SSO_AUDIENCE",
     "subject": "SSO_SUBJECT"

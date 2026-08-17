@@ -43,7 +43,11 @@
   },
   "sso": {
     "enabled": false,
+    "comment": "to validate the signature of external jwt set either jwtSharedSecret, jwtPublicKey or jwksUri",
     "jwtSharedSecret": "",
+    "jwtPublicKey": "",
+    "jwksUri": "",
+    "jwksCacheMaxAge": 600,
     "jwtAlgorithms": ["HS256", "HS384", "HS512"],
     "allowedIssuer": "",
     "audience": "",
