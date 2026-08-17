@@ -27,6 +27,7 @@ All top-level configuration data are
 | redis       | object  |         |               |                 | see section 3. General Redis connection parameter |
 | server      | object  |         |               |                 | see section 4. Express HTTP Server parameter |
 | connections | list    | []      |               |                 | see section 5. Redis Connections |
+| sso         | object  |         |               |                 | see section 6. Single-Sign-On (SSO) |
 
 
 ### 2. User interface parameter
@@ -176,6 +177,62 @@ All Connections use be redis commander are defined as
 entries of the "connections" list. The possible
 values for a connection are described in the [connections.md]()
 file.
+
+### 6. Single-Sign-On (SSO)
+
+Users authenticated by an external application (identity provider) can login without
+username and password by calling the `/sso` route with a JSON Web Token as `access_token`
+parameter - see [security_checks.md](security_checks.md) for the general description of this flow.
+The values used to validate this token are configured below the `sso` object.
+
+| Name                | Type        | Default                        | Cli | Environment-Var          | Description |
+|---------------------|-------------|--------------------------------|-----|--------------------------|---|
+| sso.enabled         | boolean     | false                          |     | SSO_ENABLED              | allow login with a JWT created by an external app at the `/sso` route |
+| sso.jwtSharedSecret | string      | ''                             |     | SSO_JWT_SECRET           | shared secret the token is signed with, for HMAC algorithms (HS256, HS384, HS512) |
+| sso.jwtPublicKey    | string      | ''                             |     | SSO_JWT_PUBLIC_KEY       | PEM encoded public key belonging to the private key the token is signed with, alternatively the name of a file containing this key. Used for asymmetric algorithms (RS256, PS256, ES256, ...) |
+| sso.jwksUri         | string      | ''                             |     | SSO_JWKS_URI             | url of the JSON Web Key Set (JWKS) endpoint of the identity provider to download the public keys from, e.g. `https://idp.example.com/.well-known/jwks.json` |
+| sso.jwksCacheMaxAge | number      | 600                            |     | SSO_JWKS_CACHE_MAX_AGE   | time in seconds keys downloaded from `sso.jwksUri` are used before they are downloaded again |
+| sso.jwtAlgorithms   | string list | ["HS256", "HS384", "HS512"]    |     | SSO_JWT_ALGORITHMS       | list of signature algorithms accepted for the token, as comma separated string if set via environment variable |
+| sso.allowedIssuer   | string      | ''                             |     | SSO_ISSUER               | value the "iss" claim of the token must have |
+| sso.audience        | string      | ''                             |     | SSO_AUDIENCE             | value the "aud" claim of the token must have, not checked if empty |
+| sso.subject         | string      | ''                             |     | SSO_SUBJECT              | value the "sub" claim of the token must have, not checked if empty |
+
+Exactly one of `sso.jwtSharedSecret`, `sso.jwtPublicKey` and `sso.jwksUri` must be set, the
+configuration is rejected on startup otherwise.
+
+Whenever a public key is used (`sso.jwtPublicKey` or `sso.jwksUri`) the `sso.jwtAlgorithms`
+list must be changed to the asymmetric algorithms used by the identity provider (e.g. `RS256`).
+HMAC algorithms are not allowed together with a public key and rejected on startup - a public
+key is known to everybody and could be used as shared secret to sign forged tokens otherwise.
+
+Keys downloaded from the JWKS endpoint are held in memory. They are downloaded again after
+`sso.jwksCacheMaxAge` seconds and whenever a token is signed with an unknown key id, the latter
+rate limited to at most one download every 30 seconds. If the endpoint cannot be reached the
+keys downloaded before are used as long as possible.
+
+Example configuration for an identity provider issuing RS256 signed tokens:
+
+```json
+{
+  "sso": {
+    "enabled": true,
+    "jwksUri": "https://idp.example.com/.well-known/jwks.json",
+    "jwtAlgorithms": ["RS256"],
+    "allowedIssuer": "https://idp.example.com",
+    "audience": "redis-commander"
+  }
+}
+```
+
+The same configuration set via environment variables:
+
+```
+SSO_ENABLED=true
+SSO_JWKS_URI=https://idp.example.com/.well-known/jwks.json
+SSO_JWT_ALGORITHMS=RS256
+SSO_ISSUER=https://idp.example.com
+SSO_AUDIENCE=redis-commander
+```
 
 ## Environment Variables
 

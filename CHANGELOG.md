@@ -4,6 +4,13 @@
 #### Bugfixes
 * fix config key "sso.subject" overwriting the expected token audience instead of the expected subject
 
+#### Enhancements
+* validate SSO JWT signed with a private key (RS256, PS256, ES256, ...), the public key is either
+  configured directly (`sso.jwtPublicKey`) or downloaded from the JWKS endpoint of the identity
+  provider (`sso.jwksUri`)
+* reject HMAC algorithms at startup if a public key is used to validate SSO JWT signatures
+* allow setting the list of allowed SSO JWT algorithms via env var `SSO_JWT_ALGORITHMS`
+
 ## Version 0.9.1
 #### Bugfixes
 * fix bug with docker variables used by REPLACE_CONFIG_ENV containing some special characters
